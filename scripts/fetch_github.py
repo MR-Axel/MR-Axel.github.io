@@ -29,9 +29,9 @@ query($login: String!) {
       }
     }
     repositories(first: 100, privacy: PUBLIC, isFork: false,
-                 orderBy: {field: UPDATED_AT, direction: DESC}) {
+                 orderBy: {field: PUSHED_AT, direction: DESC}) {
       nodes {
-        name description url stargazerCount updatedAt isArchived
+        name description url stargazerCount pushedAt isArchived
         primaryLanguage { name }
         repositoryTopics(first: 10) { nodes { topic { name } } }
       }
@@ -79,7 +79,9 @@ def main():
                 "url": r["url"],
                 "language": (r["primaryLanguage"] or {}).get("name"),
                 "stars": r["stargazerCount"],
-                "updated": r["updatedAt"],
+                # pushedAt, not updatedAt: editing a description should not
+                # make a 2020 repo look like this week's work
+                "updated": r["pushedAt"],
                 "archived": r["isArchived"],
                 "topics": [t["topic"]["name"] for t in r["repositoryTopics"]["nodes"]],
             }

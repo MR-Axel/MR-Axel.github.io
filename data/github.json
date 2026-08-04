@@ -1,7 +1,7 @@
 {
  "generated": "2026-08-04",
  "contributions": {
-  "total": 3169,
+  "total": 3174,
   "days": [
    {
     "d": "2025-08-03",
@@ -1469,42 +1469,30 @@
    },
    {
     "d": "2026-08-04",
-    "c": 9
+    "c": 14
    }
   ]
  },
  "repos": [
   {
-   "name": "Java",
-   "description": "Java and Selenium test automation from my QA years.",
-   "url": "https://github.com/MR-Axel/Java",
-   "language": "HTML",
-   "stars": 1,
-   "updated": "2026-08-04T20:16:03Z",
+   "name": "MR-Axel.github.io",
+   "description": "Personal site. Live at mr-axel.github.io",
+   "url": "https://github.com/MR-Axel/MR-Axel.github.io",
+   "language": null,
+   "stars": 0,
+   "updated": "2026-08-04T20:16:37Z",
    "archived": false,
-   "topics": [
-    "java",
-    "qa",
-    "selenium",
-    "test-automation"
-   ]
+   "topics": []
   },
   {
-   "name": "Python",
-   "description": "Python from my QA and automation years: small web apps, scraping, Selenium and data notebooks.",
-   "url": "https://github.com/MR-Axel/Python",
-   "language": "Jupyter Notebook",
+   "name": "MR-Axel",
+   "description": "Profile README",
+   "url": "https://github.com/MR-Axel/MR-Axel",
+   "language": null,
    "stars": 0,
-   "updated": "2026-08-04T20:16:01Z",
+   "updated": "2026-08-04T20:16:28Z",
    "archived": false,
-   "topics": [
-    "python",
-    "scrapping",
-    "selenium",
-    "automation",
-    "qa",
-    "web-scraping"
-   ]
+   "topics": []
   },
   {
    "name": "skills",
@@ -1512,7 +1500,7 @@
    "url": "https://github.com/MR-Axel/skills",
    "language": "TypeScript",
    "stars": 1,
-   "updated": "2026-08-04T20:15:59Z",
+   "updated": "2026-08-04T20:14:13Z",
    "archived": false,
    "topics": [
     "claude-code",
@@ -1525,6 +1513,38 @@
     "developer-tools",
     "espanol",
     "productivity"
+   ]
+  },
+  {
+   "name": "Python",
+   "description": "Python from my QA and automation years: small web apps, scraping, Selenium and data notebooks.",
+   "url": "https://github.com/MR-Axel/Python",
+   "language": "Jupyter Notebook",
+   "stars": 0,
+   "updated": "2023-05-23T00:13:18Z",
+   "archived": false,
+   "topics": [
+    "python",
+    "scrapping",
+    "selenium",
+    "automation",
+    "qa",
+    "web-scraping"
+   ]
+  },
+  {
+   "name": "Java",
+   "description": "Java and Selenium test automation from my QA years.",
+   "url": "https://github.com/MR-Axel/Java",
+   "language": "HTML",
+   "stars": 1,
+   "updated": "2022-09-27T23:15:54Z",
+   "archived": false,
+   "topics": [
+    "java",
+    "qa",
+    "selenium",
+    "test-automation"
    ]
   }
  ]
