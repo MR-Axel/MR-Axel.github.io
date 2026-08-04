@@ -237,9 +237,9 @@ a { color: inherit; }
   background: var(--surface); border: 1px solid rgba(255, 255, 255, 0.03);
 }
 .lv0 { background: var(--surface); }
-.lv1 { background: rgba(198, 242, 78, 0.22); }
-.lv2 { background: rgba(198, 242, 78, 0.42); }
-.lv3 { background: rgba(198, 242, 78, 0.68); }
+.lv1 { background: rgba(198, 242, 78, 0.34); }
+.lv2 { background: rgba(198, 242, 78, 0.56); }
+.lv3 { background: rgba(198, 242, 78, 0.78); }
 .lv4 { background: var(--accent); }
 
 .heat__caption {

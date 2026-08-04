@@ -60,12 +60,26 @@
     if (el) el.textContent = value;
   }
 
-  function level(count, max) {
+  /* Quartiles of the active days, not fractions of the busiest day. A single
+     132-commit Saturday would otherwise squash every normal day into level 1
+     and make a year of real work look empty. */
+  function thresholds(days) {
+    var counts = days
+      .map(function (d) { return d.c; })
+      .filter(function (c) { return c > 0; })
+      .sort(function (a, b) { return a - b; });
+    if (!counts.length) return [1, 1, 1];
+    var at = function (p) {
+      return counts[Math.min(counts.length - 1, Math.floor(counts.length * p))];
+    };
+    return [at(0.25), at(0.5), at(0.75)];
+  }
+
+  function level(count, t) {
     if (!count) return 0;
-    var step = Math.max(1, Math.ceil(max / 8));
-    if (count <= step) return 1;
-    if (count <= step * 2) return 2;
-    if (count <= step * 4) return 3;
+    if (count <= t[0]) return 1;
+    if (count <= t[1]) return 2;
+    if (count <= t[2]) return 3;
     return 4;
   }
 
@@ -73,7 +87,7 @@
     var grid = document.getElementById('heatmap');
     if (!grid || !contrib.days || !contrib.days.length) return;
 
-    var max = contrib.days.reduce(function (m, d) { return Math.max(m, d.c); }, 0);
+    var t = thresholds(contrib.days);
     var frag = document.createDocumentFragment();
 
     /* pad so the first column starts on the right weekday */
@@ -86,7 +100,7 @@
 
     contrib.days.forEach(function (day) {
       var cell = document.createElement('i');
-      cell.className = 'lv' + level(day.c, max);
+      cell.className = 'lv' + level(day.c, t);
       cell.title = day.c + (day.c === 1 ? ' contribution' : ' contributions') + ' on ' + day.d;
       frag.appendChild(cell);
     });
