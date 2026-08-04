@@ -38,6 +38,13 @@ workflow falls back to the default Actions token and reports public activity onl
 Related: turn on **Settings → Public profile → Contributions → Include private
 contributions on my profile** so the graph on github.com/MR-Axel matches this one.
 
+## Cache busting
+
+GitHub Pages caches assets for ten minutes, which is enough to make a fresh deploy
+look broken while you are iterating. `index.html` loads the CSS and JS with a `?v=N`
+query, so bump that number in both `<link>` and `<script>` whenever you change
+`assets/`. The HTML itself is never cached that way.
+
 ## Editing content
 
 Project cards, craft items and copy are plain HTML in `index.html`. The only
