@@ -99,10 +99,12 @@
     var list = document.getElementById('repos');
     if (!list) return;
 
+    /* 'MR-Axel' is the profile README repo, not a project */
     var visible = repos
-      .filter(function (r) { return !r.archived; })
+      .filter(function (r) { return !r.archived && r.name !== 'MR-Axel'; })
       .sort(function (a, b) {
-        return (b.stars - a.stars) || (a.updated < b.updated ? 1 : -1);
+        if (a.updated !== b.updated) return a.updated < b.updated ? 1 : -1;
+        return b.stars - a.stars;
       })
       .slice(0, 8);
 
