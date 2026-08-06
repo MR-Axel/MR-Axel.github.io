@@ -2,17 +2,19 @@
    Dark, minimal, product-shaped. One accent, used sparingly. */
 
 :root {
-  --bg: #08090b;
-  --bg-alt: #0c0e11;
-  --surface: #101317;
-  --surface-hi: #151920;
+  --bg: #0a0908;
+  --bg-alt: #0f0d0b;
+  --surface: #141210;
+  --surface-hi: #1a1714;
   --line: rgba(255, 255, 255, 0.08);
   --line-hi: rgba(255, 255, 255, 0.16);
-  --text: #f2f3f5;
-  --text-mid: #b6bac1;
-  --muted: #868c96;
+  --text: #f5f2ee;
+  --text-mid: #b9b3ab;
+  --muted: #8f887f;
   --accent: #c6f24e;
   --accent-soft: rgba(198, 242, 78, 0.12);
+  --warm: #ff9d5c;
+  --warm-soft: rgba(255, 157, 92, 0.1);
 
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -29,7 +31,11 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--bg);
+  background:
+    radial-gradient(60% 40% at 12% 0%, rgba(255, 157, 92, 0.06), transparent 60%),
+    radial-gradient(50% 35% at 100% 30%, rgba(198, 242, 78, 0.045), transparent 65%),
+    var(--bg);
+  background-attachment: fixed;
   color: var(--text);
   font-family: var(--sans);
   font-size: 17px;
@@ -37,6 +43,15 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
+
+/* faint grain so the warm gradients read as texture, not a flat glow */
+body::before {
+  content: "";
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0.035; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+header, main, footer { position: relative; z-index: 1; }
 
 h1, h2, h3 { line-height: 1.12; letter-spacing: -0.025em; margin: 0; font-weight: 600; }
 p { margin: 0; }
@@ -105,11 +120,12 @@ a { color: inherit; }
 
 .hero { position: relative; padding: clamp(64px, 12vw, 128px) 0 clamp(56px, 9vw, 96px); overflow: hidden; }
 .glow {
-  position: absolute; inset: -30% -10% auto -10%; height: 620px; pointer-events: none;
+  position: absolute; inset: -30% -10% auto -10%; height: 680px; pointer-events: none;
   background:
-    radial-gradient(46% 52% at 22% 40%, rgba(198, 242, 78, 0.10), transparent 70%),
-    radial-gradient(40% 46% at 78% 25%, rgba(90, 130, 255, 0.09), transparent 70%);
-  filter: blur(20px);
+    radial-gradient(48% 54% at 20% 38%, rgba(255, 157, 92, 0.16), transparent 70%),
+    radial-gradient(42% 48% at 82% 20%, rgba(198, 242, 78, 0.13), transparent 70%),
+    radial-gradient(30% 34% at 55% 68%, rgba(255, 200, 120, 0.08), transparent 72%);
+  filter: blur(24px);
 }
 
 .eyebrow {
@@ -223,6 +239,35 @@ a { color: inherit; }
   border-radius: 0 10px 10px 0; color: var(--muted); font-size: 0.95rem;
 }
 .honest strong { color: var(--text); }
+
+/* ---------- skills ---------- */
+
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+
+.skill-card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 12px; padding: 20px;
+  display: flex; flex-direction: column; gap: 10px;
+  text-decoration: none; color: inherit;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+.skill-card:hover { border-color: var(--line-hi); background: var(--surface-hi); transform: translateY(-2px); }
+
+.skill-icon {
+  width: 34px; height: 34px; border-radius: 9px;
+  display: grid; place-items: center;
+  background: var(--warm-soft); color: var(--warm);
+  flex-shrink: 0;
+}
+.skill-icon svg { width: 18px; height: 18px; }
+
+.skill-card h3 { font-size: 1rem; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.skill-card h3 .arrow { font-size: 0.72em; color: var(--muted); }
+.skill-card:hover h3 { color: var(--accent); }
+.skill-card:hover h3 .arrow { color: var(--accent); }
+.skill-card p { color: var(--muted); font-size: 0.88rem; margin: 0; }
+
+.skills-cta { margin-top: 26px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
 /* ---------- activity ---------- */
 
