@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Favicon · cara de Nova esférica brand teal V3 (2026).
+       Optimizado para 16-48px: trazos simples, sin sonrisa (no se distingue
+       en tamaños chicos). Fondo transparente · la esfera flota sobre el tab. -->
+  <defs>
+    <radialGradient id="body" cx="0.38" cy="0.30" r="0.95">
+      <stop offset="0.00" stop-color="#A8EFDD"/>
+      <stop offset="0.50" stop-color="#6EE0C7"/>
+      <stop offset="1.00" stop-color="#2D8B7A"/>
+    </radialGradient>
+  </defs>
+  <!-- Sin fondo · transparente -->
+  <!-- Cara Nova · círculo esférico brand teal -->
+  <circle cx="32" cy="32" r="23" fill="url(#body)"/>
+  <circle cx="32" cy="32" r="23" fill="none" stroke="#A8EFDD" stroke-opacity="0.30" stroke-width="1"/>
+  <!-- Ojos rectos blancos · grandes para leerse a 16px -->
+  <rect x="22.5" y="27" width="5" height="11" rx="2.5" ry="2.5" fill="#FFFFFF"/>
+  <rect x="36.5" y="27" width="5" height="11" rx="2.5" ry="2.5" fill="#FFFFFF"/>
+</svg>
