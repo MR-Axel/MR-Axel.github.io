@@ -119,9 +119,21 @@
     if (bar) bar.style.width = (progress * 100).toFixed(2) + '%';
     if (reduced) return;
 
-    /* capped at a fraction of the page so the oversized layer never shows an
-       edge, however long the page gets */
-    if (bgLayer) bgLayer.style.setProperty('--bg-y', Math.round(progress * -180) + 'px');
+    /* Each background layer moves at its own rate and some of them the other
+       way, which is the whole trick: one layer drifting reads as a bug, five
+       at different rates read as depth. Everything is driven off `progress`
+       rather than raw scrollY, so the drift is bounded by construction and an
+       oversized layer can never show an edge however long the page gets. */
+    if (bgLayer) {
+      var st = bgLayer.style;
+      st.setProperty('--y-wash', Math.round(progress * -190) + 'px');
+      st.setProperty('--y-grid', Math.round(progress * 130) + 'px');
+      st.setProperty('--y-orb1', Math.round(progress * -340) + 'px');
+      st.setProperty('--x-orb1', Math.round(progress * 70) + 'px');
+      st.setProperty('--y-orb2', Math.round(progress * 260) + 'px');
+      st.setProperty('--x-orb2', Math.round(progress * -90) + 'px');
+      st.setProperty('--y-orb3', Math.round(progress * -150) + 'px');
+    }
 
     if (glow) {
       glow.style.setProperty('--sy', Math.round(y * 0.25) + 'px');

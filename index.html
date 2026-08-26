@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=9">
+<link rel="stylesheet" href="assets/style.css?v=10">
 <script>
 /* Runs before the body parses, so the page never flashes the wrong theme or
    the wrong language. Both fall back to what the browser already told us:
@@ -59,7 +59,13 @@
 </script>
 </head>
 <body>
-<div class="bg" aria-hidden="true"></div>
+<div class="bg" aria-hidden="true">
+  <span class="bg__wash"></span>
+  <span class="bg__grid"></span>
+  <span class="bg__orb bg__orb--1"></span>
+  <span class="bg__orb bg__orb--2"></span>
+  <span class="bg__orb bg__orb--3"></span>
+</div>
 <div class="grain" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
 
@@ -150,7 +156,7 @@
     <div class="wrap">
       <div class="section__head reveal">
         <h2>Work</h2>
-        <p>Products I founded or co-founded. All of them are live, all of them are mine to keep running.</p>
+        <p>Products I built and still run. All of them are live, and you can walk into every one.</p>
       </div>
 
       <div class="cards-stage">
@@ -170,7 +176,6 @@
              CVs per posting, tracked applications, and eligibility checks up front instead of
              after you&#39;ve already applied.</p>
           <ul class="tags"><li>SaaS</li><li>Claude API</li><li>Job search</li></ul>
-          <p class="card__role">Founder</p>
         </article>
 
         <article class="card reveal">
@@ -184,7 +189,6 @@
           <p>An AI tutor for kids and teens in LatAm. Nova gets to know a kid, builds missions
              around what they already love, and never hands over the answer.</p>
           <ul class="tags"><li>Ed-tech</li><li>Claude API</li><li>Expo</li><li>Supabase</li></ul>
-          <p class="card__role">Co-founder · product</p>
         </article>
 
         <article class="card reveal">
@@ -198,7 +202,6 @@
           <p>Daily urban carpooling in Buenos Aires. Flat prepaid fare that does not spike at rush
              hour, matching passengers with drivers who were already making that trip.</p>
           <ul class="tags"><li>Product</li><li>Marketplace</li><li>WhatsApp bot</li><li>Hedera</li></ul>
-          <p class="card__role">Co-founder · product and commercial</p>
         </article>
 
         <article class="card reveal">
@@ -212,7 +215,6 @@
           <p>A discovery platform for early stage projects. Builders publish what they are working
              on and find co-founders, investors and collaborators before there is anything to demo.</p>
           <ul class="tags"><li>Community</li><li>React</li><li>Supabase</li><li>Hedera</li></ul>
-          <p class="card__role">Founder</p>
         </article>
 
         <article class="card reveal">
@@ -226,7 +228,6 @@
           <p>An AI product management platform. Specs, roadmaps, sprints, research and audits for
              PMs, founders and small product teams, built on Claude.</p>
           <ul class="tags"><li>B2B SaaS</li><li>Claude API</li><li>React</li><li>Supabase</li></ul>
-          <p class="card__role">Founder</p>
         </article>
 
         <article class="card reveal">
@@ -240,7 +241,6 @@
           <p>Custom AI agents for small businesses: WhatsApp, web and voice, wired to the data they
              already have, with a dashboard on top.</p>
           <ul class="tags"><li>AI agents</li><li>Automation</li><li>Voice</li><li>SMB</li></ul>
-          <p class="card__role">Founder</p>
         </article>
       </div>
       </div>
@@ -248,24 +248,13 @@
       <div class="also">
         <div class="also__head reveal">
           <h3>Also built</h3>
-          <p>Side projects and earlier launches. Another four are finished and off the air. The six
-             above are the ones I still run.</p>
+          <p>Earlier builds. Two are still up, the rest are off, and another four ran their course
+             and came down.</p>
         </div>
 
         <ul class="sidelist">
           <li class="sideitem reveal">
             <span class="sideitem__idx">01</span>
-            <span class="sideitem__logo"><img src="assets/logos/rise-of-hedera.svg" alt="" loading="lazy"></span>
-            <div class="sideitem__body">
-              <h4>Rise of Hedera</h4>
-              <p>A desktop game with on-chain assets on Hedera. Solidity contracts, a Tauri client
-                 and a sprite pipeline, mostly an excuse to go deep on the chain.</p>
-            </div>
-            <span class="pill">In progress</span>
-          </li>
-
-          <li class="sideitem reveal">
-            <span class="sideitem__idx">02</span>
             <span class="sideitem__logo sideitem__logo--letter" aria-hidden="true">C</span>
             <div class="sideitem__body">
               <h4><a href="https://comovenimos.com" target="_blank" rel="noopener">ComoVenimos<span class="arrow" aria-hidden="true">↗</span></a></h4>
@@ -276,18 +265,18 @@
           </li>
 
           <li class="sideitem reveal">
-            <span class="sideitem__idx">03</span>
+            <span class="sideitem__idx">02</span>
             <span class="sideitem__logo sideitem__logo--letter" aria-hidden="true">F</span>
             <div class="sideitem__body">
               <h4><a href="https://fiteando.com" target="_blank" rel="noopener">Fiteando<span class="arrow" aria-hidden="true">↗</span></a></h4>
               <p>A social app for finding a training partner. React Native and Expo, passwordless
                  sign in, built around who is at the gym at the same hour as you.</p>
             </div>
-            <span class="pill">In progress</span>
+            <span class="pill">Off</span>
           </li>
 
           <li class="sideitem reveal">
-            <span class="sideitem__idx">04</span>
+            <span class="sideitem__idx">03</span>
             <span class="sideitem__logo sideitem__logo--letter" aria-hidden="true">B</span>
             <div class="sideitem__body">
               <h4><a href="https://booktranslated.com" target="_blank" rel="noopener">Book Translated<span class="arrow" aria-hidden="true">↗</span></a></h4>
@@ -298,14 +287,14 @@
           </li>
 
           <li class="sideitem reveal">
-            <span class="sideitem__idx">05</span>
+            <span class="sideitem__idx">04</span>
             <span class="sideitem__logo sideitem__logo--letter" aria-hidden="true">V</span>
             <div class="sideitem__body">
               <h4><a href="https://valmidor.com" target="_blank" rel="noopener">Valmidor<span class="arrow" aria-hidden="true">↗</span></a></h4>
               <p>Daily gamified challenges with rankings and a WhatsApp loop to keep the streak
                  alive.</p>
             </div>
-            <span class="pill">Paused</span>
+            <span class="pill">Off</span>
           </li>
         </ul>
       </div>
@@ -316,11 +305,20 @@
     <div class="wrap">
       <div class="section__head reveal">
         <h2>How I got here</h2>
-        <p>Ten years before the current title, mostly in rooms where being wrong cost
-           more than a rollback. In order.</p>
+        <p>Before the current title, mostly in rooms where being wrong cost more than a
+           rollback. In order.</p>
       </div>
 
       <ol class="arc">
+        <li class="arc__step reveal">
+          <span class="arc__node"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.6" y="9" width="5.4" height="6" rx="1.6"/><rect x="16" y="9" width="5.4" height="6" rx="1.6"/><circle cx="12" cy="12" r="2.1"/><path d="M8 12h1.9M14.1 12H16"/><path d="M12 9.9V6.4M12 14.1v3.5"/><path d="M10.6 7.6 12 6.2l1.4 1.4"/></svg></span>
+          <div class="arc__body">
+            <span class="arc__label">Consulting</span>
+            <h3>Process consulting for industry</h3>
+            <p>Before software: walking an operation and mapping how the work actually moves through it against how the manual says it does, then finding the step that costs the most. Nothing about that question changed when the subject became a product.</p>
+          </div>
+        </li>
+
         <li class="arc__step reveal">
           <span class="arc__node"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 8.6a4.6 4.6 0 0 0-8.4-2.6 4.6 4.6 0 0 0-8.4 2.6c0 1 .3 1.9.8 2.7H7l1.6-2.6L11 15l2-4.2 1.2 1.9h5.4c.5-.8.8-1.7.8-2.7Z"/><path d="M5.2 13.2 12 19.8l6.8-6.6"/></svg></span>
           <div class="arc__body">
@@ -331,20 +329,20 @@
         </li>
 
         <li class="arc__step reveal">
-          <span class="arc__node"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.6" y="6.6" width="10.8" height="10.8" rx="2.4"/><path d="M13.1 9.6h-1.7l-1.2 3.1h2l-.6 2.4 3-3.6h-2l.5-1.9Z"/><path d="M9.6 6.6V3.9M14.4 6.6V3.9M9.6 20.1v-2.7M14.4 20.1v-2.7M6.6 9.6H3.9M6.6 14.4H3.9M20.1 9.6h-2.7M20.1 14.4h-2.7"/></svg></span>
-          <div class="arc__body">
-            <span class="arc__label">Energy</span>
-            <h3>IoT and hardware in the field</h3>
-            <p>Devices and energy systems that live outside the datacentre, where a release you cannot roll back is a truck roll. Testing against real hardware behaviour instead of a mock that always agrees with you.</p>
-          </div>
-        </li>
-
-        <li class="arc__step reveal">
           <span class="arc__node"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2 19 6v5.4c0 4.3-2.9 7.4-7 8.8-4.1-1.4-7-4.5-7-8.8V6l7-2.8Z"/><path d="m9.6 10.2 1.9 1.9-1.9 1.9M13.2 14.4h1.9"/></svg></span>
           <div class="arc__body">
             <span class="arc__label">Security</span>
             <h3>On-premise, locked down, Linux</h3>
             <p>QA and on-premise deployments for enterprise clients with closed networks, simulating their Linux environments to test against and running the releases myself. Everything that ran twice got scripted.</p>
+          </div>
+        </li>
+
+        <li class="arc__step reveal">
+          <span class="arc__node"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.6" y="6.6" width="10.8" height="10.8" rx="2.4"/><path d="M13.1 9.6h-1.7l-1.2 3.1h2l-.6 2.4 3-3.6h-2l.5-1.9Z"/><path d="M9.6 6.6V3.9M14.4 6.6V3.9M9.6 20.1v-2.7M14.4 20.1v-2.7M6.6 9.6H3.9M6.6 14.4H3.9M20.1 9.6h-2.7M20.1 14.4h-2.7"/></svg></span>
+          <div class="arc__body">
+            <span class="arc__label">Energy</span>
+            <h3>IoT and hardware in the field</h3>
+            <p>Devices and energy systems that live outside the datacentre, where a release you cannot roll back is a truck roll. Testing against real hardware behaviour instead of a mock that always agrees with you.</p>
           </div>
         </li>
 
@@ -625,7 +623,7 @@
   </div>
 </footer>
 
-<script src="assets/i18n.js?v=2"></script>
-<script src="assets/app.js?v=6"></script>
+<script src="assets/i18n.js?v=3"></script>
+<script src="assets/app.js?v=7"></script>
 </body>
 </html>

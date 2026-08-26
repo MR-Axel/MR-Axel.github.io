@@ -38,8 +38,8 @@ window.ES = {
   'Contributions, last year': 'Contribuciones, último año',
 
   /* --- work --- */
-  'Products I founded or co-founded. All of them are live, all of them are mine to keep running.':
-    'Productos que fundé o cofundé. Todos están vivos, y todos son míos de mantener andando.',
+  'Products I built and still run. All of them are live, and you can walk into every one.':
+    'Productos que construí y sigo manteniendo. Todos están vivos, y a todos se puede entrar.',
 
   "A job-application product for LatAm candidates applying locally and abroad: tailored CVs per posting, tracked applications, and eligibility checks up front instead of after you've already applied.":
     'Un producto de postulaciones para candidatos de LatAm que aplican acá y afuera: CV a medida para cada aviso, postulaciones con seguimiento, y las compuertas de elegibilidad antes de aplicar y no después.',
@@ -68,23 +68,15 @@ window.ES = {
   'Voice': 'Voz',
   'SMB': 'PyMEs',
 
-  /* roles */
-  'Founder': 'Fundador',
-  'Co-founder · product': 'Cofundador · producto',
-  'Co-founder · product and commercial': 'Cofundador · producto y comercial',
 
   /* pills */
   'Live': 'Vivo',
-  'In progress': 'En curso',
-  'Paused': 'Pausado',
 
   /* --- also built --- */
   'Also built': 'También construí',
-  'Side projects and earlier launches. Another four are finished and off the air. The six above are the ones I still run.':
-    'Proyectos paralelos y lanzamientos anteriores. Hay otros cuatro terminados y fuera del aire. Los seis de arriba son los que sigo manteniendo.',
+  'Earlier builds. Two are still up, the rest are off, and another four ran their course and came down.':
+    'Cosas anteriores. Dos siguen en pie, el resto está apagado, y hay otras cuatro que hicieron su recorrido y se bajaron.',
 
-  'A desktop game with on-chain assets on Hedera. Solidity contracts, a Tauri client and a sprite pipeline, mostly an excuse to go deep on the chain.':
-    'Un juego de escritorio con assets on-chain en Hedera. Contratos en Solidity, un cliente Tauri y un pipeline de sprites, sobre todo una excusa para estudiar la cadena en serio.',
 
   'A community for tech and startup people, with a blog, a following graph and paid memberships.':
     'Una comunidad de gente de tech y startups, con blog, grafo de seguidores y membresías pagas.',
@@ -200,8 +192,13 @@ window.ES = {
   /* --- the arc --- */
   'Path': 'Recorrido',
   'How I got here': 'Cómo llegué acá',
-  'Ten years before the current title, mostly in rooms where being wrong cost more than a rollback. In order.':
-    'Diez años antes del título actual, casi todos en lugares donde equivocarse costaba más que un rollback. En orden.',
+  'Before the current title, mostly in rooms where being wrong cost more than a rollback. In order.':
+    'Antes del título actual, casi siempre en lugares donde equivocarse costaba más que un rollback. En orden.',
+
+  'Consulting': 'Consultoría',
+  'Process consulting for industry': 'Consultoría de procesos en industrias',
+  'Before software: walking an operation and mapping how the work actually moves through it against how the manual says it does, then finding the step that costs the most. Nothing about that question changed when the subject became a product.':
+    'Antes del software: recorrer una operación y mapear cómo se mueve el trabajo de verdad contra lo que dice el manual, y después encontrar el paso que más cuesta. Esa pregunta no cambió en nada cuando el sujeto pasó a ser un producto.',
 
   'Health': 'Salud',
   'Cardiology and clinical systems': 'Sistemas de cardiología y clínicos',

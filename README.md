@@ -82,6 +82,20 @@ Object.keys(window.ES).filter(k => k[0] !== '_' && !used.has(norm(k)));
 
 An empty array means every key found its element.
 
+## The background
+
+Five fixed layers, each drifting at its own rate and some of them the other
+way: `.bg__wash` (the colour gradients), `.bg__grid` (a 64px rule grid, masked
+so it fades before it reaches an edge) and three `.bg__orb` bodies. `app.js`
+writes one custom property per layer on `.bg`, and the children inherit them.
+
+Every drift is a fraction of `progress` (0 to 1) rather than raw scrollY, so
+the movement is bounded by construction: a layer can never travel far enough to
+show an edge, however long the page gets.
+
+The orbs also carry a slow ambient `translate` animation. It is on `translate`
+and not `transform` on purpose, because `transform` is what JS is writing.
+
 ## Iconography
 
 The SVG set is inline and hand-written, 24x24 on a 1.6 stroke with round caps,
