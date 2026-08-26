@@ -197,6 +197,54 @@ window.ES = {
   'Built with Claude Code. Data refreshed daily from the GitHub API.':
     'Construido con Claude Code. Datos actualizados a diario desde la API de GitHub.',
 
+  /* --- the arc --- */
+  'Path': 'Recorrido',
+  'How I got here': 'Cómo llegué acá',
+  'Ten years before the current title, mostly in rooms where being wrong cost more than a rollback. In order.':
+    'Diez años antes del título actual, casi todos en lugares donde equivocarse costaba más que un rollback. En orden.',
+
+  'Health': 'Salud',
+  'Cardiology and clinical systems': 'Sistemas de cardiología y clínicos',
+  'QA on systems where a wrong reading is not a bug report. It is where the habit started: I only trust a system I can test, and I would rather find the failure than be told it cannot happen.':
+    'QA sobre sistemas donde una lectura equivocada no es un reporte de bug. Ahí empezó la costumbre: solo confío en un sistema que puedo testear, y prefiero encontrar la falla antes que escuchar que no puede pasar.',
+
+  'Energy': 'Energía',
+  'IoT and hardware in the field': 'IoT y hardware en el campo',
+  'Devices and energy systems that live outside the datacentre, where a release you cannot roll back is a truck roll. Testing against real hardware behaviour instead of a mock that always agrees with you.':
+    'Dispositivos y sistemas de energía que viven fuera del datacenter, donde un release que no se puede revertir es mandar una camioneta. Probar contra el comportamiento real del hardware en vez de un mock que siempre te da la razón.',
+
+  'Security': 'Seguridad',
+  'On-premise, locked down, Linux': 'On-premise, redes cerradas, Linux',
+  'QA and on-premise deployments for enterprise clients with closed networks, simulating their Linux environments to test against and running the releases myself. Everything that ran twice got scripted.':
+    'QA y despliegues on-premise para clientes enterprise con redes cerradas, simulando sus entornos Linux para poder testear y corriendo yo mismo los releases. Todo lo que se hacía dos veces terminaba en un script.',
+
+  'Logistics': 'Logística',
+  'Routing, fleets, and a team': 'Ruteo, flotas y un equipo',
+  'Product for route optimisation and fleet operations. Built the prototyping practice from nothing and led it, short enough loops that a working thing showed up in the conversation instead of a slide.':
+    'Producto para optimización de rutas y operación de flotas. Armé la práctica de prototipado desde cero y la lideré, con loops lo bastante cortos como para que en la conversación apareciera algo funcionando en vez de una lámina.',
+
+  'AI product': 'Producto de IA',
+  'Agents from zero to production': 'Agentes de cero a producción',
+  'Architecture for agent systems and the roadmap over them: what the agent may do, where it escalates, how it is evaluated. Led the team that built the workflow builder those agents run on, and shipped features into production alongside it.':
+    'Arquitectura de sistemas de agentes y el roadmap encima: qué puede hacer el agente, dónde escala a una persona, cómo se evalúa. Lideré el equipo que construyó el workflow builder sobre el que corren esos agentes, y shippeé features a producción en paralelo.',
+
+  /* --- craft, the four new ones --- */
+  'Agent architecture': 'Arquitectura de agentes',
+  'Designing the system the agents live in, from zero to production, and leading the team that builds it: the workflow builder, the tool boundaries, the escalation path, and what counts as a good answer.':
+    'Diseñar el sistema donde viven los agentes, de cero a producción, y liderar al equipo que lo construye: el workflow builder, los límites de las herramientas, el camino de escalamiento, y qué cuenta como buena respuesta.',
+
+  'Voice and multimodal': 'Voz y multimodal',
+  'Voice LLMs on live calls, and images as an input rather than decoration: reading a screenshot, a document or a photo and deciding from it. Prototyped as an MVP first, so the idea gets tested before it gets a roadmap.':
+    'LLMs de voz en llamadas reales, e imágenes como entrada y no como adorno: leer una captura, un documento o una foto y decidir a partir de eso. Primero como MVP, así la idea se prueba antes de tener roadmap.',
+
+  'Generative production': 'Producción generativa',
+  'Image generation and product video, prompt to rendered clip, on a pipeline instead of by hand. It is how a landing page gets its visuals the same week it gets its copy.':
+    'Generación de imágenes y video de producto, del prompt al clip renderizado, en un pipeline y no a mano. Es la forma de que una landing tenga sus visuales la misma semana que tiene el texto.',
+
+  'Growth and instrumentation': 'Growth e instrumentación',
+  'Umami, LogRocket, session review, Meta Ads. Counting the funnel from the database and not the dashboard, because a consent gate or a server-side event will quietly drop the steps the dashboard shows you.':
+    'Umami, LogRocket, revisión de sesiones, Meta Ads. Contar el embudo desde la base de datos y no desde el panel, porque un gate de consentimiento o un evento server-side te tira pasos en silencio.',
+
   /* --- strings JS builds, so they are not in the DOM to be matched --- */
   '_contributions': '{n} contribuciones en el último año',
   '_switchToEs': 'Ver en español',

@@ -25,7 +25,7 @@
   /* Keys are the English innerHTML with whitespace collapsed. Anything not in
      the dictionary is left exactly as authored, which is how product names,
      stack chips and the numbers survive the swap untouched. */
-  var I18N_SEL = 'h1, h2, h3, h4, p, li, dt, dd, .pill, .skip, .btn, .nav__links a, [data-t]';
+  var I18N_SEL = 'h1, h2, h3, h4, p, li, dt, dd, .pill, .arc__label, .skip, .btn, .nav__links a, [data-t]';
 
   function norm(html) {
     return html.replace(/\s+/g, ' ').trim();
@@ -212,14 +212,16 @@
     }, { rootMargin: '-4% 0px -10% 0px', threshold: 0.06 });
     items.forEach(function (el) { io.observe(el); });
 
-    /* the mascots fade with their section rather than with the cards */
-    if (mascots.length) {
-      var mio = new IntersectionObserver(function (entries) {
+    /* the decoration fades with whatever it sits in rather than with the
+       text: the mascots with the work grid, the orbit with the hero */
+    var deco = mascots.concat([].slice.call(document.querySelectorAll('.orbit')));
+    if (deco.length) {
+      var dio = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           entry.target.classList.toggle('is-in', entry.isIntersecting);
         });
       }, { rootMargin: '-8% 0px -8% 0px' });
-      mascots.forEach(function (el) { mio.observe(el); });
+      deco.forEach(function (el) { dio.observe(el); });
     }
 
     /* if the observer never fires (headless render, odd embed), show it all.

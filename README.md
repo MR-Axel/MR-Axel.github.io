@@ -82,6 +82,18 @@ Object.keys(window.ES).filter(k => k[0] !== '_' && !used.has(norm(k)));
 
 An empty array means every key found its element.
 
+## Iconography
+
+The SVG set is inline and hand-written, 24x24 on a 1.6 stroke with round caps,
+so the whole page draws from one hand. The generator that emitted it lives in
+the scratchpad, not the repo: the icons are content now, edit them in place.
+
+The hero orbit places each chip with three rotations, not one:
+`rotate(--a)` to put it on the clock face, `translateY(-r)` to push it to the
+radius, then `rotate(calc(--a * -1))` to stand the glyph back up. The inner span
+counter-spins at the track's own duration for the same reason. Drop either and
+the icons tumble.
+
 ## Motion
 
 The reveal is three states, not two: below and unseen, on stage, and `is-past`

@@ -241,7 +241,21 @@ section[id] { scroll-margin-top: 78px; }
 
 /* ---------- hero ---------- */
 
-.hero { position: relative; padding: clamp(64px, 12vw, 128px) 0 clamp(56px, 9vw, 96px); overflow: hidden; }
+.hero { position: relative; padding: clamp(80px, 13vw, 168px) 0 clamp(72px, 10vw, 128px); overflow: hidden; }
+
+/* Copy on the left, orbit on the right, and the hero runs a little wider than
+   the rest of the page so the second column does not squeeze the headline into
+   five lines. Below 1180px the orbit is dropped rather than stacked: it is
+   decoration, and a phone has better uses for 380px of height. */
+.hero .wrap { max-width: 1200px; }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 44px; align-items: center; }
+.hero__copy { min-width: 0; }
+.hero__art { display: grid; place-items: center; }
+@media (max-width: 1180px) {
+  .hero .wrap { max-width: var(--wrap); }
+  .hero__grid { grid-template-columns: 1fr; }
+  .hero__art { display: none; }
+}
 .glow {
   position: absolute; inset: -30% -10% auto -10%; height: 680px; pointer-events: none;
   background:
@@ -261,7 +275,7 @@ section[id] { scroll-margin-top: 78px; }
   font-family: var(--mono); font-size: 13px; letter-spacing: 0.01em;
   color: var(--text-mid);
   border: 1px solid var(--line); background: var(--surface);
-  padding: 6px 14px; border-radius: 999px; margin-bottom: 26px;
+  padding: 6px 14px; border-radius: 999px; margin-bottom: 34px;
 }
 .dot {
   width: 7px; height: 7px; border-radius: 50%; background: var(--accent-ink);
@@ -269,17 +283,17 @@ section[id] { scroll-margin-top: 78px; }
   flex-shrink: 0; margin-top: 0.55em; /* lines the dot up with the first row of text */
 }
 
-.hero h1 { font-size: clamp(2.4rem, 6.6vw, 4.3rem); font-weight: 600; margin-bottom: 28px; }
+.hero h1 { font-size: clamp(2.4rem, 5.2vw, 3.7rem); font-weight: 600; margin-bottom: 34px; }
 
 .lede { max-width: 46ch; font-size: clamp(1.02rem, 1.6vw, 1.18rem); color: var(--text-mid); }
 .lede strong { color: var(--text); font-weight: 600; }
-.lede--sub { margin-top: 18px; color: var(--muted); }
+.lede--sub { margin-top: 22px; color: var(--muted); }
 
-.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 44px; }
 
 .stats {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1px; margin: 64px 0 0; padding: 0;
+  gap: 1px; margin: clamp(64px, 8vw, 96px) 0 0; padding: 0;
   background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
 }
 .stats > div { background: var(--bg); padding: 20px 22px; transition: background-color 0.35s ease; }
@@ -287,6 +301,89 @@ section[id] { scroll-margin-top: 78px; }
 .stats dd {
   margin: 0; font-family: var(--mono); font-size: clamp(1.5rem, 3vw, 1.9rem);
   font-weight: 500; letter-spacing: -0.03em;
+}
+
+/* ---------- hero orbit ---------- */
+
+/* Two counter-rotating tracks of capability icons around a core. The chip is
+   placed by rotating the whole track, so the icon inside has to counter-spin
+   at the same rate or it would tumble. Everything is decoration and sits
+   behind aria-hidden. */
+.orbit {
+  position: relative; width: 380px; height: 380px;
+  display: grid; place-items: center;
+}
+
+.orbit__ring {
+  position: absolute; border-radius: 50%;
+  border: 1px solid var(--line);
+  opacity: 0; transform: scale(0.9);
+  transition: opacity 1s var(--ease-out), transform 1.1s var(--ease-out);
+}
+.orbit__ring--1 { width: 158px; height: 158px; transition-delay: 0.15s; }
+.orbit__ring--2 { width: 260px; height: 260px; transition-delay: 0.3s; }
+.orbit__ring--3 { width: 362px; height: 362px; border-style: dashed; transition-delay: 0.45s; }
+.js .orbit.is-in .orbit__ring { opacity: 1; transform: none; }
+
+.orbit__core {
+  position: relative; z-index: 2;
+  width: 62px; height: 62px; border-radius: 18px;
+  display: grid; place-items: center;
+  background: var(--surface); border: 1px solid var(--line-hi);
+  color: var(--accent-ink);
+  box-shadow: 0 0 0 10px var(--accent-soft);
+  opacity: 0; scale: 0.7;
+  transition: opacity 0.8s var(--ease-out), scale 0.8s var(--ease-out);
+}
+.js .orbit.is-in .orbit__core { opacity: 1; scale: 1; }
+.orbit__spark { width: 26px; height: 26px; animation: pulse 4.5s ease-in-out infinite; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.75; scale: 1; }
+  50% { opacity: 1; scale: 1.08; }
+}
+
+.orbit__track { position: absolute; inset: 0; }
+.orbit__track--1 { animation: spin 46s linear infinite; }
+.orbit__track--2 { animation: spin 68s linear infinite reverse; }
+
+@keyframes spin { to { rotate: 360deg; } }
+@keyframes spin-back-1 { to { rotate: -360deg; } }
+@keyframes spin-back-2 { to { rotate: 360deg; } }
+
+.chip {
+  position: absolute; top: 50%; left: 50%;
+  width: 44px; height: 44px; margin: -22px 0 0 -22px;
+  transform: rotate(var(--a)) translateY(calc(var(--r, 130px) * -1)) rotate(calc(var(--a) * -1));
+  opacity: 0;
+  transition: opacity 0.7s var(--ease-out);
+}
+.orbit__track--2 .chip { --r: 181px; }
+.js .orbit.is-in .chip { opacity: 1; }
+
+.chip__in {
+  display: grid; place-items: center;
+  width: 100%; height: 100%; border-radius: 13px;
+  background: var(--surface); border: 1px solid var(--line);
+  color: var(--text-mid);
+  /* undoes the track's rotation so the glyph never tips over */
+  animation: spin-back-1 46s linear infinite;
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+.orbit__track--2 .chip__in { animation: spin-back-2 68s linear infinite; }
+.chip__in svg { width: 20px; height: 20px; }
+
+/* the accent walks around the ring instead of lighting every chip at once */
+.orbit__track--1 .chip:nth-child(1) .chip__in { animation-name: spin-back-1, glow; }
+.orbit__track--1 .chip:nth-child(3) .chip__in { animation-name: spin-back-1, glow; animation-delay: 0s, 3s; }
+.orbit__track--2 .chip:nth-child(2) .chip__in { animation-name: spin-back-2, glow; animation-delay: 0s, 6s; }
+.orbit__track--2 .chip:nth-child(4) .chip__in { animation-name: spin-back-2, glow; animation-delay: 0s, 9s; }
+.chip__in { animation-duration: 46s, 12s; animation-iteration-count: infinite; animation-timing-function: linear, ease-in-out; }
+.orbit__track--2 .chip__in { animation-duration: 68s, 12s; }
+
+@keyframes glow {
+  0%, 82%, 100% { color: var(--text-mid); border-color: var(--line); }
+  88% { color: var(--accent-ink); border-color: var(--accent-line); background: var(--accent-soft); }
 }
 
 /* ---------- sections ---------- */
@@ -427,18 +524,78 @@ section[id] { scroll-margin-top: 78px; }
   .sideitem .pill { grid-column: 2; justify-self: start; }
 }
 
+/* ---------- the arc ---------- */
+
+/* One rail down the left with the nodes sitting on it. The rail is drawn by
+   the last step's ::before rather than a wrapper element, so it always ends
+   exactly at the last node and never overshoots into the padding. */
+.arc { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+
+.arc__step {
+  position: relative;
+  display: grid; grid-template-columns: 52px 1fr; gap: 24px;
+  padding: 22px 0 26px;
+}
+/* the rail segment, one per step, stopping short on the last */
+.arc__step::before {
+  content: ""; position: absolute; left: 25px; top: 22px; bottom: -4px;
+  width: 1px; background: var(--line);
+  transform-origin: top center; transform: scaleY(0);
+  transition: transform 0.7s var(--ease-out) 0.2s;
+}
+.arc__step:last-child::before { display: none; }
+.js .arc__step.is-in::before { transform: scaleY(1); }
+
+.arc__node {
+  position: relative; z-index: 1;
+  width: 52px; height: 52px; border-radius: 15px;
+  display: grid; place-items: center;
+  background: var(--surface); border: 1px solid var(--line);
+  color: var(--accent-ink);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+.arc__node svg { width: 23px; height: 23px; }
+.arc__step:hover .arc__node {
+  border-color: var(--accent-line); background: var(--accent-soft);
+  box-shadow: 0 0 0 6px var(--accent-soft);
+}
+
+.arc__label {
+  display: inline-block; margin-bottom: 8px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted);
+}
+.arc__body h3 { font-size: 1.08rem; margin-bottom: 10px; }
+.arc__body p { color: var(--muted); font-size: 0.95rem; max-width: 68ch; }
+
+@media (max-width: 620px) {
+  .arc__step { grid-template-columns: 40px 1fr; gap: 16px; }
+  .arc__step::before { left: 19px; }
+  .arc__node { width: 40px; height: 40px; border-radius: 12px; }
+  .arc__node svg { width: 19px; height: 19px; }
+}
+
 /* ---------- craft ---------- */
 
-.craft { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 34px 44px; }
-.craft__item h3 { font-size: 1.05rem; margin-bottom: 10px; }
-.craft__item h3::before {
-  content: ""; display: block; width: 22px; height: 2px;
-  background: var(--accent-ink); margin-bottom: 14px; border-radius: 2px;
-  transform-origin: left center;
-  transition: transform 0.55s var(--ease-out) 0.15s;
+.craft { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 38px 44px; }
+
+.craft__icon {
+  display: grid; place-items: center;
+  width: 38px; height: 38px; border-radius: 11px; margin-bottom: 16px;
+  background: var(--surface); border: 1px solid var(--line);
+  color: var(--accent-ink);
+  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, scale 0.5s var(--ease-out);
 }
-/* drawn by default, so a missing script never leaves it collapsed */
-.js .craft__item.reveal:not(.is-in) h3::before { transform: scaleX(0); }
+.craft__icon svg { width: 20px; height: 20px; }
+.craft__item:hover .craft__icon {
+  border-color: var(--accent-line); background: var(--accent-soft);
+  box-shadow: 0 0 0 5px var(--accent-soft);
+}
+/* the icon lands a beat after the text, which is what stops ten of them
+   arriving as one block */
+.js .craft__item.reveal:not(.is-in) .craft__icon { scale: 0.75; }
+
+.craft__item h3 { font-size: 1.05rem; margin-bottom: 10px; }
 .craft__item p { color: var(--muted); font-size: 0.95rem; }
 
 .stack { margin-top: 56px; padding-top: 34px; border-top: 1px solid var(--line); }
@@ -576,4 +733,9 @@ section[id] { scroll-margin-top: 78px; }
   .btn:hover, .card:hover, .skill-card:hover { transform: none; }
   .glow, .bg { transform: none; }
   .mascot img { animation: none; }
+  .orbit__track, .orbit__spark, .chip__in { animation: none; }
+  .orbit__ring, .orbit__core, .chip { opacity: 1; transform: none; scale: none; }
+  .chip { transform: rotate(var(--a)) translateY(calc(var(--r, 130px) * -1)) rotate(calc(var(--a) * -1)); }
+  .arc__step::before { transform: none; transition: none; }
+  .js .craft__item.reveal:not(.is-in) .craft__icon { scale: none; }
 }
