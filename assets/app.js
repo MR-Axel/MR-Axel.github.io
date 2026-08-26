@@ -1,39 +1,142 @@
-/* Scroll behaviour (progress bar, nav state, hero parallax, staggered reveals)
-   and the contribution heatmap, painted from data/github.json which a GitHub
-   Action refreshes daily. Everything degrades quietly if the file is missing:
-   the page still reads fine without it. */
+/* Theme, language, the scroll system, and the contribution heatmap.
+
+   Loaded at the end of <body> without defer, so the language swap happens
+   before the browser paints the content: a deferred script would show a
+   frame of English to someone whose browser is in Spanish.
+
+   Everything degrades quietly. No script at all still leaves a complete,
+   readable English page in whatever theme the OS asked for. */
 
 (function () {
   'use strict';
 
-  var nf = new Intl.NumberFormat('en-US');
+  var root = document.documentElement;
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DICT = window.ES || {};
+  var META_EN = window.EN_META || {};
+  var lang = root.getAttribute('data-lang') === 'es' ? 'es' : 'en';
 
-  /* --- one scroll handler for the whole page, on a rAF ---
-     nav border, reading progress and the hero glow all read the same
-     scrollY, so they can never disagree about where the page is. */
+  function store(key, value) {
+    try { localStorage.setItem(key, value); } catch (e) { /* private mode */ }
+  }
+
+  /* ================= language ================= */
+
+  /* Keys are the English innerHTML with whitespace collapsed. Anything not in
+     the dictionary is left exactly as authored, which is how product names,
+     stack chips and the numbers survive the swap untouched. */
+  var I18N_SEL = 'h1, h2, h3, h4, p, li, dt, dd, .pill, .skip, .btn, .nav__links a, [data-t]';
+
+  function norm(html) {
+    return html.replace(/\s+/g, ' ').trim();
+  }
+
+  function translate(to) {
+    var nodes = document.querySelectorAll(I18N_SEL);
+    var matched = [];
+
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      /* an element inside one we already swapped would be rewritten twice,
+         and the second pass would be reading generated markup */
+      var nested = false;
+      for (var m = 0; m < matched.length; m++) {
+        if (matched[m].contains(el)) { nested = true; break; }
+      }
+      if (nested) continue;
+
+      if (to === 'es') {
+        var key = norm(el.innerHTML);
+        if (DICT[key]) {
+          el.setAttribute('data-en', el.innerHTML);
+          el.innerHTML = DICT[key];
+          matched.push(el);
+        }
+      } else if (el.hasAttribute('data-en')) {
+        el.innerHTML = el.getAttribute('data-en');
+        el.removeAttribute('data-en');
+        matched.push(el);
+      }
+    }
+
+    lang = to;
+    root.setAttribute('data-lang', to);
+    root.setAttribute('lang', to === 'es' ? 'es' : 'en');
+
+    var label = document.getElementById('lang-label');
+    if (label) label.textContent = to === 'es' ? 'EN' : 'ES';
+    var btn = document.getElementById('lang-toggle');
+    if (btn) btn.setAttribute('title', to === 'es' ? META_EN._switchToEn : DICT._switchToEs);
+    var themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) themeBtn.setAttribute('title', (to === 'es' ? DICT : META_EN)._theme || '');
+
+    paintContributions();
+  }
+
+  translate(lang);
+
+  var langBtn = document.getElementById('lang-toggle');
+  if (langBtn) {
+    langBtn.addEventListener('click', function () {
+      var to = lang === 'es' ? 'en' : 'es';
+      translate(to);
+      store('site-lang', to);
+    });
+  }
+
+  /* ================= theme ================= */
+
+  var themeBtn = document.getElementById('theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
+      var to = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', to);
+      store('site-theme', to);
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', to === 'light' ? '#fbfaf7' : '#08090b');
+    });
+  }
+
+  /* ================= scroll ================= */
+
+  /* One handler on a rAF for the whole page: nav border, reading progress,
+     the hero glow and the background wash all read the same scrollY, so they
+     can never disagree about where the page is. */
   var nav = document.querySelector('.nav');
   var bar = document.getElementById('progress-bar');
   var glow = document.querySelector('.glow');
+  var bgLayer = document.querySelector('.bg');
+  var mascots = [].slice.call(document.querySelectorAll('.mascot'));
   var pending = false;
 
   function frame() {
     pending = false;
     var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+    var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    var progress = Math.min(1, y / max);
 
     if (nav) nav.classList.toggle('is-stuck', y > 8);
+    if (bar) bar.style.width = (progress * 100).toFixed(2) + '%';
+    if (reduced) return;
 
-    if (bar) {
-      var doc = document.documentElement;
-      var max = Math.max(1, doc.scrollHeight - window.innerHeight);
-      bar.style.width = Math.min(100, (y / max) * 100).toFixed(2) + '%';
-    }
+    /* capped at a fraction of the page so the oversized layer never shows an
+       edge, however long the page gets */
+    if (bgLayer) bgLayer.style.setProperty('--bg-y', Math.round(progress * -180) + 'px');
 
-    /* the glow drifts at a quarter speed and gives out before the next
-       section arrives, so it never bleeds into Work */
-    if (glow && !reduced) {
+    if (glow) {
       glow.style.setProperty('--sy', Math.round(y * 0.25) + 'px');
       glow.style.opacity = Math.max(0, 1 - y / 900).toFixed(3);
+    }
+
+    /* the mascots drift against the cards, each at its own rate. clamped to
+       one viewport: without it, an element parked far above the fold reports
+       a ratio of 5 and the drift lands hundreds of pixels off */
+    for (var i = 0; i < mascots.length; i++) {
+      var el = mascots[i];
+      var rect = el.getBoundingClientRect();
+      var centred = (rect.top + rect.height / 2 - window.innerHeight / 2) / window.innerHeight;
+      centred = Math.max(-1, Math.min(1, centred));
+      el.style.setProperty('--my', Math.round(centred * (i % 2 ? -44 : 44)) + 'px');
     }
   }
 
@@ -65,7 +168,7 @@
     sections.forEach(function (el) { spy.observe(el); });
   }
 
-  /* --- reveal on scroll --- */
+  /* --- reveal on scroll, both directions --- */
   var items = [].slice.call(document.querySelectorAll('.reveal'));
 
   /* stagger by position inside the element's own group, so a row of cards
@@ -80,19 +183,9 @@
     el.style.setProperty('--d', Math.min(before * 70, 350) + 'ms');
   });
 
-  /* `.js .reveal` outranks each component's own transition, so once the
-     entrance is done the classes come off and hover goes back to normal */
-  function settle(el) {
-    var delay = parseInt(el.style.getPropertyValue('--d'), 10) || 0;
-    window.setTimeout(function () {
-      el.classList.remove('reveal', 'is-in');
-      el.style.removeProperty('--d');
-    }, delay + 900);
-  }
-
   function showAll() {
     items.forEach(function (el) {
-      el.classList.remove('reveal', 'is-in');
+      el.classList.remove('reveal', 'is-past');
       el.style.removeProperty('--d');
     });
   }
@@ -101,19 +194,36 @@
     showAll();
   } else {
     var fired = false;
+    /* never unobserved: leaving the top parks the element in is-past, and
+       scrolling back up runs the entrance again */
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        fired = true;
-        entry.target.classList.add('is-in');
-        settle(entry.target);
-        io.unobserve(entry.target);
+        var el = entry.target;
+        if (entry.isIntersecting) {
+          fired = true;
+          el.classList.remove('is-past');
+          el.classList.add('is-in');
+        } else {
+          el.classList.remove('is-in');
+          /* above the fold means read; below still means not yet */
+          el.classList.toggle('is-past', entry.boundingClientRect.top < 0);
+        }
       });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    }, { rootMargin: '-4% 0px -10% 0px', threshold: 0.06 });
     items.forEach(function (el) { io.observe(el); });
 
-    /* if the observer never fires (headless render, odd embed), show everything.
-       `fired`, not a DOM check: settled elements have already lost the class */
+    /* the mascots fade with their section rather than with the cards */
+    if (mascots.length) {
+      var mio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          entry.target.classList.toggle('is-in', entry.isIntersecting);
+        });
+      }, { rootMargin: '-8% 0px -8% 0px' });
+      mascots.forEach(function (el) { mio.observe(el); });
+    }
+
+    /* if the observer never fires (headless render, odd embed), show it all.
+       `fired`, not a DOM check, because is-in comes and goes by design */
     window.setTimeout(function () {
       if (fired) return;
       io.disconnect();
@@ -121,19 +231,30 @@
     }, 1500);
   }
 
-  /* --- data --- */
+  /* ================= data ================= */
+
+  var nf;
+  var contributions = null;
+
+  function paintContributions() {
+    if (contributions === null) return;
+    if (!nf) nf = new Intl.NumberFormat(lang === 'es' ? 'es-AR' : 'en-US');
+    var total = nf.format(contributions);
+    var tpl = (lang === 'es' ? DICT : META_EN)._contributions || '{n} contributions in the last year';
+    setText('[data-stat="contributions"]', total);
+    setText('[data-stat="contributions-line"]', tpl.replace('{n}', total));
+  }
+
   fetch('data/github.json', { cache: 'no-cache' })
     .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
-    .then(render)
+    .then(function (data) {
+      if (!data.contributions) return;
+      paintHeatmap(data.contributions);
+      contributions = data.contributions.total;
+      nf = null;
+      paintContributions();
+    })
     .catch(function () { /* static copy stays as written */ });
-
-  function render(data) {
-    if (!data.contributions) return;
-    paintHeatmap(data.contributions);
-    var total = nf.format(data.contributions.total);
-    setText('[data-stat="contributions"]', total);
-    setText('[data-stat="contributions-line"]', total + ' contributions in the last year');
-  }
 
   function setText(sel, value) {
     var el = document.querySelector(sel);

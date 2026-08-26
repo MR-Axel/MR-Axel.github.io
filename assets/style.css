@@ -1,5 +1,13 @@
 /* Axel Rosso — personal site
-   Dark, minimal, product-shaped. One accent, used sparingly. */
+   Two themes, one accent, used sparingly.
+
+   Theming rule: every colour is a token on :root (dark) and overridden inside
+   [data-theme="light"]. Nothing hardcodes a hex outside this block, so a new
+   theme is one more override and never a hunt through the file.
+
+   The accent splits in two on purpose. --accent is the fill: the lime stays
+   lime in both themes because it is the brand. --accent-ink is the same idea
+   as text, and lime text on white is unreadable, so light mode darkens it. */
 
 :root {
   --bg: #0a0908;
@@ -11,10 +19,35 @@
   --text: #f5f2ee;
   --text-mid: #b9b3ab;
   --muted: #8f887f;
+
   --accent: #c6f24e;
+  --accent-ink: #c6f24e;
+  --on-accent: #08090b;
   --accent-soft: rgba(198, 242, 78, 0.12);
+  --accent-line: rgba(198, 242, 78, 0.3);
   --warm: #ff9d5c;
   --warm-soft: rgba(255, 157, 92, 0.1);
+
+  --nav-bg: rgba(8, 9, 11, 0.72);
+  --hover-wash: rgba(255, 255, 255, 0.05);
+  --grain: 0.035;
+
+  /* heatmap ramp */
+  --lv1: rgba(198, 242, 78, 0.34);
+  --lv2: rgba(198, 242, 78, 0.56);
+  --lv3: rgba(198, 242, 78, 0.78);
+  --lv4: #c6f24e;
+
+  /* page-wide gradient wash, moved by the parallax layer */
+  --wash-1: rgba(255, 157, 92, 0.07);
+  --wash-2: rgba(198, 242, 78, 0.05);
+  --glow-1: rgba(255, 157, 92, 0.16);
+  --glow-2: rgba(198, 242, 78, 0.13);
+  --glow-3: rgba(255, 200, 120, 0.08);
+
+  /* mascots sit behind the cards; dark mode pushes them down into the page */
+  --mascot-opacity: 0.24;
+  --mascot-filter: grayscale(0.3) brightness(0.68) contrast(1.05);
 
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -23,8 +56,49 @@
   --pad: clamp(20px, 5vw, 40px);
   --radius: 14px;
 
-  /* one easing for every scroll transition, so the page moves as one thing */
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg: #fbfaf7;
+  --bg-alt: #f3f0ea;
+  --surface: #ffffff;
+  --surface-hi: #f7f5f0;
+  --line: rgba(24, 22, 16, 0.11);
+  --line-hi: rgba(24, 22, 16, 0.22);
+  --text: #17150f;
+  --text-mid: #4d4840;
+  --muted: #6f6859;
+
+  --accent: #c6f24e;
+  --accent-ink: #5c8407;
+  --on-accent: #08090b;
+  --accent-soft: rgba(150, 200, 30, 0.16);
+  --accent-line: rgba(120, 165, 20, 0.42);
+  --warm: #c2611f;
+  --warm-soft: rgba(255, 157, 92, 0.16);
+
+  --nav-bg: rgba(251, 250, 247, 0.78);
+  --hover-wash: rgba(24, 22, 16, 0.045);
+  --grain: 0.02;
+
+  --lv1: #e4f2b8;
+  --lv2: #c8e478;
+  --lv3: #a3cd3a;
+  --lv4: #7ba715;
+
+  --wash-1: rgba(255, 157, 92, 0.13);
+  --wash-2: rgba(160, 210, 40, 0.11);
+  --glow-1: rgba(255, 157, 92, 0.22);
+  --glow-2: rgba(170, 220, 50, 0.2);
+  --glow-3: rgba(255, 200, 120, 0.16);
+
+  /* on a light page the same figures have to be lifted, not darkened */
+  --mascot-opacity: 0.2;
+  --mascot-filter: grayscale(0.3) brightness(1.12) contrast(0.82);
+
+  color-scheme: light;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -34,26 +108,39 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background:
-    radial-gradient(60% 40% at 12% 0%, rgba(255, 157, 92, 0.06), transparent 60%),
-    radial-gradient(50% 35% at 100% 30%, rgba(198, 242, 78, 0.045), transparent 65%),
-    var(--bg);
-  background-attachment: fixed;
+  background: var(--bg);
   color: var(--text);
   font-family: var(--sans);
   font-size: 17px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
 
-/* faint grain so the warm gradients read as texture, not a flat glow */
-body::before {
-  content: "";
+/* ---------- background layers ---------- */
+
+/* the wash is its own fixed layer so JS can drift it against the scroll.
+   oversized on every side, and the drift is capped in app.js, so it can
+   never expose an edge no matter how long the page gets. */
+.bg {
+  position: fixed; inset: -25% -10%; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(58% 38% at 14% 12%, var(--wash-1), transparent 62%),
+    radial-gradient(48% 34% at 96% 34%, var(--wash-2), transparent 66%),
+    radial-gradient(40% 30% at 40% 88%, var(--wash-1), transparent 68%);
+  transform: translate3d(0, var(--bg-y, 0px), 0);
+  will-change: transform;
+  transition: opacity 0.35s ease;
+}
+
+/* faint grain so the gradients read as texture, not a flat glow */
+.grain {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  opacity: 0.035; mix-blend-mode: overlay;
+  opacity: var(--grain); mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+
 header, main, footer { position: relative; z-index: 1; }
 
 h1, h2, h3, h4 { line-height: 1.12; letter-spacing: -0.025em; margin: 0; font-weight: 600; }
@@ -67,21 +154,21 @@ section[id] { scroll-margin-top: 78px; }
 
 .skip {
   position: absolute; left: -9999px; top: 8px;
-  background: var(--accent); color: #08090b; padding: 10px 16px; border-radius: 8px; z-index: 100;
+  background: var(--accent); color: var(--on-accent); padding: 10px 16px; border-radius: 8px; z-index: 100;
 }
 .skip:focus { left: 12px; }
 
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 3px; border-radius: 4px; }
 
 /* ---------- nav ---------- */
 
 .nav {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(8, 9, 11, 0.72);
+  background: var(--nav-bg);
   backdrop-filter: saturate(160%) blur(12px);
   -webkit-backdrop-filter: saturate(160%) blur(12px);
   border-bottom: 1px solid transparent;
-  transition: border-color 0.25s ease;
+  transition: border-color 0.25s ease, background-color 0.35s ease;
 }
 .nav.is-stuck { border-bottom-color: var(--line); }
 
@@ -90,15 +177,14 @@ section[id] { scroll-margin-top: 78px; }
 .progress span {
   display: block; height: 100%; width: 0;
   background: linear-gradient(90deg, var(--warm), var(--accent));
-  box-shadow: 0 0 12px rgba(198, 242, 78, 0.35);
 }
 
-.nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 64px; }
+.nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
 
 .mark { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; }
 .mark__box {
   width: 26px; height: 26px; border-radius: 7px;
-  background: var(--accent); color: #08090b;
+  background: var(--accent); color: var(--on-accent);
   display: grid; place-items: center; font-size: 14px; font-weight: 700;
 }
 .mark__text { letter-spacing: -0.02em; }
@@ -109,20 +195,38 @@ section[id] { scroll-margin-top: 78px; }
   padding: 8px 12px; border-radius: 8px; transition: color 0.18s ease, background 0.18s ease;
 }
 /* :not(.btn) matters: `.nav__links a:hover` outranks `.btn`, so without it the
-   accent button paints itself translucent white over the dark nav and goes black */
-.nav__links a:not(.btn):hover { color: var(--text); background: rgba(255, 255, 255, 0.05); }
+   accent button paints the hover wash over itself and loses its own fill */
+.nav__links a:not(.btn):hover { color: var(--text); background: var(--hover-wash); }
 .nav__links a.is-active:not(.btn) { color: var(--text); }
-@media (max-width: 820px) { .nav__links a:not(.btn) { padding: 8px 9px; font-size: 14px; } }
-@media (max-width: 640px) { .nav__links a:not(.btn) { display: none; } .mark__text { display: none; } }
+
+/* language and theme, the two controls that must survive the mobile collapse */
+.switches { display: flex; align-items: center; gap: 4px; margin-inline: 2px; }
+.sw {
+  appearance: none; border: 1px solid var(--line); background: transparent;
+  color: var(--muted); cursor: pointer;
+  height: 32px; min-width: 32px; padding: 0 8px; border-radius: 8px;
+  display: inline-grid; place-items: center;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em;
+  transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+.sw:hover { color: var(--text); background: var(--hover-wash); border-color: var(--line-hi); }
+.sw svg { width: 15px; height: 15px; }
+/* one icon per theme, and only the relevant one is ever in the box */
+.sw__sun { display: none; }
+[data-theme="light"] .sw__sun { display: block; }
+[data-theme="light"] .sw__moon { display: none; }
+
+@media (max-width: 900px) { .nav__links a:not(.btn) { padding: 8px 9px; font-size: 14px; } }
+@media (max-width: 720px) { .nav__links a:not(.btn) { display: none; } .mark__text { display: none; } }
 
 /* ---------- buttons ---------- */
 
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
-  background: var(--accent); color: #08090b;
+  background: var(--accent); color: var(--on-accent);
   font-weight: 600; font-size: 15px; text-decoration: none;
   padding: 11px 20px; border-radius: 10px;
-  transition: transform 0.18s ease, filter 0.18s ease;
+  transition: transform 0.18s ease, filter 0.18s ease, background 0.25s ease;
 }
 .btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
 .btn--sm { padding: 7px 14px; font-size: 14px; }
@@ -130,10 +234,10 @@ section[id] { scroll-margin-top: 78px; }
   background: transparent; color: var(--text);
   border: 1px solid var(--line-hi);
 }
-.btn--ghost:hover { background: rgba(255, 255, 255, 0.05); filter: none; }
-.nav__links .btn:hover { background: var(--accent); color: #08090b; }
-.nav__links .btn--ghost:hover { background: rgba(255, 255, 255, 0.05); color: var(--text); }
-.nav__links .btn--sm { color: #08090b; }
+.btn--ghost:hover { background: var(--hover-wash); filter: none; }
+.nav__links .btn:hover { background: var(--accent); color: var(--on-accent); }
+.nav__links .btn--ghost:hover { background: var(--hover-wash); color: var(--text); }
+.nav__links .btn--sm { color: var(--on-accent); }
 
 /* ---------- hero ---------- */
 
@@ -141,25 +245,28 @@ section[id] { scroll-margin-top: 78px; }
 .glow {
   position: absolute; inset: -30% -10% auto -10%; height: 680px; pointer-events: none;
   background:
-    radial-gradient(48% 54% at 20% 38%, rgba(255, 157, 92, 0.16), transparent 70%),
-    radial-gradient(42% 48% at 82% 20%, rgba(198, 242, 78, 0.13), transparent 70%),
-    radial-gradient(30% 34% at 55% 68%, rgba(255, 200, 120, 0.08), transparent 72%);
+    radial-gradient(48% 54% at 20% 38%, var(--glow-1), transparent 70%),
+    radial-gradient(42% 48% at 82% 20%, var(--glow-2), transparent 70%),
+    radial-gradient(30% 34% at 55% 68%, var(--glow-3), transparent 72%);
   filter: blur(24px);
-  /* JS writes --sy on scroll; the glow drifts slower than the copy in front of it */
+  /* JS writes --sy on scroll; the glow drifts slower than the copy in front */
   transform: translate3d(0, var(--sy, 0px), 0);
   will-change: transform;
 }
 
+/* flex-start, not center: the Spanish copy wraps to three lines on a phone,
+   and a centred dot would sit beside the middle one */
 .eyebrow {
-  display: inline-flex; align-items: center; gap: 9px;
+  display: inline-flex; align-items: flex-start; gap: 9px;
   font-family: var(--mono); font-size: 13px; letter-spacing: 0.01em;
   color: var(--text-mid);
   border: 1px solid var(--line); background: var(--surface);
   padding: 6px 14px; border-radius: 999px; margin-bottom: 26px;
 }
 .dot {
-  width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+  width: 7px; height: 7px; border-radius: 50%; background: var(--accent-ink);
   box-shadow: 0 0 0 3px var(--accent-soft);
+  flex-shrink: 0; margin-top: 0.55em; /* lines the dot up with the first row of text */
 }
 
 .hero h1 { font-size: clamp(2.4rem, 6.6vw, 4.3rem); font-weight: 600; margin-bottom: 28px; }
@@ -175,7 +282,7 @@ section[id] { scroll-margin-top: 78px; }
   gap: 1px; margin: 64px 0 0; padding: 0;
   background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
 }
-.stats > div { background: var(--bg); padding: 20px 22px; }
+.stats > div { background: var(--bg); padding: 20px 22px; transition: background-color 0.35s ease; }
 .stats dt { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
 .stats dd {
   margin: 0; font-family: var(--mono); font-size: clamp(1.5rem, 3vw, 1.9rem);
@@ -185,7 +292,7 @@ section[id] { scroll-margin-top: 78px; }
 /* ---------- sections ---------- */
 
 .section { padding: clamp(64px, 10vw, 108px) 0; border-top: 1px solid var(--line); }
-.section--alt { background: var(--bg-alt); }
+.section--alt { background: var(--bg-alt); transition: background-color 0.35s ease; }
 
 .section__head { max-width: 58ch; margin-bottom: 48px; }
 .section__head h2 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); margin-bottom: 14px; }
@@ -193,14 +300,19 @@ section[id] { scroll-margin-top: 78px; }
 
 /* ---------- work cards ---------- */
 
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+/* the stage exists so the mascots anchor to the grid and not to the section
+   heading above it, which is what `position: relative` on .wrap would give */
+.cards-stage { position: relative; }
+.cards {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px;
+}
 
 .card {
   position: relative; overflow: hidden;
   background: var(--surface); border: 1px solid var(--line);
   border-radius: var(--radius); padding: 26px;
   display: flex; flex-direction: column; gap: 14px;
-  transition: border-color 0.2s ease, background 0.2s ease, transform 0.25s var(--ease-out);
 }
 .card::after {
   content: ""; position: absolute; inset: 0 0 auto 0; height: 1px;
@@ -220,9 +332,9 @@ section[id] { scroll-margin-top: 78px; }
 .card__logo img { width: 100%; height: 100%; object-fit: contain; }
 .card h3 { font-size: 1.22rem; }
 .card h3 a { text-decoration: none; display: inline-flex; align-items: baseline; gap: 5px; }
-.card h3 a:hover { color: var(--accent); }
+.card h3 a:hover { color: var(--accent-ink); }
 .arrow { font-size: 0.78em; color: var(--muted); transition: transform 0.2s ease, color 0.2s ease; }
-.card h3 a:hover .arrow { color: var(--accent); transform: translate(2px, -2px); }
+.card h3 a:hover .arrow { color: var(--accent-ink); transform: translate(2px, -2px); }
 .card p { color: var(--text-mid); font-size: 0.96rem; }
 
 .pill {
@@ -230,7 +342,7 @@ section[id] { scroll-margin-top: 78px; }
   color: var(--muted); border: 1px solid var(--line); border-radius: 999px;
   padding: 3px 9px; white-space: nowrap;
 }
-.pill--live { color: var(--accent); border-color: rgba(198, 242, 78, 0.3); background: var(--accent-soft); }
+.pill--live { color: var(--accent-ink); border-color: var(--accent-line); background: var(--accent-soft); }
 
 .tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 0; }
 .tags li {
@@ -244,9 +356,40 @@ section[id] { scroll-margin-top: 78px; }
   border-top: 1px solid var(--line);
 }
 
+/* ---------- mascots ---------- */
+
+/* the hornero is dametrabajo's, the carpincho is Nuchus's, and both face into
+   the grid. Decoration only: aria-hidden, no pointer events, behind the cards,
+   and gone below 1180px where there is no margin left to hold them. */
+.mascot {
+  position: absolute; z-index: 0; pointer-events: none;
+  opacity: 0; /* JS fades them in once the section is reached */
+  transition: opacity 0.9s var(--ease-out);
+  transform: translate3d(0, var(--my, 0px), 0);
+  will-change: transform;
+}
+.mascot.is-in { opacity: var(--mascot-opacity); }
+.mascot img {
+  display: block; width: 100%; height: auto;
+  filter: var(--mascot-filter);
+  animation: bob 9s ease-in-out infinite;
+}
+/* each one leans into the outer edge of the card it belongs to: the hornero
+   on dametrabajo, the carpincho on Nuchus, both in the first row */
+.mascot--hornero { width: 250px; left: -136px; top: -34px; }
+.mascot--carpincho { width: 262px; right: -128px; top: -10px; }
+.mascot--carpincho img { animation-duration: 11s; animation-delay: -3s; }
+
+@keyframes bob {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -14px; }
+}
+
+@media (max-width: 1180px) { .mascot { display: none; } }
+
 /* ---------- also built ---------- */
 
-.also { margin-top: 56px; padding-top: 42px; border-top: 1px solid var(--line); }
+.also { margin-top: 56px; padding-top: 42px; border-top: 1px solid var(--line); position: relative; z-index: 1; }
 .also__head h3 { font-size: 1.1rem; margin-bottom: 8px; }
 .also__head p { color: var(--muted); font-size: 0.94rem; }
 
@@ -259,7 +402,6 @@ section[id] { scroll-margin-top: 78px; }
   display: grid; grid-template-columns: auto auto 1fr auto;
   align-items: center; gap: 18px;
   padding: 18px 22px;
-  transition: background 0.2s ease, opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
 }
 .sideitem:hover { background: var(--surface-hi); }
 .sideitem + .sideitem { border-top: 1px solid var(--line); }
@@ -271,13 +413,11 @@ section[id] { scroll-margin-top: 78px; }
   display: grid; place-items: center; padding: 5px;
 }
 .sideitem__logo img { width: 100%; height: 100%; object-fit: contain; }
-.sideitem__logo--letter {
-  padding: 0; font-family: var(--mono); font-size: 13px; color: var(--muted);
-}
+.sideitem__logo--letter { padding: 0; font-family: var(--mono); font-size: 13px; color: var(--muted); }
 
 .sideitem__body h4 { font-size: 0.98rem; margin-bottom: 4px; }
 .sideitem__body h4 a { text-decoration: none; display: inline-flex; align-items: baseline; gap: 5px; }
-.sideitem__body h4 a:hover, .sideitem__body h4 a:hover .arrow { color: var(--accent); }
+.sideitem__body h4 a:hover, .sideitem__body h4 a:hover .arrow { color: var(--accent-ink); }
 .sideitem__body h4 a:hover .arrow { transform: translate(2px, -2px); }
 .sideitem__body p { color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
 
@@ -293,11 +433,11 @@ section[id] { scroll-margin-top: 78px; }
 .craft__item h3 { font-size: 1.05rem; margin-bottom: 10px; }
 .craft__item h3::before {
   content: ""; display: block; width: 22px; height: 2px;
-  background: var(--accent); margin-bottom: 14px; border-radius: 2px;
+  background: var(--accent-ink); margin-bottom: 14px; border-radius: 2px;
   transform-origin: left center;
   transition: transform 0.55s var(--ease-out) 0.15s;
 }
-/* drawn by default, so it survives both a missing script and the class strip */
+/* drawn by default, so a missing script never leaves it collapsed */
 .js .craft__item.reveal:not(.is-in) h3::before { transform: scaleX(0); }
 .craft__item p { color: var(--muted); font-size: 0.95rem; }
 
@@ -315,7 +455,7 @@ section[id] { scroll-margin-top: 78px; }
 
 .honest {
   margin-top: 40px; padding: 20px 24px;
-  border-left: 2px solid var(--accent); background: var(--surface);
+  border-left: 2px solid var(--accent-ink); background: var(--surface);
   border-radius: 0 10px 10px 0; color: var(--muted); font-size: 0.95rem;
 }
 .honest strong { color: var(--text); }
@@ -329,7 +469,6 @@ section[id] { scroll-margin-top: 78px; }
   border-radius: 12px; padding: 20px;
   display: flex; flex-direction: column; gap: 10px;
   text-decoration: none; color: inherit;
-  transition: border-color 0.2s ease, background 0.2s ease, transform 0.25s var(--ease-out);
 }
 .skill-card:hover { border-color: var(--line-hi); background: var(--surface-hi); transform: translateY(-3px); }
 
@@ -343,8 +482,7 @@ section[id] { scroll-margin-top: 78px; }
 
 .skill-card h3 { font-size: 1rem; font-weight: 600; display: flex; align-items: center; gap: 6px; }
 .skill-card h3 .arrow { font-size: 0.72em; color: var(--muted); }
-.skill-card:hover h3 { color: var(--accent); }
-.skill-card:hover h3 .arrow { color: var(--accent); }
+.skill-card:hover h3, .skill-card:hover h3 .arrow { color: var(--accent-ink); }
 .skill-card p { color: var(--muted); font-size: 0.88rem; margin: 0; }
 
 .skills-cta { margin-top: 26px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
@@ -361,13 +499,13 @@ section[id] { scroll-margin-top: 78px; }
    and paint every cell the same empty grey */
 .heat__grid i {
   width: 11px; height: 11px; border-radius: 2px; display: block;
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
 }
 .lv0 { background: var(--surface); }
-.lv1 { background: rgba(198, 242, 78, 0.34); }
-.lv2 { background: rgba(198, 242, 78, 0.56); }
-.lv3 { background: rgba(198, 242, 78, 0.78); }
-.lv4 { background: var(--accent); }
+.lv1 { background: var(--lv1); }
+.lv2 { background: var(--lv2); }
+.lv3 { background: var(--lv3); }
+.lv4 { background: var(--lv4); }
 
 .heat__caption {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;
@@ -378,10 +516,9 @@ section[id] { scroll-margin-top: 78px; }
 
 .note { color: var(--muted); font-size: 0.93rem; max-width: 62ch; margin-bottom: 18px; }
 .note a { color: var(--text-mid); text-decoration: none; border-bottom: 1px solid var(--line-hi); }
-.note a:hover, .note a:hover .arrow { color: var(--accent); }
-.note a:hover { border-bottom-color: var(--accent); }
+.note a:hover, .note a:hover .arrow { color: var(--accent-ink); }
+.note a:hover { border-bottom-color: var(--accent-ink); }
 .note a .arrow { font-size: 0.8em; margin-left: 3px; }
-.note--work { margin: 30px 0 0; padding-top: 26px; border-top: 1px solid var(--line); }
 
 /* ---------- contact ---------- */
 
@@ -398,27 +535,45 @@ section[id] { scroll-margin-top: 78px; }
 
 /* ---------- reveal on scroll ---------- */
 
-/* content is visible by default; only JS opts into the animation, so a broken
+/* Content is visible by default; only JS opts into the animation, so a broken
    observer or a blocked script can never leave the page blank.
-   --d is the stagger JS writes per element from its position in its group. */
+
+   Three states, not two, which is what makes it read like a cut rather than a
+   fade: below and unseen, on stage, and gone past the top. Scrolling back up
+   replays it, because is-in is toggled and never unobserved.
+
+   --d is the stagger app.js writes from the element's position in its group.
+
+   translate and scale are used instead of transform on purpose: they are
+   separate animatable properties, so a card can be sliding into place and
+   lifting on hover at the same time without the two fighting over transform. */
 .js .reveal {
-  opacity: 0; transform: translateY(20px);
-  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  opacity: 0; translate: 0 24px;
+  transition: opacity 0.7s var(--ease-out), translate 0.7s var(--ease-out), scale 0.7s var(--ease-out);
   transition-delay: var(--d, 0ms);
 }
-.js .reveal.is-in { opacity: 1; transform: none; }
+.js .reveal.is-in { opacity: 1; translate: none; scale: none; }
+/* already read and scrolled past: leaves upward, and comes back if you return */
+.js .reveal.is-past { opacity: 0; translate: 0 -18px; transition-delay: 0ms; }
 
-/* cards rise and settle; list rows slide in from the edge they sit on.
-   `.js .reveal` outranks the component's own transition, so JS drops both
-   classes once the entrance is over and hover goes back to its own timing. */
-.js .card.reveal, .js .skill-card.reveal { transform: translateY(26px) scale(0.985); }
-.js .sideitem.reveal { transform: translateX(-18px); }
-.js .stats.reveal { transform: translateY(28px); }
+.js .card.reveal, .js .skill-card.reveal { translate: 0 28px; scale: 0.985; }
+.js .card.reveal.is-past, .js .skill-card.reveal.is-past { translate: 0 -20px; scale: 0.99; }
+.js .sideitem.reveal { translate: -20px 0; }
+.js .sideitem.reveal.is-past { translate: -12px 0; }
+.js .stats.reveal { translate: 0 30px; }
+
+/* hover timings live on the component, and stay untouched by the reveal above
+   because the reveal only ever animates opacity, translate and scale */
+.card, .skill-card { transition: transform 0.25s var(--ease-out), border-color 0.2s ease, background 0.2s ease; }
+.sideitem { transition: background 0.2s ease; }
 
 @media (prefers-reduced-motion: reduce) {
-  .js .reveal, .js .card.reveal, .js .skill-card.reveal,
-  .js .sideitem.reveal, .js .stats.reveal { opacity: 1; transform: none; transition: none; }
+  .js .reveal, .js .reveal.is-past,
+  .js .card.reveal, .js .skill-card.reveal, .js .sideitem.reveal, .js .stats.reveal {
+    opacity: 1; translate: none; scale: none; transition: none;
+  }
   .js .craft__item.reveal:not(.is-in) h3::before { transform: none; transition: none; }
   .btn:hover, .card:hover, .skill-card:hover { transform: none; }
-  .glow { transform: none; }
+  .glow, .bg { transform: none; }
+  .mascot img { animation: none; }
 }

@@ -6,7 +6,9 @@ Static HTML, one stylesheet, one script. No build step, no framework.
 ```
 index.html                       page content
 assets/style.css                 design system, dark only
-assets/app.js                    scroll system (progress, parallax, staggered reveals) + heatmap
+assets/app.js                    theme, language, scroll system, heatmap
+assets/i18n.js                   the Spanish half of the page, keyed by English
+assets/mascots/                  hornero (dametrabajo) and carpincho (Nuchus)
 data/github.json                 refreshed daily by Actions, committed to the repo
 scripts/fetch_github.py          the fetcher
 .github/workflows/refresh-data.yml
@@ -50,7 +52,42 @@ query, so bump that number in both `<link>` and `<script>` whenever you change
 Project cards, the "Also built" list, craft items, skills and copy are plain HTML
 in `index.html`. The only generated part is the heatmap.
 
-The reveal animation lives on the `reveal` class. `app.js` staggers each element by
-its position inside its own group, then strips both classes once the entrance is
-over — `.js .reveal` outranks every component's own transition, so anything left
-with the class would lose its hover timing.
+## Themes
+
+Every colour is a token on `:root` (dark) with an override inside
+`[data-theme="light"]`. Nothing hardcodes a hex outside that block. The accent
+splits in two on purpose: `--accent` is the fill and stays lime in both themes
+because it is the brand, `--accent-ink` is the same idea as text and gets darker
+in light mode, because lime text on white cannot be read.
+
+An inline script in `<head>` sets `data-theme` and `data-lang` before the body
+parses, so the page never flashes the wrong theme. Both fall back to what the
+browser already knows: `prefers-color-scheme` and `navigator.language`.
+
+## Spanish
+
+`assets/i18n.js` is keyed by the English source: the element's `innerHTML` with
+whitespace collapsed. Nothing in `index.html` needs an id or a data attribute,
+and a string that reads the same in both languages (product names, stack chips)
+is simply absent from the dictionary and left alone.
+
+When you edit English copy, edit the matching key too, or that element silently
+stops translating. To find those, switch to Spanish in the browser and run:
+
+```js
+const norm = h => h.replace(/\s+/g, ' ').trim();
+const used = new Set([...document.querySelectorAll('[data-en]')].map(e => norm(e.getAttribute('data-en'))));
+Object.keys(window.ES).filter(k => k[0] !== '_' && !used.has(norm(k)));
+```
+
+An empty array means every key found its element.
+
+## Motion
+
+The reveal is three states, not two: below and unseen, on stage, and `is-past`
+above the top. The observer is never disconnected, so scrolling back up replays
+the entrance. `translate` and `scale` are used instead of `transform`, because
+they are separate animatable properties: a card can slide into place and lift on
+hover at the same time without the two fighting over one property.
+
+Everything stops under `prefers-reduced-motion`.

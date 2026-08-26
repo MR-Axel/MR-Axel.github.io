@@ -18,8 +18,29 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=7">
-<script>document.documentElement.classList.add('js');</script>
+<link rel="stylesheet" href="assets/style.css?v=8">
+<script>
+/* Runs before the body parses, so the page never flashes the wrong theme or
+   the wrong language. Both fall back to what the browser already told us:
+   prefers-color-scheme, and navigator.language for Spanish speakers. */
+(function () {
+  var d = document.documentElement;
+  d.classList.add('js');
+  var theme, lang;
+  try { theme = localStorage.getItem('site-theme'); lang = localStorage.getItem('site-lang'); } catch (e) {}
+  if (theme !== 'light' && theme !== 'dark') {
+    theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+  if (lang !== 'es' && lang !== 'en') {
+    lang = (navigator.language || 'en').toLowerCase().indexOf('es') === 0 ? 'es' : 'en';
+  }
+  d.setAttribute('data-theme', theme);
+  d.setAttribute('data-lang', lang);
+  d.setAttribute('lang', lang);
+  var m = document.querySelector('meta[name="theme-color"]');
+  if (m) m.setAttribute('content', theme === 'light' ? '#fbfaf7' : '#08090b');
+})();
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -38,6 +59,8 @@
 </script>
 </head>
 <body>
+<div class="bg" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="nav">
@@ -52,6 +75,13 @@
       <a href="#craft">Craft</a>
       <a href="#skills">Agent Skills</a>
       <a href="#activity">Activity</a>
+      <div class="switches">
+        <button class="sw" id="lang-toggle" type="button" aria-label="Cambiar idioma / Switch language"><span id="lang-label">ES</span></button>
+        <button class="sw" id="theme-toggle" type="button" aria-label="Switch theme">
+          <svg class="sw__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+          <svg class="sw__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/></svg>
+        </button>
+      </div>
       <a class="btn btn--sm" href="#contact">Get in touch</a>
     </nav>
   </div>
@@ -96,6 +126,10 @@
         <h2>Work</h2>
         <p>Products I founded or co-founded. All of them are live, all of them are mine to keep running.</p>
       </div>
+
+      <div class="cards-stage">
+      <span class="mascot mascot--hornero" aria-hidden="true"><img src="assets/mascots/hornero.png" alt="" loading="lazy" decoding="async"></span>
+      <span class="mascot mascot--carpincho" aria-hidden="true"><img src="assets/mascots/carpincho.webp" alt="" loading="lazy" decoding="async"></span>
 
       <div class="cards">
         <article class="card reveal">
@@ -182,6 +216,7 @@
           <ul class="tags"><li>AI agents</li><li>Automation</li><li>Voice</li><li>SMB</li></ul>
           <p class="card__role">Founder</p>
         </article>
+      </div>
       </div>
 
       <div class="also">
@@ -427,9 +462,9 @@
         </div>
         <figcaption id="heat-caption" class="heat__caption">
           <span data-stat="contributions-line">4,845 contributions in the last year</span>
-          <span class="heat__legend">Less
+          <span class="heat__legend"><span data-t>Less</span>
             <i class="lv lv0"></i><i class="lv lv1"></i><i class="lv lv2"></i><i class="lv lv3"></i><i class="lv lv4"></i>
-          More</span>
+            <span data-t>More</span></span>
         </figcaption>
       </figure>
 
@@ -465,6 +500,7 @@
   </div>
 </footer>
 
-<script src="assets/app.js?v=4" defer></script>
+<script src="assets/i18n.js?v=1"></script>
+<script src="assets/app.js?v=5"></script>
 </body>
 </html>
