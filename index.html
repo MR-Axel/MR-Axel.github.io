@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Axel Rosso — AI Product Manager &amp; Builder</title>
-<meta name="description" content="AI Product Manager and builder from Buenos Aires. I ship AI agent products, automation and internal tooling, and build Nuchus, Kidonauta, Unlaunched, Buildeable and Pedimelo on the side.">
+<meta name="description" content="AI Product Manager and builder from Buenos Aires. I ship AI agent products, automation and internal tooling, and build dametrabajo, Kidonauta, Nuchus, Unlaunched, Buildeable and Pedimelo on the side.">
 <link rel="canonical" href="https://mr-axel.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Axel Rosso — AI Product Manager &amp; Builder">
-<meta property="og:description" content="AI agent products, automation and 0 to 1 building. Five live products, shipped with Claude Code in the loop.">
+<meta property="og:description" content="AI agent products, automation and 0 to 1 building. Six live products, shipped with Claude Code in the loop.">
 <meta property="og:url" content="https://mr-axel.github.io/">
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/51409297?v=4">
 <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=5">
+<link rel="stylesheet" href="assets/style.css?v=6">
 <script>document.documentElement.classList.add('js');</script>
 <script type="application/ld+json">
 {
@@ -41,6 +41,7 @@
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="nav">
+  <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
   <div class="wrap nav__inner">
     <a class="mark" href="#top" aria-label="Axel Rosso, home">
       <span class="mark__box">A</span>
@@ -49,7 +50,7 @@
     <nav class="nav__links" aria-label="Sections">
       <a href="#work">Work</a>
       <a href="#craft">Craft</a>
-      <a href="#skills">Skills</a>
+      <a href="#skills">Agent Skills</a>
       <a href="#activity">Activity</a>
       <a class="btn btn--sm" href="#contact">Get in touch</a>
     </nav>
@@ -80,8 +81,8 @@
       </div>
 
       <dl class="stats reveal">
-        <div><dt>Live products built</dt><dd>5</dd></div>
-        <div><dt>Contributions, last year</dt><dd data-stat="contributions">3,168</dd></div>
+        <div><dt>Live products built</dt><dd>6</dd></div>
+        <div><dt>Contributions, last year</dt><dd data-stat="contributions">4,845</dd></div>
         <div><dt>Years in software</dt><dd>9+</dd></div>
         <div><dt>Years building solo</dt><dd>3</dd></div>
       </dl>
@@ -99,15 +100,16 @@
         <article class="card reveal">
           <div class="card__top">
             <div class="card__title">
-              <span class="card__logo"><img src="assets/logos/nuchus.png" alt="" loading="lazy"></span>
-              <h3><a href="https://nuchus.app" target="_blank" rel="noopener">Nuchus<span class="arrow" aria-hidden="true">↗</span></a></h3>
+              <span class="card__logo"><img src="assets/logos/dametrabajo.png" alt="" loading="lazy"></span>
+              <h3><a href="https://dametrabajo.com" target="_blank" rel="noopener">dametrabajo<span class="arrow" aria-hidden="true">↗</span></a></h3>
             </div>
             <span class="pill pill--live">Live</span>
           </div>
-          <p>Daily urban carpooling in Buenos Aires. Flat prepaid fare that does not spike at rush
-             hour, matching passengers with drivers who were already making that trip.</p>
-          <ul class="tags"><li>Product</li><li>Marketplace</li><li>WhatsApp bot</li><li>Hedera</li></ul>
-          <p class="card__role">Co-founder · product and commercial</p>
+          <p>A job-application product for LatAm candidates applying locally and abroad: tailored
+             CVs per posting, tracked applications, and eligibility checks up front instead of
+             after you&#39;ve already applied.</p>
+          <ul class="tags"><li>SaaS</li><li>Claude API</li><li>Job search</li></ul>
+          <p class="card__role">Founder</p>
         </article>
 
         <article class="card reveal">
@@ -122,6 +124,20 @@
              around what they already love, and never hands over the answer.</p>
           <ul class="tags"><li>Ed-tech</li><li>Claude API</li><li>Expo</li><li>Supabase</li></ul>
           <p class="card__role">Co-founder · product</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__top">
+            <div class="card__title">
+              <span class="card__logo"><img src="assets/logos/nuchus.png" alt="" loading="lazy"></span>
+              <h3><a href="https://nuchus.app" target="_blank" rel="noopener">Nuchus<span class="arrow" aria-hidden="true">↗</span></a></h3>
+            </div>
+            <span class="pill pill--live">Live</span>
+          </div>
+          <p>Daily urban carpooling in Buenos Aires. Flat prepaid fare that does not spike at rush
+             hour, matching passengers with drivers who were already making that trip.</p>
+          <ul class="tags"><li>Product</li><li>Marketplace</li><li>WhatsApp bot</li><li>Hedera</li></ul>
+          <p class="card__role">Co-founder · product and commercial</p>
         </article>
 
         <article class="card reveal">
@@ -165,47 +181,60 @@
           <ul class="tags"><li>AI agents</li><li>Automation</li><li>Voice</li><li>SMB</li></ul>
           <p class="card__role">Founder</p>
         </article>
-
-        <article class="card card--muted reveal">
-          <div class="card__top">
-            <div class="card__title">
-              <span class="card__logo"><img src="assets/logos/rise-of-hedera.svg" alt="" loading="lazy"></span>
-              <h3>Rise of Hedera</h3>
-            </div>
-            <span class="pill">In progress</span>
-          </div>
-          <p>A desktop game with on-chain assets on Hedera. Solidity contracts, a Tauri client and
-             a sprite pipeline, mostly an excuse to go deep on the chain.</p>
-          <ul class="tags"><li>Hedera</li><li>Solidity</li><li>Tauri</li><li>Game</li></ul>
-          <p class="card__role">Solo project</p>
-        </article>
-
-        <article class="card card--muted reveal">
-          <div class="card__top">
-            <div class="card__title">
-              <span class="card__logo"><img src="assets/logos/dametrabajo.png" alt="" loading="lazy"></span>
-              <h3><a href="https://dametrabajo.com" target="_blank" rel="noopener">dametrabajo<span class="arrow" aria-hidden="true">↗</span></a></h3>
-            </div>
-            <span class="pill">In construction</span>
-          </div>
-          <p>A job-application product for LatAm candidates applying locally and abroad: tailored
-             CVs per posting, tracked applications, and eligibility checks up front instead of
-             after you've already applied.</p>
-          <ul class="tags"><li>SaaS</li><li>Claude API</li><li>Job search</li></ul>
-          <p class="card__role">Founder</p>
-        </article>
       </div>
 
-      <p class="note note--work reveal">
-        Also built and shipped:
-        <a href="https://comovenimos.com" target="_blank" rel="noopener">ComoVenimos</a>,
-        a community for tech and startup people, with a blog and a following graph;
-        <a href="https://valmidor.com" target="_blank" rel="noopener">Valmidor</a>,
-        daily gamified challenges with rankings and a WhatsApp loop; and
-        <a href="https://fiteando.com" target="_blank" rel="noopener">Fiteando</a>,
-        a social app for finding a training partner. Some are paused, some ran their course.
-        The six above are the ones I still run.
-      </p>
+      <div class="also">
+        <div class="also__head reveal">
+          <h3>Also built</h3>
+          <p>Side projects and earlier launches. The six above are the ones I still run.</p>
+        </div>
+
+        <ul class="sidelist">
+          <li class="sideitem reveal">
+            <span class="sideitem__idx">01</span>
+            <span class="sideitem__logo"><img src="assets/logos/rise-of-hedera.svg" alt="" loading="lazy"></span>
+            <div class="sideitem__body">
+              <h4>Rise of Hedera</h4>
+              <p>A desktop game with on-chain assets on Hedera. Solidity contracts, a Tauri client
+                 and a sprite pipeline, mostly an excuse to go deep on the chain.</p>
+            </div>
+            <span class="pill">In progress</span>
+          </li>
+
+          <li class="sideitem reveal">
+            <span class="sideitem__idx">02</span>
+            <span class="sideitem__logo sideitem__logo--letter" aria-hidden="true">C</span>
+            <div class="sideitem__body">
+              <h4><a href="https://comovenimos.com" target="_blank" rel="noopener">ComoVenimos<span class="arrow" aria-hidden="true">↗</span></a></h4>
+              <p>A community for tech and startup people, with a blog, a following graph and paid
+                 memberships.</p>
+            </div>
+            <span class="pill pill--live">Live</span>
+          </li>
+
+          <li class="sideitem reveal">
+            <span class="sideitem__idx">03</span>
+            <span class="sideitem__logo sideitem__logo--letter" aria-hidden="true">F</span>
+            <div class="sideitem__body">
+              <h4><a href="https://fiteando.com" target="_blank" rel="noopener">Fiteando<span class="arrow" aria-hidden="true">↗</span></a></h4>
+              <p>A social app for finding a training partner. React Native and Expo, passwordless
+                 sign in, built around who is at the gym at the same hour as you.</p>
+            </div>
+            <span class="pill">In progress</span>
+          </li>
+
+          <li class="sideitem reveal">
+            <span class="sideitem__idx">04</span>
+            <span class="sideitem__logo sideitem__logo--letter" aria-hidden="true">V</span>
+            <div class="sideitem__body">
+              <h4><a href="https://valmidor.com" target="_blank" rel="noopener">Valmidor<span class="arrow" aria-hidden="true">↗</span></a></h4>
+              <p>Daily gamified challenges with rankings and a WhatsApp loop to keep the streak
+                 alive.</p>
+            </div>
+            <span class="pill">Paused</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -272,9 +301,9 @@
   <section id="skills" class="section">
     <div class="wrap">
       <div class="section__head reveal">
-        <h2>Skills</h2>
-        <p>14 open Claude Code skills. No hardcoded stack or preferences: each one asks once,
-           saves the answer in your repo, and says so instead of guessing when that file is
+        <h2>Agent Skills</h2>
+        <p>14 open Agent Skills for Claude Code. No hardcoded stack or preferences: each one asks
+           once, saves the answer in your repo, and says so instead of guessing when that file is
            missing.</p>
       </div>
 
@@ -374,8 +403,8 @@
     <div class="wrap">
       <div class="section__head reveal">
         <h2>Activity</h2>
-        <p>Most of the code lives in private product repos, so the graph is the honest part.
-           The repos below are what is public.</p>
+        <p>Most of the code lives in private product repos, so the graph is the honest
+           part of it.</p>
       </div>
 
       <figure class="heat reveal" aria-labelledby="heat-caption">
@@ -383,7 +412,7 @@
           <div class="heat__grid" id="heatmap" role="img" aria-label="GitHub contribution graph for the last year"></div>
         </div>
         <figcaption id="heat-caption" class="heat__caption">
-          <span data-stat="contributions-line">3,168 contributions in the last year</span>
+          <span data-stat="contributions-line">4,845 contributions in the last year</span>
           <span class="heat__legend">Less
             <i class="lv lv0"></i><i class="lv lv1"></i><i class="lv lv2"></i><i class="lv lv3"></i><i class="lv lv4"></i>
           More</span>
@@ -391,11 +420,10 @@
       </figure>
 
       <p class="note reveal">
-        What is public on GitHub is the short list below. The product code lives in private
-        repos, which is where most of that graph comes from.
+        What is public is this site and the Agent Skills above. Everything else is product code
+        in private repos, which is where most of that graph comes from.
+        <a href="https://github.com/MR-Axel" target="_blank" rel="noopener">See the profile on GitHub<span class="arrow" aria-hidden="true">↗</span></a>
       </p>
-
-      <ul class="repos" id="repos"></ul>
     </div>
   </section>
 
@@ -423,6 +451,6 @@
   </div>
 </footer>
 
-<script src="assets/app.js?v=3" defer></script>
+<script src="assets/app.js?v=4" defer></script>
 </body>
 </html>

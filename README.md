@@ -6,7 +6,7 @@ Static HTML, one stylesheet, one script. No build step, no framework.
 ```
 index.html                       page content
 assets/style.css                 design system, dark only
-assets/app.js                    heatmap + repo list rendering, scroll reveals
+assets/app.js                    scroll system (progress, parallax, staggered reveals) + heatmap
 data/github.json                 refreshed daily by Actions, committed to the repo
 scripts/fetch_github.py          the fetcher
 .github/workflows/refresh-data.yml
@@ -20,7 +20,7 @@ python -m http.server 8000
 
 Then open http://localhost:8000. Opening `index.html` straight from the filesystem
 works too, except the `fetch` of `data/github.json` is blocked by CORS, so the
-heatmap and repo list stay empty.
+heatmap stays empty.
 
 ## Refreshing the data by hand
 
@@ -47,5 +47,10 @@ query, so bump that number in both `<link>` and `<script>` whenever you change
 
 ## Editing content
 
-Project cards, craft items and copy are plain HTML in `index.html`. The only
-generated parts are the heatmap and the public repo list.
+Project cards, the "Also built" list, craft items, skills and copy are plain HTML
+in `index.html`. The only generated part is the heatmap.
+
+The reveal animation lives on the `reveal` class. `app.js` staggers each element by
+its position inside its own group, then strips both classes once the entrance is
+over — `.js .reveal` outranks every component's own transition, so anything left
+with the class would lose its hover timing.

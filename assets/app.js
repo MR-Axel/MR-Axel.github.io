@@ -1,41 +1,123 @@
-/* Renders the contribution heatmap and public repo list from data/github.json,
-   which a GitHub Action refreshes daily. Everything degrades quietly if the
-   file is missing: the page still reads fine without it. */
+/* Scroll behaviour (progress bar, nav state, hero parallax, staggered reveals)
+   and the contribution heatmap, painted from data/github.json which a GitHub
+   Action refreshes daily. Everything degrades quietly if the file is missing:
+   the page still reads fine without it. */
 
 (function () {
   'use strict';
 
   var nf = new Intl.NumberFormat('en-US');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* --- sticky nav border --- */
+  /* --- one scroll handler for the whole page, on a rAF ---
+     nav border, reading progress and the hero glow all read the same
+     scrollY, so they can never disagree about where the page is. */
   var nav = document.querySelector('.nav');
-  if (nav) {
-    var onScroll = function () { nav.classList.toggle('is-stuck', window.scrollY > 8); };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
+  var bar = document.getElementById('progress-bar');
+  var glow = document.querySelector('.glow');
+  var pending = false;
+
+  function frame() {
+    pending = false;
+    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+    if (nav) nav.classList.toggle('is-stuck', y > 8);
+
+    if (bar) {
+      var doc = document.documentElement;
+      var max = Math.max(1, doc.scrollHeight - window.innerHeight);
+      bar.style.width = Math.min(100, (y / max) * 100).toFixed(2) + '%';
+    }
+
+    /* the glow drifts at a quarter speed and gives out before the next
+       section arrives, so it never bleeds into Work */
+    if (glow && !reduced) {
+      glow.style.setProperty('--sy', Math.round(y * 0.25) + 'px');
+      glow.style.opacity = Math.max(0, 1 - y / 900).toFixed(3);
+    }
+  }
+
+  function onScroll() {
+    if (pending) return;
+    pending = true;
+    window.requestAnimationFrame(frame);
+  }
+
+  frame();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+
+  /* --- which section am I in --- */
+  var links = [].slice.call(document.querySelectorAll('.nav__links a[href^="#"]'));
+  var sections = links
+    .map(function (a) { return document.querySelector(a.getAttribute('href')); })
+    .filter(Boolean);
+
+  if (sections.length && 'IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        links.forEach(function (a) {
+          a.classList.toggle('is-active', a.getAttribute('href') === '#' + entry.target.id);
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(function (el) { spy.observe(el); });
   }
 
   /* --- reveal on scroll --- */
-  var items = document.querySelectorAll('.reveal');
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = [].slice.call(document.querySelectorAll('.reveal'));
+
+  /* stagger by position inside the element's own group, so a row of cards
+     arrives one after another instead of all at once */
+  items.forEach(function (el) {
+    var sibs = el.parentNode ? el.parentNode.children : [];
+    var before = 0;
+    for (var i = 0; i < sibs.length; i++) {
+      if (sibs[i] === el) break;
+      if (sibs[i].classList && sibs[i].classList.contains('reveal')) before++;
+    }
+    el.style.setProperty('--d', Math.min(before * 70, 350) + 'ms');
+  });
+
+  /* `.js .reveal` outranks each component's own transition, so once the
+     entrance is done the classes come off and hover goes back to normal */
+  function settle(el) {
+    var delay = parseInt(el.style.getPropertyValue('--d'), 10) || 0;
+    window.setTimeout(function () {
+      el.classList.remove('reveal', 'is-in');
+      el.style.removeProperty('--d');
+    }, delay + 900);
+  }
+
+  function showAll() {
+    items.forEach(function (el) {
+      el.classList.remove('reveal', 'is-in');
+      el.style.removeProperty('--d');
+    });
+  }
+
   if (reduced || !('IntersectionObserver' in window)) {
-    items.forEach(function (el) { el.classList.add('is-in'); });
+    showAll();
   } else {
+    var fired = false;
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry, i) {
+      entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        var el = entry.target;
-        setTimeout(function () { el.classList.add('is-in'); }, Math.min(i * 55, 220));
-        io.unobserve(el);
+        fired = true;
+        entry.target.classList.add('is-in');
+        settle(entry.target);
+        io.unobserve(entry.target);
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
     items.forEach(function (el) { io.observe(el); });
 
-    /* if the observer never fires (headless render, odd embed), show everything */
-    setTimeout(function () {
-      if (document.querySelectorAll('.reveal.is-in').length) return;
+    /* if the observer never fires (headless render, odd embed), show everything.
+       `fired`, not a DOM check: settled elements have already lost the class */
+    window.setTimeout(function () {
+      if (fired) return;
       io.disconnect();
-      items.forEach(function (el) { el.classList.add('is-in'); });
+      showAll();
     }, 1500);
   }
 
@@ -46,13 +128,11 @@
     .catch(function () { /* static copy stays as written */ });
 
   function render(data) {
-    if (data.contributions) {
-      paintHeatmap(data.contributions);
-      var total = nf.format(data.contributions.total);
-      setText('[data-stat="contributions"]', total);
-      setText('[data-stat="contributions-line"]', total + ' contributions in the last year');
-    }
-    if (data.repos) paintRepos(data.repos);
+    if (!data.contributions) return;
+    paintHeatmap(data.contributions);
+    var total = nf.format(data.contributions.total);
+    setText('[data-stat="contributions"]', total);
+    setText('[data-stat="contributions-line"]', total + ' contributions in the last year');
   }
 
   function setText(sel, value) {
@@ -107,50 +187,5 @@
 
     grid.textContent = '';
     grid.appendChild(frag);
-  }
-
-  function paintRepos(repos) {
-    var list = document.getElementById('repos');
-    if (!list) return;
-
-    /* 'MR-Axel' is the profile README repo, not a project */
-    var visible = repos
-      .filter(function (r) { return !r.archived && r.name !== 'MR-Axel'; })
-      .sort(function (a, b) {
-        if (a.updated !== b.updated) return a.updated < b.updated ? 1 : -1;
-        return b.stars - a.stars;
-      })
-      .slice(0, 8);
-
-    if (!visible.length) return;
-
-    list.textContent = '';
-    visible.forEach(function (repo) {
-      var li = document.createElement('li');
-      var a = document.createElement('a');
-      a.href = repo.url;
-      a.target = '_blank';
-      a.rel = 'noopener';
-
-      var name = document.createElement('span');
-      name.className = 'repo__name';
-      name.textContent = repo.name;
-
-      var desc = document.createElement('span');
-      desc.className = 'repo__desc';
-      desc.textContent = repo.description || '';
-
-      var meta = document.createElement('span');
-      meta.className = 'repo__meta';
-      var bits = [];
-      if (repo.language) bits.push(repo.language);
-      if (repo.stars) bits.push('★ ' + repo.stars);
-      bits.push(repo.updated.slice(0, 7));
-      meta.textContent = bits.join(' · ');
-
-      a.append(name, desc, meta);
-      li.appendChild(a);
-      list.appendChild(li);
-    });
   }
 })();
