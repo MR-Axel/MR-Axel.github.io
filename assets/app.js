@@ -123,6 +123,8 @@
     if (bar) bar.style.width = (progress * 100).toFixed(2) + '%';
     if (reduced) return;
 
+    paintArc(y);
+
     /* Each background layer moves at its own rate and some of them the other
        way, which is the whole trick: one layer drifting reads as a bug, five
        at different rates read as depth. Everything is driven off `progress`
@@ -156,15 +158,105 @@
     }
   }
 
+  /* ---- the pinned Path scene ----
+
+     The section stays on screen while you travel it and a line draws from the
+     first node to the last, lighting each step as it arrives. Measured, never
+     assumed: the rail geometry and the point at which each step turns on both
+     come from the real node centres, so the Spanish copy running longer than
+     the English cannot put the line out of step with the icons.
+
+     Pinning is a privilege, not a default. It happens only if the whole stage
+     genuinely fits on the screen, which is the difference between a scene and
+     a clipped section on a laptop. Everything below re-measures on resize and
+     again once the fonts land, because a font swap moves every node. */
+  var arcTrack = document.querySelector('.arc-track');
+  var arcStage = document.querySelector('.arc-stage');
+  var arcList = document.querySelector('.arc');
+  var arcSteps = [].slice.call(document.querySelectorAll('.arc__step'));
+  var arc = null;
+
+  function unpinArc() {
+    arc = null;
+    if (!arcTrack) return;
+    arcTrack.classList.remove('is-pinned');
+    arcList.classList.remove('is-scrubbing');
+    arcList.style.removeProperty('--draw');
+    arcSteps.forEach(function (el) { el.classList.remove('is-on', 'is-current'); });
+  }
+
+  function measureArc() {
+    if (!arcTrack || !arcStage || !arcList || arcSteps.length < 2 || reduced) return unpinArc();
+    if (window.innerWidth < 900) return unpinArc();
+
+    /* Measure with the scene actually on, because the two modes are different
+       shapes: the vertical list is twice the height of the rail, so measuring
+       the wrong one answers the wrong question. If the rail does not fit
+       either, everything comes back off and the plain list stands. */
+    arcTrack.classList.add('is-pinned');
+    arcList.classList.add('is-scrubbing');
+
+    /* The content, not the box. The stage carries min-height: 100vh, so its
+       own rect always measures exactly one screen and comparing that against
+       the screen can only ever say no. */
+    var inner = arcStage.firstElementChild;
+    var pad = parseFloat(getComputedStyle(arcStage).paddingTop) +
+              parseFloat(getComputedStyle(arcStage).paddingBottom);
+    if (!inner || inner.getBoundingClientRect().height + pad > window.innerHeight - 24) {
+      return unpinArc();
+    }
+
+    arc = {
+      top: arcTrack.getBoundingClientRect().top + (window.pageYOffset || 0),
+      scrub: Math.max(1, arcTrack.offsetHeight - window.innerHeight),
+      /* six equal flex columns put the node centres at even fractions of the
+         rail, so the thresholds are exact without touching the DOM */
+      at: arcSteps.map(function (el, i) { return i / (arcSteps.length - 1); })
+    };
+    frame();
+  }
+
+  function paintArc(y) {
+    if (!arc) return;
+    var p = Math.max(0, Math.min(1, (y - arc.top) / arc.scrub));
+    /* head and tail of the track are dead air, so the line finishes before
+       the section lets go instead of completing on the very last pixel */
+    var draw = Math.max(0, Math.min(1, (p - 0.08) / 0.74));
+    arcList.style.setProperty('--draw', draw.toFixed(4));
+
+    /* two different states, and they are not the same question. `is-on` is
+       cumulative: everything the line has already passed stays lit, so you can
+       see how far you have come. `is-current` is the one step whose story is
+       up in the panel, and there is exactly one at a time. */
+    var current = 0;
+    for (var i = 0; i < arcSteps.length; i++) {
+      var reached = draw >= arc.at[i] - 0.02;
+      arcSteps[i].classList.toggle('is-on', reached);
+      if (reached) current = i;
+    }
+    for (var j = 0; j < arcSteps.length; j++) {
+      arcSteps[j].classList.toggle('is-current', j === current);
+    }
+  }
+
   function onScroll() {
     if (pending) return;
     pending = true;
     window.requestAnimationFrame(frame);
   }
 
+  /* first measurement inside a rAF: run it straight away and the stage has not
+     been laid out yet, so its height reads as nearly nothing and the section
+     pins when it should not */
+  window.requestAnimationFrame(measureArc);
   frame();
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll, { passive: true });
+  window.addEventListener('resize', measureArc, { passive: true });
+  window.addEventListener('load', measureArc);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measureArc);
+  /* the language swap changes how many lines each step takes */
+  var langBtnArc = document.getElementById('lang-toggle');
+  if (langBtnArc) langBtnArc.addEventListener('click', function () { window.setTimeout(measureArc, 60); });
 
   /* --- which section am I in --- */
   var links = [].slice.call(document.querySelectorAll('.nav__links a[href^="#"]'));

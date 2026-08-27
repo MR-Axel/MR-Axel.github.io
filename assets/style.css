@@ -591,17 +591,32 @@ section[id] { scroll-margin-top: 78px; }
 
 /* ---------- the arc ---------- */
 
-/* One rail down the left with the nodes sitting on it. The rail is drawn by
-   the last step's ::before rather than a wrapper element, so it always ends
-   exactly at the last node and never overshoots into the padding. */
-.arc { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+/* TWO MODES, AND THE STATIC ONE IS THE REAL PAGE.
+
+   Without JS, without the width to pin, or under prefers-reduced-motion, this
+   is a plain vertical list with all six steps written out and readable. That
+   ordering is the point: a reveal that starts at opacity 0 and waits for a
+   scroll event ships as invisible text in the static HTML and never draws in
+   a headless render. The scrub enhances a default that is already there.
+
+   `is-scrubbing` turns the list on its side into a rail you travel: the nodes
+   spread across the screen with their labels underneath, the line draws from
+   the first to the last, and one shared panel below carries the story of
+   wherever you are. */
+
+.arc { position: relative; list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
 
 .arc__step {
   position: relative;
-  display: grid; grid-template-columns: 52px 1fr; gap: 24px;
-  padding: 22px 0 26px;
+  display: grid; grid-template-columns: 52px 1fr; grid-template-rows: auto auto;
+  column-gap: 24px;
+  padding: 20px 0 24px;
 }
-/* the rail segment, one per step, stopping short on the last */
+.arc__node { grid-row: 1 / span 2; }
+.arc__label, .arc__body { grid-column: 2; }
+
+/* the static rail: one segment per step, so it always stops at the last node
+   instead of overshooting into the padding */
 .arc__step::before {
   content: ""; position: absolute; left: 25px; top: 22px; bottom: -4px;
   width: 1px; background: var(--line);
@@ -610,6 +625,8 @@ section[id] { scroll-margin-top: 78px; }
 }
 .arc__step:last-child::before { display: none; }
 .js .arc__step.is-in::before { transform: scaleY(1); }
+/* nothing marks them is-in once the scrub owns the section */
+.arc.is-scrubbing .arc__step::before { display: none; }
 
 .arc__node {
   position: relative; z-index: 1;
@@ -617,7 +634,7 @@ section[id] { scroll-margin-top: 78px; }
   display: grid; place-items: center;
   background: var(--surface); border: 1px solid var(--line);
   color: var(--accent-ink);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, scale 0.35s var(--ease-out);
 }
 .arc__node svg { width: 23px; height: 23px; }
 .arc__step:hover .arc__node {
@@ -629,16 +646,93 @@ section[id] { scroll-margin-top: 78px; }
   display: inline-block; margin-bottom: 8px;
   font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--muted);
+  transition: color 0.35s ease;
 }
 .arc__body h3 { font-size: 1.08rem; margin-bottom: 10px; }
 .arc__body p { color: var(--muted); font-size: 0.95rem; max-width: 68ch; }
 
 @media (max-width: 620px) {
-  .arc__step { grid-template-columns: 40px 1fr; gap: 16px; }
+  .arc__step { grid-template-columns: 40px 1fr; column-gap: 16px; }
   .arc__step::before { left: 19px; }
   .arc__node { width: 40px; height: 40px; border-radius: 12px; }
   .arc__node svg { width: 19px; height: 19px; }
 }
+
+/* ---------- the pinned scene ---------- */
+
+.arc-track.is-pinned { padding-top: 0; padding-bottom: 0; height: 340vh; }
+.arc-track.is-pinned .arc-stage {
+  position: sticky; top: 0; min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 48px 0;
+}
+
+/* the rail turns horizontal. Its ends land on the first and last node centres
+   without measuring anything: six equal columns put those centres at one
+   twelfth in from each side, so the geometry is exact by construction. */
+.arc__rail {
+  position: absolute; display: none;
+  left: 8.3333%; right: 8.3333%; top: 26px; height: 1px;
+  background: var(--line);
+}
+.arc.is-scrubbing .arc__rail { display: block; }
+.arc__rail-fill {
+  position: absolute; inset: 0; display: block;
+  background: var(--accent-ink);
+  transform-origin: left center; transform: scaleX(var(--draw, 0));
+  box-shadow: 0 0 14px var(--accent-soft);
+}
+
+.arc.is-scrubbing {
+  display: flex; align-items: flex-start; gap: 0;
+  padding-bottom: 172px;
+}
+/* static, not relative: the shared panel below is absolutely positioned and
+   has to resolve against the whole rail. Leave the step positioned and each
+   body is trapped inside its own sixth of the width. */
+.arc.is-scrubbing .arc__step {
+  flex: 1 1 0; min-width: 0;
+  position: static;
+  display: block; text-align: center; padding: 0;
+}
+/* the pointer spotlight resolves against the same ancestor, so it would cover
+   the whole rail instead of one step */
+.arc.is-scrubbing .arc__step::after { display: none; }
+.arc.is-scrubbing .arc__node {
+  margin: 0 auto;
+  opacity: 0.4; scale: 0.86;
+}
+.arc.is-scrubbing .arc__step.is-on .arc__node {
+  opacity: 1; scale: 1;
+  border-color: var(--accent-line); background: var(--accent-soft);
+  box-shadow: 0 0 0 6px var(--accent-soft);
+}
+.arc.is-scrubbing .arc__step.is-current .arc__node {
+  box-shadow: 0 0 0 8px var(--accent-soft), 0 0 30px var(--accent-soft);
+}
+
+.arc.is-scrubbing .arc__label {
+  display: block; margin: 14px 0 0;
+  opacity: 0.45; transition: opacity 0.35s ease, color 0.35s ease;
+}
+.arc.is-scrubbing .arc__step.is-on .arc__label { opacity: 1; }
+.arc.is-scrubbing .arc__step.is-current .arc__label { color: var(--accent-ink); }
+
+/* one panel, six stories, and only the one you are standing on is up */
+.arc.is-scrubbing .arc__body {
+  position: absolute; left: 0; right: 0; top: 122px;
+  text-align: left; max-width: 74ch;
+  opacity: 0; translate: 0 14px; pointer-events: none;
+  /* leaving is quick and arriving waits a beat: both panels share one slot, so
+     matched timings would cross-fade two headlines on top of each other */
+  transition: opacity 0.18s ease, translate 0.18s ease;
+}
+.arc.is-scrubbing .arc__step.is-current .arc__body {
+  opacity: 1; translate: none; pointer-events: auto;
+  transition: opacity 0.4s var(--ease-out) 0.14s, translate 0.45s var(--ease-out) 0.14s;
+}
+.arc.is-scrubbing .arc__body h3 { font-size: 1.35rem; margin-bottom: 12px; }
+.arc.is-scrubbing .arc__body p { font-size: 1rem; color: var(--text-mid); }
 
 /* ---------- craft ---------- */
 
@@ -823,8 +917,10 @@ section[id] { scroll-margin-top: 78px; }
 /* headlines arriving word by word. the span is inline-block so it can be moved
    at all, and the stagger comes off --wi rather than a rule per word */
 .w { display: inline-block; }
-.js .reveal .w,
-.js .section__head.reveal h2 .w {
+/* one selector, not two: `.js .section__head.reveal h2 .w` used to sit here as
+   well, and at four classes plus an element it outranked `.js .reveal.is-in .w`,
+   so every section heading stayed invisible after it had arrived */
+.js .reveal .w {
   opacity: 0; translate: 0 0.5em;
   transition: opacity 0.5s var(--ease-out), translate 0.55s var(--ease-out);
   transition-delay: calc(var(--wi, 0) * 45ms);
@@ -875,6 +971,9 @@ section[id] { scroll-margin-top: 78px; }
     opacity: 1; translate: none; scale: none; transition: none;
   }
   .js .craft__item.reveal:not(.is-in) h3::before { transform: none; transition: none; }
+  .arc-track.is-pinned { height: auto; padding: clamp(64px, 10vw, 108px) 0; }
+  .arc-track.is-pinned .arc-stage { position: static; min-height: 0; padding: 0; }
+  .arc__step::before { transform: none; transition: none; }
   .btn:hover, .card:hover, .skill-card:hover { transform: none; }
   .rich .card, .rich .skill-card, .rich .btn, .rich .sw { transform: none; }
   .w { opacity: 1; translate: none; transition: none; }
