@@ -29,7 +29,6 @@ window.ES = {
 
 
   'Products built': 'Productos construidos',
-  'Live right now': 'Vivos hoy',
   'Years in software': 'Años en software',
   'Years building solo': 'Años construyendo solo',
   'Contributions, last year': 'Contribuciones, último año',
@@ -228,12 +227,14 @@ window.ES = {
     'No salió. Por LinkedIn le pego la vuelta y lo veo igual.',
 
   /* --- el hero --- */
-  'Strategy, product and code.<br>No handoff in the middle.':
-    'Estrategia, producto y código.<br>Sin traspaso en el medio.',
-  'That is the whole difference. I decide what gets built and then I build it, with Claude Code in the loop for most of it, which is why this takes weeks and not quarters. <strong>Agents, automation, and whole products from nothing.</strong>':
-    'Esa es toda la diferencia. Decido qué se construye y después lo construyo, con Claude Code en el loop durante casi todo, y por eso son semanas y no trimestres. <strong>Agentes, automatización y productos enteros desde nada.</strong>',
   'I go after the systems nobody designed badly on purpose. They just got old and nobody touched them.':
     'Voy a los sistemas que nadie diseñó mal a propósito. Quedaron viejos y nadie los tocó.',
+  'Strategy, product and code.<br>I think it and I build it.':
+    'Estrategia, producto y código.<br>Lo pienso y lo construyo.',
+  'Agents, automation and whole products from nothing. I think them through, I build them, and I put them in front of people. <strong>Weeks, not quarters.</strong>':
+    'Agentes, automatización y productos enteros desde nada. Los pienso, los construyo y los pongo a andar. <strong>Semanas, no trimestres.</strong>',
+  'Tools delivered':
+    'Herramientas entregadas',
 
   /* --- Lima --- */
   "Axel's assistant":

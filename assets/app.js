@@ -547,16 +547,6 @@
     return 4;
   }
 
-  /* The "live right now" figure is counted from the cards instead of being
-     typed into the markup. It drifted once already: the number said six while
-     eight cards carried a Live pill, and the number is the first thing a
-     reader checks against what they can see. */
-  (function countLive() {
-    var slot = document.querySelector('[data-stat="live"]');
-    if (!slot) return;
-    slot.textContent = String(document.querySelectorAll('.pill--live').length);
-  })();
-
   function paintHeatmap(contrib) {
     var grid = document.getElementById('heatmap');
     if (!grid || !contrib.days || !contrib.days.length) return;

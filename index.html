@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Axel Rosso · AI Product Manager &amp; AI Engineer</title>
-<meta name="description" content="AI Product Manager and AI engineer from Buenos Aires. I spec AI agent products and ship them with Claude Code in the loop: dametrabajo, Kidonauta, Nuchus, Unlaunched, Buildeable and Pedimelo.">
+<title>Axel · AI Product Manager &amp; AI Engineer</title>
+<meta name="description" content="AI Product Manager and AI engineer from Buenos Aires. Agents, automation and whole products from nothing: dametrabajo, Kidonauta, Nuchus, Unlaunched, Buildeable and Pedimelo.">
 <link rel="canonical" href="https://axelrosso.com/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Axel Rosso · AI Product Manager &amp; AI Engineer">
-<meta property="og:description" content="AI agent products, automation and 0 to 1. Six live products, specced and shipped with Claude Code in the loop.">
+<meta property="og:title" content="Axel · Estrategia, producto y código">
+<meta property="og:description" content="Agentes, automatización y productos enteros desde nada. Los pienso, los construyo y los pongo a andar.">
 <meta property="og:url" content="https://axelrosso.com/">
 <meta property="og:image" content="https://axelrosso.com/assets/og.jpg?v=1">
 <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=34">
+<link rel="stylesheet" href="assets/style.css?v=35">
 <link rel="stylesheet" href="assets/doodle.css?v=1">
 <script>
 /* Runs before the body parses, so the page never flashes the wrong theme or
@@ -54,25 +54,46 @@
   var d = document.documentElement;
   d.classList.add('js');
 
+  /* 🔴 SOLO LA ZONA HORARIA DECIDE, Y navigator.language NO PARTICIPA. Estaba
+     como segunda oportunidad, y era el error: alguien en Buenos Aires con el
+     navegador en inglés, que es medio gremio, caía en inglés. La pregunta es
+     dónde está la persona, no en qué idioma tiene puesto el Chrome.
+
+     ⚠️ La lista es enumerada y por eso está completa a propósito: ahora que es
+     la única señal, una zona que falte manda a alguien de Estados Unidos a
+     castellano. Enumerar sigue siendo lo correcto contra usar `America/` como
+     prefijo, porque Buenos Aires, México y São Paulo también son `America/` y
+     eso mandaría el continente entero a inglés.
+
+     Los prefijos de abajo cubren las zonas con subcarpeta (Indiana, Kentucky,
+     Dakota del Norte) y los alias viejos `US/` y `Canada/` que algunos
+     navegadores todavía reportan. */
   var ZONAS = (
+    /* Estados Unidos */
     'America/New_York America/Detroit America/Chicago America/Denver ' +
     'America/Phoenix America/Los_Angeles America/Anchorage America/Adak ' +
     'America/Boise America/Juneau America/Sitka America/Nome America/Menominee ' +
-    'America/Indiana/Indianapolis America/Kentucky/Louisville Pacific/Honolulu ' +
+    'America/Metlakatla America/Yakutat Pacific/Honolulu ' +
+    /* Canadá */
     'America/Toronto America/Vancouver America/Edmonton America/Winnipeg ' +
     'America/Halifax America/St_Johns America/Regina America/Moncton ' +
-    'America/Whitehorse America/Yellowknife America/Iqaluit America/Dawson_Creek '
+    'America/Whitehorse America/Yellowknife America/Iqaluit America/Dawson ' +
+    'America/Dawson_Creek America/Fort_Nelson America/Creston America/Inuvik ' +
+    'America/Cambridge_Bay America/Rankin_Inlet America/Resolute ' +
+    'America/Swift_Current America/Atikokan America/Glace_Bay ' +
+    'America/Goose_Bay America/Blanc-Sablon '
   );
 
   function enNorteamerica() {
     var zona = '';
     try { zona = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
-    if (zona && ZONAS.indexOf(zona + ' ') > -1) return true;
-    if (zona.indexOf('America/Indiana/') === 0) return true;
-    if (zona.indexOf('America/North_Dakota/') === 0) return true;
-    if (zona.indexOf('America/Kentucky/') === 0) return true;
-    var idioma = (navigator.language || '').toLowerCase();
-    return idioma === 'en-us' || idioma === 'en-ca';
+    if (!zona) return false;
+    if (ZONAS.indexOf(zona + ' ') > -1) return true;
+    return zona.indexOf('America/Indiana/') === 0 ||
+           zona.indexOf('America/Kentucky/') === 0 ||
+           zona.indexOf('America/North_Dakota/') === 0 ||
+           zona.indexOf('US/') === 0 ||
+           zona.indexOf('Canada/') === 0;
   }
 
   var theme, lang;
@@ -149,11 +170,11 @@
       <div class="hero__grid">
       <div class="hero__copy">
       <p class="eyebrow reveal"><span class="dot"></span> Buenos Aires, Argentina · open to remote AI product &amp; AI engineering roles</p>
-      <h1 class="reveal">Strategy, product and code.<br>No handoff in the middle.</h1>
+      <h1 class="reveal">Strategy, product and code.<br>I think it and I build it.</h1>
       <p class="lede reveal">
-        That is the whole difference. I decide what gets built and then I build it, with Claude
-        Code in the loop for most of it, which is why this takes weeks and not quarters.
-        <strong>Agents, automation, and whole products from nothing.</strong>
+        Agents, automation and whole products from nothing. I think them through, I build them,
+        and I put them in front of people.
+        <strong>Weeks, not quarters.</strong>
       </p>
       <p class="lede lede--sub reveal">
         I go after the systems nobody designed badly on purpose. They just got old and nobody
@@ -204,9 +225,9 @@
 
       <dl class="stats reveal">
         <div><dt>Products built</dt><dd>14</dd></div>
-        <div><dt>Live right now</dt><dd data-stat="live">6</dd></div>
         <div><dt>Years in software</dt><dd>10+</dd></div>
         <div><dt>Years building solo</dt><dd>4</dd></div>
+        <div><dt>Tools delivered</dt><dd>2,500+</dd></div>
         <div><dt>Contributions, last year</dt><dd data-stat="contributions">4,845</dd></div>
       </dl>
     </div>
@@ -765,12 +786,12 @@
 
 <footer class="foot">
   <div class="wrap foot__inner">
-    <p>Axel Rosso · Buenos Aires (UTC-3)</p>
+    <p>Axel · Buenos Aires (UTC-3)</p>
   </div>
 </footer>
 
-<script src="assets/i18n.js?v=23"></script>
-<script src="assets/app.js?v=21"></script>
+<script src="assets/i18n.js?v=24"></script>
+<script src="assets/app.js?v=23"></script>
 <script src="assets/interact.js?v=1" defer></script>
 <script src="assets/form.js?v=1" defer></script>
 <script src="assets/lima.js?v=1" defer></script>
