@@ -30,7 +30,6 @@ window.ES = {
 
   'Products built': 'Productos construidos',
   'Years in software': 'Años en software',
-  'Years building solo': 'Años construyendo solo',
   'Contributions, last year': 'Contribuciones, último año',
 
   /* --- work --- */
@@ -223,6 +222,8 @@ window.ES = {
     'Estrategia, producto y código.<br>Lo pienso y lo construyo.',
   'Agents, automation and whole products from nothing. I think them through, I build them, and I put them in front of people. <strong>Weeks, not quarters.</strong>':
     'Agentes, automatización y productos enteros desde nada. Los pienso, los construyo y los pongo a andar. <strong>Semanas, no trimestres.</strong>',
+  'Years on my own products':
+    'Años con productos propios',
   'Tools delivered':
     'Herramientas entregadas',
 

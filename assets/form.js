@@ -57,6 +57,7 @@
     enviando = true;
     boton.disabled = true;
     mostrar('enviando');
+    if (window.medir) window.medir('form_intento');
 
     fetch(ENDPOINT, {
       method: 'POST',
@@ -79,8 +80,10 @@
            under a success line reads like it did not send. */
         form.classList.add('is-sent');
         mostrar('listo');
+        if (window.medir) window.medir('form_enviado');
       })
       .catch(function () {
+        if (window.medir) window.medir('form_fallo');
         mostrar('error');
         boton.disabled = false;
         enviando = false;

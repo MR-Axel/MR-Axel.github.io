@@ -86,6 +86,7 @@
 
   function abrir() {
     abierta = true;
+    if (window.medir) window.medir('chat_abierto');
     launch.setAttribute('aria-expanded', 'true');
     caja.classList.add('is-open');
     pintarTodo();
@@ -120,6 +121,10 @@
     burbuja('yo', texto);
     guardar();
 
+    /* Cuantos turnos lleva, que es lo unico que distingue a alguien que probo
+       de alguien que esta explicando algo. El texto no sale nunca. */
+    if (window.medir) window.medir('chat_mensaje', { turno: Math.ceil(charla.length / 2) });
+
     ocupada = true;
     input.disabled = true;
     var esperando = burbuja('bot', frase('pensando'));
@@ -145,6 +150,7 @@
         guardar();
         /* The model asked for a person. The button is the whole point of
            the chat, so it goes on screen instead of being described. */
+        if (d.lead && window.medir) window.medir('chat_dejo_mail');
         if (d.contacto && !document.getElementById('lima-salto')) {
           var salto = document.createElement('button');
           salto.id = 'lima-salto';
