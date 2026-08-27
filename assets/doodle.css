@@ -1,0 +1,201 @@
+/* The doodle skin. An experiment, off by default, switched on with
+   data-skin="doodle" on <html>.
+
+   🔴 WHY NOT AN SVG DISPLACEMENT FILTER, which is the usual answer.
+
+   Two things in the page rule it out. `.card` has `overflow: hidden`, so a
+   border drawn on an inset pseudo-element gets clipped; and ::before and
+   ::after are both already taken on .card and .arc__step by the spotlight and
+   the rails. Filtering the element itself instead would drag the text through
+   the displacement with it, and a page whose whole job is to be read cannot
+   pay for a border with its paragraphs.
+
+   So the wobble comes from geometry rather than from a filter:
+
+     · an asymmetric border-radius, the four-corners-drawn-by-hand trick, so
+       no two corners of a rectangle match
+     · a hard offset shadow, which reads as a line drawn twice and not quite
+       landing on itself, the single most hand-drawn thing on the page
+     · a fraction of a degree of rotation, alternating, so nothing sits on the
+       grid
+
+   Nothing here filters, so text stays exactly as crisp as it was.
+
+   🔴 AND THE ROTATION USES `rotate`, NEVER `transform`. The interaction layer
+   already writes transform on hover for the 3D tilt, and the reveals animate
+   translate and scale as independent properties for the same reason. A
+   transform here would fight all three. */
+
+[data-skin="doodle"] {
+  /* Ink and paper. The lime stays: it is the brand, not the skin. */
+  --ink: #2a2620;
+  --trazo: 2px;
+  /* Tres radios y no uno. El truco de las cuatro esquinas distintas necesita
+     que el radio sea grande contra el lado corto de la caja, asi que el mismo
+     valor que dibuja bien una tarjeta de 380 de alto colapsa en una curva
+     gigante sobre una fila de 79. Se mide, no se estima. */
+  --garabato: 255px 12px 225px 15px / 15px 225px 15px 255px;
+  --garabato-fila: 20px 5px 17px 6px / 6px 17px 5px 20px;
+  --garabato-chico: 42px 6px 38px 8px / 8px 38px 6px 42px;
+  --grain: 0.07;
+}
+
+[data-skin="doodle"][data-theme="light"],
+[data-skin="doodle"]:not([data-theme="dark"]) {
+  --bg: #fbf9f3;
+  --bg-alt: #f4f0e6;
+  --surface: #fffdf8;
+  --surface-hi: #f8f5ec;
+}
+
+/* 🔴 IN DARK, THE PEN BECOMES CHALK, and it is not a preference.
+   Ink and paper is a light-mode metaphor. Left at var(--text), every card in
+   dark got a bright white outline plus a bright white offset shadow against
+   near black, and the page stopped reading as drawn and started reading as
+   wireframed: hard boxes, maximum contrast, exactly the opposite of a hand.
+   A dimmer stroke reads as chalk on a board, which is the same gesture in the
+   other direction. The offset shrinks too, because a bright double line at
+   full offset is the noisiest thing on a dark page. */
+[data-skin="doodle"][data-theme="dark"],
+[data-skin="doodle"]:not([data-theme="light"]) {
+  --ink: #6f6a62;
+}
+@media (prefers-color-scheme: dark) {
+  [data-skin="doodle"]:not([data-theme="light"]) { --ink: #6f6a62; }
+}
+[data-skin="doodle"][data-theme="light"] { --ink: #2a2620; }
+
+/* ---------- the drawn box ---------- */
+
+/* One rule, every card-shaped thing. The offset shadow is the whole effect:
+   a second line where the pen came back and missed. */
+[data-skin="doodle"] .card,
+[data-skin="doodle"] .skill-card,
+[data-skin="doodle"] .offer,
+[data-skin="doodle"] .craft__item,
+[data-skin="doodle"] .lima__panel {
+  border-width: var(--trazo);
+  border-color: var(--ink);
+  border-radius: var(--garabato);
+  box-shadow: 3px 4px 0 -1px var(--ink);
+}
+
+/* Wide and short: same pen, flatter corners. */
+[data-skin="doodle"] .sideitem,
+[data-skin="doodle"] .form .field input,
+[data-skin="doodle"] .form .field textarea {
+  border-width: var(--trazo);
+  border-color: var(--ink);
+  border-radius: var(--garabato-fila);
+  box-shadow: 3px 4px 0 -1px var(--ink);
+}
+
+/* Alternating tilt. Every third one sits straight, so the page looks drawn
+   rather than mechanically skewed. */
+[data-skin="doodle"] .card:nth-child(3n + 1),
+[data-skin="doodle"] .skill-card:nth-child(3n + 1),
+[data-skin="doodle"] .craft__item:nth-child(3n + 1) { rotate: -0.45deg; }
+[data-skin="doodle"] .card:nth-child(3n + 2),
+[data-skin="doodle"] .skill-card:nth-child(3n + 2),
+[data-skin="doodle"] .craft__item:nth-child(3n + 2) { rotate: 0.35deg; }
+
+/* Each corner different again, so a row of them does not repeat. */
+[data-skin="doodle"] .card:nth-child(even),
+[data-skin="doodle"] .skill-card:nth-child(even) {
+  border-radius: 15px 225px 15px 255px / 225px 15px 255px 15px;
+}
+
+[data-skin="doodle"] .card:hover,
+[data-skin="doodle"] .skill-card:hover,
+[data-skin="doodle"] .offer:hover {
+  box-shadow: 5px 6px 0 -1px var(--ink);
+  rotate: 0deg;
+}
+
+/* ---------- the drawn pill ---------- */
+
+[data-skin="doodle"] .btn,
+[data-skin="doodle"] .pill,
+[data-skin="doodle"] .mini,
+[data-skin="doodle"] .skill-mark,
+[data-skin="doodle"] .lima__launch {
+  border: var(--trazo) solid var(--ink);
+  border-radius: var(--garabato-chico);
+  box-shadow: 2px 3px 0 -1px var(--ink);
+}
+
+[data-skin="doodle"] .btn:hover,
+[data-skin="doodle"] a.mini:hover,
+[data-skin="doodle"] .lima__launch:hover {
+  box-shadow: 3px 4px 0 -1px var(--ink);
+  translate: -1px -1px;
+}
+
+[data-skin="doodle"] .btn:active { box-shadow: 1px 1px 0 -1px var(--ink); translate: 1px 2px; }
+
+/* ---------- the underline under a heading ---------- */
+
+/* A stroke that starts thin, swells and thins again, the way a pen does when
+   the hand speeds up in the middle. Inline SVG so it takes the ink colour
+   through currentColor and needs no file. */
+[data-skin="doodle"] .section__head h2,
+[data-skin="doodle"] .contact h2 {
+  display: inline-block;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8 C 40 3, 80 10, 120 6 S 200 2, 250 7 S 290 9, 298 5' fill='none' stroke='%23c6f24e' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left calc(100% - 2px);
+  background-size: 100% 10px;
+  padding-bottom: 10px;
+}
+
+/* ---------- paper ---------- */
+
+/* The grain already exists and already sits over everything; the skin only
+   turns it up. A separate paper texture would be a second overlay competing
+   with the first. */
+[data-skin="doodle"] .bg__grid { opacity: calc(var(--grid-opacity) * 0.4); }
+
+[data-skin="doodle"] .arc__rail,
+[data-skin="doodle"] .arc__rail-fill { border-radius: 999px; }
+
+[data-skin="doodle"] .arc__node {
+  border-width: var(--trazo);
+  border-color: var(--ink);
+  box-shadow: 2px 2px 0 -1px var(--ink);
+}
+
+/* ---------- handwriting, only when asked for ---------- */
+
+/* Off by default and kept separate on purpose. The drawn borders are a skin;
+   swapping the headline face is a rebrand, and it is the one change that can
+   make a hiring page read as a hobby project. Worth seeing, not worth
+   assuming.
+
+   🔴 AND IT NEVER TOUCHES A PRODUCT NAME. It was on .card__title first, and
+   dametrabajo, Kidonauta and Nuchus came out in script: those are real
+   product names, and a real name written in handwriting reads as a sketch of
+   a product rather than a product. Section headings only. */
+[data-skin="doodle"][data-doodle-type="hand"] h1,
+[data-skin="doodle"][data-doodle-type="hand"] h2 {
+  font-family: "Caveat", var(--sans);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  /* Caveat runs small and short for its point size, so it needs both back. */
+  font-size: 1.35em;
+  line-height: 1.15;
+}
+
+/* ---------- the toggle, local only ---------- */
+
+/* Injected by doodle.js and never shipped. It is here rather than inline in
+   the script so the script stays about behaviour. */
+.doodle-panel {
+  position: fixed; left: 16px; bottom: 16px; z-index: 90;
+  display: flex; flex-direction: column; gap: 6px;
+  font-family: var(--mono); font-size: 12px;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--line-hi); border-radius: 10px; padding: 10px 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.doodle-panel strong { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.doodle-panel label { display: flex; align-items: center; gap: 7px; cursor: pointer; }
