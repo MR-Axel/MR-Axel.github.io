@@ -22,8 +22,11 @@ window.ES = {
   '<span class="dot"></span> Buenos Aires, Argentina · open to remote AI product &amp; AI engineering roles':
     '<span class="dot"></span> Buenos Aires, Argentina · abierto a roles remotos de producto e ingeniería de IA',
 
+  /* the job title is not translated on purpose: nobody in tech here says
+     "Gerente de Producto", and "Product Manager de IA" is the half-translation
+     that made the line read wrong. Only the second line changes. */
   'AI Product Manager<br>who still ships the code.':
-    'Product Manager de IA.<br>El código lo shippeo yo.',
+    'AI Product Manager.<br>El código lo shippeo yo.',
 
   'Most of the systems we live inside were never designed badly on purpose; they just got old and nobody touched them. A car driving to work with one person in it. A kid in a classroom learning to memorize things that are one prompt away. <strong>Those are the ones I go after.</strong>':
     'A la mayoría de los sistemas que habitamos nadie los diseñó mal a propósito; simplemente quedaron viejos y nadie los tocó. Un auto yendo al trabajo con una sola persona adentro. Un chico en el aula aprendiendo a memorizar cosas que están a un prompt de distancia. <strong>A esos voy.</strong>',
