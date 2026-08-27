@@ -394,7 +394,14 @@ section[id] { scroll-margin-top: 82px; }
    que parece una sexta metrica vacia.
    El ultimo se estira y no queda hueco. Con seis datos vuelve solo a la grilla
    pareja, porque la condicion es que sea el ultimo Y de posicion impar. */
-.stats > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+/* ⚠️ SOLO EN DOS COLUMNAS. Sin la consulta de medios esto tambien corria en
+   escritorio, donde `auto-fit` acomoda las cinco metricas en una sola fila: la
+   quinta es impar, se estiraba al ancho completo y se caia a un segundo
+   renglon, dejando el hueco gris al lado de la cuarta. El problema era de
+   telefono y la regla tenia que quedarse ahi. */
+@media (max-width: 760px) {
+  .stats > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
 
 /* Dos textos y uno por ancho. El lugar no se saca: para un puesto remoto la
    zona horaria es de los primeros filtros que aplica un recruiter, y "Buenos
@@ -1527,7 +1534,13 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
      las clases de la lista original para que las fichas conserven su estilo, y
      esas clases traen `flex-wrap: wrap` puesto. Envolviendo, la marquesina se
      apila en vez de correr. */
-  display: flex; flex-wrap: nowrap !important;
+  /* ⚠️ La direccion tambien va forzada, y por lo mismo que el wrap. Heredar
+     las clases de la lista trae lo bueno (el estilo de cada ficha) y lo malo:
+     el skin le pone `flex-direction: column` a `.sidelist`, y la pista lo
+     tomaba y apilaba las diez filas una debajo de otra. Medido: 2.976px de
+     alto en un contenedor que tenia que medir 300. */
+  display: flex; flex-direction: row !important; flex-wrap: nowrap !important;
+  align-items: stretch;
   width: max-content; gap: 8px; padding: 0; margin: 0; list-style: none;
   animation: correr var(--vel, 46s) linear infinite;
 }
@@ -1543,6 +1556,30 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
   .marquesina__pista { animation: none; }
   .marquesina { overflow-x: auto; }
 }
+
+
+/* Las marquesinas de tarjetas: ancho fijo por pieza y aire para que la sombra
+   corrida y la rotacion del skin no se corten contra el borde del contenedor. */
+@media (max-width: 760px) {
+  .marquesina { padding: 10px 0 22px; }
+  .marquesina__pista.cards > *,
+  .marquesina__pista.skills-grid > * { flex: 0 0 78vw; min-width: 0; }
+  .marquesina__pista.sidelist > * { flex: 0 0 74vw; min-width: 0; }
+  /* La lista deja de ser una columna con separadores: cada fila viaja sola. */
+  .marquesina__pista.sidelist .sideitem + .sideitem { border-top: 0; }
+  .marquesina__pista.sidelist .sideitem {
+    border: var(--trazo, 1px) solid var(--ink, var(--line));
+    border-radius: var(--garabato-fila, 12px);
+  }
+}
+
+/* 🔴 Apagado: solo el simbolo, y la palabra sigue existiendo para quien no ve
+   el simbolo. Sacar el texto del DOM y dejar un cuadradito es pedirle a un
+   lector de pantalla que anuncie "imagen"; escondiendolo visualmente, el
+   simbolo comunica a la vista y la palabra al lector. */
+.pill--off .pill__txt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.pill--off { padding-left: 9px; padding-right: 9px; }
+.pill--off::before { margin-right: 0; }
 
 /* ---------- interaction layer ---------- */
 
@@ -1649,11 +1686,24 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
 /* already read and scrolled past: leaves upward, and comes back if you return */
 .js .reveal.is-past { opacity: 0; translate: 0 -18px; transition-delay: 0ms; }
 
-.js .card.reveal, .js .skill-card.reveal { translate: 0 28px; scale: 0.985; }
+/* 🔴 `:not(.is-in)` EN LAS CUATRO, Y SIN ESO NUNCA VOLVIAN A CERO. Estas
+   reglas ajustan el punto de PARTIDA de cada componente, pero estaban escritas
+   sin condicion y despues de `.js .reveal.is-in { translate: none }`, con la
+   misma especificidad: gana la ultima, asi que el desplazamiento inicial se
+   quedaba puesto para siempre. La opacidad sí llegaba a 1, porque nada la
+   volvia a tocar, y por eso la entrada parecia funcionar: lo unico que no
+   pasaba era volver a su lugar.
+
+   Se notaba poco porque todas las tarjetas quedaban corridas lo mismo y de
+   corrido se lee parejo. Se noto cuando puse una linea justo debajo del
+   recuadro de metricas: los 30px de sobra lo dejaban encima y la tapaban
+   entera. Tres veces busque por que no se veia el MBA; estaba abajo del
+   recuadro, literalmente. */
+.js .card.reveal:not(.is-in), .js .skill-card.reveal:not(.is-in) { translate: 0 28px; scale: 0.985; }
 .js .card.reveal.is-past, .js .skill-card.reveal.is-past { translate: 0 -20px; scale: 0.99; }
-.js .sideitem.reveal { translate: -20px 0; }
+.js .sideitem.reveal:not(.is-in) { translate: -20px 0; }
 .js .sideitem.reveal.is-past { translate: -12px 0; }
-.js .stats.reveal { translate: 0 30px; }
+.js .stats.reveal:not(.is-in) { translate: 0 30px; }
 
 /* hover timings live on the component, and stay untouched by the reveal above
    because the reveal only ever animates opacity, translate and scale */

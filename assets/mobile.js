@@ -126,7 +126,7 @@
      ⚠️ La duracion sale de la cantidad de fichas y no es fija. Con un valor
      fijo, una fila de seis vuela y una de veinte se arrastra, porque las dos
      recorren su propio ancho en el mismo tiempo. */
-  function marquesina(sel, filas) {
+  function marquesina(sel, filas, segPorFicha) {
     var lista = document.querySelector(sel);
     if (!lista || lista.dataset.marquesina) return;
 
@@ -172,11 +172,21 @@
       mias.forEach(function (n) {
         var copia = limpiar(n.cloneNode(true));
         copia.setAttribute('aria-hidden', 'true');
+        /* 🔴 Y ADEMAS FUERA DEL TABULADOR. `aria-hidden` calla al lector de
+           pantalla pero NO saca del recorrido del teclado: sin esto, tabular
+           por la seccion pasa dos veces por cada producto, y la segunda vez el
+           foco aterriza en algo que el lector declara inexistente. Es la
+           combinacion que mas confunde: un foco donde no hay nada. */
+        [].forEach.call(copia.querySelectorAll('a, button, [tabindex]'), function (f) {
+          f.setAttribute('tabindex', '-1');
+        });
+        if (copia.matches('a, button')) copia.setAttribute('tabindex', '-1');
         pista.appendChild(copia);
       });
 
-      pista.style.setProperty('--vel', Math.max(24, mias.length * 3.4) + 's');
-      pista.style.setProperty('--vel2', Math.max(30, mias.length * 4.4) + 's');
+      var seg = segPorFicha || 3.4;
+      pista.style.setProperty('--vel', Math.max(24, mias.length * seg) + 's');
+      pista.style.setProperty('--vel2', Math.max(30, mias.length * seg * 1.3) + 's');
       fila.appendChild(pista);
       caja.appendChild(fila);
     }
@@ -217,8 +227,11 @@
       });
       cuerpo.appendChild(a);
     });
-    carrusel('.cards');
-    carrusel('.skills-grid');
+    /* Una fila y despacio: son tarjetas que hay que leer y tocar, no fichas.
+       La velocidad sale de la cantidad, y el gesto se frena al tocarlo. */
+    marquesina('.cards', 1, 13);
+    marquesina('.skills-grid', 1, 13);
+    marquesina('.sidelist', 1, 11);
     marquesina('.stack .chips', 2);
     marquesina('.minis', 2);
   }
