@@ -25,14 +25,8 @@ window.ES = {
   /* the job title is not translated on purpose: nobody in tech here says
      "Gerente de Producto", and "Product Manager de IA" is the half-translation
      that made the line read wrong. Only the second line changes. */
-  'AI Product Manager<br>who still ships the code.':
-    'AI Product Manager.<br>El código lo shippeo yo.',
 
-  'Most of the systems we live inside were never designed badly on purpose; they just got old and nobody touched them. A car driving to work with one person in it. A kid in a classroom learning to memorize things that are one prompt away. <strong>Those are the ones I go after.</strong>':
-    'A la mayoría de los sistemas que habitamos nadie los diseñó mal a propósito; simplemente quedaron viejos y nadie los tocó. Un auto yendo al trabajo con una sola persona adentro. Un chico en el aula aprendiendo a memorizar cosas que están a un prompt de distancia. <strong>A esos voy.</strong>',
 
-  'I do AI product for a living: agent platforms, automation, data. The rest of the time I build products of my own, with Claude Code in the loop for most of the build.':
-    'Hago producto de IA para vivir: plataformas de agentes, automatización, datos. El resto del tiempo construyo productos propios, con Claude Code en el loop durante casi toda la construcción.',
 
   'Products built': 'Productos construidos',
   'Live right now': 'Vivos hoy',
@@ -232,6 +226,14 @@ window.ES = {
     'Llegó. Los leo yo y contesto desde mi correo, casi siempre dentro del día.',
   'That did not go through. LinkedIn is the way around it, and I will see it there.':
     'No salió. Por LinkedIn le pego la vuelta y lo veo igual.',
+
+  /* --- el hero --- */
+  'Strategy, product and code.<br>No handoff in the middle.':
+    'Estrategia, producto y código.<br>Sin traspaso en el medio.',
+  'That is the whole difference. I decide what gets built and then I build it, with Claude Code in the loop for most of it, which is why this takes weeks and not quarters. <strong>Agents, automation, and whole products from nothing.</strong>':
+    'Esa es toda la diferencia. Decido qué se construye y después lo construyo, con Claude Code en el loop durante casi todo, y por eso son semanas y no trimestres. <strong>Agentes, automatización y productos enteros desde nada.</strong>',
+  'I go after the systems nobody designed badly on purpose. They just got old and nobody touched them.':
+    'Voy a los sistemas que nadie diseñó mal a propósito. Quedaron viejos y nadie los tocó.',
 
   /* --- Lima --- */
   "Axel's assistant":

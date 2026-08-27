@@ -311,7 +311,12 @@ section[id] { scroll-margin-top: 82px; }
    five lines. Below 1180px the orbit is dropped rather than stacked: it is
    decoration, and a phone has better uses for 380px of height. */
 .hero .wrap { max-width: 1200px; }
-.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 44px; align-items: center; }
+/* ⚠️ 318 Y NO 380, Y SALE DE UNA MEDICION. Con la columna del arte en 380, la
+   de texto quedaba en 696px y "Estrategia, producto y código." necesita 744:
+   el titular se partia y dejaba "código." colgando solo en un renglon. Los
+   garabatos son decoracion y aguantan 60px menos; un titular partido en dos
+   por una palabra, no. El castellano manda acá porque es el que corre largo. */
+.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) 318px; gap: 44px; align-items: center; }
 .hero__copy { min-width: 0; }
 .hero__art { display: grid; place-items: center; }
 @media (max-width: 1180px) {
@@ -580,7 +585,13 @@ section[id] { scroll-margin-top: 82px; }
 /* each one leans into the outer edge of the card it belongs to: the hornero
    on dametrabajo, the carpincho on Nuchus, both in the first row */
 .mascot--hornero { width: 250px; left: -136px; top: -34px; }
-.mascot--carpincho { width: 262px; right: -128px; top: -10px; }
+/* ⚠️ El corrimiento se clampea contra el aire que de verdad hay. Con `right`
+   fijo en -128, entre 1200 y 1280 el carpincho se pasaba 8px del viewport y
+   dejaba scroll horizontal en toda la pagina: 8px que nadie mira pero que
+   hacen que el sitio se pueda arrastrar de costado. El maximo sale de la
+   mitad de lo que sobra entre el contenido y la ventana, asi que en pantalla
+   angosta se mete y en ancha se corre lo mismo que antes. */
+.mascot--carpincho { width: 262px; right: calc(-1 * min(128px, (100vw - var(--wrap)) / 2)); top: -10px; }
 .mascot--carpincho img { animation-duration: 11s; animation-delay: -3s; }
 
 @keyframes bob {
