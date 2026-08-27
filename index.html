@@ -10,11 +10,15 @@
 <meta property="og:title" content="Axel Rosso · AI Product Manager &amp; AI Engineer">
 <meta property="og:description" content="AI agent products, automation and 0 to 1. Six live products, specced and shipped with Claude Code in the loop.">
 <meta property="og:url" content="https://mr-axel.github.io/">
-<meta property="og:image" content="https://avatars.githubusercontent.com/u/51409297?v=4">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://mr-axel.github.io/assets/og.jpg?v=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A hand-drawn figure waving.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@ArrobAxel">
-<meta name="theme-color" content="#08090B">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23C6F24E'/%3E%3Ctext x='16' y='21' font-family='Helvetica,Arial' font-size='13' font-weight='700' letter-spacing='-0.5' text-anchor='middle' fill='%2308090B'%3EAR%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#FBFAF7">
+<link rel="icon" type="image/png" href="assets/favicon.png?v=1">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -22,19 +26,60 @@
 <link rel="stylesheet" href="assets/doodle.css?v=1">
 <script>
 /* Runs before the body parses, so the page never flashes the wrong theme or
-   the wrong language. Both fall back to what the browser already told us:
-   prefers-color-scheme, and navigator.language for Spanish speakers. */
+   the wrong language.
+
+   A stored choice always wins. What follows only decides what somebody sees on
+   their very first visit, and the toggles are in the bar either way.
+
+   🔴 LIGHT BY DEFAULT, AND prefers-color-scheme IS DELIBERATELY IGNORED. Most
+   people never touched that setting, so on a laptop it mostly reports whatever
+   the OS shipped with rather than a preference. The skin is drawn ink, and ink
+   on paper is what it was designed for: dark is a good version of it, light is
+   the one it was drawn as.
+
+   🔴 SPANISH BY DEFAULT, AND THE TEST IS WHERE THEY ARE, NOT WHAT THEIR BROWSER
+   IS SET TO. navigator.language answers a different question: plenty of people
+   in Latin America run their browser in English without wanting to read this
+   page in it. Time zone is the only location signal available with no network
+   call and no consent to ask for, and it is not spoofed by accident.
+
+   ⚠️ THE ZONE LIST IS THE US AND CANADA ENUMERATED, NOT `America/` AS A PREFIX.
+   Buenos Aires, Mexico City and Sao Paulo are all `America/` too, so a prefix
+   would put the whole continent into English, which is the exact opposite of
+   what was asked. Enumerated it can only ever be incomplete, never wrong: an
+   unlisted zone falls to Spanish, which is the default anyway. navigator
+   .language stays as a second chance, so en-US and en-CA also get English even
+   from a zone that is not on the list. */
 (function () {
   var d = document.documentElement;
   d.classList.add('js');
+
+  var ZONAS = (
+    'America/New_York America/Detroit America/Chicago America/Denver ' +
+    'America/Phoenix America/Los_Angeles America/Anchorage America/Adak ' +
+    'America/Boise America/Juneau America/Sitka America/Nome America/Menominee ' +
+    'America/Indiana/Indianapolis America/Kentucky/Louisville Pacific/Honolulu ' +
+    'America/Toronto America/Vancouver America/Edmonton America/Winnipeg ' +
+    'America/Halifax America/St_Johns America/Regina America/Moncton ' +
+    'America/Whitehorse America/Yellowknife America/Iqaluit America/Dawson_Creek '
+  );
+
+  function enNorteamerica() {
+    var zona = '';
+    try { zona = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    if (zona && ZONAS.indexOf(zona + ' ') > -1) return true;
+    if (zona.indexOf('America/Indiana/') === 0) return true;
+    if (zona.indexOf('America/North_Dakota/') === 0) return true;
+    if (zona.indexOf('America/Kentucky/') === 0) return true;
+    var idioma = (navigator.language || '').toLowerCase();
+    return idioma === 'en-us' || idioma === 'en-ca';
+  }
+
   var theme, lang;
   try { theme = localStorage.getItem('site-theme'); lang = localStorage.getItem('site-lang'); } catch (e) {}
-  if (theme !== 'light' && theme !== 'dark') {
-    theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-  }
-  if (lang !== 'es' && lang !== 'en') {
-    lang = (navigator.language || 'en').toLowerCase().indexOf('es') === 0 ? 'es' : 'en';
-  }
+  if (theme !== 'light' && theme !== 'dark') theme = 'light';
+  if (lang !== 'es' && lang !== 'en') lang = enNorteamerica() ? 'en' : 'es';
+
   d.setAttribute('data-theme', theme);
   d.setAttribute('data-lang', lang);
   d.setAttribute('lang', lang);
@@ -723,7 +768,7 @@
 </footer>
 
 <script src="assets/i18n.js?v=22"></script>
-<script src="assets/app.js?v=19"></script>
+<script src="assets/app.js?v=20"></script>
 <script src="assets/interact.js?v=1" defer></script>
 <script src="assets/form.js?v=1" defer></script>
 <script src="assets/lima.js?v=1" defer></script>
