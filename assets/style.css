@@ -53,7 +53,7 @@
 
   /* mascots sit behind the cards; dark mode pushes them down into the page */
   --mascot-opacity: 0.4;
-  --mascot-filter: grayscale(0.15) brightness(0.78) contrast(1.02);
+  --mascot-filter: invert(1);
 
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -108,7 +108,7 @@
 
   /* on a light page the same figures have to be lifted, not darkened */
   --mascot-opacity: 0.34;
-  --mascot-filter: grayscale(0.15) brightness(1.06) contrast(0.9);
+  --mascot-filter: none;
 
   color-scheme: light;
 }
@@ -579,6 +579,12 @@ section[id] { scroll-margin-top: 82px; }
 .mascot.is-in { opacity: var(--mascot-opacity); }
 .mascot img {
   display: block; width: 100%; height: auto;
+  /* 🔴 EN OSCURO SE INVIERTEN, COMO EL RESTO DE LOS DIBUJOS. Los tokens viejos
+     eran para las ilustraciones a color: aclaraban un 6% y bajaban contraste,
+     lo cual sobre tinta negra pura no hace absolutamente nada y dejaba tres
+     personajes negros sobre un fondo negro. Es la misma regla que los iconos:
+     el trazo es RGB 0,0,0 exacto, asi que invertirlo da blanco puro con el
+     alfa intacto y un solo archivo sirve para los dos temas. */
   filter: var(--mascot-filter);
   animation: bob 9s ease-in-out infinite;
 }
@@ -608,8 +614,25 @@ section[id] { scroll-margin-top: 82px; }
   right: calc(-1 * (100vw - var(--wrap)) / 2);
   top: -10px;
 }
+/* Nova va arriba de la tarjeta del medio, y esta si puede quedar tapada: no
+   necesita aire al costado porque no lo hay, y asomando por encima del borde
+   se lee igual. Los ojos y la sonrisa estan en el tercio de arriba, que es
+   justo lo que queda a la vista. */
+.mascot--nova {
+  width: clamp(84px, 8vw, 118px);
+  left: 50%; translate: -50% 0;
+  top: -46px;
+  z-index: 0;
+}
+.mascot--nova img { animation-duration: 7s; animation-delay: -1.5s; }
+
 @media (max-width: 1150px) {
-  .mascot { display: none; }
+  /* Los de los costados se van porque no hay aire; Nova se queda, porque
+     nunca dependio del costado. */
+  .mascot--hornero, .mascot--carpincho { display: none; }
+}
+@media (max-width: 700px) {
+  .mascot--nova { display: none; }
 }
 .mascot--carpincho img { animation-duration: 11s; animation-delay: -3s; }
 
