@@ -929,6 +929,75 @@ a.mini:hover .arrow { color: var(--accent-ink); }
 .contact h2 { font-size: clamp(1.9rem, 4.4vw, 2.8rem); margin-bottom: 16px; }
 .contact__lede { max-width: 46ch; color: var(--muted); }
 
+.contact__grid {
+  /* The side column is the wider one so the four links sit on one row. At
+     even widths the last one wraps alone, which reads as a mistake. */
+  display: grid; grid-template-columns: minmax(0, 1.07fr) minmax(0, 1fr);
+  gap: 46px; align-items: start;
+}
+.contact__side { display: flex; flex-direction: column; gap: 26px; }
+
+/* ---------- the form ---------- */
+
+.form { display: flex; flex-direction: column; gap: 18px; }
+.field { display: flex; flex-direction: column; gap: 7px; }
+
+.field label {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+.field input,
+.field textarea {
+  width: 100%; font: inherit; font-size: 15px; color: var(--text);
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 11px; padding: 12px 14px;
+  transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+.field textarea { resize: vertical; min-height: 108px; line-height: 1.55; }
+
+.field input:hover,
+.field textarea:hover { border-color: var(--line-hi); }
+
+.field input:focus,
+.field textarea:focus {
+  outline: none; background: var(--surface-hi);
+  border-color: var(--accent-line); box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* :user-invalid, not :invalid. The plain one paints every empty required
+   field red the moment the page loads, which is a form telling you off
+   before you have typed anything. This one waits until the field has been
+   used and left. Where it is not supported, nothing turns red and the
+   browser still refuses to submit. */
+.field input:user-invalid,
+.field textarea:user-invalid { border-color: var(--warm); }
+
+.form .btn { align-self: start; }
+.form .btn:disabled { opacity: 0.55; cursor: progress; }
+
+/* The honeypot. Off-screen rather than display:none, because a bot that
+   parses the CSS skips what is not rendered, and this one has to look
+   fillable. Nobody tabs into it: tabindex is -1 and it is aria-hidden. */
+.trampa {
+  position: absolute; left: -9999px; width: 1px; height: 1px;
+  overflow: hidden;
+}
+
+.form__msg { font-size: 14px; color: var(--muted); margin: 0; max-width: 46ch; }
+.form__msg--ok { color: var(--accent-ink); }
+.form__msg--mal { color: var(--warm); }
+
+/* Sent: the fields go, the line stays. An empty form under a success message
+   reads like nothing happened. */
+.form.is-sent .field,
+.form.is-sent .trampa,
+.form.is-sent .btn { display: none; }
+
+@media (max-width: 900px) {
+  .contact__grid { grid-template-columns: 1fr; gap: 34px; }
+}
+
 /* ---------- footer ---------- */
 
 .foot { border-top: 1px solid var(--line); padding: 30px 0; }

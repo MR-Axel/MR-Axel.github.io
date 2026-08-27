@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=24">
+<link rel="stylesheet" href="assets/style.css?v=25">
 <script>
 /* Runs before the body parses, so the page never flashes the wrong theme or
    the wrong language. Both fall back to what the browser already told us:
@@ -603,17 +603,47 @@
 
   <section id="contact" class="section section--alt contact">
     <div class="wrap">
-      <h2 class="reveal">Let's talk</h2>
-      <p class="reveal contact__lede">
-        Open to remote AI roles, open to building for you, and always up for a conversation
-        about agents, automation, or why the commute is still broken. LinkedIn is the fastest
-        way to reach me.
-      </p>
-      <div class="cta reveal">
-        <a class="btn" href="https://www.linkedin.com/in/axelrosso/" rel="me noopener" target="_blank">Message me on LinkedIn</a>
-        <a class="btn btn--ghost" href="https://github.com/MR-Axel" rel="me noopener" target="_blank">GitHub</a>
-        <a class="btn btn--ghost" href="https://unlaunched.online/u/axel" rel="me noopener" target="_blank">Unlaunched</a>
-        <a class="btn btn--ghost" href="https://x.com/ArrobAxel" rel="me noopener" target="_blank">X</a>
+      <h2 class="reveal">Let&#39;s talk</h2>
+      <div class="contact__grid">
+        <div class="contact__side reveal">
+          <p class="contact__lede">
+            Open to remote AI roles, open to building for you, and always up for a conversation
+            about agents, automation, or why the commute is still broken. Leave it here and it
+            reaches my phone in a few seconds.
+          </p>
+          <div class="cta">
+            <a class="btn btn--ghost" href="https://www.linkedin.com/in/axelrosso/" rel="me noopener" target="_blank">LinkedIn<span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="btn btn--ghost" href="https://github.com/MR-Axel" rel="me noopener" target="_blank">GitHub<span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="btn btn--ghost" href="https://unlaunched.online/u/axel" rel="me noopener" target="_blank">Unlaunched<span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="btn btn--ghost" href="https://x.com/ArrobAxel" rel="me noopener" target="_blank">X<span class="arrow" aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+
+        <form class="form reveal" id="contact-form" autocomplete="on">
+          <div class="field">
+            <label for="f-name" data-t>Your name</label>
+            <input id="f-name" name="nombre" type="text" required minlength="2" maxlength="80" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="f-mail" data-t>Email</label>
+            <input id="f-mail" name="mail" type="email" required maxlength="120" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="f-what" data-t>What you are looking for</label>
+            <textarea id="f-what" name="busca" required minlength="10" maxlength="2000" rows="4"></textarea>
+          </div>
+
+          <div class="trampa" aria-hidden="true">
+            <label for="f-web">Website</label>
+            <input id="f-web" name="web" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <button class="btn" type="submit" data-t>Send it</button>
+
+          <p class="form__msg" data-estado="enviando" hidden>Sending.</p>
+          <p class="form__msg form__msg--ok" data-estado="listo" hidden>It arrived. I read these myself and answer from my own inbox, usually inside a day.</p>
+          <p class="form__msg form__msg--mal" data-estado="error" hidden>That did not go through. LinkedIn is the way around it, and I will see it there.</p>
+        </form>
       </div>
     </div>
   </section>
@@ -625,8 +655,9 @@
   </div>
 </footer>
 
-<script src="assets/i18n.js?v=13"></script>
-<script src="assets/app.js?v=10"></script>
+<script src="assets/i18n.js?v=14"></script>
+<script src="assets/app.js?v=11"></script>
 <script src="assets/interact.js?v=1" defer></script>
+<script src="assets/form.js?v=1" defer></script>
 </body>
 </html>

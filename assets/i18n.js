@@ -214,9 +214,24 @@ window.ES = {
 
   /* --- contact --- */
   'Let\'s talk': 'Hablemos',
-  'Open to remote AI roles, open to building for you, and always up for a conversation about agents, automation, or why the commute is still broken. LinkedIn is the fastest way to reach me.':
-    'Abierto a roles remotos de IA, abierto a construir para vos, y siempre listo para una charla sobre agentes, automatización, o por qué el viaje al trabajo sigue roto. Por LinkedIn es lo más rápido.',
-  'Message me on LinkedIn': 'Escribime por LinkedIn',
+
+  /* --- the contact form --- */
+  'Open to remote AI roles, open to building for you, and always up for a conversation about agents, automation, or why the commute is still broken. Leave it here and it reaches my phone in a few seconds.':
+    'Abierto a roles remotos de IA, abierto a construir para vos, y siempre listo para una charla sobre agentes, automatización, o por qué el viaje al trabajo sigue roto. Dejámelo acá y me llega al teléfono en unos segundos.',
+  'Your name':
+    'Tu nombre',
+  'Email':
+    'Mail',
+  'What you are looking for':
+    'Qué estás buscando',
+  'Send it':
+    'Mandalo',
+  'Sending.':
+    'Mandando.',
+  'It arrived. I read these myself and answer from my own inbox, usually inside a day.':
+    'Llegó. Los leo yo y contesto desde mi correo, casi siempre dentro del día.',
+  'That did not go through. LinkedIn is the way around it, and I will see it there.':
+    'No salió. Por LinkedIn le pego la vuelta y lo veo igual.',
 
   /* --- footer --- */
 
