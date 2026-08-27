@@ -374,90 +374,22 @@ section[id] { scroll-margin-top: 82px; }
   font-weight: 500; letter-spacing: -0.03em;
 }
 
-/* ---------- hero orbit ---------- */
-
-/* Two counter-rotating tracks of capability icons around a core. The chip is
-   placed by rotating the whole track, so the icon inside has to counter-spin
-   at the same rate or it would tumble. Everything is decoration and sits
-   behind aria-hidden. */
-.orbit {
-  position: relative; width: 380px; height: 380px;
-  display: grid; place-items: center;
-}
-
-.orbit__ring {
-  position: absolute; border-radius: 50%;
-  border: 1px solid var(--line-hi);
-  opacity: 0; transform: scale(0.9);
-  transition: opacity 1s var(--ease-out), transform 1.1s var(--ease-out);
-}
-.orbit__ring--1 { width: 158px; height: 158px; transition-delay: 0.15s; }
-.orbit__ring--2 { width: 260px; height: 260px; transition-delay: 0.3s; }
-.orbit__ring--3 { width: 362px; height: 362px; border-style: dashed; transition-delay: 0.45s; }
-.js .orbit.is-in .orbit__ring { opacity: 1; transform: none; }
-
-.orbit__core {
-  position: relative; z-index: 2;
-  width: 62px; height: 62px; border-radius: 18px;
-  display: grid; place-items: center;
-  background: var(--surface); border: 1px solid var(--line-hi);
-  color: var(--accent-ink);
-  box-shadow: 0 0 0 12px var(--accent-soft), 0 0 34px var(--accent-soft);
-  opacity: 0; scale: 0.7;
-  transition: opacity 0.8s var(--ease-out), scale 0.8s var(--ease-out);
-}
-.js .orbit.is-in .orbit__core { opacity: 1; scale: 1; }
-.orbit__spark { width: 26px; height: 26px; animation: pulse 4.5s ease-in-out infinite; }
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.75; scale: 1; }
-  50% { opacity: 1; scale: 1.08; }
-}
-
-.orbit__track { position: absolute; inset: 0; }
-.orbit__track--1 { animation: spin 46s linear infinite; }
-.orbit__track--2 { animation: spin 68s linear infinite reverse; }
-
-@keyframes spin { to { rotate: 360deg; } }
-@keyframes spin-back-1 { to { rotate: -360deg; } }
-@keyframes spin-back-2 { to { rotate: 360deg; } }
-
-.chip {
-  position: absolute; top: 50%; left: 50%;
-  width: 44px; height: 44px; margin: -22px 0 0 -22px;
-  transform: rotate(var(--a)) translateY(calc(var(--r, 130px) * -1)) rotate(calc(var(--a) * -1));
-  opacity: 0;
-  transition: opacity 0.7s var(--ease-out);
-}
-.orbit__track--2 .chip { --r: 181px; }
-.js .orbit.is-in .chip { opacity: 1; }
-
-.chip__in {
-  display: grid; place-items: center;
-  width: 100%; height: 100%; border-radius: 13px;
-  background: var(--surface); border: 1px solid var(--line-hi);
-  color: var(--text);
-  /* undoes the track's rotation so the glyph never tips over */
-  animation: spin-back-1 46s linear infinite;
-  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-}
-.orbit__track--2 .chip__in { animation: spin-back-2 68s linear infinite; }
-.chip__in svg { width: 20px; height: 20px; }
-
-/* the accent walks around the ring instead of lighting every chip at once */
-.orbit__track--1 .chip:nth-child(1) .chip__in { animation-name: spin-back-1, glow; }
-.orbit__track--1 .chip:nth-child(3) .chip__in { animation-name: spin-back-1, glow; animation-delay: 0s, 3s; }
-.orbit__track--2 .chip:nth-child(2) .chip__in { animation-name: spin-back-2, glow; animation-delay: 0s, 6s; }
-.orbit__track--2 .chip:nth-child(4) .chip__in { animation-name: spin-back-2, glow; animation-delay: 0s, 9s; }
-.chip__in { animation-duration: 46s, 12s; animation-iteration-count: infinite; animation-timing-function: linear, ease-in-out; }
-.orbit__track--2 .chip__in { animation-duration: 68s, 12s; }
-
-@keyframes glow {
-  0%, 82%, 100% { color: var(--text-mid); border-color: var(--line); }
-  88% { color: var(--accent-ink); border-color: var(--accent-line); background: var(--accent-soft); }
-}
-
 /* ---------- sections ---------- */
+
+/* La credencial va debajo de los numeros y no entre ellos: no es una medida,
+   es un dato, y metida en la grilla obliga a leerla como si compitiera con
+   "14 productos". Tipografia de etiqueta, del mismo tamanio que los rotulos de
+   la fila de arriba, para que se lea como pie y no como titular.
+
+   ⚠️ Va DESPUES del marcador de seccion y no antes. La primera vez quedo justo
+   antes, y el borrado del CSS muerto de la orbita, que cortaba hasta ese
+   marcador, se la llevo puesta en el mismo tajo. El archivo decia tener la
+   regla porque yo la habia escrito; el servido no la tenia. */
+.credencial {
+  margin: 14px 0 0;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em;
+  color: var(--muted);
+}
 
 .section { padding: clamp(64px, 10vw, 108px) 0; border-top: 1px solid var(--line); }
 .section--alt { background: var(--bg-alt); transition: background-color 0.35s ease; }
@@ -1519,8 +1451,6 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
   .w { opacity: 1; translate: none; transition: none; }
   .glow, .bg > * { transform: none; animation: none; }
   .mascot img { animation: none; }
-  .orbit__track, .orbit__spark, .chip__in { animation: none; }
-  .orbit__ring, .orbit__core, .chip { opacity: 1; transform: none; scale: none; }
   .chip { transform: rotate(var(--a)) translateY(calc(var(--r, 130px) * -1)) rotate(calc(var(--a) * -1)); }
   .arc__step::before { transform: none; transition: none; }
   .js .craft__item.reveal:not(.is-in) .craft__icon { scale: none; }

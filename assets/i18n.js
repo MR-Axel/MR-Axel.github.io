@@ -224,6 +224,8 @@ window.ES = {
     'Agentes, automatización y productos enteros desde nada. Los pienso, los construyo y los pongo a andar. <strong>Semanas, no trimestres.</strong>',
   'Years on my own products':
     'Años con productos propios',
+  'MBA en Tecnología e Innovación, en curso':
+    'MBA en Tecnología e Innovación, en curso',
   'Tools delivered':
     'Herramientas entregadas',
 
