@@ -63,6 +63,7 @@
   if (rich) {
     [].forEach.call(document.querySelectorAll('.card'), function (el) { bindCard(el, 5); });
     [].forEach.call(document.querySelectorAll('.skill-card'), function (el) { bindCard(el, 4); });
+    [].forEach.call(document.querySelectorAll('.offer'), function (el) { bindCard(el, 4); });
     [].forEach.call(document.querySelectorAll('.sideitem, .craft__item, .arc__step'), function (el) {
       bindCard(el, 0);
     });

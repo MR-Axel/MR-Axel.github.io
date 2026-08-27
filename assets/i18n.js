@@ -199,6 +199,41 @@ window.ES = {
   'All 14, on GitHub<span class="arrow" aria-hidden="true">↗</span>':
     'Los 14, en GitHub<span class="arrow" aria-hidden="true">↗</span>',
 
+  /* --- services --- */
+  'Services': 'Servicios',
+  'Work with me': 'Trabajemos juntos',
+  /* &#39; in the source, but the browser hands back a plain apostrophe, so the
+     key has to be written the way innerHTML reads it */
+  "The same things, pointed at someone else's problem. Companies, startups, and people with a project that has not started yet.":
+    'Lo mismo de arriba, apuntado al problema de otro. Empresas, startups, y gente con un proyecto que todavía no arrancó.',
+
+  'Agent systems, spec to production': 'Sistemas de agentes, de la spec a producción',
+  'An agent that does something real: what it is allowed to do, where it hands off to a person, what counts as a good answer, and how you find out when it stops being one. Chat, WhatsApp or voice, wired to the data you already have.':
+    'Un agente que hace algo de verdad: qué tiene permitido hacer, dónde le pasa la posta a una persona, qué cuenta como buena respuesta, y cómo te enterás cuando deja de serlo. Chat, WhatsApp o voz, conectado a los datos que ya tenés.',
+  'For a process that is currently a person copying between two screens.':
+    'Para un proceso que hoy es una persona copiando entre dos pantallas.',
+
+  'Zero to one': 'De cero a uno',
+  'An idea to something people can actually use. Spec, build and release, with an agent in the loop for most of the code, which is why this is weeks and not quarters. You end up owning the repo.':
+    'De una idea a algo que la gente pueda usar. Spec, construcción y release, con un agente en el loop para casi todo el código, que es por qué esto son semanas y no trimestres. El repo termina siendo tuyo.',
+  'For a thesis with no product yet, or a company that needs a real thing in the room.':
+    'Para una hipótesis que todavía no tiene producto, o una empresa que necesita algo funcionando arriba de la mesa.',
+
+  'The boring machinery that hands a team its hours back: n8n, Activepieces, Retool, Zapier, Make. Plus the process that keeps it from rotting after I leave, which is the part that usually goes missing.':
+    'La maquinaria aburrida que le devuelve las horas a un equipo: n8n, Activepieces, Retool, Zapier, Make. Más el proceso que evita que se pudra cuando me voy, que es la parte que suele faltar.',
+  'For an operation running on spreadsheets and goodwill.':
+    'Para una operación que anda con planillas y buena voluntad.',
+
+  'AI product advisory': 'Asesoría de producto de IA',
+  'You have the engineers. What is missing is someone deciding what the AI should do, what it should not, and saying no to the demo that will not survive contact with a user.':
+    'Los ingenieros los tenés. Lo que falta es alguien que decida qué tiene que hacer la IA, qué no, y que le diga que no a la demo que no va a sobrevivir el contacto con un usuario.',
+  'For a team shipping AI features with nobody owning their shape.':
+    'Para un equipo que shippea features de IA sin que nadie se haga cargo de su forma.',
+
+  'Tell me what is broken and I will tell you whether I am the right person for it. If I am not, I will say so, which is cheaper for both of us than finding out in week three.':
+    'Contame qué está roto y te digo si soy la persona indicada. Si no lo soy, te lo digo, que sale más barato para los dos que descubrirlo en la semana tres.',
+  'Start a conversation': 'Empecemos a hablar',
+
   /* --- activity --- */
   'Most of the code lives in private product repos, so the graph is the honest part of it.':
     'Casi todo el código vive en repos privados de producto, así que el gráfico es la parte honesta.',
@@ -211,8 +246,8 @@ window.ES = {
 
   /* --- contact --- */
   'Let\'s talk': 'Hablemos',
-  'Open to remote AI product roles, and always up for a conversation about agents, automation, or why the commute is still broken. LinkedIn is the fastest way to reach me.':
-    'Abierto a roles remotos de producto de IA, y siempre listo para una charla sobre agentes, automatización, o por qué el viaje al trabajo sigue roto. Por LinkedIn es lo más rápido.',
+  'Open to remote AI roles, open to building for you, and always up for a conversation about agents, automation, or why the commute is still broken. LinkedIn is the fastest way to reach me.':
+    'Abierto a roles remotos de IA, abierto a construir para vos, y siempre listo para una charla sobre agentes, automatización, o por qué el viaje al trabajo sigue roto. Por LinkedIn es lo más rápido.',
   'Message me on LinkedIn': 'Escribime por LinkedIn',
 
   /* --- footer --- */
