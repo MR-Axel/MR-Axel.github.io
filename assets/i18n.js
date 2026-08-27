@@ -246,6 +246,8 @@ window.ES = {
     'Mandar',
   'Hi, I am Lima, the assistant on this site. Tell me what you are trying to build or fix and I will point you at the right thing, or hand you straight to Axel.':
     'Hola, soy Lima, la asistente de este sitio. Contame qué estás tratando de construir o de arreglar y te oriento, o te paso derecho con Axel.',
+  'Leave my details':
+    'Dejar mis datos',
   'Thinking.':
     'Pensando.',
   'Something went wrong on my side. The form further up still reaches him.':

@@ -1097,6 +1097,14 @@ a.mini:hover .arrow { color: var(--accent-ink); }
 
 @keyframes lima-latir { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
 
+.lima__salto {
+  align-self: flex-start; font: inherit; font-size: 13px; font-weight: 500;
+  color: var(--on-accent); background: var(--accent);
+  border: 0; border-radius: 10px; padding: 8px 13px; cursor: pointer;
+  transition: opacity 0.18s ease;
+}
+.lima__salto:hover { opacity: 0.86; }
+
 .lima__ask {
   display: flex; gap: 8px; align-items: center;
   padding: 11px 12px; border-top: 1px solid var(--line);

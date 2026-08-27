@@ -138,6 +138,25 @@
         charla.push({ rol: 'bot', texto: d.respuesta });
         burbuja('bot', d.respuesta);
         guardar();
+        /* The model asked for a person. The button is the whole point of
+           the chat, so it goes on screen instead of being described. */
+        if (d.contacto && !document.getElementById('lima-salto')) {
+          var salto = document.createElement('button');
+          salto.id = 'lima-salto';
+          salto.type = 'button';
+          salto.className = 'lima__salto';
+          salto.textContent = frase('dejar');
+          salto.addEventListener('click', function () {
+            cerrarPanel();
+            var campo = document.getElementById('f-name');
+            if (campo) {
+              campo.scrollIntoView({ block: 'center', behavior: 'smooth' });
+              setTimeout(function () { campo.focus(); }, 400);
+            }
+          });
+          log.appendChild(salto);
+          log.scrollTop = log.scrollHeight;
+        }
         if (d.cerrado) {
           /* The service is rate limited, capped or out of budget. It never
              says which, and neither does this: the visitor gets a way
