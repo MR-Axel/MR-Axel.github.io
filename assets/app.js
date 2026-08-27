@@ -45,18 +45,22 @@
       }
       if (nested) continue;
 
-      if (to === 'es') {
-        var key = norm(el.innerHTML);
-        if (DICT[key]) {
-          el.setAttribute('data-en', el.innerHTML);
-          el.innerHTML = DICT[key];
-          matched.push(el);
-        }
-      } else if (el.hasAttribute('data-en')) {
-        el.innerHTML = el.getAttribute('data-en');
-        el.removeAttribute('data-en');
-        matched.push(el);
-      }
+      /* The English source is cached on the element the first time it is seen
+         and every later lookup reads the cache, never the live DOM. Without
+         that, anything decorating the markup afterwards silently breaks the
+         match: interact.js splits headlines into per-word spans, and the
+         second time you press the toggle the innerHTML no longer resembles
+         any key in the dictionary. */
+      var src = el.getAttribute('data-en');
+      if (src === null) src = el.innerHTML;
+      var key = norm(src);
+      if (!DICT[key]) continue;
+
+      el.setAttribute('data-en', src);
+      el.innerHTML = to === 'es' ? DICT[key] : src;
+      /* the content is fresh, so any word split over it is gone with it */
+      el.removeAttribute('data-split');
+      matched.push(el);
     }
 
     lang = to;

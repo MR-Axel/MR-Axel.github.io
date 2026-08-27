@@ -8,6 +8,7 @@ index.html                       page content
 assets/style.css                 design system, dark only
 assets/app.js                    theme, language, scroll system, heatmap
 assets/i18n.js                   the Spanish half of the page, keyed by English
+assets/interact.js               pointer effects, word splitting, counting stats
 assets/mascots/                  hornero (dametrabajo) and carpincho (Nuchus)
 data/github.json                 refreshed daily by Actions, committed to the repo
 scripts/fetch_github.py          the fetcher
@@ -95,6 +96,22 @@ show an edge, however long the page gets.
 
 The orbs also carry a slow ambient `translate` animation. It is on `translate`
 and not `transform` on purpose, because `transform` is what JS is writing.
+
+## The interaction layer
+
+`assets/interact.js` is additive by construction: the page reads, animates and
+translates without it. It stamps `rich` or `plain` on `<html>` and only the
+first gets pointer effects, because a tilt on a phone is a tap that feels
+broken. Everything pointer-driven writes a custom property inside one rAF and
+lets CSS paint, so moving the mouse never triggers layout.
+
+It splits headlines into per-word spans, which collides with the translator:
+after a split, the element's innerHTML no longer resembles any dictionary key.
+The handshake is one attribute. `app.js` caches the English source in
+`data-en` and always matches against the cache rather than the live DOM, and
+drops `data-split` from anything it rewrites. `interact.js` skips elements
+that still carry the flag. Clear that flag unconditionally and every toggle
+nests the spans one level deeper.
 
 ## Iconography
 
