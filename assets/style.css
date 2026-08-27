@@ -461,6 +461,49 @@ section[id] { scroll-margin-top: 82px; }
 .section__head h2 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); margin-bottom: 14px; }
 .section__head p { color: var(--muted); }
 
+/* ---------- the scattered marks in the hero ---------- */
+
+/* What replaced the orbit. A ring with things going round it is the stock
+   illustration of "AI platform", and a perfect circle is the one shape a hand
+   never makes. These are marks dropped the way you fill a margin while
+   thinking, each drifting at its own rate.
+
+   Placement is by hand in the markup and not by a loop: nine marks on a grid
+   look like nine marks on a grid, and the point is that somebody put them
+   there. */
+.garabatos { position: relative; width: 100%; height: 100%; min-height: 420px; }
+
+.garabato {
+  position: absolute;
+  left: var(--x); top: var(--y);
+  width: var(--t); height: auto;
+  rotate: var(--g);
+  opacity: 0.42;
+  /* One number on the parent, multiplied here. Ten elements written from JS
+     every frame is ten style recalcs for a decoration. */
+  translate: 0 calc(var(--desliz, 0px) * var(--p));
+  pointer-events: none;
+}
+
+/* Same trick as the drawn icons: the ink is pure black, so dark mode is an
+   inversion and not a second set of files. */
+[data-theme="dark"] .garabato { filter: invert(1); opacity: 0.3; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .garabato { filter: invert(1); opacity: 0.3; }
+}
+[data-theme="light"] .garabato { filter: none; opacity: 0.42; }
+
+/* Reduced motion keeps the drawing and drops the drift: the marks are content
+   here, not an effect, so hiding them would empty the panel. */
+@media (prefers-reduced-motion: reduce) {
+  .garabato { translate: none; }
+}
+
+@media (max-width: 900px) {
+  .garabatos { min-height: 260px; }
+  .garabato { width: calc(var(--t) * 0.7); opacity: 0.3; }
+}
+
 /* ---------- work cards ---------- */
 
 /* the stage exists so the mascots anchor to the grid and not to the section
@@ -794,18 +837,27 @@ section[id] { scroll-margin-top: 82px; }
 
 .craft { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 38px 44px; }
 
+/* Sin caja, igual que los nodos del Recorrido. Un cuadrado redondeado
+   alrededor de un trazo a mano es la maquina volviendo a enmarcar el boceto,
+   y ademas eran diez marcos compitiendo con el marco del bloque. */
 .craft__icon {
   display: grid; place-items: center;
-  width: 38px; height: 38px; border-radius: 11px; margin-bottom: 16px;
-  background: var(--surface); border: 1px solid var(--line);
+  width: 38px; height: 38px; margin-bottom: 14px;
   color: var(--accent-ink);
-  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, scale 0.5s var(--ease-out);
+  transition: scale 0.5s var(--ease-out), rotate 0.3s var(--ease-out);
 }
+
+/* 🔴 EL TRAZO SE DESPROLIJA CON UN FILTRO, Y ACA SI SE PUEDE. En las tarjetas
+   el mismo filtro estaba prohibido porque arrastraba el texto con el; un icono
+   no tiene texto, asi que desplazar sus pixeles no le cuesta nada a nadie.
+   Convierte los diez iconos de linea recta en trazo tembloroso sin pedir diez
+   dibujos nuevos.
+
+   La escala del desplazamiento es chica a proposito: a 38px, dos pixeles ya
+   son un temblor visible, y mas que eso rompe las formas cerradas. */
+.craft__icon svg { filter: url(#tiembla); }
 .craft__icon svg { width: 20px; height: 20px; }
-.craft__item:hover .craft__icon {
-  border-color: var(--accent-line); background: var(--accent-soft);
-  box-shadow: 0 0 0 5px var(--accent-soft);
-}
+.craft__item:hover .craft__icon { scale: 1.12; rotate: -4deg; }
 /* the icon lands a beat after the text, which is what stops ten of them
    arriving as one block */
 .js .craft__item.reveal:not(.is-in) .craft__icon { scale: 0.75; }

@@ -256,6 +256,7 @@
   var glow = document.querySelector('.glow');
   var bgLayer = document.querySelector('.bg');
   var mascots = [].slice.call(document.querySelectorAll('.mascot'));
+  var garabatos = document.getElementById('garabatos');
   var pending = false;
 
   function frame() {
@@ -269,6 +270,13 @@
     if (reduced) return;
 
     paintArc(y);
+
+    /* The scattered marks in the hero. One number written once and each mark
+       multiplies it by its own factor in CSS, instead of this loop touching
+       ten elements every frame. It is driven by raw scrollY and not by page
+       progress: they only exist on the first screen, and progress over a
+       page this long would barely move them. */
+    if (garabatos) garabatos.style.setProperty('--desliz', (y * 0.18).toFixed(1) + 'px');
 
     /* Each background layer moves at its own rate and some of them the other
        way, which is the whole trick: one layer drifting reads as a bug, five
