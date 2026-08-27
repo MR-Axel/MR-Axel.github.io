@@ -124,8 +124,35 @@ window.ES = {
     '<strong>No es lo mío, al menos todavía:</strong> Kubernetes y sistemas distribuidos, entrenar modelos, y ser el que revisa el código de todos los demás en un codebase grande de TypeScript. Shippeo features con un agente en el loop y leo cada diff, pero ese es otro trabajo. Prefiero decírtelo ahora y no que lo descubramos juntos en la semana tres.',
 
   /* --- agent skills --- */
-  '14 open Agent Skills for Claude Code. No hardcoded stack or preferences: each one asks once, saves the answer in your repo, and says so instead of guessing when that file is missing.':
-    '14 Agent Skills abiertos para Claude Code. Sin stack ni preferencias cableadas: cada uno pregunta una vez, guarda la respuesta en tu repo, y lo dice en vez de adivinar cuando ese archivo no está.',
+  'The skills I write for Claude Code. Some are open and some carry knowledge that is mine, and those stay here.':
+    'Los skills que escribo para Claude Code. Algunos son abiertos y otros llevan conocimiento que es mío, y esos se quedan acá.',
+
+  'Written on my own expertise, not published': 'Escritos sobre lo que sé, sin publicar',
+  'Open on GitHub, 14 of them': 'Abiertos en GitHub, son 14',
+
+  'No hardcoded stack or preferences: each one asks once, saves the answer in your repo, and says so instead of guessing when that file is missing.':
+    'Sin stack ni preferencias cableadas: cada uno pregunta una vez, guarda la respuesta en tu repo, y lo dice en vez de adivinar cuando ese archivo no está.',
+
+  'Picks the agent architecture a task deserves out of 32 methods: blackboard, judge panel, adversarial debate, tree of thoughts, tournament, run-until-dry, executable verifier. It returns the one to use, why not the others, and the signal to abandon it.':
+    'Elige la arquitectura agéntica que la tarea merece, de un catálogo de 32 métodos: pizarra, panel de jueces, debate adversario, árbol de pensamientos, torneo, hasta-secar, verificador ejecutable. Devuelve cuál usar, por qué ese y no otro, y la señal para abandonarlo.',
+
+  'Scroll that carries a story: pinned scenes that scrub, paths that draw, camera depth, backgrounds that follow the theme. Including the measurement bugs that cost hours, which is the part nobody writes down.':
+    'Scroll que cuenta algo: escenas que se clavan y se scrubbean, caminos que se dibujan, profundidad de cámara, fondos que siguen al tema. Incluidos los bugs de medición que cuestan horas, que es la parte que nadie escribe.',
+
+  'A product video end to end. The app recorded for real with Playwright, voice over from ElevenLabs, composed in Remotion. Script, audio measured against the cut, render, and a check that what shipped is what was meant.':
+    'Un video de producto de punta a punta. La app grabada de verdad con Playwright, voz en off de ElevenLabs, compuesto en Remotion. Guion, audio medido contra el corte, render, y una verificación de que lo que salió es lo que se quería.',
+
+  'Audits copy that is already written so it does not read as machine-made. Catches template parallelism, brochure adjectives, endings eaten by connectives and promises without a number, and returns the exact replacement for each.':
+    'Audita copy ya escrito para que no se lea como hecho por una máquina. Detecta paralelismo de plantilla, adjetivos de folleto, remates comidos por conectores y promesas sin número, y devuelve el reemplazo exacto de cada uno.',
+
+  /* the h3 carries the mark inside it, so the key has to carry it too, or
+     the name falls through and only the pill translates */
+  'one per product<span class="skill-mark">private</span>':
+    'uno por producto<span class="skill-mark">sin publicar</span>',
+  'A skill per codebase: its design tokens, its conventions, and the traps that already cost someone an afternoon. An agent joining that repo does not have to be told twice.':
+    'Un skill por codebase: sus design tokens, sus convenciones, y las trampas que ya le costaron una tarde a alguien. Un agente que entra a ese repo no necesita que se lo expliquen dos veces.',
+
+  'private': 'sin publicar',
 
   'Run this first. Reads what it can from your repo, asks the rest with the evidence in front of you, writes the shared profile.':
     'Corré este primero. Lee lo que puede de tu repo, pregunta el resto con la evidencia delante, y escribe el perfil compartido.',

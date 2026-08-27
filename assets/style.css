@@ -803,6 +803,30 @@ section[id] { scroll-margin-top: 78px; }
 
 .skills-cta { margin-top: 26px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
+/* two groups in one section: the ones written on his own knowledge, which go
+   nowhere because they are not published, and the open ones that link out */
+.skills-band {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); font-weight: 500;
+  margin: 0 0 18px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.skills-grid + .skills-band { margin-top: 56px; }
+.skills-note { color: var(--muted); font-size: 0.93rem; max-width: 62ch; margin: -6px 0 20px; }
+
+/* no link, no arrow, and a mark that says why: the card is a statement of what
+   exists, not an invitation to click something that is not there */
+.skill-card--own { cursor: default; }
+.skill-card--own:hover { transform: none; }
+.rich .skill-card--own:hover { transform: perspective(1400px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+.skill-card--own h3 { justify-content: space-between; gap: 10px; }
+.skill-card--own:hover h3 { color: inherit; }
+.skill-mark {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); border: 1px solid var(--line); border-radius: 999px;
+  padding: 2px 8px; font-weight: 500; white-space: nowrap;
+}
+
 /* ---------- activity ---------- */
 
 .heat { margin: 0 0 32px; }
