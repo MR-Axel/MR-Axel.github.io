@@ -1153,13 +1153,62 @@ a.mini:hover .arrow { color: var(--accent-ink); }
 .lima.is-open .lima__launch { display: none; }
 
 .lima__panel {
+  /* 🔴 ABSOLUTO, Y NO ES UN DETALLE DE ACOMODO. Al pasar de `hidden` a
+     `visibility` para poder animarlo, el panel dejo de verse pero SIGUIO
+     OCUPANDO LUGAR: el contenedor media el alto de los dos y el lanzador
+     terminaba flotando en el medio de la pantalla en vez de abajo a la
+     derecha. Sacarlo del flujo es lo que permite que se pueda animar sin que
+     su tamanio empuje nada. */
+  position: absolute; right: 0; bottom: calc(100% + 12px);
   width: min(430px, calc(100vw - 44px));
   display: flex; flex-direction: column;
   background: var(--bg-alt); border: 1px solid var(--line-hi);
   border-radius: 18px; overflow: hidden;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+
+  /* 🔴 SE ABRE DESDE EL LANZADOR, no aparece en el medio de la nada. El origen
+     de la transformacion es la esquina de abajo a la derecha, que es de donde
+     lo llamaste: crece desde ahi en vez de materializarse, y eso es lo que
+     hace que el gesto se lea como una respuesta y no como un cartel.
+
+     ⚠️ Y NO SE USA `hidden` PARA ESCONDERLO. `display: none` no interpola,
+     asi que con el atributo no hay animacion posible: no es que quede fea, es
+     que no existe. El atributo se saca una sola vez cuando arranca el script,
+     y de ahi en mas manda la clase. Si el script nunca corre, `hidden` se
+     queda puesto y el panel no aparece, que es la degradacion correcta.
+
+     `visibility` se demora hasta el final al cerrar y va sin demora al abrir:
+     sin eso el panel sigue siendo enfocable mientras se desvanece. */
+  opacity: 0; visibility: hidden;
+  scale: 0.9; translate: 0 14px;
+  transform-origin: bottom right;
+  transition: opacity 0.22s ease,
+              scale 0.34s var(--ease-out),
+              translate 0.34s var(--ease-out),
+              visibility 0s linear 0.34s;
+}
+.lima.is-open .lima__panel {
+  opacity: 1; visibility: visible;
+  scale: 1; translate: 0 0;
+  transition: opacity 0.2s ease,
+              scale 0.38s cubic-bezier(0.2, 1.1, 0.35, 1),
+              translate 0.38s cubic-bezier(0.2, 1.1, 0.35, 1),
+              visibility 0s;
 }
 .lima__panel[hidden] { display: none; }
+
+/* Cada burbuja entra por su cuenta. Una charla que aparece de golpe se lee
+   como una pantalla que se pinto; de a una se lee como alguien contestando. */
+@keyframes lima-entra {
+  from { opacity: 0; translate: 0 8px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+.lima__msg { animation: lima-entra 0.32s var(--ease-out) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lima__panel { transition: opacity 0.15s ease, visibility 0s; scale: 1; translate: 0; }
+  .lima__msg { animation: none; }
+}
 
 .lima__head {
   display: flex; align-items: center; gap: 10px;
@@ -1184,7 +1233,7 @@ a.mini:hover .arrow { color: var(--accent-ink); }
   padding: 15px 14px; overflow-y: auto;
   /* Grows with the conversation instead of opening at full height. A fixed
      box under a one line greeting reads as a panel that failed to load. */
-  min-height: 110px; max-height: min(460px, 58vh);
+  min-height: 230px; max-height: min(460px, 58vh);
   overscroll-behavior: contain;
 }
 
@@ -1246,7 +1295,7 @@ a.mini:hover .arrow { color: var(--accent-ink); }
   .lima { right: 14px; bottom: 14px; left: 14px; align-items: stretch; }
   .lima__launch { align-self: flex-end; }
   .lima__panel { width: 100%; }
-  .lima__log { max-height: min(340px, 46vh); }
+  .lima__log { min-height: 190px; max-height: min(340px, 46vh); }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -188,26 +188,12 @@
    justo lo que se saco del marco. Lo unico que toca es la tinta del anillo. */
 [data-skin="doodle"] .arc__anillo path { stroke: var(--ink); }
 
-/* ---------- handwriting, only when asked for ---------- */
-
-/* Off by default and kept separate on purpose. The drawn borders are a skin;
-   swapping the headline face is a rebrand, and it is the one change that can
-   make a hiring page read as a hobby project. Worth seeing, not worth
-   assuming.
-
-   🔴 AND IT NEVER TOUCHES A PRODUCT NAME. It was on .card__title first, and
-   dametrabajo, Kidonauta and Nuchus came out in script: those are real
-   product names, and a real name written in handwriting reads as a sketch of
-   a product rather than a product. Section headings only. */
-[data-skin="doodle"][data-doodle-type="hand"] h1,
-[data-skin="doodle"][data-doodle-type="hand"] h2 {
-  font-family: "Caveat", var(--sans);
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  /* Caveat runs small and short for its point size, so it needs both back. */
-  font-size: 1.35em;
-  line-height: 1.15;
-}
+/* La letra manuscrita se probo y se descarto. Caveat es cursiva y a tamanio
+   de titular no se entiende, y en los nombres de producto (dametrabajo,
+   Kidonauta, Nuchus) hacia que un producto real se leyera como el boceto de un
+   producto. El skin se queda con Inter: lo dibujado son los trazos, no la
+   tipografia. Se saca el bloque entero en vez de dejarlo inerte, para que
+   nadie lo encienda pensando que falta probarlo. */
 
 /* ---------- the toggle, local only ---------- */
 

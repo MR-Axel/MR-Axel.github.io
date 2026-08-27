@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
-"""Builds prueba-doodle.html from index.html, for looking at the doodle skin.
+"""Genera prueba-doodle.html: el sitio con el interruptor del skin encima.
 
-Generated rather than kept as a second copy of the page, and gitignored, for
-two reasons: a copy of index.html drifts out of date the first time the real
-one changes, and a skin that is being evaluated has no business sitting in a
-file that a push could ship.
+El skin doodle ya es el diseño del sitio, así que esta página dejó de servir
+para encenderlo y pasa a servir para APAGARLO. Suma solo `doodle.js`, que
+dibuja el panelito de abajo a la izquierda, y con eso se puede comparar con y
+sin sobre el mismo scroll, el mismo contenido y los dos idiomas. Una captura
+de un rediseño siempre lo favorece, porque no tiene scroll ni hover.
+
+Generada y no guardada como segunda copia: una copia de index.html queda vieja
+la primera vez que cambia la de verdad. Y va en .gitignore.
 
     python scripts/prueba-doodle.py
     python -m http.server 8123
-    open http://127.0.0.1:8123/prueba-doodle.html
+    http://127.0.0.1:8123/prueba-doodle.html
 """
 import io
 import os
@@ -23,12 +27,9 @@ AVISO = ('<!-- GENERADO por scripts/prueba-doodle.py. No editar a mano y no '
 
 s = io.open(ORIGEN, encoding='utf-8').read()
 
-if 'doodle.css' in s:
-    sys.exit('index.html ya carga el skin, eso no tendria que pasar')
+if 'doodle.css' not in s:
+    sys.exit('index.html no carga el skin, asi que esta pagina no tiene sentido')
 
-# El CSS del skin va ultimo para ganarle a style.css sin subir especificidad.
-s = s.replace('</head>',
-              '<link rel="stylesheet" href="assets/doodle.css">\n</head>', 1)
 s = s.replace('</body>',
               '<script src="assets/doodle.js" defer></script>\n</body>', 1)
 

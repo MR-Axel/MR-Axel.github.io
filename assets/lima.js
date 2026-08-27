@@ -33,6 +33,12 @@
     frases[el.getAttribute('data-frase')] = el;
   });
 
+  /* El atributo se saca ni bien arranca el script y no vuelve: `display: none`
+     no interpola, asi que mientras este puesto no hay transicion posible. Si
+     el script nunca corre, se queda y el panel no aparece, que es lo que
+     corresponde. */
+  panel.hidden = false;
+
   var charla = [];
   var ocupada = false;
   var cerrada = false;
@@ -80,7 +86,6 @@
 
   function abrir() {
     abierta = true;
-    panel.hidden = false;
     launch.setAttribute('aria-expanded', 'true');
     caja.classList.add('is-open');
     pintarTodo();
@@ -89,7 +94,6 @@
 
   function cerrarPanel() {
     abierta = false;
-    panel.hidden = true;
     launch.setAttribute('aria-expanded', 'false');
     caja.classList.remove('is-open');
     launch.focus();
@@ -181,17 +185,15 @@
 
   /* ------------------------------------------------------------ entrance */
 
-  /* Shown once the hero has scrolled by. Checked on load too, so arriving at
-     #contact from a link does not leave the launcher hidden. */
-  function mirar() {
-    var pasado = (window.pageYOffset || document.documentElement.scrollTop) >
-                 window.innerHeight * 0.6;
-    caja.hidden = false;
-    caja.classList.toggle('is-visible', pasado || abierta);
-  }
+  /* Desde el arranque y no despues del hero. Estaba atado al scroll para no
+     tapar la primera pantalla, y el costo era peor que el problema: quien
+     entra y no baja nunca ve que hay alguien para preguntarle, que es
+     justamente la gente que mas lo necesita.
 
-  window.addEventListener('scroll', mirar, { passive: true });
-  mirar();
+     Entra con una demora corta para que se lea como que llego, y no como que
+     siempre estuvo ahi. */
+  caja.hidden = false;
+  setTimeout(function () { caja.classList.add('is-visible'); }, 900);
 
   /* ------------------------------------------------------- language swap */
 
