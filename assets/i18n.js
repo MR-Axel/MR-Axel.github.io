@@ -65,7 +65,11 @@ window.ES = {
 
 
   /* pills */
-  'Live': 'Vivo',
+  /* "Live" se queda en ingles tambien en castellano. "Vivo" al lado de un
+     producto se lee como que respira; el sentido es que esta en linea y se
+     puede entrar, y para eso "Live" ya es la palabra que usa todo el mundo,
+     incluso hablando en castellano. */
+  'Live': 'Live',
 
   /* --- also built --- */
   'Also built': 'También construí',
@@ -338,6 +342,7 @@ window.ES = {
 
   /* --- strings JS builds, so they are not in the DOM to be matched --- */
   '_contributions': '{n} contribuciones en el último año',
+  '_contributions_6m': '{n} contribuciones en los últimos seis meses',
   '_switchToEs': 'Ver en español',
   '_switchToEn': 'View in English',
   '_theme': 'Cambiar entre claro y oscuro'
@@ -345,6 +350,7 @@ window.ES = {
 
 window.EN_META = {
   '_contributions': '{n} contributions in the last year',
+  '_contributions_6m': '{n} contributions in the last six months',
   '_switchToEs': 'Ver en español',
   '_switchToEn': 'View in English',
   '_theme': 'Switch between light and dark'

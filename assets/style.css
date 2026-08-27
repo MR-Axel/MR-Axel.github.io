@@ -1359,6 +1359,90 @@ html[data-transicion="llenando"]::view-transition-new(root) { z-index: 2; }
 html[data-transicion="vaciando"]::view-transition-new(root) { z-index: 1; }
 html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
 
+
+/* ---------- la version de telefono ---------- */
+
+/* Dos patrones que arma mobile.js en el navegador. En escritorio nada de esto
+   existe, porque las clases no se agregan. Medido antes: la pagina media
+   15.353px de alto en un telefono. */
+
+/* El acordeon. La altura se anima con grid-template-rows de 0fr a 1fr, que es
+   lo unico que interpola una altura desconocida sin medirla: `height: auto` no
+   anima, y medir con scrollHeight se rompe apenas el texto reflowea. */
+.plegable {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows 0.38s var(--ease-out);
+}
+.plegable > * { overflow: hidden; min-height: 0; }
+.esta-abierto > .plegable { grid-template-rows: 1fr; }
+
+.plegable__tirador {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  font: inherit; color: inherit; text-align: left;
+  background: none; border: 0; padding: 0; cursor: pointer;
+}
+/* La flecha es el unico elemento que dice que esto se abre. Sin ella el titulo
+   parece un titulo y nadie lo toca. */
+.plegable__tirador::after {
+  content: ""; flex: none; margin-left: auto;
+  width: 9px; height: 9px;
+  border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted);
+  rotate: 45deg; translate: 0 -2px;
+  transition: rotate 0.3s var(--ease-out);
+}
+.esta-abierto > .plegable__tirador::after { rotate: -135deg; translate: 0 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .plegable { transition: none; }
+  .plegable__tirador::after { transition: none; }
+}
+
+.offer__cta { margin-top: 16px; }
+
+/* "Tambien construi" en telefono: nombre y estado, sin la descripcion. Cuatro
+   filas de tres renglones cada una son doce renglones para decir cuatro
+   nombres; la descripcion esta a un toque de distancia en el sitio de cada
+   uno, que es adonde va a ir igual quien se interese. */
+@media (max-width: 760px) {
+  .sideitem__body p { display: none; }
+  .sideitem { padding: 14px 16px; gap: 12px; }
+}
+
+/* Medio anio entra sin arrastrar: 27 columnas contra 53. El ancho minimo del
+   escritorio esta pensado para el anio entero y aca sobra. */
+@media (max-width: 760px) {
+  .heat__grid { min-width: 0; }
+  .heat__scroll { overflow-x: visible; }
+}
+
+/* El carrusel. Scroll horizontal con anclaje, para que las tarjetas frenen
+   enteras y no a la mitad. */
+.es-carrusel {
+  display: flex !important;
+  grid-template-columns: none !important;
+  overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  gap: 14px;
+  /* ⚠️ SIN MARGEN NEGATIVO. La idea era que sangrara hasta el borde de la
+     pantalla, y el precio medido fueron 40px de scroll lateral en toda la
+     pagina: el contenedor con `overflow-x: auto` se hace mas ancho que su
+     padre y el que desborda pasa a ser el documento. Un sangrado bonito no
+     vale que el sitio se pueda arrastrar de costado. */
+  padding: 4px 2px 18px;
+  scroll-padding-inline: 2px;
+  scrollbar-width: none;
+}
+.es-carrusel::-webkit-scrollbar { display: none; }
+.es-carrusel > * {
+  flex: 0 0 82%;
+  scroll-snap-align: center;
+  /* ⚠️ Sin esto las tarjetas se aplastan: en un contenedor flex el ancho base
+     manda sobre el contenido y una tarjeta con mas texto se comprime. */
+  min-width: 0;
+}
+/* Las fichas del stack son chicas: van de a varias por pantalla, no una. */
+.stack .es-carrusel > * { flex: 0 0 auto; scroll-snap-align: start; }
+
 /* ---------- interaction layer ---------- */
 
 /* Everything here is painted from custom properties that interact.js writes

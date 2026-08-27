@@ -498,14 +498,27 @@
 
   var nf;
   var contributions = null;
+  var contribSemestre = null;
 
   function paintContributions() {
     if (contributions === null) return;
     if (!nf) nf = new Intl.NumberFormat(lang === 'es' ? 'es-AR' : 'en-US');
-    var total = nf.format(contributions);
-    var tpl = (lang === 'es' ? DICT : META_EN)._contributions || '{n} contributions in the last year';
-    setText('[data-stat="contributions"]', total);
-    setText('[data-stat="contributions-line"]', tpl.replace('{n}', total));
+    var dicc = lang === 'es' ? DICT : META_EN;
+
+    /* 🔴 EL PIE TIENE QUE DECIR LO QUE EL GRAFICO MUESTRA. En telefono el
+       grafico son seis meses, y el pie seguia diciendo "en el ultimo anio" con
+       el total del anio debajo de medio anio de cuadraditos. Nadie lo suma a
+       mano, se lo cree, y es un numero que no corresponde a lo que esta viendo.
+       El de la fila de metricas de arriba SI se queda en el anio: ahi el
+       rotulo dice "ultimo anio" y no hay grafico al lado que lo desmienta. */
+    var chico = window.matchMedia('(max-width: 760px)').matches;
+    var n = (chico && contribSemestre !== null) ? contribSemestre : contributions;
+    var tpl = (chico
+      ? (dicc._contributions_6m || '{n} contributions in the last six months')
+      : (dicc._contributions || '{n} contributions in the last year'));
+
+    setText('[data-stat="contributions"]', nf.format(contributions));
+    setText('[data-stat="contributions-line"]', tpl.replace('{n}', nf.format(n)));
   }
 
   fetch('data/github.json', { cache: 'no-cache' })
@@ -551,18 +564,34 @@
     var grid = document.getElementById('heatmap');
     if (!grid || !contrib.days || !contrib.days.length) return;
 
-    var t = thresholds(contrib.days);
+    /* 🔴 EN TELEFONO SON SEIS MESES Y NO UN ANIO. Un anio son 53 columnas, que
+       con la celda mas chica que sigue siendo tocable no bajan de 700px: en una
+       pantalla de 390 eso es scroll lateral adentro de una pagina que ya se
+       scrollea vertical, y los dos gestos se pelean. Medio anio entra sin
+       arrastrar nada y sigue contestando la unica pregunta que la seccion hace,
+       que es si la persona shippea seguido.
+
+       Los umbrales de color se calculan sobre los dias que se muestran y no
+       sobre los 365: con los del anio entero, medio anio de actividad pareja
+       sale todo del mismo tono. */
+    var dias = contrib.days;
+    if (window.matchMedia('(max-width: 760px)').matches) {
+      dias = dias.slice(-183);
+    }
+    contribSemestre = dias.reduce(function (a, d) { return a + (d.c || 0); }, 0);
+
+    var t = thresholds(dias);
     var frag = document.createDocumentFragment();
 
     /* pad so the first column starts on the right weekday */
-    var firstDow = new Date(contrib.days[0].d + 'T00:00:00Z').getUTCDay();
+    var firstDow = new Date(dias[0].d + 'T00:00:00Z').getUTCDay();
     for (var p = 0; p < firstDow; p++) {
       var pad = document.createElement('i');
       pad.style.visibility = 'hidden';
       frag.appendChild(pad);
     }
 
-    contrib.days.forEach(function (day) {
+    dias.forEach(function (day) {
       var cell = document.createElement('i');
       cell.className = 'lv' + level(day.c, t);
       cell.title = day.c + (day.c === 1 ? ' contribution' : ' contributions') + ' on ' + day.d;
