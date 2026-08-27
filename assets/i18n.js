@@ -121,41 +121,20 @@ window.ES = {
     'SQL, Tableau, Metabase. Tableros sobre los que la gente realmente decide, no capturas para un deck mensual.',
 
   /* --- agent skills --- */
-  'The skills I write for Claude Code. Some are open and some carry knowledge that is mine, and those stay here.':
-    'Los skills que escribo para Claude Code. Algunos son abiertos y otros llevan conocimiento que es mío, y esos se quedan acá.',
 
-  'Written on my own expertise, not published': 'Escritos sobre lo que sé, sin publicar',
-  'Open on GitHub, 14 of them': 'Abiertos en GitHub, son 14',
 
-  'No hardcoded stack or preferences: each one asks once, saves the answer in your repo, and says so instead of guessing when that file is missing.':
-    'Sin stack ni preferencias cableadas: cada uno pregunta una vez, guarda la respuesta en tu repo, y lo dice en vez de adivinar cuando ese archivo no está.',
 
   'Picks the agent architecture a task deserves out of 32 methods, and returns the one to use, why not the others, and the signal to abandon it.':
     'Elige la arquitectura agéntica que la tarea merece, de 32 métodos. Devuelve cuál usar, por qué ese, y la señal para abandonarlo.',
 
-  'Scroll that carries a story: pinned scenes, paths that draw, camera depth. Including the measurement bugs nobody writes down.':
-    'Scroll que cuenta algo: escenas clavadas, caminos que se dibujan, profundidad de cámara. Con los bugs de medición que nadie escribe.',
 
-  'A product video end to end: the app recorded for real with Playwright, voice over from ElevenLabs, composed in Remotion.':
-    'Un video de producto de punta a punta: la app grabada de verdad con Playwright, voz en off de ElevenLabs, compuesto en Remotion.',
 
-  'Audits copy that is already written so it does not read as machine-made, and returns the exact replacement for each finding.':
-    'Audita copy ya escrito para que no se lea hecho por una máquina, y devuelve el reemplazo exacto de cada hallazgo.',
 
-  /* the h3 carries the mark inside it, so the key has to carry it too, or
-     the name falls through and only the pill translates */
-  'one per product<span class="skill-mark">private</span>':
-    'uno por producto<span class="skill-mark">sin publicar</span>',
-  'A skill per codebase: its tokens, its conventions, and the traps that already cost someone an afternoon.':
-    'Un skill por codebase: sus tokens, sus convenciones, y las trampas que ya le costaron una tarde a alguien.',
+  'one per product': 'uno por producto',
 
   'private': 'sin publicar',
 
-  'Run this first. Reads what it can from your repo, asks the rest with the evidence in front of you, writes the shared profile.':
-    'Corré este primero. Lee lo que puede de tu repo, pregunta el resto con la evidencia delante, y escribe el perfil compartido.',
 
-  'Implements a feature or fixes a bug following your repo\'s own conventions. Reports what it assumed and what it left out.':
-    'Implementa una feature o arregla un bug siguiendo las convenciones de tu propio repo. Informa qué asumió y qué dejó afuera.',
 
   'The full loop for a feature: plan, implement, validate, review, deploy. Chains the other skills together.':
     'El loop completo de una feature: planear, implementar, validar, revisar, desplegar. Encadena los otros skills.',
@@ -169,32 +148,16 @@ window.ES = {
   'Code review of a diff. Every finding anchored to a real file and line, with the concrete failure scenario spelled out.':
     'Code review de un diff. Cada hallazgo anclado a un archivo y una línea reales, con el escenario de falla concreto escrito.',
 
-  'Interactive architecture review. Every issue comes with options, effort and risk; you decide the priority, not the skill.':
-    'Revisión de arquitectura interactiva. Cada problema viene con opciones, esfuerzo y riesgo; la prioridad la decidís vos, no el skill.',
 
-  'UI audit: accessibility, responsive behavior, interaction states, and consistency with your own design system.':
-    'Auditoría de UI: accesibilidad, comportamiento responsive, estados de interacción, y consistencia con tu propio design system.',
 
-  'A business review: does it solve the real need, do the gates hold, is the flow complete, can people actually find it.':
-    'Una revisión de negocio: resuelve la necesidad real, aguantan las compuertas, está completo el flujo, la gente puede encontrarlo.',
 
   'The release pipeline. Separate permissions for commit, push and deploy, and it never ships a build that hasn\'t passed.':
     'El pipeline de release. Permisos separados para commit, push y deploy, y nunca shippea un build que no pasó.',
 
-  'QA after the deploy, against what\'s actually live. Picks its depth by blast radius instead of running the same checklist every time.':
-    'QA después del deploy, contra lo que está vivo de verdad. Elige la profundidad por radio de impacto en vez de correr siempre el mismo checklist.',
 
-  'A log of the decisions you can\'t recover by reading the code: why that limit, why that model, what got ruled out and why.':
-    'Un registro de las decisiones que no se recuperan leyendo el código: por qué ese límite, por qué ese modelo, qué se descartó y por qué.',
 
-  'Sets up a design system where there is none, and enforces the one you already have: four gates that fail a check instead of surviving review.':
-    'Arma un design system donde no hay ninguno, y hace cumplir el que ya tenés: cuatro compuertas que fallan un check en vez de sobrevivir a un review.',
 
-  'Ready-to-publish content for X, LinkedIn and Instagram, on your own brand and funnel. Never invents metrics or social proof.':
-    'Contenido listo para publicar en X, LinkedIn e Instagram, sobre tu marca y tu embudo. Nunca inventa métricas ni prueba social.',
 
-  'All 14, on GitHub<span class="arrow" aria-hidden="true">↗</span>':
-    'Los 14, en GitHub<span class="arrow" aria-hidden="true">↗</span>',
 
   /* --- services --- */
   'Services': 'Servicios',
@@ -231,6 +194,40 @@ window.ES = {
     'Contame qué está roto y te digo si soy la persona indicada. Si no lo soy, te lo digo, que sale más barato para los dos que descubrirlo en la semana tres.',
   'Start a conversation': 'Empecemos a hablar',
 
+  /* --- agent skills --- */
+  'The skills I write for Claude Code. Six a product or engineering team would reach for, and the rest underneath.':
+    'Los skills que escribo para Claude Code. Seis que un equipo de producto o ingeniería usaría, y el resto abajo.',
+  'The other thirteen':
+    'Los otros trece',
+  'The 14 open ones, on GitHub<span class="arrow" aria-hidden="true">↗</span>':
+    'Los 14 abiertos, en GitHub<span class="arrow" aria-hidden="true">↗</span>',
+  'Reads your repo, asks for the rest, writes the shared profile.':
+    'Lee tu repo, pregunta el resto, y escribe el perfil compartido.',
+  "Implements a feature following your repo's own conventions.":
+    'Implementa una feature siguiendo las convenciones de tu repo.',
+  'Architecture review where you set the priority, not the skill.':
+    'Revisión de arquitectura donde la prioridad la ponés vos, no el skill.',
+  'UI audit: accessibility, responsive behavior, interaction states.':
+    'Auditoría de UI: accesibilidad, responsive, estados de interacción.',
+  'A business review: does it solve the real need, is the flow complete.':
+    'Una revisión de negocio: resuelve la necesidad real, está completo el flujo.',
+  'QA against what is live, depth picked by blast radius.':
+    'QA contra lo que está vivo, con la profundidad según el radio de impacto.',
+  'The decisions you cannot recover by reading the code.':
+    'Las decisiones que no se recuperan leyendo el código.',
+  'Four gates that fail a check instead of surviving a review.':
+    'Cuatro compuertas que fallan un check en vez de sobrevivir a un review.',
+  'Publishable content that never invents a metric.':
+    'Contenido listo para publicar que nunca inventa una métrica.',
+  'Scroll that carries a story, and the bugs nobody writes down.':
+    'Scroll que cuenta algo, y los bugs que nadie escribe.',
+  'Playwright, ElevenLabs and Remotion into one product video.':
+    'Playwright, ElevenLabs y Remotion en un video de producto.',
+  'Audits copy so it does not read as machine-made.':
+    'Audita copy para que no se lea hecho por una máquina.',
+  'A skill per codebase: its tokens, conventions and traps.':
+    'Un skill por codebase: sus tokens, convenciones y trampas.',
+
   /* --- activity --- */
   'Most of the code lives in private product repos, so the graph is the honest part of it.':
     'Casi todo el código vive en repos privados de producto, así que el gráfico es la parte honesta.',
@@ -248,8 +245,6 @@ window.ES = {
   'Message me on LinkedIn': 'Escribime por LinkedIn',
 
   /* --- footer --- */
-  'Built with Claude Code. Data refreshed daily from the GitHub API.':
-    'Construido con Claude Code. Datos actualizados a diario desde la API de GitHub.',
 
   /* --- the arc --- */
   'Path': 'Recorrido',

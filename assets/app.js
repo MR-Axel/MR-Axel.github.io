@@ -25,7 +25,8 @@
   /* Keys are the English innerHTML with whitespace collapsed. Anything not in
      the dictionary is left exactly as authored, which is how product names,
      stack chips and the numbers survive the swap untouched. */
-  var I18N_SEL = 'h1, h2, h3, h4, p, li, dt, dd, .pill, .arc__label, .skill-mark, .skip, .btn, .nav__links a, [data-t]';
+  var I18N_SEL = 'h1, h2, h3, h4, p, li, dt, dd, .pill, .arc__label, .skill-mark, ' +
+    '.slrow__name, .slrow__desc, .skip, .btn, .nav__links a, [data-t]';
 
   function norm(html) {
     return html.replace(/\s+/g, ' ').trim();
