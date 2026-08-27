@@ -626,15 +626,43 @@ section[id] { scroll-margin-top: 82px; }
 /* nothing marks them is-in once the scrub owns the section */
 .arc.is-scrubbing .arc__step::before { display: none; }
 
+/* No box. The drawing is the whole thing, and a rounded rectangle around a
+   hand-drawn icon is the machine putting the sketch back in a frame. */
 .arc__node {
   position: relative; z-index: 1;
-  width: 52px; height: 52px; border-radius: 15px;
+  width: 52px; height: 52px;
   display: grid; place-items: center;
-  background: var(--surface); border: 1px solid var(--line);
   color: var(--accent-ink);
-  transition: border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, scale 0.35s var(--ease-out);
+  transition: scale 0.35s var(--ease-out);
 }
-.arc__node svg { width: 23px; height: 23px; }
+
+/* The ring gets drawn on, and it needs to be a real svg for that: a
+   background image cannot have a stroke-dashoffset animated, and the drawing
+   is the point. pathLength="1" renormalises the path so the two lines below
+   work at any size without measuring anything. */
+/* ⚠️ Las medidas van explicitas y no salen de `inset`. Un svg es un elemento
+   reemplazado, asi que con `width: auto` los insets no lo estiran: se queda
+   con su tamano intrinseco y `top`/`left` deciden solos. Salia un circulito
+   chico arriba del icono en vez de un anillo alrededor. */
+.arc__anillo {
+  position: absolute; top: -8px; left: -8px;
+  width: calc(100% + 16px); height: calc(100% + 16px);
+  pointer-events: none; overflow: visible;
+}
+.arc__anillo path {
+  stroke: var(--accent-ink); stroke-width: 2.4; stroke-linecap: round;
+  /* Sin cerrar y con el radio desparejo, entre 39 y 45 sobre un lienzo de 100.
+     Un circulo perfecto y cerrado se lee como un anillo de interfaz; lo que se
+     pidio es el gesto de rodear algo a mano, y ese gesto deja un hueco. */
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1; stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.55s var(--ease-out);
+}
+.arc__step:hover .arc__anillo path { stroke-dashoffset: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .arc__anillo path { transition: none; }
+}
 
 /* ---------- the drawn assets ---------- */
 
@@ -659,17 +687,19 @@ section[id] { scroll-margin-top: 82px; }
 
 .arc__ico { width: 26px; height: 26px; }
 
-/* The face is cropped to the head in the launcher: at 22px a whole bust is a
-   smudge, and the head alone still reads as a person. */
+/* Square and whole, not cropped. The bust is nearly square already, so
+   `contain` in a square box shows the wave, and the wave is what makes it read
+   as somebody offering to help rather than a face in a box. */
 .lima__cara {
-  width: 26px; height: 26px; flex: none;
-  object-fit: cover; object-position: top center;
+  width: 46px; height: 46px; flex: none;
+  object-fit: contain; object-position: center;
 }
-.lima__cara--grande { width: 36px; height: 36px; }
-.arc__step:hover .arc__node {
-  border-color: var(--accent-line); background: var(--accent-soft);
-  box-shadow: 0 0 0 6px var(--accent-soft);
-}
+.lima__cara--grande { width: 34px; height: 34px; }
+
+.lima__pitch { display: flex; flex-direction: column; gap: 2px; }
+.lima__pitch strong { font-size: 14px; font-weight: 600; }
+.lima__pitch span { font-size: 12.5px; color: var(--muted); font-weight: 400; }
+.arc__step:hover .arc__node { scale: 1.06; }
 
 .arc__label {
   display: inline-block; margin-bottom: 8px;
@@ -683,8 +713,7 @@ section[id] { scroll-margin-top: 82px; }
 @media (max-width: 620px) {
   .arc__step { grid-template-columns: 40px 1fr; column-gap: 16px; }
   .arc__step::before { left: 19px; }
-  .arc__node { width: 40px; height: 40px; border-radius: 12px; }
-  .arc__node svg { width: 19px; height: 19px; }
+  .arc__node { width: 40px; height: 40px; }
 }
 
 /* ---------- the pinned scene ---------- */
@@ -731,14 +760,12 @@ section[id] { scroll-margin-top: 82px; }
   margin: 0 auto;
   opacity: 0.4; scale: 0.86;
 }
-.arc.is-scrubbing .arc__step.is-on .arc__node {
-  opacity: 1; scale: 1;
-  border-color: var(--accent-line); background: var(--accent-soft);
-  box-shadow: 0 0 0 6px var(--accent-soft);
-}
-.arc.is-scrubbing .arc__step.is-current .arc__node {
-  box-shadow: 0 0 0 8px var(--accent-soft), 0 0 30px var(--accent-soft);
-}
+.arc.is-scrubbing .arc__step.is-on .arc__node { opacity: 1; scale: 1; }
+
+/* Only the step you are standing on gets circled. Circling every one you have
+   passed turns the rail into six rings and says nothing about where you are. */
+.arc.is-scrubbing .arc__step.is-current .arc__anillo path { stroke-dashoffset: 0; }
+.arc.is-scrubbing .arc__step.is-current .arc__node { scale: 1.1; }
 
 .arc.is-scrubbing .arc__label {
   display: block; margin: 14px 0 0;
@@ -1046,11 +1073,15 @@ a.mini:hover .arrow { color: var(--accent-ink); }
 }
 .lima.is-visible { opacity: 1; translate: 0 0; pointer-events: auto; }
 
+/* A card, not a pill. At 26px the bust was a smudge that read as a stain, and
+   a launcher nobody can identify is a launcher nobody opens. Square and big
+   enough to be a person, with a line saying what it is for, because "Axel's
+   assistant" on its own does not say that it answers. */
 .lima__launch {
-  display: inline-flex; align-items: center; gap: 9px;
+  display: inline-flex; align-items: center; gap: 12px; text-align: left;
   font: inherit; font-size: 14px; font-weight: 500; color: var(--text);
   background: var(--surface); border: 1px solid var(--line-hi);
-  border-radius: 999px; padding: 11px 17px; cursor: pointer;
+  border-radius: 16px; padding: 11px 16px 11px 11px; cursor: pointer;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
   transition: border-color 0.18s ease, background 0.18s ease,
               translate 0.18s var(--ease-out);

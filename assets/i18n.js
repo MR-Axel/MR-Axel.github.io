@@ -236,6 +236,8 @@ window.ES = {
   /* --- Lima --- */
   "Axel's assistant":
     'Asistente de Axel',
+  'Here to answer whatever you need':
+    'Estoy acá para responderte',
   'Close':
     'Cerrar',
   'Your message':

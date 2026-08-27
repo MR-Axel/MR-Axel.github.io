@@ -158,11 +158,10 @@
 [data-skin="doodle"] .arc__rail,
 [data-skin="doodle"] .arc__rail-fill { border-radius: 999px; }
 
-[data-skin="doodle"] .arc__node {
-  border-width: var(--trazo);
-  border-color: var(--ink);
-  box-shadow: 2px 2px 0 -1px var(--ink);
-}
+/* El nodo ya no es una caja: el icono va suelto y el circulo se dibuja al
+   pasar por encima. Poniendole borde y sombra el skin volvia a enmarcar
+   justo lo que se saco del marco. Lo unico que toca es la tinta del anillo. */
+[data-skin="doodle"] .arc__anillo path { stroke: var(--ink); }
 
 /* ---------- handwriting, only when asked for ---------- */
 

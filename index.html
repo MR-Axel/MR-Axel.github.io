@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=30">
+<link rel="stylesheet" href="assets/style.css?v=31">
 <script>
 /* Runs before the body parses, so the page never flashes the wrong theme or
    the wrong language. Both fall back to what the browser already told us:
@@ -308,7 +308,7 @@
       <ol class="arc">
         <span class="arc__rail" aria-hidden="true"><span class="arc__rail-fill"></span></span>
         <li class="arc__step">
-          <span class="arc__node"><img class="arc__ico" src="assets/doodles/consultoria.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
+          <span class="arc__node"><svg class="arc__anillo" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path pathLength="1" d="M71 11C93 21 99 47 88 63C78 80 56 95 38 88C19 81 5 62 10 43C15 24 35 7 56 11"/></svg><img class="arc__ico" src="assets/doodles/consultoria.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
           <span class="arc__label">Consulting</span>
             <div class="arc__body">
             <h3>Process consulting for industry</h3>
@@ -317,7 +317,7 @@
         </li>
 
         <li class="arc__step">
-          <span class="arc__node"><img class="arc__ico" src="assets/doodles/salud.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
+          <span class="arc__node"><svg class="arc__anillo" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path pathLength="1" d="M71 11C93 21 99 47 88 63C78 80 56 95 38 88C19 81 5 62 10 43C15 24 35 7 56 11"/></svg><img class="arc__ico" src="assets/doodles/salud.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
           <span class="arc__label">Health</span>
             <div class="arc__body">
             <h3>Cardiology and clinical systems</h3>
@@ -326,7 +326,7 @@
         </li>
 
         <li class="arc__step">
-          <span class="arc__node"><img class="arc__ico" src="assets/doodles/seguridad.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
+          <span class="arc__node"><svg class="arc__anillo" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path pathLength="1" d="M71 11C93 21 99 47 88 63C78 80 56 95 38 88C19 81 5 62 10 43C15 24 35 7 56 11"/></svg><img class="arc__ico" src="assets/doodles/seguridad.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
           <span class="arc__label">Security</span>
             <div class="arc__body">
             <h3>On-premise, locked down, Linux</h3>
@@ -335,7 +335,7 @@
         </li>
 
         <li class="arc__step">
-          <span class="arc__node"><img class="arc__ico" src="assets/doodles/energia.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
+          <span class="arc__node"><svg class="arc__anillo" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path pathLength="1" d="M71 11C93 21 99 47 88 63C78 80 56 95 38 88C19 81 5 62 10 43C15 24 35 7 56 11"/></svg><img class="arc__ico" src="assets/doodles/energia.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
           <span class="arc__label">Energy</span>
             <div class="arc__body">
             <h3>IoT and hardware in the field</h3>
@@ -344,7 +344,7 @@
         </li>
 
         <li class="arc__step">
-          <span class="arc__node"><img class="arc__ico" src="assets/doodles/logistica.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
+          <span class="arc__node"><svg class="arc__anillo" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path pathLength="1" d="M71 11C93 21 99 47 88 63C78 80 56 95 38 88C19 81 5 62 10 43C15 24 35 7 56 11"/></svg><img class="arc__ico" src="assets/doodles/logistica.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
           <span class="arc__label">Logistics</span>
             <div class="arc__body">
             <h3>Routing, fleets, and a team</h3>
@@ -353,7 +353,7 @@
         </li>
 
         <li class="arc__step">
-          <span class="arc__node"><img class="arc__ico" src="assets/doodles/producto.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
+          <span class="arc__node"><svg class="arc__anillo" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path pathLength="1" d="M71 11C93 21 99 47 88 63C78 80 56 95 38 88C19 81 5 62 10 43C15 24 35 7 56 11"/></svg><img class="arc__ico" src="assets/doodles/producto.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
           <span class="arc__label">AI product</span>
             <div class="arc__body">
             <h3>Agents from zero to production</h3>
@@ -653,7 +653,10 @@
   <button class="lima__launch" id="lima-launch" type="button"
           aria-expanded="false" aria-controls="lima-panel">
     <img class="lima__cara" src="assets/doodles/asistente.png" alt="" width="512" height="561" aria-hidden="true">
-    <span data-t>Axel&#39;s assistant</span>
+    <span class="lima__pitch">
+      <strong data-t>Axel&#39;s assistant</strong>
+      <span data-t>Here to answer whatever you need</span>
+    </span>
   </button>
 
   <section class="lima__panel" id="lima-panel" aria-labelledby="lima-title" hidden>
@@ -696,8 +699,8 @@
   </div>
 </footer>
 
-<script src="assets/i18n.js?v=19"></script>
-<script src="assets/app.js?v=16"></script>
+<script src="assets/i18n.js?v=20"></script>
+<script src="assets/app.js?v=17"></script>
 <script src="assets/interact.js?v=1" defer></script>
 <script src="assets/form.js?v=1" defer></script>
 <script src="assets/lima.js?v=1" defer></script>
