@@ -74,16 +74,30 @@
 [data-skin="doodle"] .offer,
 [data-skin="doodle"] .craft__item,
 [data-skin="doodle"] .lima__panel {
+  /* 🔴 `border-style` VA EXPLICITO, y faltaba. Las tarjetas ya traian
+     `border: 1px solid` del diseno base, asi que alcanzaba con pisar el ancho
+     y el color; pero `.craft__item` no tiene borde ninguno, y sin estilo el
+     ancho no dibuja nada. Lo unico que se veia era la sombra siguiendo el
+     radio asimetrico: un corchete suelto abajo y a la derecha de cada bloque,
+     que es exactamente como se rompio en pantalla. */
+  border-style: solid;
   border-width: var(--trazo);
   border-color: var(--ink);
   border-radius: var(--garabato);
   box-shadow: 3px 4px 0 -1px var(--ink);
 }
 
+/* ⚠️ Y el aire va con el recuadro. `.craft__item` era un bloque suelto sin
+   borde ni relleno, asi que al dibujarle la caja el texto quedaba pegado al
+   trazo y el icono a caballo del borde de arriba. Poner un marco obliga a
+   pagar el margen que el marco pide. */
+[data-skin="doodle"] .craft__item { padding: 22px 24px; }
+
 /* Wide and short: same pen, flatter corners. */
 [data-skin="doodle"] .sideitem,
 [data-skin="doodle"] .form .field input,
 [data-skin="doodle"] .form .field textarea {
+  border-style: solid;
   border-width: var(--trazo);
   border-color: var(--ink);
   border-radius: var(--garabato-fila);
@@ -113,6 +127,17 @@
 }
 
 /* ---------- the drawn pill ---------- */
+
+/* ⚠️ El contenedor deja de recortar. `.sidelist` tiene `overflow: hidden` para
+   que el fondo de las filas respete su esquina redondeada, y con las filas
+   dibujando su propio borde y su sombra corrida, eso les cortaba el lado
+   derecho en seco. El borde del contenedor tambien se va: con cada fila
+   enmarcada, es un marco alrededor de cuatro marcos. */
+[data-skin="doodle"] .sidelist {
+  overflow: visible; border: 0; background: none;
+  display: flex; flex-direction: column; gap: 10px;
+}
+[data-skin="doodle"] .sideitem + .sideitem { border-top-width: var(--trazo); }
 
 [data-skin="doodle"] .btn,
 [data-skin="doodle"] .pill,
