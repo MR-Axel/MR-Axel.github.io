@@ -39,20 +39,20 @@
   --lv4: #c6f24e;
 
   /* page-wide gradient wash, moved by the parallax layer */
-  --wash-1: rgba(255, 157, 92, 0.07);
-  --wash-2: rgba(198, 242, 78, 0.05);
+  --wash-1: rgba(255, 157, 92, 0.12);
+  --wash-2: rgba(198, 242, 78, 0.09);
   --grid-ink: rgba(255, 255, 255, 1);
-  --grid-opacity: 0.028;
-  --orb-1: rgba(255, 157, 92, 0.055);
-  --orb-2: rgba(198, 242, 78, 0.045);
-  --orb-3: rgba(255, 200, 120, 0.035);
-  --glow-1: rgba(255, 157, 92, 0.16);
-  --glow-2: rgba(198, 242, 78, 0.13);
-  --glow-3: rgba(255, 200, 120, 0.08);
+  --grid-opacity: 0.06;
+  --orb-1: rgba(255, 157, 92, 0.1);
+  --orb-2: rgba(198, 242, 78, 0.085);
+  --orb-3: rgba(255, 200, 120, 0.065);
+  --glow-1: rgba(255, 157, 92, 0.24);
+  --glow-2: rgba(198, 242, 78, 0.19);
+  --glow-3: rgba(255, 200, 120, 0.13);
 
   /* mascots sit behind the cards; dark mode pushes them down into the page */
-  --mascot-opacity: 0.24;
-  --mascot-filter: grayscale(0.3) brightness(0.68) contrast(1.05);
+  --mascot-opacity: 0.4;
+  --mascot-filter: grayscale(0.15) brightness(0.78) contrast(1.02);
 
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -93,20 +93,20 @@
   --lv3: #a3cd3a;
   --lv4: #7ba715;
 
-  --wash-1: rgba(255, 157, 92, 0.13);
-  --wash-2: rgba(160, 210, 40, 0.11);
+  --wash-1: rgba(255, 157, 92, 0.2);
+  --wash-2: rgba(160, 210, 40, 0.17);
   --grid-ink: rgba(24, 22, 16, 1);
-  --grid-opacity: 0.05;
-  --orb-1: rgba(255, 157, 92, 0.1);
-  --orb-2: rgba(150, 200, 30, 0.085);
-  --orb-3: rgba(255, 190, 110, 0.075);
-  --glow-1: rgba(255, 157, 92, 0.22);
-  --glow-2: rgba(170, 220, 50, 0.2);
-  --glow-3: rgba(255, 200, 120, 0.16);
+  --grid-opacity: 0.085;
+  --orb-1: rgba(255, 157, 92, 0.17);
+  --orb-2: rgba(150, 200, 30, 0.145);
+  --orb-3: rgba(255, 190, 110, 0.125);
+  --glow-1: rgba(255, 157, 92, 0.32);
+  --glow-2: rgba(170, 220, 50, 0.28);
+  --glow-3: rgba(255, 200, 120, 0.22);
 
   /* on a light page the same figures have to be lifted, not darkened */
-  --mascot-opacity: 0.2;
-  --mascot-filter: grayscale(0.3) brightness(1.12) contrast(0.82);
+  --mascot-opacity: 0.34;
+  --mascot-filter: grayscale(0.15) brightness(1.06) contrast(0.9);
 
   color-scheme: light;
 }
@@ -382,7 +382,7 @@ section[id] { scroll-margin-top: 78px; }
 
 .orbit__ring {
   position: absolute; border-radius: 50%;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-hi);
   opacity: 0; transform: scale(0.9);
   transition: opacity 1s var(--ease-out), transform 1.1s var(--ease-out);
 }
@@ -397,7 +397,7 @@ section[id] { scroll-margin-top: 78px; }
   display: grid; place-items: center;
   background: var(--surface); border: 1px solid var(--line-hi);
   color: var(--accent-ink);
-  box-shadow: 0 0 0 10px var(--accent-soft);
+  box-shadow: 0 0 0 12px var(--accent-soft), 0 0 34px var(--accent-soft);
   opacity: 0; scale: 0.7;
   transition: opacity 0.8s var(--ease-out), scale 0.8s var(--ease-out);
 }
@@ -430,8 +430,8 @@ section[id] { scroll-margin-top: 78px; }
 .chip__in {
   display: grid; place-items: center;
   width: 100%; height: 100%; border-radius: 13px;
-  background: var(--surface); border: 1px solid var(--line);
-  color: var(--text-mid);
+  background: var(--surface); border: 1px solid var(--line-hi);
+  color: var(--text);
   /* undoes the track's rotation so the glyph never tips over */
   animation: spin-back-1 46s linear infinite;
   transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
