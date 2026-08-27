@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=26">
+<link rel="stylesheet" href="assets/style.css?v=27">
 <script>
 /* Runs before the body parses, so the page never flashes the wrong theme or
    the wrong language. Both fall back to what the browser already told us:
@@ -649,15 +649,57 @@
   </section>
 </main>
 
+<div class="lima" id="lima" hidden>
+  <button class="lima__launch" id="lima-launch" type="button"
+          aria-expanded="false" aria-controls="lima-panel">
+    <span class="lima__dot" aria-hidden="true"></span>
+    <span data-t>Ask Lima</span>
+  </button>
+
+  <section class="lima__panel" id="lima-panel" aria-labelledby="lima-title" hidden>
+    <header class="lima__head">
+      <span class="lima__dot" aria-hidden="true"></span>
+      <span class="lima__who">
+        <strong id="lima-title" data-t>Lima</strong>
+        <span class="lima__sub" data-t>Axel&#39;s assistant, and not Axel</span>
+      </span>
+      <button class="lima__x" id="lima-close" type="button">
+        <span class="oculto" data-t>Close</span>
+        <span aria-hidden="true">×</span>
+      </button>
+    </header>
+
+    <div class="lima__log" id="lima-log" role="log" aria-live="polite"></div>
+
+    <form class="lima__ask" id="lima-ask">
+      <label class="oculto" for="lima-input" data-t>Your message</label>
+      <input id="lima-input" type="text" maxlength="1200" autocomplete="off"
+             required>
+      <button class="lima__send" type="submit">
+        <span class="oculto" data-t>Send</span>
+        <span aria-hidden="true">→</span>
+      </button>
+    </form>
+  </section>
+
+  <div class="lima__strings" hidden>
+    <p data-frase="hola">Hi, I am Lima, the assistant on this site. Tell me what you are trying to build or fix and I will point you at the right thing, or hand you straight to Axel.</p>
+    <p data-frase="pensando">Thinking.</p>
+    <p data-frase="caido">Something went wrong on my side. The form further up still reaches him.</p>
+  </div>
+</div>
+
+
 <footer class="foot">
   <div class="wrap foot__inner">
     <p>Axel Rosso · Buenos Aires (UTC-3)</p>
   </div>
 </footer>
 
-<script src="assets/i18n.js?v=15"></script>
-<script src="assets/app.js?v=12"></script>
+<script src="assets/i18n.js?v=16"></script>
+<script src="assets/app.js?v=13"></script>
 <script src="assets/interact.js?v=1" defer></script>
 <script src="assets/form.js?v=1" defer></script>
+<script src="assets/lima.js?v=1" defer></script>
 </body>
 </html>

@@ -1006,6 +1006,136 @@ a.mini:hover .arrow { color: var(--accent-ink); }
   font-size: 13px; color: var(--muted);
 }
 
+/* ---------- Lima, the assistant in the corner ---------- */
+
+.oculto {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+.lima {
+  position: fixed; right: 22px; bottom: 22px; z-index: 60;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+  opacity: 0; translate: 0 14px; pointer-events: none;
+  transition: opacity 0.4s var(--ease-out), translate 0.4s var(--ease-out);
+}
+.lima.is-visible { opacity: 1; translate: 0 0; pointer-events: auto; }
+
+.lima__launch {
+  display: inline-flex; align-items: center; gap: 9px;
+  font: inherit; font-size: 14px; font-weight: 500; color: var(--text);
+  background: var(--surface); border: 1px solid var(--line-hi);
+  border-radius: 999px; padding: 11px 17px; cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+  transition: border-color 0.18s ease, background 0.18s ease,
+              translate 0.18s var(--ease-out);
+}
+.lima__launch:hover { background: var(--surface-hi); border-color: var(--accent-line); translate: 0 -2px; }
+.lima__launch:focus-visible { outline: 2px solid var(--accent-line); outline-offset: 3px; }
+
+/* The dot is the whole avatar. A drawn character here would be a third
+   mascot competing with the hornero and the carpincho, which belong to
+   products and not to this page. */
+.lima__dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--accent); flex: none;
+}
+.lima.is-open .lima__launch { border-color: var(--accent-line); }
+
+.lima__panel {
+  width: min(370px, calc(100vw - 44px));
+  display: flex; flex-direction: column;
+  background: var(--bg-alt); border: 1px solid var(--line-hi);
+  border-radius: 18px; overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+.lima__panel[hidden] { display: none; }
+
+.lima__head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 13px 14px; border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+.lima__who { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
+.lima__who strong { font-size: 14px; }
+.lima__sub {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.03em;
+  color: var(--muted);
+}
+.lima__x {
+  font: inherit; font-size: 20px; line-height: 1; color: var(--muted);
+  background: none; border: 0; cursor: pointer; padding: 4px 6px;
+  border-radius: 8px; flex: none;
+}
+.lima__x:hover { color: var(--text); background: var(--hover-wash); }
+
+.lima__log {
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 15px 14px; overflow-y: auto;
+  /* Grows with the conversation instead of opening at full height. A fixed
+     box under a one line greeting reads as a panel that failed to load. */
+  min-height: 92px; max-height: min(390px, 52vh);
+  overscroll-behavior: contain;
+}
+
+.lima__msg {
+  font-size: 14px; line-height: 1.55; max-width: 88%;
+  padding: 10px 13px; border-radius: 14px;
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.lima__msg--bot {
+  align-self: flex-start; color: var(--text-mid);
+  background: var(--surface); border: 1px solid var(--line);
+  border-bottom-left-radius: 5px;
+}
+.lima__msg--yo {
+  align-self: flex-end; color: var(--text);
+  background: var(--accent-soft); border: 1px solid var(--accent-line);
+  border-bottom-right-radius: 5px;
+}
+.lima__msg.is-waiting { color: var(--muted); animation: lima-latir 1.3s ease-in-out infinite; }
+
+@keyframes lima-latir { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+
+.lima__ask {
+  display: flex; gap: 8px; align-items: center;
+  padding: 11px 12px; border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+.lima__ask[hidden] { display: none; }
+.lima__ask input {
+  flex: 1; min-width: 0; font: inherit; font-size: 14px; color: var(--text);
+  background: var(--bg-alt); border: 1px solid var(--line);
+  border-radius: 11px; padding: 10px 12px;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.lima__ask input:focus {
+  outline: none; border-color: var(--accent-line);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.lima__ask input:disabled { opacity: 0.6; }
+
+.lima__send {
+  flex: none; font: inherit; font-size: 17px; line-height: 1;
+  color: var(--on-accent); background: var(--accent);
+  border: 0; border-radius: 11px; padding: 10px 14px; cursor: pointer;
+  transition: opacity 0.18s ease;
+}
+.lima__send:hover { opacity: 0.86; }
+.lima__send:focus-visible { outline: 2px solid var(--accent-line); outline-offset: 2px; }
+
+@media (max-width: 560px) {
+  .lima { right: 14px; bottom: 14px; left: 14px; align-items: stretch; }
+  .lima__launch { align-self: flex-end; }
+  .lima__panel { width: 100%; }
+  .lima__log { max-height: min(340px, 46vh); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lima { transition: none; }
+  .lima__msg.is-waiting { animation: none; opacity: 0.6; }
+}
+
 /* ---------- interaction layer ---------- */
 
 /* Everything here is painted from custom properties that interact.js writes

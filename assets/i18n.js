@@ -233,6 +233,24 @@ window.ES = {
   'That did not go through. LinkedIn is the way around it, and I will see it there.':
     'No salió. Por LinkedIn le pego la vuelta y lo veo igual.',
 
+  /* --- Lima --- */
+  'Ask Lima':
+    'Preguntale a Lima',
+  "Axel's assistant, and not Axel":
+    'La asistente de Axel, no Axel',
+  'Close':
+    'Cerrar',
+  'Your message':
+    'Tu mensaje',
+  'Send':
+    'Mandar',
+  'Hi, I am Lima, the assistant on this site. Tell me what you are trying to build or fix and I will point you at the right thing, or hand you straight to Axel.':
+    'Hola, soy Lima, la asistente de este sitio. Contame qué estás tratando de construir o de arreglar y te oriento, o te paso derecho con Axel.',
+  'Thinking.':
+    'Pensando.',
+  'Something went wrong on my side. The form further up still reaches him.':
+    'Algo se rompió de mi lado. El formulario de más arriba le llega igual.',
+
   /* --- footer --- */
 
   /* --- the arc --- */
