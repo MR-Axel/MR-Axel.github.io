@@ -213,7 +213,7 @@ p { margin: 0; }
 a { color: inherit; }
 
 /* the sticky nav is 64px tall; without this it eats the heading it jumps to */
-section[id] { scroll-margin-top: 78px; }
+section[id] { scroll-margin-top: 82px; }
 
 .wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--pad); }
 
@@ -244,20 +244,24 @@ section[id] { scroll-margin-top: 78px; }
   background: linear-gradient(90deg, var(--warm), var(--accent));
 }
 
-.nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
+.nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 68px; }
 
-.mark { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; }
+/* the name used to sit next to the mark and ate about ninety pixels of a bar
+   that now carries seven links. Two letters carry the same identity. */
+.mark { display: inline-flex; align-items: center; text-decoration: none; }
 .mark__box {
-  width: 26px; height: 26px; border-radius: 7px;
+  min-width: 38px; height: 30px; padding: 0 7px; border-radius: 9px;
   background: var(--accent); color: var(--on-accent);
-  display: grid; place-items: center; font-size: 14px; font-weight: 700;
+  display: grid; place-items: center;
+  font-size: 14px; font-weight: 700; letter-spacing: -0.03em;
+  transition: transform 0.2s var(--ease-out), filter 0.2s ease;
 }
-.mark__text { letter-spacing: -0.02em; }
+.mark:hover .mark__box { transform: translateY(-1px); filter: brightness(1.06); }
 
-.nav__links { display: flex; align-items: center; gap: 6px; }
+.nav__links { display: flex; align-items: center; gap: 4px; }
 .nav__links a {
   text-decoration: none; color: var(--muted); font-size: 15px;
-  padding: 8px 12px; border-radius: 8px; transition: color 0.18s ease, background 0.18s ease;
+  padding: 9px 14px; border-radius: 9px; transition: color 0.18s ease, background 0.18s ease;
 }
 /* :not(.btn) matters: `.nav__links a:hover` outranks `.btn`, so without it the
    accent button paints the hover wash over itself and loses its own fill */
@@ -265,7 +269,7 @@ section[id] { scroll-margin-top: 78px; }
 .nav__links a.is-active:not(.btn) { color: var(--text); }
 
 /* language and theme, the two controls that must survive the mobile collapse */
-.switches { display: flex; align-items: center; gap: 4px; margin-inline: 2px; }
+.switches { display: flex; align-items: center; gap: 5px; margin-inline: 8px; }
 .sw {
   appearance: none; border: 1px solid var(--line); background: transparent;
   color: var(--muted); cursor: pointer;
@@ -281,8 +285,8 @@ section[id] { scroll-margin-top: 78px; }
 [data-theme="light"] .sw__sun { display: block; }
 [data-theme="light"] .sw__moon { display: none; }
 
-@media (max-width: 900px) { .nav__links a:not(.btn) { padding: 8px 9px; font-size: 14px; } }
-@media (max-width: 720px) { .nav__links a:not(.btn) { display: none; } .mark__text { display: none; } }
+@media (max-width: 1080px) { .nav__links a:not(.btn) { padding: 8px 10px; font-size: 14px; } }
+@media (max-width: 860px) { .nav__links a:not(.btn) { display: none; } }
 
 /* ---------- buttons ---------- */
 

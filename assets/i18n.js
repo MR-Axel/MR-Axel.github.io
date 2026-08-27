@@ -44,23 +44,23 @@ window.ES = {
   'Products I built and still run. All of them are live, and you can walk into every one.':
     'Productos que construí y sigo manteniendo. Todos están vivos, y a todos se puede entrar.',
 
-  "A job-application product for LatAm candidates applying locally and abroad: tailored CVs per posting, tracked applications, and eligibility checks up front instead of after you've already applied.":
-    'Un producto de postulaciones para candidatos de LatAm que aplican acá y afuera: CV a medida para cada aviso, postulaciones con seguimiento, y las compuertas de elegibilidad antes de aplicar y no después.',
+  'Tailored CVs per posting, tracked applications, and the eligibility check up front instead of after you have already applied.':
+    'CV a medida para cada aviso, postulaciones con seguimiento, y la compuerta de elegibilidad antes de aplicar y no después.',
 
-  'An AI tutor for kids and teens in LatAm. Nova gets to know a kid, builds missions around what they already love, and never hands over the answer.':
-    'Un tutor de IA para chicos y adolescentes en LatAm. Nova conoce al chico, le arma misiones desde lo que ya le copa, y nunca le da la respuesta.',
+  'An AI tutor for kids in LatAm. Nova builds missions around what a kid already loves, and never hands over the answer.':
+    'Un tutor de IA para chicos en LatAm. Nova arma misiones desde lo que al chico ya le copa, y nunca le da la respuesta.',
 
-  'Daily urban carpooling in Buenos Aires. Flat prepaid fare that does not spike at rush hour, matching passengers with drivers who were already making that trip.':
-    'Carpooling urbano diario en Buenos Aires. Tarifa plana prepaga que no se dispara en hora pico, que junta pasajeros con conductores que ya iban a hacer ese viaje.',
+  'Daily carpooling in Buenos Aires. A flat prepaid fare that does not spike at rush hour, matched to drivers already making that trip.':
+    'Carpooling diario en Buenos Aires. Tarifa plana prepaga que no se dispara en hora pico, con conductores que ya iban a hacer ese viaje.',
 
-  'A discovery platform for early stage projects. Builders publish what they are working on and find co-founders, investors and collaborators before there is anything to demo.':
-    'Una plataforma de descubrimiento para proyectos en etapa temprana. Los creadores publican en qué están y encuentran cofundadores, inversores y colaboradores antes de tener algo para mostrar.',
+  'Where early projects get found. Builders publish what they are working on and meet co-founders before there is anything to demo.':
+    'Donde se encuentran los proyectos tempranos. Los creadores publican en qué están y conocen cofundadores antes de tener algo para mostrar.',
 
-  'An AI product management platform. Specs, roadmaps, sprints, research and audits for PMs, founders and small product teams, built on Claude.':
-    'Una plataforma de product management con IA. Specs, roadmaps, sprints, research y auditorías para PMs, fundadores y equipos chicos de producto, construida sobre Claude.',
+  'Specs, roadmaps, research and audits for PMs, founders and small product teams. Product management built on Claude.':
+    'Specs, roadmaps, research y auditorías para PMs, fundadores y equipos chicos de producto. Product management construido sobre Claude.',
 
-  'Custom AI agents for small businesses: WhatsApp, web and voice, wired to the data they already have, with a dashboard on top.':
-    'Agentes de IA a medida para negocios chicos: WhatsApp, web y voz, conectados a los datos que ya tienen, con un tablero arriba.',
+  'AI agents for small businesses: WhatsApp, web and voice, wired to the data they already have, with a dashboard on top.':
+    'Agentes de IA para negocios chicos: WhatsApp, web y voz, conectados a los datos que ya tienen, con un tablero arriba.',
 
   /* tags */
   'Job search': 'Búsqueda laboral',
@@ -81,17 +81,17 @@ window.ES = {
     'Cosas anteriores. Dos siguen en pie, el resto está apagado, y hay otras cuatro que hicieron su recorrido y se bajaron.',
 
 
-  'A community for tech and startup people, with a blog, a following graph and paid memberships.':
-    'Una comunidad de gente de tech y startups, con blog, grafo de seguidores y membresías pagas.',
+  'A community for tech and startup people, with a blog and paid memberships.':
+    'Una comunidad de gente de tech y startups, con blog y membresías pagas.',
 
-  'A social app for finding a training partner. React Native and Expo, passwordless sign in, built around who is at the gym at the same hour as you.':
-    'Una app social para encontrar compañero de entrenamiento. React Native y Expo, ingreso sin contraseña, armada alrededor de quién está en el gimnasio a la misma hora que vos.',
+  'A social app for finding a training partner at your gym, at your hour.':
+    'Una app social para encontrar con quién entrenar, en tu gimnasio y a tu hora.',
 
-  'Translates and summarises whole books and documents, same day. Five domains over one FastAPI backend, Calibre on a VPS, priced by word count.':
-    'Traduce y resume libros y documentos enteros, el mismo día. Cinco dominios sobre un solo backend FastAPI, Calibre en un VPS, precio por cantidad de palabras.',
+  'Translates and summarises whole books the same day, priced by word count.':
+    'Traduce y resume libros enteros el mismo día, con precio por cantidad de palabras.',
 
-  'Daily gamified challenges with rankings and a WhatsApp loop to keep the streak alive.':
-    'Desafíos diarios gamificados con rankings y un loop de WhatsApp para no cortar la racha.',
+  'Daily gamified challenges with rankings and a WhatsApp loop.':
+    'Desafíos diarios gamificados con rankings y un loop de WhatsApp.',
 
   /* --- craft --- */
   'What I am genuinely good at, and what I am not.': 'En qué soy bueno de verdad, y en qué no.',
