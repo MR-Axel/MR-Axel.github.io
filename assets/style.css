@@ -938,6 +938,19 @@ section[id] { scroll-margin-top: 82px; }
    is for, because "is this me?" is the only question a visitor is asking. */
 .offers { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px; }
 
+/* 🔴 LA ANCHA ES LA PRIMERA, NO LA QUE SOBRA. Con cinco servicios en dos
+   columnas queda una fila con una sola tarjeta, y estirarla es lo que evita que
+   se lea como un error de maquetado. Pero estirar la ULTIMA le daba el mayor
+   peso visual de la seccion a la que quedo al final por casualidad, y peor:
+   contradecia a la numeracion, que dice que la importante es la 01. Dos
+   senializaciones opuestas en la misma grilla.
+   Estirando la primera, el orden y el tamanio dicen lo mismo, y el orden pasa a
+   ser una decision de prioridad en vez de un accidente.
+
+   ⚠️ Solo cuando la cuenta es impar. Con seis vuelven todas a la grilla pareja
+   sin que nadie se acuerde de tocar esto. */
+.offers:has(.offer:nth-child(odd):last-child) .offer:first-child { grid-column: 1 / -1; }
+
 .offer {
   position: relative; overflow: hidden;
   background: var(--surface); border: 1px solid var(--line);

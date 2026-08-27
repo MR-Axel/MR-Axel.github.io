@@ -97,7 +97,6 @@ window.ES = {
   'Claude Code and Cursor every day. I write production features and ship them, so I do not just prioritize work, I move it.':
     'Claude Code y Cursor todos los días. Escribo features de producción y las shippeo, así que no solo priorizo el trabajo: lo muevo.',
 
-  'Automation and internal tooling': 'Automatización y herramientas internas',
   'n8n, Activepieces, Retool, Zapier, Make. The boring machinery that hands a team its hours back, and the process that keeps it from rotting.':
     'n8n, Activepieces, Retool, Zapier, Make. La maquinaria aburrida que le devuelve las horas a un equipo, y el proceso que evita que se pudra.',
 
@@ -160,15 +159,9 @@ window.ES = {
   "The same things, pointed at someone else's problem. Companies, startups, and people with a project that has not started yet.":
     'Lo mismo de arriba, apuntado al problema de otro. Empresas, startups, y gente con un proyecto que todavía no arrancó.',
 
-  'Agent systems, spec to production': 'Sistemas de agentes, de la spec a producción',
-  'What the agent is allowed to do, where it hands off to a person, and how you find out when it stops being good. Chat, WhatsApp or voice.':
-    'Qué tiene permitido hacer el agente, dónde le pasa la posta a una persona, y cómo te enterás cuando deja de ser bueno. Chat, WhatsApp o voz.',
   'For a process that is currently a person copying between two screens.':
     'Para un proceso que hoy es una persona copiando entre dos pantallas.',
 
-  'Zero to one': 'De cero a uno',
-  'An idea to something people can use. Spec, build, release, with an agent in the loop, which is why this is weeks. You end up owning the repo.':
-    'De una idea a algo que la gente pueda usar. Spec, construcción y release, con un agente en el loop, que es por qué son semanas. El repo queda tuyo.',
   'For a thesis with no product yet, or a company that needs a real thing in the room.':
     'Para una hipótesis que todavía no tiene producto, o una empresa que necesita algo funcionando arriba de la mesa.',
 
@@ -177,9 +170,6 @@ window.ES = {
   'For an operation running on spreadsheets and goodwill.':
     'Para una operación que anda con planillas y buena voluntad.',
 
-  'AI product advisory': 'Asesoría de producto de IA',
-  'You have the engineers. What is missing is someone deciding what the AI should not do, and saying no to the demo that will not survive a user.':
-    'Los ingenieros los tenés. Falta alguien que decida qué NO tiene que hacer la IA, y que le diga que no a la demo que no sobrevive a un usuario.',
   'For a team shipping AI features with nobody owning their shape.':
     'Para un equipo que shippea features de IA sin que nadie se haga cargo de su forma.',
 
@@ -235,6 +225,38 @@ window.ES = {
     'Agentes, automatización y productos enteros desde nada. Los pienso, los construyo y los pongo a andar. <strong>Semanas, no trimestres.</strong>',
   'Tools delivered':
     'Herramientas entregadas',
+
+  /* --- servicios --- */
+  'Agent systems, spec to production':
+    'Sistemas de agentes, de la spec a producción',
+  'What the agent is allowed to do, where it hands off to a person, and how you find out when it stops being good. Chat, WhatsApp and voice, and the ones that read an image and decide from it.':
+    'Qué tiene permitido hacer el agente, dónde le pasa la posta a una persona, y cómo te enterás cuando deja de ser bueno. Chat, WhatsApp y voz, y los que miran una imagen y deciden a partir de eso.',
+  'For a process that is currently a person copying between two screens.':
+    'Para un proceso que hoy es una persona copiando entre dos pantallas.',
+  '0 to 1':
+    'De 0 a 1',
+  'An idea to something people can use. Spec, build, release, in weeks. You end up owning the repo.':
+    'De una idea a algo que la gente pueda usar. Spec, construcción y release, en semanas. El repo queda tuyo.',
+  'For a thesis with no product yet, or a company that needs a real thing in the room.':
+    'Para una hipótesis que todavía no tiene producto, o una empresa que necesita algo funcionando arriba de la mesa.',
+  'Your business online, and something that answers':
+    'Tu negocio online, y algo que conteste',
+  'A landing built or redesigned so it says what you do, with the measurement wired in from the start, and a chat agent trained on your business so somebody who arrives at three in the morning gets an answer.':
+    'Una landing armada o rediseñada para que diga lo que hacés, con la medición puesta desde el principio, y un agente entrenado con tu negocio para que el que llega a las tres de la mañana tenga respuesta.',
+  'For a business whose site is a brochure nobody reads and nobody measures.':
+    'Para un negocio cuyo sitio es un folleto que nadie lee y que nadie mide.',
+  'Automation and internal tooling':
+    'Automatización y herramientas internas',
+  'n8n, Activepieces, Retool, Zapier, Make. Plus the process that keeps it from rotting after I leave, which is the part that goes missing.':
+    'n8n, Activepieces, Retool, Zapier, Make. Más el proceso que evita que se pudra cuando me voy, que es la parte que suele faltar.',
+  'For an operation running on spreadsheets and goodwill.':
+    'Para una operación que anda con planillas y buena voluntad.',
+  'Strategy and advisory':
+    'Estrategia y asesoría',
+  'You have the engineers. What is missing is someone deciding what the AI should not do, and saying no to the demo that will not survive a user. One to one with a founder, or alongside the team.':
+    'Los ingenieros los tenés. Falta alguien que decida qué NO tiene que hacer la IA, y que le diga que no a la demo que no sobrevive a un usuario. Uno a uno con un fundador, o al lado del equipo.',
+  'For a team shipping AI features with nobody owning their shape.':
+    'Para un equipo que shippea features de IA sin que nadie se haga cargo de su forma.',
 
   /* --- Lima --- */
   "Axel's assistant":
