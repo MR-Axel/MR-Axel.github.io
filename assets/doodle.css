@@ -178,7 +178,11 @@
 /* The grain already exists and already sits over everything; the skin only
    turns it up. A separate paper texture would be a second overlay competing
    with the first. */
-[data-skin="doodle"] .bg__grid { opacity: calc(var(--grid-opacity) * 0.4); }
+/* El renglon YA NO SE ATENUA. Esta regla se escribio cuando la capa era una
+   cuadricula cuadrada que competia con los bordes dibujados de las tarjetas;
+   ahora esa capa es el renglon del cuaderno, o sea el skin mismo, y bajarlo al
+   40% es apagar justo lo que se quiso poner. Medido: quedaba en 0.056 en claro
+   y 0.02 en oscuro, que es invisible. */
 
 [data-skin="doodle"] .arc__rail,
 [data-skin="doodle"] .arc__rail-fill { border-radius: 999px; }

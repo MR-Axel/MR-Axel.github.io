@@ -158,19 +158,19 @@ window.ES = {
   "The same things, pointed at someone else's problem. Companies, startups, and people with a project that has not started yet.":
     'Lo mismo de arriba, apuntado al problema de otro. Empresas, startups, y gente con un proyecto que todavía no arrancó.',
 
-  'For a process that is currently a person copying between two screens.':
-    'Para un proceso que hoy es una persona copiando entre dos pantallas.',
+  'If somebody on your team spends the day moving the same data between two screens.':
+    'Si alguien de tu equipo se pasa el día moviendo los mismos datos entre dos pantallas.',
 
-  'For a thesis with no product yet, or a company that needs a real thing in the room.':
-    'Para una hipótesis que todavía no tiene producto, o una empresa que necesita algo funcionando arriba de la mesa.',
+  'If you have the idea and no team to build it.':
+    'Si tenés la idea y no tenés equipo para construirla.',
 
   'n8n, Activepieces, Retool, Zapier, Make. Plus the process that keeps it from rotting after I leave, which is the part that goes missing.':
     'n8n, Activepieces, Retool, Zapier, Make. Más el proceso que evita que se pudra cuando me voy, que es la parte que suele faltar.',
-  'For an operation running on spreadsheets and goodwill.':
-    'Para una operación que anda con planillas y buena voluntad.',
+  'If the process lives in a spreadsheet that only one person understands.':
+    'Si el proceso vive en una planilla que entiende una sola persona.',
 
-  'For a team shipping AI features with nobody owning their shape.':
-    'Para un equipo que shippea features de IA sin que nadie se haga cargo de su forma.',
+  'If you have engineers and the AI decisions are being made by whoever is free.':
+    'Si tenés equipo técnico y las decisiones de IA las toma el que está libre.',
 
   'Tell me what is broken and I will tell you whether I am the right person for it. If I am not, I will say so, which is cheaper for both of us than finding out in week three.':
     'Contame qué está roto y te digo si soy la persona indicada. Si no lo soy, te lo digo, que sale más barato para los dos que descubrirlo en la semana tres.',
@@ -246,8 +246,8 @@ window.ES = {
     'Tu negocio online, y algo que conteste',
   'A landing built or redesigned so it says what you do, with the measurement wired in from the start, and a chat agent trained on your business so somebody who arrives at three in the morning gets an answer.':
     'Una landing armada o rediseñada para que diga lo que hacés, con la medición puesta desde el principio, y un agente entrenado con tu negocio para que el que llega a las tres de la mañana tenga respuesta.',
-  'For a business whose site is a brochure nobody reads and nobody measures.':
-    'Para un negocio cuyo sitio es un folleto que nadie lee y que nadie mide.',
+  'If your site has not changed since you made it and you do not know how many people arrive.':
+    'Si tu sitio no cambió desde que lo hiciste y no sabés cuánta gente entra.',
   'Automation and internal tooling':
     'Automatización y herramientas internas',
   'n8n, Activepieces, Retool, Zapier, Make. Plus the process that keeps it from rotting after I leave, which is the part that goes missing.':

@@ -43,7 +43,9 @@
   --wash-1: rgba(255, 157, 92, 0.12);
   --wash-2: rgba(198, 242, 78, 0.09);
   --grid-ink: rgba(255, 255, 255, 1);
-  --grid-opacity: 0.06;
+  --grid-opacity: 0.07;
+  --margen: rgba(255, 157, 92, 0.55);
+  --margen-op: 0.3;
   --orb-1: rgba(255, 157, 92, 0.1);
   --orb-2: rgba(198, 242, 78, 0.085);
   --orb-3: rgba(255, 200, 120, 0.065);
@@ -97,8 +99,10 @@
 
   --wash-1: rgba(255, 157, 92, 0.2);
   --wash-2: rgba(160, 210, 40, 0.17);
-  --grid-ink: rgba(24, 22, 16, 1);
-  --grid-opacity: 0.085;
+  --grid-ink: rgba(70, 110, 190, 1);
+  --grid-opacity: 0.16;
+  --margen: rgba(200, 70, 60, 1);
+  --margen-op: 0.34;
   --orb-1: rgba(255, 157, 92, 0.17);
   --orb-2: rgba(150, 200, 30, 0.145);
   --orb-3: rgba(255, 190, 110, 0.125);
@@ -153,17 +157,51 @@ body {
   transform: translate3d(0, var(--y-wash, 0px), 0);
 }
 
-/* a fine rule grid, faded out at the edges so it never reads as a border */
+/* El renglón de cuaderno. Es la capa que antes era una cuadrícula: se le
+   cambió el dibujo en vez de sumar una encima, porque dos tramas superpuestas
+   se ven sucias y porque app.js ya le escribe el parallax a esta.
+
+   🔴 SOLO HORIZONTALES, SIN VERTICALES. Un cuadriculado se lee como papel
+   milimetrado o como una grilla de diseño; el renglón se lee como un cuaderno.
+   Es la misma capa y una línea menos de CSS, y cambia por completo qué objeto
+   parece la página.
+
+   ⚠️ Y EL PASO ES 32px, QUE NO ES ARBITRARIO: es el interlineado del cuerpo de
+   texto. Con cualquier otro número los renglones cruzan los párrafos en
+   diagonal visual, cada línea de texto cae en un lugar distinto del renglón, y
+   el ojo lo lee como desalineado sin saber por qué. Cuadrando con el
+   interlineado, el texto se apoya en el renglón como en un cuaderno de verdad.
+   Si algún día cambia `line-height` del cuerpo, este número cambia con él. */
 .bg__grid {
   inset: -30% -10%;
   opacity: var(--grid-opacity);
-  background-image:
-    linear-gradient(to right, var(--grid-ink) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-ink) 1px, transparent 1px);
-  background-size: 64px 64px;
-  -webkit-mask-image: radial-gradient(58% 52% at 50% 42%, #000 0%, transparent 78%);
-  mask-image: radial-gradient(58% 52% at 50% 42%, #000 0%, transparent 78%);
+  background-image: linear-gradient(to bottom, var(--grid-ink) 1px, transparent 1px);
+  background-size: 100% 32px;
+  -webkit-mask-image: radial-gradient(72% 62% at 50% 42%, #000 0%, transparent 82%);
+  mask-image: radial-gradient(72% 62% at 50% 42%, #000 0%, transparent 82%);
   transform: translate3d(0, var(--y-grid, 0px), 0);
+}
+
+/* El margen del cuaderno: una sola vertical a la izquierda, del color cálido
+   de la marca, como la que traen impresa los cuadernos rayados.
+
+   ⚠️ Va pegada al borde del CONTENIDO y no de la ventana. Puesta a una
+   distancia fija del borde, en una pantalla ancha queda flotando en el vacío a
+   trescientos píxeles del texto y no se lee como margen, se lee como una raya
+   suelta. La cuenta la deja siempre a la misma distancia de la columna. */
+.bg__margen {
+  top: -30%; bottom: -30%;
+  left: calc(50% - var(--wrap) / 2 - 26px);
+  width: 2px;
+  background: var(--margen);
+  opacity: var(--margen-op);
+  transform: translate3d(0, var(--y-grid, 0px), 0);
+}
+
+@media (max-width: 900px) {
+  /* En pantalla angosta no hay lugar para el margen: quedaría encima del texto
+     en vez de al costado. */
+  .bg__margen { display: none; }
 }
 
 /* soft colour bodies. radial gradients rather than blur(): the same look
