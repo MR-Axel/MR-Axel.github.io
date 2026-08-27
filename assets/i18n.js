@@ -51,13 +51,13 @@ window.ES = {
     'Un tutor de IA para chicos en LatAm. Nova arma misiones desde lo que al chico ya le copa, y nunca le da la respuesta.',
 
   'Daily carpooling in Buenos Aires. A flat prepaid fare that does not spike at rush hour, matched to drivers already making that trip.':
-    'Carpooling diario en Buenos Aires. Tarifa plana prepaga que no se dispara en hora pico, con conductores que ya iban a hacer ese viaje.',
+    'Carpooling diario en Buenos Aires. Tarifa prepaga que no se dispara en hora pico, con conductores que ya hacían ese viaje.',
 
   'Where early projects get found. Builders publish what they are working on and meet co-founders before there is anything to demo.':
-    'Donde se encuentran los proyectos tempranos. Los creadores publican en qué están y conocen cofundadores antes de tener algo para mostrar.',
+    'Donde se encuentran los proyectos tempranos. Publicás en qué estás y conocés cofundadores antes de tener algo para mostrar.',
 
   'Specs, roadmaps, research and audits for PMs, founders and small product teams. Product management built on Claude.':
-    'Specs, roadmaps, research y auditorías para PMs, fundadores y equipos chicos de producto. Product management construido sobre Claude.',
+    'Specs, roadmaps, research y auditorías para PMs, fundadores y equipos chicos. Product management sobre Claude.',
 
   'AI agents for small businesses: WhatsApp, web and voice, wired to the data they already have, with a dashboard on top.':
     'Agentes de IA para negocios chicos: WhatsApp, web y voz, conectados a los datos que ya tienen, con un tablero arriba.',
@@ -97,24 +97,24 @@ window.ES = {
   'What I am genuinely good at, and what I am not.': 'En qué soy bueno de verdad, y en qué no.',
 
   'AI agent products': 'Productos con agentes de IA',
-  'Spec and ship agent systems end to end: trigger detection, data retrieval, multi channel interaction across chat, WhatsApp and voice, and action execution. The hard part is never the model, it is deciding what the agent is allowed to do.':
-    'Especificar y shippear sistemas de agentes de punta a punta: detección de disparadores, recuperación de datos, interacción multicanal entre chat, WhatsApp y voz, y ejecución de acciones. La parte difícil nunca es el modelo, es decidir qué tiene permitido hacer el agente.',
+  'Agent systems end to end, across chat, WhatsApp and voice. The hard part is never the model, it is what the agent is allowed to do.':
+    'Sistemas de agentes de punta a punta: chat, WhatsApp y voz. La parte difícil nunca es el modelo, es qué tiene permitido hacer el agente.',
 
   'Agentic coding': 'Programación con agentes',
-  'Claude Code and Cursor as daily drivers. I write production features, put them through review and ship them, which means I do not just prioritize work, I move it.':
-    'Claude Code y Cursor todos los días. Escribo features de producción, las paso por review y las shippeo, así que no solo priorizo el trabajo: lo muevo.',
+  'Claude Code and Cursor every day. I write production features and ship them, so I do not just prioritize work, I move it.':
+    'Claude Code y Cursor todos los días. Escribo features de producción y las shippeo, así que no solo priorizo el trabajo: lo muevo.',
 
   'Automation and internal tooling': 'Automatización y herramientas internas',
-  'n8n, Activepieces, Retool, Zapier, Make. Building the boring machinery that hands a team its hours back, and the process that keeps it from rotting.':
-    'n8n, Activepieces, Retool, Zapier, Make. Construir la maquinaria aburrida que le devuelve las horas a un equipo, y el proceso que evita que se pudra.',
+  'n8n, Activepieces, Retool, Zapier, Make. The boring machinery that hands a team its hours back, and the process that keeps it from rotting.':
+    'n8n, Activepieces, Retool, Zapier, Make. La maquinaria aburrida que le devuelve las horas a un equipo, y el proceso que evita que se pudra.',
 
   '0 to 1': '0 a 1',
-  'Standing up a function, a team or a product where none existed, then designing the way it runs without me in the middle of it. I have done this from zero more than once.':
-    'Levantar una función, un equipo o un producto donde no había nada, y después diseñar cómo funciona sin mí en el medio. Ya lo hice desde cero más de una vez.',
+  'Standing up a function, a team or a product where none existed, then designing how it runs without me in the middle. More than once.':
+    'Levantar una función, un equipo o un producto donde no había nada, y diseñar cómo funciona sin mí en el medio. Más de una vez.',
 
   'Quality and release engineering': 'Calidad e ingeniería de releases',
-  'Six years in QA and release automation before product: test design, on-premise deployments for enterprise clients, pipelines in Python and Jenkins. It is why I only trust systems I can test.':
-    'Seis años en QA y automatización de releases antes de producto: diseño de pruebas, despliegues on-premise para clientes enterprise, pipelines en Python y Jenkins. Por eso solo confío en los sistemas que puedo testear.',
+  'Six years in QA and release automation before product: test design, on-premise deployments, pipelines. It is why I only trust systems I can test.':
+    'Seis años en QA y releases antes de producto: diseño de pruebas, despliegues on-premise, pipelines. Por eso solo confío en lo que puedo testear.',
 
   'Data and BI': 'Datos y BI',
   'SQL, Tableau, Metabase. Dashboards people actually make decisions on, not screenshots for a monthly deck.':
@@ -208,25 +208,25 @@ window.ES = {
     'Lo mismo de arriba, apuntado al problema de otro. Empresas, startups, y gente con un proyecto que todavía no arrancó.',
 
   'Agent systems, spec to production': 'Sistemas de agentes, de la spec a producción',
-  'An agent that does something real: what it is allowed to do, where it hands off to a person, what counts as a good answer, and how you find out when it stops being one. Chat, WhatsApp or voice, wired to the data you already have.':
-    'Un agente que hace algo de verdad: qué tiene permitido hacer, dónde le pasa la posta a una persona, qué cuenta como buena respuesta, y cómo te enterás cuando deja de serlo. Chat, WhatsApp o voz, conectado a los datos que ya tenés.',
+  'What the agent is allowed to do, where it hands off to a person, and how you find out when it stops being good. Chat, WhatsApp or voice.':
+    'Qué tiene permitido hacer el agente, dónde le pasa la posta a una persona, y cómo te enterás cuando deja de ser bueno. Chat, WhatsApp o voz.',
   'For a process that is currently a person copying between two screens.':
     'Para un proceso que hoy es una persona copiando entre dos pantallas.',
 
   'Zero to one': 'De cero a uno',
-  'An idea to something people can actually use. Spec, build and release, with an agent in the loop for most of the code, which is why this is weeks and not quarters. You end up owning the repo.':
-    'De una idea a algo que la gente pueda usar. Spec, construcción y release, con un agente en el loop para casi todo el código, que es por qué esto son semanas y no trimestres. El repo termina siendo tuyo.',
+  'An idea to something people can use. Spec, build, release, with an agent in the loop, which is why this is weeks. You end up owning the repo.':
+    'De una idea a algo que la gente pueda usar. Spec, construcción y release, con un agente en el loop, que es por qué son semanas. El repo queda tuyo.',
   'For a thesis with no product yet, or a company that needs a real thing in the room.':
     'Para una hipótesis que todavía no tiene producto, o una empresa que necesita algo funcionando arriba de la mesa.',
 
-  'The boring machinery that hands a team its hours back: n8n, Activepieces, Retool, Zapier, Make. Plus the process that keeps it from rotting after I leave, which is the part that usually goes missing.':
-    'La maquinaria aburrida que le devuelve las horas a un equipo: n8n, Activepieces, Retool, Zapier, Make. Más el proceso que evita que se pudra cuando me voy, que es la parte que suele faltar.',
+  'n8n, Activepieces, Retool, Zapier, Make. Plus the process that keeps it from rotting after I leave, which is the part that goes missing.':
+    'n8n, Activepieces, Retool, Zapier, Make. Más el proceso que evita que se pudra cuando me voy, que es la parte que suele faltar.',
   'For an operation running on spreadsheets and goodwill.':
     'Para una operación que anda con planillas y buena voluntad.',
 
   'AI product advisory': 'Asesoría de producto de IA',
-  'You have the engineers. What is missing is someone deciding what the AI should do, what it should not, and saying no to the demo that will not survive contact with a user.':
-    'Los ingenieros los tenés. Lo que falta es alguien que decida qué tiene que hacer la IA, qué no, y que le diga que no a la demo que no va a sobrevivir el contacto con un usuario.',
+  'You have the engineers. What is missing is someone deciding what the AI should not do, and saying no to the demo that will not survive a user.':
+    'Los ingenieros los tenés. Falta alguien que decida qué NO tiene que hacer la IA, y que le diga que no a la demo que no sobrevive a un usuario.',
   'For a team shipping AI features with nobody owning their shape.':
     'Para un equipo que shippea features de IA sin que nadie se haga cargo de su forma.',
 
@@ -292,20 +292,20 @@ window.ES = {
 
   /* --- craft, the four new ones --- */
   'Agent architecture': 'Arquitectura de agentes',
-  'Designing the system the agents live in, from zero to production, and leading the team that builds it: the workflow builder, the tool boundaries, the escalation path, and what counts as a good answer.':
-    'Diseñar el sistema donde viven los agentes, de cero a producción, y liderar al equipo que lo construye: el workflow builder, los límites de las herramientas, el camino de escalamiento, y qué cuenta como buena respuesta.',
+  'The system the agents live in, zero to production, and the team that builds it: tool boundaries, escalation, what counts as a good answer.':
+    'El sistema donde viven los agentes, de cero a producción, y el equipo que lo construye: límites, escalamiento, qué es una buena respuesta.',
 
   'Voice and multimodal': 'Voz y multimodal',
-  'Voice LLMs on live calls, and images as an input rather than decoration: reading a screenshot, a document or a photo and deciding from it. Prototyped as an MVP first, so the idea gets tested before it gets a roadmap.':
-    'LLMs de voz en llamadas reales, e imágenes como entrada y no como adorno: leer una captura, un documento o una foto y decidir a partir de eso. Primero como MVP, así la idea se prueba antes de tener roadmap.',
+  'Voice LLMs on live calls, and images as input rather than decoration: reading a screenshot or a photo and deciding from it.':
+    'LLMs de voz en llamadas reales, e imágenes como entrada y no como adorno: leer una captura o una foto y decidir a partir de eso.',
 
   'Generative production': 'Producción generativa',
-  'Image generation and product video, prompt to rendered clip, on a pipeline instead of by hand. It is how a landing page gets its visuals the same week it gets its copy.':
-    'Generación de imágenes y video de producto, del prompt al clip renderizado, en un pipeline y no a mano. Es la forma de que una landing tenga sus visuales la misma semana que tiene el texto.',
+  'Image generation and product video, prompt to rendered clip, on a pipeline. A landing gets its visuals the week it gets its copy.':
+    'Generación de imágenes y video de producto, del prompt al clip, en un pipeline. Una landing tiene visuales la semana que tiene el texto.',
 
   'Growth and instrumentation': 'Growth e instrumentación',
-  'Umami, LogRocket, session review, Meta Ads. Counting the funnel from the database and not the dashboard, because a consent gate or a server-side event will quietly drop the steps the dashboard shows you.':
-    'Umami, LogRocket, revisión de sesiones, Meta Ads. Contar el embudo desde la base de datos y no desde el panel, porque un gate de consentimiento o un evento server-side te tira pasos en silencio.',
+  'Umami, LogRocket, session review, Meta Ads. Counting the funnel from the database and not the dashboard, because the dashboard lies.':
+    'Umami, LogRocket, revisión de sesiones, Meta Ads. Contar el embudo desde la base y no desde el panel, porque el panel miente.',
 
   /* --- strings JS builds, so they are not in the DOM to be matched --- */
   '_contributions': '{n} contribuciones en el último año',
