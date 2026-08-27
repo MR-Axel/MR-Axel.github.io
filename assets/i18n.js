@@ -197,36 +197,10 @@ window.ES = {
   /* --- agent skills --- */
   'The skills I write for Claude Code. Six a product or engineering team would reach for, and the rest underneath.':
     'Los skills que escribo para Claude Code. Seis que un equipo de producto o ingeniería usaría, y el resto abajo.',
-  'The other thirteen':
-    'Los otros trece',
+  'The other thirteen, dashed ones are not published':
+    'Los otros trece, los punteados no están publicados',
   'The 14 open ones, on GitHub<span class="arrow" aria-hidden="true">↗</span>':
     'Los 14 abiertos, en GitHub<span class="arrow" aria-hidden="true">↗</span>',
-  'Reads your repo, asks for the rest, writes the shared profile.':
-    'Lee tu repo, pregunta el resto, y escribe el perfil compartido.',
-  "Implements a feature following your repo's own conventions.":
-    'Implementa una feature siguiendo las convenciones de tu repo.',
-  'Architecture review where you set the priority, not the skill.':
-    'Revisión de arquitectura donde la prioridad la ponés vos, no el skill.',
-  'UI audit: accessibility, responsive behavior, interaction states.':
-    'Auditoría de UI: accesibilidad, responsive, estados de interacción.',
-  'A business review: does it solve the real need, is the flow complete.':
-    'Una revisión de negocio: resuelve la necesidad real, está completo el flujo.',
-  'QA against what is live, depth picked by blast radius.':
-    'QA contra lo que está vivo, con la profundidad según el radio de impacto.',
-  'The decisions you cannot recover by reading the code.':
-    'Las decisiones que no se recuperan leyendo el código.',
-  'Four gates that fail a check instead of surviving a review.':
-    'Cuatro compuertas que fallan un check en vez de sobrevivir a un review.',
-  'Publishable content that never invents a metric.':
-    'Contenido listo para publicar que nunca inventa una métrica.',
-  'Scroll that carries a story, and the bugs nobody writes down.':
-    'Scroll que cuenta algo, y los bugs que nadie escribe.',
-  'Playwright, ElevenLabs and Remotion into one product video.':
-    'Playwright, ElevenLabs y Remotion en un video de producto.',
-  'Audits copy so it does not read as machine-made.':
-    'Audita copy para que no se lea hecho por una máquina.',
-  'A skill per codebase: its tokens, conventions and traps.':
-    'Un skill por codebase: sus tokens, convenciones y trampas.',
 
   /* --- activity --- */
   'Most of the code lives in private product repos, so the graph is the honest part of it.':

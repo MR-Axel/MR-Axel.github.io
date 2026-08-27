@@ -854,34 +854,6 @@ section[id] { scroll-margin-top: 82px; }
   border-bottom: 1px solid var(--line);
 }
 .skills-grid + .skills-band { margin-top: 56px; }
-/* the thirteen that did not make the grid: one line each, same shape as the
-   Also built list, because they are a reference and not a pitch */
-.skilllist {
-  list-style: none; margin: 24px 0 0; padding: 0;
-  background: var(--surface); border: 1px solid var(--line);
-  border-radius: var(--radius); overflow: hidden;
-}
-.slrow + .slrow { border-top: 1px solid var(--line); }
-.slrow > a, .slrow > span {
-  display: flex; align-items: baseline; gap: 16px;
-  padding: 13px 20px; text-decoration: none; color: inherit;
-  transition: background 0.2s ease;
-}
-.slrow:hover > a, .slrow:hover > span { background: var(--surface-hi); }
-.slrow__name {
-  font-family: var(--mono); font-size: 13px; color: var(--text);
-  flex: 0 0 auto; min-width: 148px;
-}
-.slrow > a:hover .slrow__name, .slrow > a:hover .arrow { color: var(--accent-ink); }
-.slrow__desc { flex: 1 1 auto; color: var(--muted); font-size: 0.9rem; }
-.slrow .arrow, .slrow .skill-mark { flex: 0 0 auto; }
-
-@media (max-width: 640px) {
-  .slrow > a, .slrow > span { flex-wrap: wrap; gap: 4px 12px; }
-  .slrow__name { min-width: 0; }
-  .slrow__desc { flex: 1 1 100%; }
-}
-
 /* no link, no arrow, and a mark that says why: the card is a statement of what
    exists, not an invitation to click something that is not there */
 .skill-card--own { cursor: default; }
@@ -891,9 +863,33 @@ section[id] { scroll-margin-top: 82px; }
 .skill-card--own:hover h3 { color: inherit; }
 .skill-mark {
   font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--muted); border: 1px solid var(--line); border-radius: 999px;
+  color: var(--muted); border: 1px solid var(--line-hi); border-radius: 999px;
   padding: 2px 8px; font-weight: 500; white-space: nowrap;
 }
+
+/* The thirteen that did not make the grid, as names only. A line of copy each
+   turned the tail of the section into more reading than the six cards above
+   it, which inverts the emphasis this section is supposed to have.
+
+   The dashed ring on the private ones is the whole affordance: it says there
+   is nothing to click before anyone tries, which the solid ones do not need
+   because they carry an arrow. */
+.minis { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 22px 0 0; padding: 0; }
+.mini {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 13px; color: var(--text-mid);
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 9px; padding: 8px 13px; text-decoration: none;
+  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease,
+              transform 0.18s var(--ease-out);
+}
+a.mini:hover {
+  color: var(--accent-ink); border-color: var(--line-hi);
+  background: var(--surface-hi); transform: translateY(-1px);
+}
+a.mini:hover .arrow { color: var(--accent-ink); }
+.mini .arrow { font-size: 0.78em; }
+.mini--own { border-style: dashed; border-color: var(--line-hi); color: var(--muted); }
 
 /* ---------- activity ---------- */
 
