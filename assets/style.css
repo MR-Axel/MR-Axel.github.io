@@ -584,14 +584,33 @@ section[id] { scroll-margin-top: 82px; }
 }
 /* each one leans into the outer edge of the card it belongs to: the hornero
    on dametrabajo, the carpincho on Nuchus, both in the first row */
-.mascot--hornero { width: 250px; left: -136px; top: -34px; }
-/* ⚠️ El corrimiento se clampea contra el aire que de verdad hay. Con `right`
-   fijo en -128, entre 1200 y 1280 el carpincho se pasaba 8px del viewport y
-   dejaba scroll horizontal en toda la pagina: 8px que nadie mira pero que
-   hacen que el sitio se pueda arrastrar de costado. El maximo sale de la
-   mitad de lo que sobra entre el contenido y la ventana, asi que en pantalla
-   angosta se mete y en ancha se corre lo mismo que antes. */
-.mascot--carpincho { width: 262px; right: calc(-1 * min(128px, (100vw - var(--wrap)) / 2)); top: -10px; }
+/* 🔴 SE CORREN TODO LO QUE EL AIRE PERMITE, Y ESE AIRE ES UNA CUENTA, NO UN
+   NUMERO. `(100vw - var(--wrap)) / 2` es exactamente lo que sobra a cada lado
+   del contenido: correrse mas que eso no es "mas afuera", es fuera de la
+   pantalla, y deja la pagina arrastrable de costado. Ya paso: el carpincho con
+   `right: -128px` fijo se salia 8px entre 1200 y 1280.
+
+   ⚠️ Y POR ESO TAMBIEN ENCOGEN. Con el corrimiento topeado por el aire, en una
+   pantalla angosta el bicho se queda quieto contra el borde y la tarjeta le
+   come cada vez mas encima. Achicandolo, lo que la tarjeta tapa sigue siendo
+   mas o menos la misma proporcion en vez de crecer hasta dejar una oreja.
+
+   Debajo de 1150 no hay aire que alcance: quedarian dos manchas asomando un
+   cuarto detras de una tarjeta, que se lee como un error de maquetado y no
+   como un personaje. Ahi se van. */
+.mascot--hornero {
+  width: clamp(160px, 15vw, 250px);
+  left: calc(-1 * (100vw - var(--wrap)) / 2);
+  top: -34px;
+}
+.mascot--carpincho {
+  width: clamp(168px, 15.5vw, 262px);
+  right: calc(-1 * (100vw - var(--wrap)) / 2);
+  top: -10px;
+}
+@media (max-width: 1150px) {
+  .mascot { display: none; }
+}
 .mascot--carpincho img { animation-duration: 11s; animation-delay: -3s; }
 
 @keyframes bob {
