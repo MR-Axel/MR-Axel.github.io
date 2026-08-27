@@ -1040,10 +1040,12 @@ a.mini:hover .arrow { color: var(--accent-ink); }
   width: 9px; height: 9px; border-radius: 50%;
   background: var(--accent); flex: none;
 }
-.lima.is-open .lima__launch { border-color: var(--accent-line); }
+/* Con el panel abierto el lanzador sobra y encima queda flotando por arriba,
+   pisando el borde. Se va, y la cruz del encabezado es la unica salida. */
+.lima.is-open .lima__launch { display: none; }
 
 .lima__panel {
-  width: min(370px, calc(100vw - 44px));
+  width: min(430px, calc(100vw - 44px));
   display: flex; flex-direction: column;
   background: var(--bg-alt); border: 1px solid var(--line-hi);
   border-radius: 18px; overflow: hidden;
@@ -1074,12 +1076,12 @@ a.mini:hover .arrow { color: var(--accent-ink); }
   padding: 15px 14px; overflow-y: auto;
   /* Grows with the conversation instead of opening at full height. A fixed
      box under a one line greeting reads as a panel that failed to load. */
-  min-height: 92px; max-height: min(390px, 52vh);
+  min-height: 110px; max-height: min(460px, 58vh);
   overscroll-behavior: contain;
 }
 
 .lima__msg {
-  font-size: 14px; line-height: 1.55; max-width: 88%;
+  font-size: 14.5px; line-height: 1.55; max-width: 88%;
   padding: 10px 13px; border-radius: 14px;
   white-space: pre-wrap; overflow-wrap: anywhere;
 }
@@ -1143,6 +1145,26 @@ a.mini:hover .arrow { color: var(--accent-ink); }
   .lima { transition: none; }
   .lima__msg.is-waiting { animation: none; opacity: 0.6; }
 }
+
+/* ---------- the theme change, as ink ---------- */
+
+/* The default cross-fade is switched off so the clip-path animation that
+   app.js runs is the only thing describing the change. mix-blend-mode goes
+   back to normal for the same reason: blended, the two photos tint each other
+   through the stain and the edge stops reading as a front. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Which photo sits on top, and it flips with the direction. Spilling, the new
+   dark view advances and has to cover the old one. Draining, what withdraws
+   is the OLD one, and if the new were on top nothing would be seen emptying. */
+html[data-transicion="llenando"]::view-transition-old(root) { z-index: 1; }
+html[data-transicion="llenando"]::view-transition-new(root) { z-index: 2; }
+html[data-transicion="vaciando"]::view-transition-new(root) { z-index: 1; }
+html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
 
 /* ---------- interaction layer ---------- */
 

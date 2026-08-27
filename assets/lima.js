@@ -17,6 +17,7 @@
   var ENDPOINT = 'https://api.eixol.tech/portfolio/chat';
   var GUARDADO = 'lima-charla';
 
+  var root = document.documentElement;
   var caja = document.getElementById('lima');
   if (!caja || !window.fetch) return;
 
@@ -191,4 +192,25 @@
 
   window.addEventListener('scroll', mirar, { passive: true });
   mirar();
+
+  /* ------------------------------------------------------- language swap */
+
+  /* 🔴 THE GREETING IS PAINTED ONCE, AND THAT WAS THE BUG. The hidden strings
+     in the markup do get retranslated when the language toggles, but the
+     bubble is a div this file created with textContent: it has no key, so it
+     kept whatever language it was born in. Open the panel in English, switch
+     to Spanish, and the assistant was still greeting in English on a Spanish
+     page.
+
+     Only the greeting is repainted, and only while nothing has been said. A
+     real exchange stays exactly as it happened: retranslating what a person
+     typed, or an answer the model already gave, would be rewriting history to
+     match a button. */
+  var idiomaAnterior = root.getAttribute('data-lang');
+  new MutationObserver(function () {
+    var ahora = root.getAttribute('data-lang');
+    if (ahora === idiomaAnterior) return;
+    idiomaAnterior = ahora;
+    if (abierta && !charla.length) pintarTodo();
+  }).observe(root, { attributes: true, attributeFilter: ['data-lang'] });
 })();

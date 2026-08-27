@@ -91,14 +91,158 @@
 
   /* ================= theme ================= */
 
+  function aplicarTema(to) {
+    root.setAttribute('data-theme', to);
+    store('site-theme', to);
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', to === 'light' ? '#fbfaf7' : '#08090b');
+  }
+
+  /* ---------------- the theme change as an inkwell tipping over ----------
+
+     Ported from the dametrabajo landing, comments and all, because that
+     version has already paid for three separate bugs and each one of them is
+     a black flash on screen. Rewriting it from scratch would buy them again.
+
+     🔴 THE TRICK IS THE VIEW TRANSITION API AND NOT A LAYER OF OUR OWN. The
+     obvious build is a dark <div> that grows, but that does not change the
+     theme: it covers the old page with a stain of colour, and when it leaves,
+     underneath, the theme jumped all at once anyway. startViewTransition
+     photographs the before, applies the change, and lets us animate HOW THE
+     AFTER IS REVEALED. So what advances is not colour: it is the entire new
+     page, text, borders and shadows already in the new theme.
+
+     🔴 AND THEY ARE TWO DIFFERENT GESTURES, NOT ONE AND ITS REVERSE.
+
+       To dark   it SPILLS: in from the bottom left corner, diagonally out
+                 through the top right. The NEW view is animated, the dark one.
+       To light  it DRAINS: the stain withdraws the way it came. The OLD view
+                 is animated, which is the dark one, so it has to stay painted
+                 on top of the new one.
+
+     Running the second as the first reversed looks wrong: on the way to light,
+     light entering from a corner does not read as ink leaving, it reads as
+     different ink arriving. */
+
+  var PUNTOS = 48;   /* fewer and the waves look faceted */
+  var CUADROS = 16;  /* frames computed; the browser interpolates between them */
+  var TARDA = 900;
+
+  /* 🔴 A POLYGON OF FIXED POINTS, NOT A path() OR AN inset(). Clips only
+     interpolate between shapes with the SAME VERTEX COUNT. A triangle that
+     grows into a pentagon changes count halfway and the browser gives up: it
+     jumps instead of animating. With a fixed-point front and the closing
+     corners always off screen, the count never changes.
+
+     The front is the line x - y = c, running top-left to bottom-right, and
+     the stained part is everything on this side of it.
+
+     ⚠️ AND THE AMPLITUDE DIES AT THE ENDS. With the wave alive at the finish
+     there would be unpainted bites at the screen edge, which is exactly when
+     nobody forgives them, because nothing else is moving to cover them. */
+  function mancha(t, W, H) {
+    var L = W + H;
+    var c = -H - L * 0.12 + t * (W + H + L * 0.24);
+    var punta = Math.sin(Math.PI * Math.min(1, Math.max(0, t)));
+    var amplitud = L * 0.075 * punta;
+    var largoOla = L * 0.42;
+    var fase = t * Math.PI * 2.4;
+
+    var puntos = [];
+    var desde = -L * 0.5;
+    var hasta = L * 1.5;
+    for (var i = 0; i < PUNTOS; i++) {
+      var w = desde + ((hasta - desde) * i) / (PUNTOS - 1);
+      var cc = c + amplitud * Math.sin((2 * Math.PI * w) / largoOla + fase);
+      puntos.push(((cc + w) / 2).toFixed(1) + 'px ' + ((w - cc) / 2).toFixed(1) + 'px');
+    }
+    var lejos = L * 4;
+    puntos.push(lejos.toFixed(1) + 'px ' + lejos.toFixed(1) + 'px');
+    puntos.push((-lejos).toFixed(1) + 'px ' + lejos.toFixed(1) + 'px');
+    puntos.push((-lejos).toFixed(1) + 'px ' + (-lejos).toFixed(1) + 'px');
+    return 'polygon(' + puntos.join(', ') + ')';
+  }
+
+  /* 🔴 AN ANIMATION WITH FILL DOES NOT DIE WHEN ITS TRANSITION ENDS, AND THAT
+     WAS THE BLACK VEIL ON THE THIRD CLICK. fill: both keeps the style applied
+     forever, and the animation hangs off the document pointing at a
+     pseudo-element that no longer exists. While it does not exist, nothing
+     shows. But the next theme change CREATES ANOTHER PSEUDO-ELEMENT WITH THE
+     SAME NAME, and the old animation grabs it and applies its last frame.
+
+     Which is why it took three clicks and not two. The turn counter exists so
+     that cancelling the old one does not wipe the new one's data-transicion:
+     cancelling rejects its promise, and that rejection lands after the new
+     change has already written its own. */
+  var gestoVivo = null;
+  var turno = 0;
+
+  function cambiarTema(to) {
+    if (typeof document.startViewTransition !== 'function' || reduced) {
+      return aplicarTema(to);
+    }
+
+    var derramando = to === 'dark';
+    var mio = ++turno;
+
+    /* Before the new pseudo-elements exist, so there is never a single frame
+       in which the previous gesture imposes its shape on them. */
+    if (gestoVivo) gestoVivo.cancel();
+    gestoVivo = null;
+
+    root.setAttribute('data-transicion', derramando ? 'llenando' : 'vaciando');
+
+    var t = document.startViewTransition(function () { aplicarTema(to); });
+
+    function soltar() {
+      if (turno === mio) root.removeAttribute('data-transicion');
+    }
+
+    t.ready.then(function () {
+      if (turno !== mio) return;
+      var W = window.innerWidth;
+      var H = window.innerHeight;
+      var pasos = [];
+      for (var i = 0; i < CUADROS; i++) pasos.push(mancha(i / (CUADROS - 1), W, H));
+
+      var gesto = root.animate({ clipPath: derramando ? pasos : pasos.slice().reverse() }, {
+        duration: TARDA,
+        /* Decisive in, soft stop, the way something spilled settles. No
+           bounce: a stain that comes back does not exist. */
+        easing: 'cubic-bezier(.3, 0, .1, 1)',
+        /* 🔴 both, NOT THE DEFAULT, AND THIS WAS THE BLACK BLINK. Without
+           fill, an animation DROPS THE STYLE THE MOMENT IT ENDS. On the way
+           to light, what is animated is the old photo, the dark one, and it
+           sits on top; in the frame where the animation let the clip go, that
+           photo covered the whole screen again and everything went black,
+           until the browser tore the transition down an instant later and the
+           white appeared. both and not forwards because it also pins the
+           first frame. */
+        fill: 'both',
+        pseudoElement: derramando
+          ? '::view-transition-new(root)'
+          : '::view-transition-old(root)'
+      });
+
+      gestoVivo = gesto;
+
+      /* ⚠️ AND THE ATTRIBUTE COMES OFF WHEN THE GESTURE ENDS, NOT WHEN THE
+         TRANSITION DOES. Two different clocks, and the transition's can land
+         first; if it does, the z-index rules fall away mid-spill and the two
+         layers swap in one frame. */
+      gesto.finished.then(soltar, soltar);
+    }).catch(function () {
+      /* A transition can cancel itself if another lands on top. The theme was
+         already applied inside the callback, so there is nothing to repair. */
+    });
+
+    t.finished.then(soltar, soltar);
+  }
+
   var themeBtn = document.getElementById('theme-toggle');
   if (themeBtn) {
     themeBtn.addEventListener('click', function () {
-      var to = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-      root.setAttribute('data-theme', to);
-      store('site-theme', to);
-      var meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute('content', to === 'light' ? '#fbfaf7' : '#08090b');
+      cambiarTema(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
     });
   }
 

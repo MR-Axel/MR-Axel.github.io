@@ -234,18 +234,16 @@ window.ES = {
     'No salió. Por LinkedIn le pego la vuelta y lo veo igual.',
 
   /* --- Lima --- */
-  'Ask Lima':
-    'Preguntale a Lima',
-  "Axel's assistant, and not Axel":
-    'La asistente de Axel, no Axel',
+  "Axel's assistant":
+    'Asistente de Axel',
   'Close':
     'Cerrar',
   'Your message':
     'Tu mensaje',
   'Send':
     'Mandar',
-  'Hi, I am Lima, the assistant on this site. Tell me what you are trying to build or fix and I will point you at the right thing, or hand you straight to Axel.':
-    'Hola, soy Lima, la asistente de este sitio. Contame qué estás tratando de construir o de arreglar y te oriento, o te paso derecho con Axel.',
+  'Hi, I am the assistant on this site. Tell me what you are trying to build or fix and I will point you at the right thing, or hand you straight to Axel.':
+    'Hola, soy el asistente de este sitio. Contame qué estás tratando de construir o de arreglar y te oriento, o te paso derecho con Axel.',
   'Leave my details':
     'Dejar mis datos',
   'Thinking.':
