@@ -266,12 +266,12 @@ window.ES = {
     'MBA en Tecnología e Innovación',
   'Others':
     'Otros',
-  'One in progress, and earlier builds. Two are still up, the rest are off, and another four ran their course and came down.':
-    'Una en curso, y cosas anteriores. Dos siguen en pie, el resto está apagado, y hay otras cuatro que hicieron su recorrido y se bajaron.',
   'Point of sale, stock and the fiscal side wired together, for a monotributista who today invoices by hand.':
     'Punto de venta, stock y la parte fiscal atados entre sí, para un monotributista que hoy factura a mano.',
   'In progress':
     'En curso',
+  'Earlier builds and one on pause. Two are still up and the rest are off.':
+    'Cosas anteriores y una en pausa. Dos siguen en pie y el resto está apagado.',
 
   /* --- Lima --- */
   "Axel's assistant":

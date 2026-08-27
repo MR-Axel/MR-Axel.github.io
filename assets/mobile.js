@@ -143,12 +143,34 @@
       var fila = document.createElement('div');
       fila.className = 'marquesina' + (f % 2 ? ' marquesina--lenta' : '');
       var pista = document.createElement('div');
-      pista.className = 'marquesina__pista';
+      /* 🔴 LA PISTA HEREDA LAS CLASES DE LA LISTA ORIGINAL, y sin esto las
+         fichas salian desnudas. Los estilos de cada ficha viven en selectores
+         de descendencia: `.chips li`, `.minis .mini`. Clonandolas dentro de un
+         div propio dejan de tener ese ancestro y pierden borde, relleno y
+         fondo de golpe: quedaban como texto suelto pisandose entre si, que es
+         exactamente la mancha que se veia en el medio del stack. */
+      pista.className = 'marquesina__pista ' + lista.className;
+
+      /* 🔴 AL CLON HAY QUE SACARLE `reveal`, Y SIN ESTO LA MARQUESINA SALIA
+         VACIA. El observador de entradas se arma una sola vez al cargar la
+         pagina, con los elementos que existian en ese momento; un nodo creado
+         despues no lo mira nadie, asi que se queda con la clase puesta y en
+         opacidad 0 para siempre. Se veia un hueco del alto exacto de las dos
+         filas, con las fichas adentro, invisibles. Es el mismo error que dejo
+         escondida la linea del MBA. */
+      function limpiar(nodo) {
+        nodo.classList.remove('reveal', 'is-in', 'is-past');
+        nodo.querySelectorAll('.reveal').forEach(function (h) {
+          h.classList.remove('reveal', 'is-in', 'is-past');
+        });
+        nodo.style.removeProperty('--d');
+        return nodo;
+      }
 
       var mias = fichas.filter(function (_, i) { return i % filas === f; });
-      mias.forEach(function (n) { pista.appendChild(n.cloneNode(true)); });
+      mias.forEach(function (n) { pista.appendChild(limpiar(n.cloneNode(true))); });
       mias.forEach(function (n) {
-        var copia = n.cloneNode(true);
+        var copia = limpiar(n.cloneNode(true));
         copia.setAttribute('aria-hidden', 'true');
         pista.appendChild(copia);
       });

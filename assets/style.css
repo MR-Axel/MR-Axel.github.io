@@ -639,6 +639,19 @@ section[id] { scroll-margin-top: 82px; }
   border-style: dashed; border-color: var(--line-hi); color: var(--muted);
 }
 
+
+/* Lo apagado lleva un icono de pausa antes de la palabra. Solo "OFF" se lee
+   como un error de estado; con el simbolo delante se lee como una decision.
+   Y sigue habiendo palabra: un icono solo obliga a adivinar. */
+.pill--off::before,
+.pill--curso::before {
+  content: ""; display: inline-block; flex: none;
+  width: 7px; height: 8px; margin-right: 6px;
+  border-left: 2px solid currentColor; border-right: 2px solid currentColor;
+  opacity: 0.7;
+}
+.pill--off, .pill--curso { display: inline-flex; align-items: center; }
+
 /* ---------- also built ---------- */
 
 .also { margin-top: 56px; padding-top: 42px; border-top: 1px solid var(--line); position: relative; z-index: 1; }
@@ -1480,13 +1493,18 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
 @media (max-width: 760px) {
   /* "Tambien construi": el estado a la derecha, en la misma linea que el
      nombre. Debajo ocupaba un renglon entero para decir tres letras. */
+  /* ⚠️ FLEX Y NO GRILLA. Con `auto 1fr auto` la columna de la pastilla medía
+     0px: el `1fr` del cuerpo se queda con todo el sobrante y a la pastilla no
+     le llegaba nada, asi que se iba abajo. Medido: 30px, 268px, 0px. Con flex
+     y `margin-left: auto` no hay reparto que negociar, la pastilla se va al
+     borde y el cuerpo ocupa lo que queda. */
   .sideitem {
-    grid-template-columns: auto 1fr auto;
-    align-items: center; gap: 10px; padding: 12px 14px;
+    display: flex; align-items: center; gap: 10px; padding: 12px 14px;
   }
   .sideitem__idx { display: none; }
-  .sideitem__body { min-width: 0; }
+  .sideitem__body { min-width: 0; flex: 1; }
   .sideitem__body h4 { margin: 0; }
+  .sideitem .pill { margin-left: auto; flex: none; }
 
   /* Oficio: el icono al lado del titulo y no arriba. Apilados, cada caja
      cerrada medía tres renglones de alto para mostrar un titulo. */
@@ -1505,7 +1523,12 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
    imposible de leer y de clickear. */
 .marquesina { overflow: hidden; }
 .marquesina__pista {
-  display: flex; width: max-content; gap: 8px;
+  /* ⚠️ `!important` en el wrap, y es por herencia deliberada: la pista lleva
+     las clases de la lista original para que las fichas conserven su estilo, y
+     esas clases traen `flex-wrap: wrap` puesto. Envolviendo, la marquesina se
+     apila en vez de correr. */
+  display: flex; flex-wrap: nowrap !important;
+  width: max-content; gap: 8px; padding: 0; margin: 0; list-style: none;
   animation: correr var(--vel, 46s) linear infinite;
 }
 .marquesina:active .marquesina__pista,
