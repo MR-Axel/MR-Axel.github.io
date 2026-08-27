@@ -773,13 +773,6 @@ section[id] { scroll-margin-top: 82px; }
   border-radius: 8px; padding: 6px 12px;
 }
 
-.honest {
-  margin-top: 40px; padding: 20px 24px;
-  border-left: 2px solid var(--accent-ink); background: var(--surface);
-  border-radius: 0 10px 10px 0; color: var(--muted); font-size: 0.95rem;
-}
-.honest strong { color: var(--text); }
-
 /* ---------- services ---------- */
 
 /* Craft says what he can do and stops there; this is the same list pointed at

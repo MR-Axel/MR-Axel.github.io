@@ -94,7 +94,7 @@ window.ES = {
     'Desafíos diarios gamificados con rankings y un loop de WhatsApp.',
 
   /* --- craft --- */
-  'What I am genuinely good at, and what I am not.': 'En qué soy bueno de verdad, y en qué no.',
+  'What I am genuinely good at.': 'En qué soy bueno de verdad.',
 
   'AI agent products': 'Productos con agentes de IA',
   'Agent systems end to end, across chat, WhatsApp and voice. The hard part is never the model, it is what the agent is allowed to do.':
@@ -120,9 +120,6 @@ window.ES = {
   'SQL, Tableau, Metabase. Dashboards people actually make decisions on, not screenshots for a monthly deck.':
     'SQL, Tableau, Metabase. Tableros sobre los que la gente realmente decide, no capturas para un deck mensual.',
 
-  "<strong>Not my thing, at least not yet:</strong> Kubernetes and distributed systems, training ML models, and being the person who reviews everyone else's code in a large TypeScript codebase. I ship features with an agent in the loop and I read every diff, but that is a different job. I would rather tell you now than find out together in week three.":
-    '<strong>No es lo mío, al menos todavía:</strong> Kubernetes y sistemas distribuidos, entrenar modelos, y ser el que revisa el código de todos los demás en un codebase grande de TypeScript. Shippeo features con un agente en el loop y leo cada diff, pero ese es otro trabajo. Prefiero decírtelo ahora y no que lo descubramos juntos en la semana tres.',
-
   /* --- agent skills --- */
   'The skills I write for Claude Code. Some are open and some carry knowledge that is mine, and those stay here.':
     'Los skills que escribo para Claude Code. Algunos son abiertos y otros llevan conocimiento que es mío, y esos se quedan acá.',
@@ -133,24 +130,24 @@ window.ES = {
   'No hardcoded stack or preferences: each one asks once, saves the answer in your repo, and says so instead of guessing when that file is missing.':
     'Sin stack ni preferencias cableadas: cada uno pregunta una vez, guarda la respuesta en tu repo, y lo dice en vez de adivinar cuando ese archivo no está.',
 
-  'Picks the agent architecture a task deserves out of 32 methods: blackboard, judge panel, adversarial debate, tree of thoughts, tournament, run-until-dry, executable verifier. It returns the one to use, why not the others, and the signal to abandon it.':
-    'Elige la arquitectura agéntica que la tarea merece, de un catálogo de 32 métodos: pizarra, panel de jueces, debate adversario, árbol de pensamientos, torneo, hasta-secar, verificador ejecutable. Devuelve cuál usar, por qué ese y no otro, y la señal para abandonarlo.',
+  'Picks the agent architecture a task deserves out of 32 methods, and returns the one to use, why not the others, and the signal to abandon it.':
+    'Elige la arquitectura agéntica que la tarea merece, de 32 métodos. Devuelve cuál usar, por qué ese, y la señal para abandonarlo.',
 
-  'Scroll that carries a story: pinned scenes that scrub, paths that draw, camera depth, backgrounds that follow the theme. Including the measurement bugs that cost hours, which is the part nobody writes down.':
-    'Scroll que cuenta algo: escenas que se clavan y se scrubbean, caminos que se dibujan, profundidad de cámara, fondos que siguen al tema. Incluidos los bugs de medición que cuestan horas, que es la parte que nadie escribe.',
+  'Scroll that carries a story: pinned scenes, paths that draw, camera depth. Including the measurement bugs nobody writes down.':
+    'Scroll que cuenta algo: escenas clavadas, caminos que se dibujan, profundidad de cámara. Con los bugs de medición que nadie escribe.',
 
-  'A product video end to end. The app recorded for real with Playwright, voice over from ElevenLabs, composed in Remotion. Script, audio measured against the cut, render, and a check that what shipped is what was meant.':
-    'Un video de producto de punta a punta. La app grabada de verdad con Playwright, voz en off de ElevenLabs, compuesto en Remotion. Guion, audio medido contra el corte, render, y una verificación de que lo que salió es lo que se quería.',
+  'A product video end to end: the app recorded for real with Playwright, voice over from ElevenLabs, composed in Remotion.':
+    'Un video de producto de punta a punta: la app grabada de verdad con Playwright, voz en off de ElevenLabs, compuesto en Remotion.',
 
-  'Audits copy that is already written so it does not read as machine-made. Catches template parallelism, brochure adjectives, endings eaten by connectives and promises without a number, and returns the exact replacement for each.':
-    'Audita copy ya escrito para que no se lea como hecho por una máquina. Detecta paralelismo de plantilla, adjetivos de folleto, remates comidos por conectores y promesas sin número, y devuelve el reemplazo exacto de cada uno.',
+  'Audits copy that is already written so it does not read as machine-made, and returns the exact replacement for each finding.':
+    'Audita copy ya escrito para que no se lea hecho por una máquina, y devuelve el reemplazo exacto de cada hallazgo.',
 
   /* the h3 carries the mark inside it, so the key has to carry it too, or
      the name falls through and only the pill translates */
   'one per product<span class="skill-mark">private</span>':
     'uno por producto<span class="skill-mark">sin publicar</span>',
-  'A skill per codebase: its design tokens, its conventions, and the traps that already cost someone an afternoon. An agent joining that repo does not have to be told twice.':
-    'Un skill por codebase: sus design tokens, sus convenciones, y las trampas que ya le costaron una tarde a alguien. Un agente que entra a ese repo no necesita que se lo expliquen dos veces.',
+  'A skill per codebase: its tokens, its conventions, and the traps that already cost someone an afternoon.':
+    'Un skill por codebase: sus tokens, sus convenciones, y las trampas que ya le costaron una tarde a alguien.',
 
   'private': 'sin publicar',
 
@@ -163,8 +160,8 @@ window.ES = {
   'The full loop for a feature: plan, implement, validate, review, deploy. Chains the other skills together.':
     'El loop completo de una feature: planear, implementar, validar, revisar, desplegar. Encadena los otros skills.',
 
-  'Same as ship, delegated to five subagents with narrow tool access: the one writing the spec can\'t write code. For changes too big for one context to hold.':
-    'Lo mismo que ship, delegado a cinco subagentes con acceso acotado: el que escribe la spec no puede escribir código. Para cambios demasiado grandes para un solo contexto.',
+  'Same as ship, delegated to five subagents with narrow tool access: the one writing the spec cannot write code.':
+    'Lo mismo que ship, delegado a cinco subagentes con acceso acotado: el que escribe la spec no puede escribir código.',
 
   'Runs your validation pipeline and reports honestly: what passed, what failed, what got skipped. Never marks green something that never ran.':
     'Corre tu pipeline de validación y reporta con honestidad: qué pasó, qué falló, qué se salteó. Nunca marca en verde algo que no corrió.',
@@ -193,8 +190,8 @@ window.ES = {
   'Sets up a design system where there is none, and enforces the one you already have: four gates that fail a check instead of surviving review.':
     'Arma un design system donde no hay ninguno, y hace cumplir el que ya tenés: cuatro compuertas que fallan un check en vez de sobrevivir a un review.',
 
-  'Ready-to-publish content for X, LinkedIn, Instagram and more, on your own brand profile and funnel. Never invents metrics, testimonials or social proof.':
-    'Contenido listo para publicar en X, LinkedIn, Instagram y más, sobre tu propio perfil de marca y tu embudo. Nunca inventa métricas, testimonios ni prueba social.',
+  'Ready-to-publish content for X, LinkedIn and Instagram, on your own brand and funnel. Never invents metrics or social proof.':
+    'Contenido listo para publicar en X, LinkedIn e Instagram, sobre tu marca y tu embudo. Nunca inventa métricas ni prueba social.',
 
   'All 14, on GitHub<span class="arrow" aria-hidden="true">↗</span>':
     'Los 14, en GitHub<span class="arrow" aria-hidden="true">↗</span>',
