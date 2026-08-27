@@ -113,11 +113,71 @@
     });
   }
 
+
+  /* ------------------------------------------------------------ marquesina */
+
+  /* Reparte las fichas en dos filas y las hace correr sin fin.
+
+     🔴 Cada fila lleva su contenido DUPLICADO y el recorrido es -50% exacto.
+     Es lo unico que evita el salto al reiniciar: con la copia detras, el
+     ultimo fotograma es identico al primero. Animar el ancho entero y volver
+     a cero se ve como un tiron cada vuelta.
+
+     ⚠️ La duracion sale de la cantidad de fichas y no es fija. Con un valor
+     fijo, una fila de seis vuela y una de veinte se arrastra, porque las dos
+     recorren su propio ancho en el mismo tiempo. */
+  function marquesina(sel, filas) {
+    var lista = document.querySelector(sel);
+    if (!lista || lista.dataset.marquesina) return;
+
+    var fichas = [].slice.call(lista.children);
+    if (fichas.length < filas * 2) return;
+
+    var caja = document.createElement('div');
+    caja.className = 'marquesina';
+    lista.parentNode.insertBefore(caja, lista);
+    lista.style.display = 'none';
+    caja.appendChild(lista);
+
+    for (var f = 0; f < filas; f++) {
+      var fila = document.createElement('div');
+      fila.className = 'marquesina' + (f % 2 ? ' marquesina--lenta' : '');
+      var pista = document.createElement('div');
+      pista.className = 'marquesina__pista';
+
+      var mias = fichas.filter(function (_, i) { return i % filas === f; });
+      mias.forEach(function (n) { pista.appendChild(n.cloneNode(true)); });
+      mias.forEach(function (n) {
+        var copia = n.cloneNode(true);
+        copia.setAttribute('aria-hidden', 'true');
+        pista.appendChild(copia);
+      });
+
+      pista.style.setProperty('--vel', Math.max(24, mias.length * 3.4) + 's');
+      pista.style.setProperty('--vel2', Math.max(30, mias.length * 4.4) + 's');
+      fila.appendChild(pista);
+      caja.appendChild(fila);
+    }
+
+    lista.dataset.marquesina = '1';
+    caja.dataset.marquesinaCaja = '1';
+    armado.push(caja);
+  }
+
   /* ------------------------------------------------------------ armado */
 
   function montar() {
     acordeon('.arc__step', '.arc__label');
     acordeon('.craft__item', 'h3');
+    /* ⚠️ El icono entra al boton DESPUES de armar el acordeon. El acordeon
+       envuelve solo el encabezado que se le pide, y en Oficio el icono es
+       hermano anterior del h3: quedaba afuera y arriba, apilado, que es
+       justamente el alto que se queria sacar. Adentro del boton va a la
+       izquierda del titulo y la caja cerrada pasa a medir un renglon. */
+    document.querySelectorAll('.craft__item .plegable__tirador').forEach(function (b) {
+      var icono = b.parentElement.querySelector(':scope > .craft__icon');
+      if (icono) b.insertBefore(icono, b.firstChild);
+    });
     acordeon('.offer', 'h3');
     /* 🔴 Un boton adentro de cada servicio, y no solo el del final. Plegado, el
        unico camino para consultar quedaba despues de cinco titulos: la persona
@@ -137,7 +197,8 @@
     });
     carrusel('.cards');
     carrusel('.skills-grid');
-    carrusel('.stack .chips');
+    marquesina('.stack .chips', 2);
+    marquesina('.minis', 2);
   }
 
   function desmontar() {
@@ -153,6 +214,16 @@
         var dentro = cuerpo.firstElementChild;
         while (dentro && dentro.firstChild) el.appendChild(dentro.firstChild);
         cuerpo.remove();
+      }
+      if (el.dataset.marquesinaCaja) {
+        var orig = el.querySelector('[data-marquesina]');
+        if (orig) {
+          orig.style.display = '';
+          delete orig.dataset.marquesina;
+          el.parentNode.insertBefore(orig, el);
+        }
+        el.remove();
+        return;
       }
       delete el.dataset.plegado;
       delete el.dataset.carrusel;

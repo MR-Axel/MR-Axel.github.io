@@ -73,8 +73,6 @@ window.ES = {
 
   /* --- also built --- */
   'Also built': 'También construí',
-  'Earlier builds. Two are still up, the rest are off, and another four ran their course and came down.':
-    'Cosas anteriores. Dos siguen en pie, el resto está apagado, y hay otras cuatro que hicieron su recorrido y se bajaron.',
 
 
   'A community for tech and startup people, with a blog and paid memberships.':
@@ -183,8 +181,6 @@ window.ES = {
   /* --- agent skills --- */
   'The skills I write for Claude Code. Six a product or engineering team would reach for, and the rest underneath.':
     'Los skills que escribo para Claude Code. Seis que un equipo de producto o ingeniería usaría, y el resto abajo.',
-  'The other thirteen, dashed ones are not published':
-    'Los otros trece, los punteados no están publicados',
   'The 14 open ones, on GitHub<span class="arrow" aria-hidden="true">↗</span>':
     'Los 14 abiertos, en GitHub<span class="arrow" aria-hidden="true">↗</span>',
 
@@ -228,8 +224,6 @@ window.ES = {
     'Agentes, automatización y productos enteros desde nada. Los pienso, los construyo y los pongo a andar. <strong>Semanas, no trimestres.</strong>',
   'Years on my own products':
     'Años con productos propios',
-  'MBA en Tecnología e Innovación, en curso':
-    'MBA en Tecnología e Innovación, en curso',
   'Tools delivered':
     'Herramientas entregadas',
 
@@ -264,6 +258,20 @@ window.ES = {
     'Los ingenieros los tenés. Falta alguien que decida qué NO tiene que hacer la IA, y que le diga que no a la demo que no sobrevive a un usuario. Uno a uno con un fundador, o al lado del equipo.',
   'For a team shipping AI features with nobody owning their shape.':
     'Para un equipo que shippea features de IA sin que nadie se haga cargo de su forma.',
+  'Buenos Aires, Argentina · open to remote AI product & AI engineering roles':
+    'Buenos Aires, Argentina · abierto a roles remotos de producto e ingeniería de IA',
+  'Bs. As. · open to remote AI roles':
+    'Bs. As. · abierto a roles remotos de IA',
+  'MBA en Tecnología e Innovación':
+    'MBA en Tecnología e Innovación',
+  'Others':
+    'Otros',
+  'One in progress, and earlier builds. Two are still up, the rest are off, and another four ran their course and came down.':
+    'Una en curso, y cosas anteriores. Dos siguen en pie, el resto está apagado, y hay otras cuatro que hicieron su recorrido y se bajaron.',
+  'Point of sale, stock and the fiscal side wired together, for a monotributista who today invoices by hand.':
+    'Punto de venta, stock y la parte fiscal atados entre sí, para un monotributista que hoy factura a mano.',
+  'In progress':
+    'En curso',
 
   /* --- Lima --- */
   "Axel's assistant":

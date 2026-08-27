@@ -182,26 +182,6 @@ body {
   transform: translate3d(0, var(--y-grid, 0px), 0);
 }
 
-/* El margen del cuaderno: una sola vertical a la izquierda, del color cálido
-   de la marca, como la que traen impresa los cuadernos rayados.
-
-   ⚠️ Va pegada al borde del CONTENIDO y no de la ventana. Puesta a una
-   distancia fija del borde, en una pantalla ancha queda flotando en el vacío a
-   trescientos píxeles del texto y no se lee como margen, se lee como una raya
-   suelta. La cuenta la deja siempre a la misma distancia de la columna. */
-.bg__margen {
-  top: -30%; bottom: -30%;
-  left: calc(50% - var(--wrap) / 2 - 26px);
-  width: 2px;
-  background: var(--margen);
-  opacity: var(--margen-op);
-  transform: translate3d(0, var(--y-grid, 0px), 0);
-}
-
-@media (max-width: 900px) {
-  /* En pantalla angosta no hay lugar para el margen: quedaría encima del texto
-     en vez de al costado. */
-  .bg__margen { display: none; }
 }
 
 /* soft colour bodies. radial gradients rather than blur(): the same look
@@ -406,6 +386,26 @@ section[id] { scroll-margin-top: 82px; }
   background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
 }
 .stats > div { background: var(--bg); padding: 20px 22px; transition: background-color 0.35s ease; }
+
+/* 🔴 LA CELDA QUE SOBRA NO EXISTE, LA DIBUJA EL HUECO. La grilla usa `gap: 1px`
+   sobre un fondo gris para trazar las divisiones sin bordes: lo gris que se ve
+   entre celdas es el contenedor asomando. Con cinco datos en dos columnas queda
+   un lugar sin `div` que lo tape, y ese hueco pinta un rectangulo gris entero
+   que parece una sexta metrica vacia.
+   El ultimo se estira y no queda hueco. Con seis datos vuelve solo a la grilla
+   pareja, porque la condicion es que sea el ultimo Y de posicion impar. */
+.stats > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+/* Dos textos y uno por ancho. El lugar no se saca: para un puesto remoto la
+   zona horaria es de los primeros filtros que aplica un recruiter, y "Buenos
+   Aires" lo contesta antes de que lo pregunte. Lo que sobra en un telefono es
+   la frase larga, tres renglones arriba de todo para decir lo que la seccion de
+   servicios dice entera. */
+.solo-angosto { display: none; }
+@media (max-width: 760px) {
+  .solo-ancho { display: none; }
+  .solo-angosto { display: inline; }
+}
 .stats dt { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
 .stats dd {
   margin: 0; font-family: var(--mono); font-size: clamp(1.5rem, 3vw, 1.9rem);
@@ -423,6 +423,10 @@ section[id] { scroll-margin-top: 82px; }
    antes, y el borrado del CSS muerto de la orbita, que cortaba hasta ese
    marcador, se la llevo puesta en el mismo tajo. El archivo decia tener la
    regla porque yo la habia escrito; el servido no la tenia. */
+/* ⚠️ Sin `reveal`. Lo tenia, y quedaba en opacidad 0 para siempre: el
+   observador de entradas recorta el viewport un 10% por abajo, y esta linea
+   cae justo en esa franja al cargar. Un pie de una linea no necesita entrada
+   animada; lo que necesita es verse. */
 .credencial {
   margin: 14px 0 0;
   font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em;
@@ -430,7 +434,22 @@ section[id] { scroll-margin-top: 82px; }
 }
 
 .section { padding: clamp(64px, 10vw, 108px) 0; border-top: 1px solid var(--line); }
-.section--alt { background: var(--bg-alt); transition: background-color 0.35s ease; }
+/* 🔴 SEMITRANSPARENTE, Y POR ESO EL RENGLON NO SE CORTA MAS. Con el fondo
+   opaco, cada seccion alternada tapaba la capa de la hoja, que es fija y vive
+   detras de todo: el renglon aparecia, se cortaba en seco al empezar la seccion
+   y volvia a aparecer al terminarla. Se veia como tres fondos distintos
+   apilados en vez de una hoja.
+   Dejando pasar un 12%, la seccion sigue leyendose mas oscura que su vecina
+   pero el renglon la atraviesa y la pagina vuelve a ser una sola hoja. */
+.section--alt {
+  background: color-mix(in srgb, var(--bg-alt) 88%, transparent);
+  transition: background-color 0.35s ease;
+}
+/* Donde color-mix no exista, opaco como antes: se pierde la continuidad, no la
+   legibilidad. */
+@supports not (background: color-mix(in srgb, red 50%, transparent)) {
+  .section--alt { background: var(--bg-alt); }
+}
 
 .section__head { max-width: 58ch; margin-bottom: 48px; }
 .section__head h2 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); margin-bottom: 14px; }
@@ -612,6 +631,13 @@ section[id] { scroll-margin-top: 82px; }
 }
 
 @media (max-width: 1180px) { .mascot { display: none; } }
+
+/* En curso: punteada, el mismo recurso que ya usan los skills privados para
+   decir "esto existe y no lo podés abrir". Ni verde como Live, que prometería
+   que se puede entrar, ni gris como Off, que diría que se terminó. */
+.pill--curso {
+  border-style: dashed; border-color: var(--line-hi); color: var(--muted);
+}
 
 /* ---------- also built ---------- */
 
@@ -1428,7 +1454,12 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
      pagina: el contenedor con `overflow-x: auto` se hace mas ancho que su
      padre y el que desborda pasa a ser el documento. Un sangrado bonito no
      vale que el sitio se pueda arrastrar de costado. */
-  padding: 4px 2px 18px;
+  /* ⚠️ EL AIRE DE ABAJO NO ES ESTETICO, ES OBLIGATORIO. `overflow-x: auto` no
+     puede convivir con `overflow-y: visible`: el navegador lo fuerza a hidden,
+     asi que todo lo que una tarjeta dibuje fuera de su caja queda cortado. Y
+     en este skin las tarjetas dibujan bastante afuera: sombra corrida de 4px y
+     medio grado de rotacion. Medido: se cortaban 9px del borde de abajo. */
+  padding: 10px 2px 30px;
   scroll-padding-inline: 2px;
   scrollbar-width: none;
 }
@@ -1442,6 +1473,53 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
 }
 /* Las fichas del stack son chicas: van de a varias por pantalla, no una. */
 .stack .es-carrusel > * { flex: 0 0 auto; scroll-snap-align: start; }
+
+
+/* ---------- teléfono: filas finas y marquesinas ---------- */
+
+@media (max-width: 760px) {
+  /* "Tambien construi": el estado a la derecha, en la misma linea que el
+     nombre. Debajo ocupaba un renglon entero para decir tres letras. */
+  .sideitem {
+    grid-template-columns: auto 1fr auto;
+    align-items: center; gap: 10px; padding: 12px 14px;
+  }
+  .sideitem__idx { display: none; }
+  .sideitem__body { min-width: 0; }
+  .sideitem__body h4 { margin: 0; }
+
+  /* Oficio: el icono al lado del titulo y no arriba. Apilados, cada caja
+     cerrada medía tres renglones de alto para mostrar un titulo. */
+  .craft__item .plegable__tirador { gap: 12px; }
+  .craft__item .craft__icon { width: 26px; height: 26px; margin: 0; flex: none; }
+  .craft__item h3 { margin: 0; font-size: 1rem; }
+  .craft__item { padding: 14px 16px; }
+}
+
+/* La marquesina. Dos filas como maximo y desplazamiento continuo.
+   🔴 El contenido va DUPLICADO y el recorrido es exactamente -50%: es lo unico
+   que hace que el bucle no tenga salto. Animando el ancho completo, al volver
+   a cero se ve el corte; con la copia detras, el fotograma final es identico
+   al inicial y nadie puede ver donde reinicia.
+   ⚠️ Y se detiene al tocar: algo que se mueve solo debajo del dedo es
+   imposible de leer y de clickear. */
+.marquesina { overflow: hidden; }
+.marquesina__pista {
+  display: flex; width: max-content; gap: 8px;
+  animation: correr var(--vel, 46s) linear infinite;
+}
+.marquesina:active .marquesina__pista,
+.marquesina:hover .marquesina__pista { animation-play-state: paused; }
+@keyframes correr { to { transform: translateX(-50%); } }
+
+/* La segunda fila arranca corrida y va mas lenta, para que las dos no se lean
+   como un bloque unico moviendose. */
+.marquesina--lenta .marquesina__pista { animation-duration: var(--vel2, 62s); }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquesina__pista { animation: none; }
+  .marquesina { overflow-x: auto; }
+}
 
 /* ---------- interaction layer ---------- */
 
