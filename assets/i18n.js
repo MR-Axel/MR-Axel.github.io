@@ -19,8 +19,6 @@ window.ES = {
   'See what I build': 'Mirá lo que construyo',
 
   /* --- hero --- */
-  '<span class="dot"></span> Buenos Aires, Argentina · open to remote AI product &amp; AI engineering roles':
-    '<span class="dot"></span> Buenos Aires, Argentina · abierto a roles remotos de producto e ingeniería de IA',
 
   /* the job title is not translated on purpose: nobody in tech here says
      "Gerente de Producto", and "Product Manager de IA" is the half-translation
@@ -186,8 +184,6 @@ window.ES = {
     'n8n, Activepieces, Retool, Zapier, Make. Más el proceso que evita que se pudra cuando me voy, que es la parte que suele faltar.',
   'Strategy and advisory':
     'Estrategia y asesoría',
-  'Bs. As. · open to remote AI roles':
-    'Bs. As. · abierto a roles remotos de IA',
   'MBA en Tecnología e Innovación':
     'MBA en Tecnología e Innovación',
   'Others':
@@ -200,14 +196,10 @@ window.ES = {
     'Cosas anteriores y una en pausa. Dos siguen en pie y el resto está apagado.',
 
   /* --- voz, revision completa --- */
-  'Open to remote AI roles, and to building something for you. Write it here and it lands on my phone in a few seconds.':
-    'Abierto a roles remotos de IA, y a construir algo para vos. Escribilo acá y me llega al teléfono en unos segundos.',
   'Tell me what you need':
     'Contame qué necesitás',
   'WhatsApp agent':
     'Agente de WhatsApp',
-  'Buenos Aires, Argentina · open to remote AI product &amp; AI engineering roles':
-    'Buenos Aires, Argentina · abierto a roles remotos de producto e ingeniería de IA',
 
   /* --- voz: recorrido, oficio y servicios --- */
   'Six places, and in most of them being wrong cost more than a rollback: a misread cardiology trace, an energy unit sitting out in a field.':
@@ -370,6 +362,13 @@ window.ES = {
 
   'Automation and internal tooling':
     'Automatizaciones y herramientas internas',
+
+  'Buenos Aires, Argentina · I take on work from companies and from people, remote':
+    'Buenos Aires, Argentina · tomo proyectos de empresas y de personas, en remoto',
+  'Bs. As. · for companies and for people, remote':
+    'Bs. As. · para empresas y para personas, remoto',
+  'I build for companies and for people with a project. Write it here and it lands on my phone in a few seconds.':
+    'Construyo para empresas y para personas con un proyecto. Escribilo acá y me llega al teléfono en unos segundos.',
 
   /* --- Lima --- */
   "Axel's assistant":
