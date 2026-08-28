@@ -295,8 +295,8 @@ window.ES = {
   /* --- hero y oficio --- */
   'Agents and apps:<br>from idea to product.':
     'Agentes y aplicaciones:<br>de la idea al producto.',
-  'Where the agents live and who builds them: which tools each one may touch, when it hands off to a person, and what counts as a good answer.':
-    'Dónde viven los agentes y quién los construye: qué herramientas puede tocar cada uno, cuándo le pasa la posta a una persona, y qué cuenta como buena respuesta.',
+  'I design and build where the agents run: the hosting, the tooling, the engineering. What goes in, what comes out, and when.':
+    'Diseño y armo dónde corren los agentes: el alojamiento, las herramientas, la ingeniería. Qué entra, qué sale y cuándo.',
   'n8n, Activepieces, Retool, Zapier, Make. And that it still runs six months after whoever built it has gone.':
     'n8n, Activepieces, Retool, Zapier, Make. Y que siga andando seis meses después de que el que la armó se fue.',
   'Building a team or a product where there was nothing, and then designing how it keeps running without me.':
