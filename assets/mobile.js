@@ -376,16 +376,6 @@
 
   function montar() {
     acordeon('.arc__step', '.arc__label');
-    acordeon('.craft__item', 'h3');
-    /* ⚠️ El icono entra al boton DESPUES de armar el acordeon. El acordeon
-       envuelve solo el encabezado que se le pide, y en Oficio el icono es
-       hermano anterior del h3: quedaba afuera y arriba, apilado, que es
-       justamente el alto que se queria sacar. Adentro del boton va a la
-       izquierda del titulo y la caja cerrada pasa a medir un renglon. */
-    document.querySelectorAll('.craft__item .plegable__tirador').forEach(function (b) {
-      var icono = b.parentElement.querySelector(':scope > .craft__icon');
-      if (icono) b.insertBefore(icono, b.firstChild);
-    });
     acordeon('.offer', 'h3');
     /* 🔴 Un boton adentro de cada servicio, y no solo el del final. Plegado, el
        unico camino para consultar quedaba despues de cinco titulos: la persona

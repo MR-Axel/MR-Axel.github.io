@@ -50,6 +50,44 @@
     }, 0);
   });
 
+
+  /* ================= el arbol ================= */
+
+  /* Una rama abierta a la vez. Con mouse alcanza con pasar por encima; con el
+     dedo y con el teclado hace falta el click, que tambien sirve para dejarla
+     fija.
+
+     ⚠️ El hover NO puede ser solo CSS. Abriendo con `:hover` la rama se cierra
+     apenas el puntero sale, asi que leer una hoja larga obliga a mantener el
+     mouse quieto arriba del titulo, y bajar la vista la cierra en la cara. Con
+     JavaScript la rama abierta se queda abierta hasta que se abre otra. */
+  var ramas = [].slice.call(document.querySelectorAll('.arbol__rama'));
+  if (ramas.length) {
+    var finoYConMouse = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+    function abrirRama(rama) {
+      ramas.forEach(function (otra) {
+        var abierta = otra === rama;
+        otra.classList.toggle('esta-abierta', abierta);
+        var b = otra.querySelector('.arbol__titulo');
+        if (b) b.setAttribute('aria-expanded', abierta ? 'true' : 'false');
+      });
+    }
+
+    ramas.forEach(function (rama) {
+      var boton = rama.querySelector('.arbol__titulo');
+      if (!boton) return;
+      boton.addEventListener('click', function () { abrirRama(rama); });
+      /* el foco del teclado abre igual que el mouse: tabular por los seis
+         titulos tiene que mostrar lo mismo que recorrerlos con el puntero */
+      boton.addEventListener('focus', function () { abrirRama(rama); });
+      rama.addEventListener('pointerenter', function (e) {
+        if (e.pointerType === 'touch' || !finoYConMouse.matches) return;
+        abrirRama(rama);
+      });
+    });
+  }
+
   /* ================= language ================= */
 
   /* Keys are the English innerHTML with whitespace collapsed. Anything not in

@@ -57,7 +57,6 @@ window.ES = {
   'Job search': 'Búsqueda laboral',
   'Community': 'Comunidad',
   'AI agents': 'Agentes de IA',
-  'Voice AI': 'Voz IA',
   'AI tutor': 'Tutor de IA',
   'Vision': 'Visión',
   'Automation': 'Automatización',
@@ -89,16 +88,11 @@ window.ES = {
 
   /* --- craft --- */
 
-  'AI agent products': 'Productos con agentes de IA',
-
-  'Agentic coding': 'Programación con agentes',
 
 
-  '0 to 1': '0 a 1',
 
-  'Quality and release engineering': 'Calidad e ingeniería de releases',
 
-  'Data and BI': 'Datos y BI',
+
 
   /* --- agent skills --- */
 
@@ -217,8 +211,6 @@ window.ES = {
     'Tu negocio online, y algo que conteste',
   'If your site has not changed since you made it and you do not know how many people arrive.':
     'Si tu sitio no cambió desde que lo hiciste y no sabés cuánta gente entra.',
-  'Automation and internal tooling':
-    'Automatización y herramientas internas',
   'n8n, Activepieces, Retool, Zapier, Make. Plus the process that keeps it from rotting after I leave, which is the part that goes missing.':
     'n8n, Activepieces, Retool, Zapier, Make. Más el proceso que evita que se pudra cuando me voy, que es la parte que suele faltar.',
   'For an operation running on spreadsheets and goodwill.':
@@ -243,10 +235,6 @@ window.ES = {
     'Cosas anteriores y una en pausa. Dos siguen en pie y el resto está apagado.',
 
   /* --- voz, revision completa --- */
-  'Skills, agents, agentic design patterns and the orchestrators that run them, built for a team to use.':
-    'Armado de skills, agentes, patrones de diseño agéntico y los orquestadores que los corren, para que los use un equipo.',
-  'SQL, Tableau, Metabase. Dashboards that get opened when there is a decision to make.':
-    'SQL, Tableau, Metabase. Tableros que se abren cuando hay que decidir algo.',
   'Open to remote AI roles, and to building something for you. Write it here and it lands on my phone in a few seconds.':
     'Abierto a roles remotos de IA, y a construir algo para vos. Escribilo acá y me llega al teléfono en unos segundos.',
   'Tell me what you need':
@@ -271,8 +259,6 @@ window.ES = {
     'Producto para optimización de rutas y operación de flotas. Armé el equipo de prototipado desde cero y lo dirigí, hasta que nadie discutía una idea sin tener algo andando adelante.',
   'Agent architecture and the roadmap over it: what the agent may do, where it hands off, how you tell whether it is any good. I led the team that built the workflow builder they run on, and shipped features into it myself.':
     'Arquitectura de agentes y el roadmap encima: qué puede hacer el agente, dónde le pasa la posta, cómo te das cuenta de si es bueno. Lideré el equipo que construyó el workflow builder sobre el que corren, y shippeé features a producción yo mismo.',
-  'AI on live calls, with latency, interruptions and tone under control.':
-    'Llamadas con IA, con control de latencia, interrupciones, tono.',
   'I write what the agent may do, where it hands off to a person, and how you find out when it stops being good. Chat, WhatsApp and voice, and the ones that read an image and decide from it.':
     'Escribo qué tiene permitido hacer el agente, dónde le pasa la posta a una persona, y cómo te enterás cuando deja de ser bueno. Chat, WhatsApp y voz, y los que miran una imagen y deciden con eso.',
   'A landing that says what you actually do, with the measurement wired in from day one. Plus a chat agent trained on your business, so whoever turns up at three in the morning gets an answer.':
@@ -281,12 +267,6 @@ window.ES = {
   /* --- el hero --- */
 
   /* --- fuera lo generico --- */
-  'Image generation and product video, prompt to rendered clip. Every doodle on this page came out of that, including the one waving at you.':
-    'Generación de imágenes y video de producto, del prompt al clip. Todos los dibujos de esta página salieron de ahí, incluido el que te saluda.',
-  'Umami, LogRocket, session review, Meta Ads. On one of my own products 39% of signups were dying at the email confirmation. The dashboard did not show it. The database did.':
-    'Umami, LogRocket, revisión de sesiones, Meta Ads. En uno de mis productos el 39% de las altas se moría en la confirmación del mail. El panel no lo mostraba. La base sí.',
-  'Six years in QA and release automation before product: test design, on-premise deployments, pipelines. I still read a release plan looking for where it breaks.':
-    'Seis años en QA y automatización de releases antes de producto: diseño de pruebas, despliegues on-premise, pipelines. Todavía leo un plan de release buscando dónde se rompe.',
   "The same things, pointed at someone else's problem.":
     'Lo mismo de arriba, apuntado al problema de otro.',
   'The skills I write for Claude Code and use every day. These six are the ones I run most.':
@@ -295,12 +275,6 @@ window.ES = {
   /* --- hero y oficio --- */
   'Agents and apps:<br>from idea to product.':
     'Agentes y aplicaciones:<br>de la idea al producto.',
-  'I design and build where the agents run: the hosting, the tooling, the engineering. What goes in, what comes out, and when.':
-    'Diseño y armo dónde corren los agentes: el alojamiento, las herramientas, la ingeniería. Qué entra, qué sale y cuándo.',
-  'n8n, Activepieces, Retool, Zapier, Make. And that it still runs six months after whoever built it has gone.':
-    'n8n, Activepieces, Retool, Zapier, Make. Y que siga andando seis meses después de que el que la armó se fue.',
-  'Building a team or a product where there was nothing, and then designing how it keeps running without me.':
-    'Armar un equipo o un producto donde no había nada, y después diseñar cómo sigue andando sin mí.',
 
   'Six years testing what other people built.<br>Now I build it myself, to that standard.':
     'Me pasé seis años testeando lo que construían otros.<br>Ahora lo construyo yo, con calidad.',
@@ -313,8 +287,94 @@ window.ES = {
 
   'What I can build':
     'Lo que puedo construir',
-  'Agent systems end to end: chat, WhatsApp and voice.':
-    'Sistemas de agentes de punta a punta: chat, WhatsApp y voz.',
+
+  /* --- el arbol de lo que puede construir --- */
+  'Agents':
+    'Agentes',
+  'Voice':
+    'Voz',
+  'Images':
+    'Imágenes',
+  'Architecture':
+    'Arquitectura',
+  'Development flows':
+    'Flujos de desarrollo',
+  'Web, WhatsApp and whatever channel the team already uses, answering from the business own data.':
+    'Web, WhatsApp y el canal que el equipo ya usa, respondiendo con los datos del negocio.',
+  'Live calls, with latency, interruptions and tone under control.':
+    'Llamadas con control de latencia, interrupciones, tono.',
+  'A screenshot or a photo comes in and the agent decides from it.':
+    'Entra una captura o una foto y el agente decide a partir de eso.',
+  'Script, generation and edit, prompt to finished clip.':
+    'Guion, generación y edición, del prompt al clip terminado.',
+  'Where they run, which tools they may touch, when they hand off to a person.':
+    'Dónde corren, qué herramientas pueden tocar, cuándo le pasan la posta a una persona.',
+  'Skills, subagents and orchestrators, for a team to use every day.':
+    'Skills, subagentes y orquestadores, para que un equipo los use todos los días.',
+  'Products, 0 to 1':
+    'Productos de 0 a 1',
+  'Strategy':
+    'Estrategia',
+  'Build':
+    'Desarrollo',
+  'Launch':
+    'Lanzamiento',
+  'What gets built, for whom, and what stays out of the first version.':
+    'Qué se construye, para quién, y qué queda afuera de la primera versión.',
+  'Spec to release, in weeks. The repo ends up yours.':
+    'De la spec al release, en semanas. El repo queda tuyo.',
+  'Out to market with the measurement wired in from day one.':
+    'Salida al mercado con la medición puesta desde el día uno.',
+  'Automation and internal tooling':
+    'Automatizaciones y herramientas internas',
+  'Automation':
+    'Automatizaciones',
+  'Internal tools':
+    'Herramientas internas',
+  'Handover':
+    'Continuidad',
+  'The process that today is a person copying between two screens.':
+    'El proceso que hoy es una persona copiando entre dos pantallas.',
+  'Panels and back offices for your team, or to take to market.':
+    'Paneles y back office para tu equipo, o para salir al mercado.',
+  'That it still runs six months after whoever built it has gone.':
+    'Que siga andando seis meses después de que el que la armó se fue.',
+  'Data and BI':
+    'Datos y BI',
+  'Data model':
+    'Modelo de datos',
+  'Dashboards':
+    'Tableros',
+  'Figures':
+    'Números',
+  'How what happens gets stored, so you can ask it something later.':
+    'Cómo se guarda lo que pasa, para poder preguntarle algo después.',
+  'The ones that get opened when there is a decision to make.':
+    'Los que se abren cuando hay que decidir algo.',
+  'One number per question, and where it comes from.':
+    'Un número por pregunta, y de dónde sale.',
+  'Measurement':
+    'Medición',
+  'Funnel':
+    'Embudo',
+  'Conversion':
+    'Conversión',
+  'How many people arrive, where they leave, and what they did before leaving.':
+    'Cuánta gente entra, por dónde se va, y qué hizo antes de irse.',
+  'Finding the step that loses people and taking it out of the way.':
+    'Encontrar el paso que pierde gente y sacarlo del camino.',
+  'That whoever arrives understands what to do, and does it.':
+    'Que el que llega entienda qué hacer, y lo haga.',
+  'Generative production':
+    'Producción generativa',
+  'Brand':
+    'Marca',
+  'For the landing, the product and the campaign.':
+    'Para la landing, el producto y la campaña.',
+  'Prompt to rendered clip.':
+    'Del prompt al clip renderizado.',
+  'Every doodle on this page came out of that.':
+    'Todos los dibujos de esta página salieron de ahí.',
 
   /* --- Lima --- */
   "Axel's assistant":
@@ -359,12 +419,9 @@ window.ES = {
   'Agents from zero to production': 'Agentes de cero a producción',
 
   /* --- craft, the four new ones --- */
-  'Agent architecture': 'Arquitectura de agentes',
 
 
-  'Generative production': 'Producción generativa',
 
-  'Growth and instrumentation': 'Growth e instrumentación',
 
   /* --- strings JS builds, so they are not in the DOM to be matched --- */
   '_contributions': '{n} contribuciones en el último año',
