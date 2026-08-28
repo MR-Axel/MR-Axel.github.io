@@ -114,6 +114,167 @@
   }
 
 
+
+  /* --------------------------------------------------- el volante */
+
+  /* 🔴 EL DESPLAZAMIENTO DEJA DE SER UNA ANIMACION DE CSS Y PASA A JAVASCRIPT,
+     y no es un capricho: una animacion declarada en CSS no se puede empujar. Se
+     puede pausar y nada mas. Para que un envion la acelere y despues la deje
+     frenar sola hace falta una velocidad que sea un numero y no una duracion, y
+     eso obliga a mover la posicion cuadro a cuadro.
+
+     Un solo reloj para todas las pistas. Cinco `requestAnimationFrame` en
+     paralelo se sincronizan mal entre si y cada uno vuelve a leer el reloj del
+     sistema por su cuenta; con uno solo, todas avanzan con el mismo `dt` y
+     nunca se ven desfasadas.
+
+     ⚠️ El periodo NO es la mitad del ancho de la pista. El contenido esta
+     duplicado, pero entre las fichas hay separacion, asi que la mitad exacta
+     cae medio hueco corrida y el bucle salta un poquito cada vuelta. El
+     periodo real es la distancia entre la primera ficha y su copia, y eso se
+     mide, no se calcula. */
+
+  var pistas = [];
+  var reloj = null;
+  var cuadroPrevio = 0;
+
+  function medirPeriodo(m) {
+    var hijos = m.el.children;
+    if (hijos.length < m.cuantas + 1) return;
+    m.periodo = hijos[m.cuantas].offsetLeft - hijos[0].offsetLeft;
+    /* px por segundo, sacados de los segundos que decia la version vieja: la
+       fila entera tarda `vel` en recorrer un periodo */
+    m.base = m.periodo > 0 ? -m.periodo / m.segundos : 0;
+  }
+
+  function ubicar(m) {
+    if (m.periodo > 0) {
+      while (m.x <= -m.periodo) m.x += m.periodo;
+      while (m.x > 0) m.x -= m.periodo;
+    }
+    m.el.style.transform = 'translate3d(' + m.x.toFixed(2) + 'px,0,0)';
+  }
+
+  function cuadro(t) {
+    /* el tope de 50ms es para volver de una pestana en segundo plano: sin el,
+       el primer cuadro trae medio minuto de `dt` y la fila se teletransporta */
+    var dt = Math.min(0.05, (t - cuadroPrevio) / 1000);
+    cuadroPrevio = t;
+    if (!(dt > 0)) dt = 0.016;
+
+    for (var i = 0; i < pistas.length; i++) {
+      var m = pistas[i];
+      if (m.agarrado) continue;
+      /* vuelta suave a la velocidad de siempre. Exponencial y no lineal: un
+         envion fuerte pierde mucho al principio y despues se va arrimando, que
+         es como frena cualquier cosa que rueda. */
+      m.v += (m.base - m.v) * (1 - Math.exp(-dt / 0.55));
+      m.x += m.v * dt;
+      ubicar(m);
+    }
+    reloj = window.requestAnimationFrame(cuadro);
+  }
+
+  function arrancarReloj() {
+    if (reloj !== null) return;
+    cuadroPrevio = window.performance.now();
+    reloj = window.requestAnimationFrame(cuadro);
+  }
+
+  function pararReloj() {
+    if (reloj === null) return;
+    window.cancelAnimationFrame(reloj);
+    reloj = null;
+    pistas = [];
+  }
+
+  /* Arrastre con envion.
+
+     ⚠️ `touch-action: pan-y` en el CSS es la mitad de esto. Le dice al
+     navegador que el movimiento horizontal es nuestro y el vertical suyo, asi
+     que la pagina sigue scrolleando normal con el dedo encima de la fila. Y
+     cuando el navegador decide que el gesto era vertical, se lleva el puntero y
+     dispara `pointercancel`: por eso hay que soltar ahi tambien y no solo en
+     `pointerup`, o la fila queda congelada esperando un dedo que ya no esta. */
+  function volante(fila, m) {
+    var ultimoX = 0;
+    var ultimoT = 0;
+    var recorrido = 0;
+    var arrastrando = false;
+
+    fila.addEventListener('pointerdown', function (e) {
+      if (e.button !== undefined && e.button !== 0) return;
+      /* apoyar el dedo frena la fila: es lo primero que hace alguien que quiere
+         leer una tarjeta que se le esta yendo */
+      m.agarrado = true;
+      m.v = 0;
+      recorrido = 0;
+      arrastrando = false;
+      ultimoX = e.clientX;
+      ultimoT = e.timeStamp;
+      m.envion = 0;
+    });
+
+    fila.addEventListener('pointermove', function (e) {
+      if (!m.agarrado) return;
+      var dx = e.clientX - ultimoX;
+      var dt = (e.timeStamp - ultimoT) / 1000;
+      recorrido += Math.abs(dx);
+
+      /* 🔴 EL PUNTERO SE CAPTURA RECIEN ACA, PASADO EL UMBRAL, Y NUNCA AL
+         APOYAR EL DEDO. Capturando en `pointerdown`, el `click` que viene
+         despues se dispara sobre la fila y no sobre el enlace que se toco:
+         medido, un toque limpio sobre el nombre de un producto no abria nada.
+         El capture existe para no perder el dedo si se sale de la fila
+         mientras se arrastra, y eso solo hace falta cuando ya se esta
+         arrastrando. */
+      if (!arrastrando) {
+        if (recorrido <= 6) { ultimoX = e.clientX; ultimoT = e.timeStamp; return; }
+        arrastrando = true;
+        fila.classList.add('agarrando');
+        try { fila.setPointerCapture(e.pointerId); } catch (err) { /* raton viejo */ }
+      }
+
+      m.x += dx;
+      /* la velocidad del envion se suaviza: el ultimo movimiento antes de
+         soltar suele ser de un pixel y solo con ese la fila quedaria quieta */
+      if (dt > 0) m.envion = m.envion * 0.7 + (dx / dt) * 0.3;
+      ultimoX = e.clientX;
+      ultimoT = e.timeStamp;
+      ubicar(m);
+    });
+
+    function soltar() {
+      if (!m.agarrado) return;
+      m.agarrado = false;
+      arrastrando = false;
+      fila.classList.remove('agarrando');
+      /* tope de velocidad: un envion muy corto y muy rapido da numeros
+         absurdos y la fila desaparece de un cuadro al otro */
+      m.v = Math.max(-5000, Math.min(5000, m.envion));
+      m.envion = 0;
+      m.arrastro = recorrido > 8;
+      /* la marca de "esto fue un arrastre" dura lo que tarda en llegar el
+         click que viene detras del dedo, y se limpia sola */
+      if (m.arrastro) window.setTimeout(function () { m.arrastro = false; }, 60);
+    }
+
+    fila.addEventListener('pointerup', soltar);
+    fila.addEventListener('pointercancel', soltar);
+    fila.addEventListener('lostpointercapture', soltar);
+
+    /* 🔴 En captura y no en burbujeo. Un arrastre que empieza arriba de una
+       tarjeta termina con un click sobre el enlace de esa tarjeta, asi que
+       mover el carrusel abria el producto. Hay que interceptarlo antes de que
+       llegue al <a>, y para eso el escucha tiene que estar en la fase de
+       captura. */
+    fila.addEventListener('click', function (e) {
+      if (!m.arrastro) return;
+      e.preventDefault();
+      e.stopPropagation();
+    }, true);
+  }
+
   /* ------------------------------------------------------------ marquesina */
 
   /* Reparte las fichas en dos filas y las hace correr sin fin.
@@ -185,10 +346,25 @@
       });
 
       var seg = segPorFicha || 3.4;
-      pista.style.setProperty('--vel', Math.max(24, mias.length * seg) + 's');
-      pista.style.setProperty('--vel2', Math.max(30, mias.length * seg * 1.3) + 's');
       fila.appendChild(pista);
       caja.appendChild(fila);
+
+      /* con movimiento reducido no hay motor: el CSS deja la caja como un
+         scroll horizontal comun y la persona la mueve con el dedo, que es
+         exactamente lo que pidio quien puso esa preferencia */
+      if (!quieto) {
+        var m = {
+          el: pista,
+          cuantas: mias.length,
+          segundos: Math.max(24, mias.length * seg) * (f % 2 ? 1.3 : 1),
+          x: 0, v: 0, base: 0, periodo: 0,
+          agarrado: false, envion: 0, arrastro: false
+        };
+        medirPeriodo(m);
+        m.v = m.base;
+        pistas.push(m);
+        volante(fila, m);
+      }
     }
 
     lista.dataset.marquesina = '1';
@@ -234,6 +410,17 @@
     marquesina('.sidelist', 1, 11);
     marquesina('.stack .chips', 2);
     marquesina('.minis', 2);
+
+    if (pistas.length) {
+      arrancarReloj();
+      /* Las fichas cambian de ancho cuando llegan las fuentes y cuando se gira
+         el telefono, y el periodo medido antes de eso queda viejo: el bucle
+         empieza a saltar de a unos pixeles por vuelta. */
+      var remedir = function () { pistas.forEach(medirPeriodo); };
+      window.addEventListener('load', remedir);
+      window.addEventListener('resize', remedir, { passive: true });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(remedir);
+    }
   }
 
   function desmontar() {
@@ -264,6 +451,7 @@
       delete el.dataset.carrusel;
     });
     armado = [];
+    pararReloj();
   }
 
   function mirar() {

@@ -94,16 +94,10 @@ window.ES = {
 
   'Agentic coding': 'Programación con agentes',
 
-  'n8n, Activepieces, Retool, Zapier, Make. The boring machinery that hands a team its hours back, and the process that keeps it from rotting.':
-    'n8n, Activepieces, Retool, Zapier, Make. La maquinaria aburrida que le devuelve las horas a un equipo, y el proceso que evita que se pudra.',
 
   '0 to 1': '0 a 1',
-  'Standing up a function, a team or a product where none existed, then designing how it runs without me in the middle. More than once.':
-    'Levantar una función, un equipo o un producto donde no había nada, y diseñar cómo funciona sin mí en el medio. Más de una vez.',
 
   'Quality and release engineering': 'Calidad e ingeniería de releases',
-  'Six years in QA and release automation before product: test design, on-premise deployments, pipelines.':
-    'Seis años en QA y releases antes de producto: diseño de pruebas, despliegues on-premise, pipelines.',
 
   'Data and BI': 'Datos y BI',
 
@@ -151,8 +145,6 @@ window.ES = {
   'Work with me': 'Trabajemos juntos',
   /* &#39; in the source, but the browser hands back a plain apostrophe, so the
      key has to be written the way innerHTML reads it */
-  "The same things, pointed at someone else's problem. Companies, startups, and people with a project that has not started yet.":
-    'Lo mismo de arriba, apuntado al problema de otro. Empresas, startups, y gente con un proyecto que todavía no arrancó.',
 
   'If somebody on your team spends the day moving the same data between two screens.':
     'Si alguien de tu equipo se pasa el día moviendo los mismos datos entre dos pantallas.',
@@ -173,8 +165,6 @@ window.ES = {
   'Start a conversation': 'Empecemos a hablar',
 
   /* --- agent skills --- */
-  'The skills I write for Claude Code. Six a product or engineering team would reach for, and the rest underneath.':
-    'Los skills que escribo para Claude Code. Seis que un equipo de producto o ingeniería usaría, y el resto abajo.',
   'The 14 open ones, on GitHub<span class="arrow" aria-hidden="true">↗</span>':
     'Los 14 abiertos, en GitHub<span class="arrow" aria-hidden="true">↗</span>',
 
@@ -254,18 +244,10 @@ window.ES = {
     'Cosas anteriores y una en pausa. Dos siguen en pie y el resto está apagado.',
 
   /* --- voz, revision completa --- */
-  'AI products.<br>Idea to production,<br>and I write the code.':
-    'Productos con IA.<br>De la idea a producción,<br>y el código lo escribo yo.',
-  'Chat agents, voice agents, agents that read an image. Automation. And whole products from zero.':
-    'Agentes de chat, de voz y de imagen. Automatizaciones. Y productos enteros desde cero.',
-  'Almost everything below started as something that annoyed me and nobody else was fixing.':
-    'Casi todo lo que hay acá abajo salió de algo que me molestaba y que nadie estaba arreglando.',
   'What I do best.':
     'Lo que hago mejor.',
   'Claude Code and Cursor every day. I write the production features myself.':
     'Claude Code y Cursor todos los días. Las features de producción las escribo yo.',
-  'Umami, LogRocket, session review, Meta Ads. I count the funnel from the database, because the dashboard has lied to me more than once.':
-    'Umami, LogRocket, revisión de sesiones, Meta Ads. El embudo lo cuento desde la base de datos, porque el panel ya me mintió más de una vez.',
   'SQL, Tableau, Metabase. Dashboards that get opened when there is a decision to make.':
     'SQL, Tableau, Metabase. Tableros que se abren cuando hay que decidir algo.',
   'Open to remote AI roles, and to building something for you. Write it here and it lands on my phone in a few seconds.':
@@ -294,14 +276,38 @@ window.ES = {
     'Arquitectura de agentes y el roadmap encima: qué puede hacer el agente, dónde le pasa la posta, cómo te das cuenta de si es bueno. Lideré el equipo que construyó el workflow builder sobre el que corren, y shippeé features a producción yo mismo.',
   'Agent systems end to end: chat, WhatsApp and voice. The model was never the hard part. The hard part is what the agent is allowed to do.':
     'Sistemas de agentes de punta a punta: chat, WhatsApp y voz. El modelo nunca fue la parte difícil. La parte difícil es qué tiene permitido hacer el agente.',
-  'Where the agents live and who builds them: tool boundaries, escalation to a person, and agreeing what a good answer is before anyone starts measuring it.':
-    'Dónde viven los agentes y quién los construye: límites de herramientas, escalamiento a una persona, y ponerse de acuerdo en qué es una buena respuesta antes de salir a medirla.',
   'Voice LLMs on live calls, where it all comes down to latency and to what happens when somebody interrupts you. And images as input: a screenshot comes in and something has to decide from it.':
     'LLMs de voz en llamadas reales, donde todo se juega en la latencia y en qué pasa cuando el otro te interrumpe. E imágenes como entrada: entra una captura y algo tiene que decidir con eso.',
   'I write what the agent may do, where it hands off to a person, and how you find out when it stops being good. Chat, WhatsApp and voice, and the ones that read an image and decide from it.':
     'Escribo qué tiene permitido hacer el agente, dónde le pasa la posta a una persona, y cómo te enterás cuando deja de ser bueno. Chat, WhatsApp y voz, y los que miran una imagen y deciden con eso.',
   'A landing that says what you actually do, with the measurement wired in from day one. Plus a chat agent trained on your business, so whoever turns up at three in the morning gets an answer.':
     'Una landing que diga lo que hacés de verdad, con la medición puesta desde el día uno. Y un agente entrenado con tu negocio, así el que cae a las tres de la mañana tiene respuesta.',
+
+  /* --- el hero --- */
+  'Agents and software:<br>from idea to product.':
+    'Agentes y desarrollos:<br>de la idea al producto.',
+  'Chat, voice and image. Automation and internal tooling. I write the code myself.':
+    'Chat, voz e imagen. Automatizaciones y herramientas internas. El código lo escribo yo.',
+  'I spent six years testing what other people built. Now I build it, and I trust it just as little.':
+    'Me pasé seis años testeando lo que construían otros. Ahora lo construyo yo, y desconfío igual.',
+
+  /* --- fuera lo generico --- */
+  'Where the agents live and who builds them: which tools each one may touch, when it hands off to a person, and what counts as a good answer. Without that last one there is nothing to measure.':
+    'Dónde viven los agentes y quién los construye: qué herramientas puede tocar cada uno, cuándo le pasa la posta a una persona, y qué cuenta como buena respuesta. Sin eso último no hay nada que medir.',
+  'Image generation and product video, prompt to rendered clip. Every doodle on this page came out of that, including the one waving at you.':
+    'Generación de imágenes y video de producto, del prompt al clip. Todos los dibujos de esta página salieron de ahí, incluido el que te saluda.',
+  'n8n, Activepieces, Retool, Zapier, Make. Wiring it up is the easy half. The other half is that it still runs six months after whoever built it has gone.':
+    'n8n, Activepieces, Retool, Zapier, Make. Armarla es la mitad fácil. La otra mitad es que siga andando seis meses después de que el que la armó se fue.',
+  'Umami, LogRocket, session review, Meta Ads. On one of my own products 39% of signups were dying at the email confirmation. The dashboard did not show it. The database did.':
+    'Umami, LogRocket, revisión de sesiones, Meta Ads. En uno de mis productos el 39% de las altas se moría en la confirmación del mail. El panel no lo mostraba. La base sí.',
+  'Building a team or a product where there was nothing, and then designing how it keeps running without me. Leaving without it falling over is the part almost nobody does.':
+    'Armar un equipo o un producto donde no había nada, y después diseñar cómo sigue andando sin mí. Irse sin que se caiga es la parte que casi nadie hace.',
+  'Six years in QA and release automation before product: test design, on-premise deployments, pipelines. I still read a release plan looking for where it breaks.':
+    'Seis años en QA y automatización de releases antes de producto: diseño de pruebas, despliegues on-premise, pipelines. Todavía leo un plan de release buscando dónde se rompe.',
+  "The same things, pointed at someone else's problem.":
+    'Lo mismo de arriba, apuntado al problema de otro.',
+  'The skills I write for Claude Code and use every day. These six are the ones I run most.':
+    'Los skills que escribo para Claude Code y uso todos los días. Estos seis son los que más corro.',
 
   /* --- Lima --- */
   "Axel's assistant":
@@ -351,8 +357,6 @@ window.ES = {
   'Voice and multimodal': 'Voz y multimodal',
 
   'Generative production': 'Producción generativa',
-  'Image generation and product video, prompt to rendered clip, on a pipeline. A landing gets its visuals the week it gets its copy.':
-    'Generación de imágenes y video de producto, del prompt al clip, en un pipeline. Una landing tiene visuales la semana que tiene el texto.',
 
   'Growth and instrumentation': 'Growth e instrumentación',
 

@@ -1549,29 +1549,50 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
   display: flex; flex-direction: row !important; flex-wrap: nowrap !important;
   align-items: stretch;
   width: max-content; gap: 8px; padding: 0; margin: 0; list-style: none;
-  animation: correr var(--vel, 46s) linear infinite;
+  will-change: transform;
 }
-.marquesina:active .marquesina__pista,
-.marquesina:hover .marquesina__pista { animation-play-state: paused; }
-@keyframes correr { to { transform: translateX(-50%); } }
+
+/* 🔴 `pan-y` reparte el gesto: el horizontal es de la fila, el vertical del
+   navegador. Sin esto hay que elegir entre un carrusel que se arrastra y una
+   pagina que scrollea con el dedo encima del carrusel, y la pagina gana
+   siempre. Con `none` en cambio la fila se queda con el gesto entero y quien
+   apoye el dedo ahi no puede seguir bajando. */
+.marquesina { touch-action: pan-y; cursor: grab; }
+.marquesina.agarrando { cursor: grabbing; }
+.marquesina.agarrando, .marquesina.agarrando * { user-select: none; }
+.marquesina img { -webkit-user-drag: none; }
 
 /* La segunda fila arranca corrida y va mas lenta, para que las dos no se lean
    como un bloque unico moviendose. */
-.marquesina--lenta .marquesina__pista { animation-duration: var(--vel2, 62s); }
+/* la diferencia de velocidad entre filas la aplica ahora el motor */
 
 @media (prefers-reduced-motion: reduce) {
-  .marquesina__pista { animation: none; }
-  .marquesina { overflow-x: auto; }
+  /* sin motor y sin animacion: queda una fila que se corre con el dedo y no se
+     mueve sola, que es lo que pidio quien activo la preferencia */
+  .marquesina { overflow-x: auto; touch-action: auto; cursor: auto; }
 }
 
 
 /* Las marquesinas de tarjetas: ancho fijo por pieza y aire para que la sombra
    corrida y la rotacion del skin no se corten contra el borde del contenedor. */
 @media (max-width: 760px) {
-  .marquesina { padding: 10px 0 22px; }
+  /* El aire de arriba es del mismo tamano que el de abajo y no es simetria
+     porque quede lindo: la caja recorta, y el trazo dibujado del skin se sale
+     de la caja del elemento por los cuatro lados. Con 10px arriba, el borde de
+     arriba de la fila se comia. */
+  .marquesina { padding: 18px 0 22px; }
   .marquesina__pista.cards > *,
   .marquesina__pista.skills-grid > * { flex: 0 0 78vw; min-width: 0; }
-  .marquesina__pista.sidelist > * { flex: 0 0 74vw; min-width: 0; }
+
+  /* 🔴 Estas filas miden lo que dicen y no una fraccion de la pantalla. Con un
+     ancho fijo del 74% quedaba un hueco enorme entre el nombre y la pastilla,
+     porque en el telefono la descripcion esta oculta y adentro solo hay dos
+     cosas cortas. Un ancho fijo sirve cuando el contenido llena; aca no. */
+  .marquesina__pista.sidelist > * { flex: 0 0 auto; max-width: 82vw; }
+  .marquesina__pista.sidelist .pill { margin-left: 0; }
+  /* la inicial en un circulo es un relleno para cuando no hay logo, y en una
+     fila de dos palabras es la mitad de lo que se ve */
+  .marquesina__pista.sidelist .sideitem__logo--letter { display: none; }
   /* La lista deja de ser una columna con separadores: cada fila viaja sola. */
   .marquesina__pista.sidelist .sideitem + .sideitem { border-top: 0; }
   .marquesina__pista.sidelist .sideitem {
