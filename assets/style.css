@@ -1677,7 +1677,7 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
   }
 
   /* escribir es escribir: ahi el cursor tiene que decir donde cae la letra */
-  input, textarea, select { cursor: auto; }
+  select { cursor: auto; }
   input[type="submit"], input[type="button"], select { cursor: url("doodles/cursor/flecha-click.png") 5 3, pointer; }
 
   /* la marquesina se agarra, y para eso la manito del sistema dice mas que un
@@ -2067,6 +2067,65 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
   .arc .plegable__tirador { padding: 12px 0; }
   .arc .arc__step::before { display: none; }
 }
+
+
+/* ---------- la barra de scroll ---------- */
+
+/* ⚠️ HASTA DONDE LLEGA: en Chrome, Edge y Safari se puede dibujar entera, y en
+   Firefox solo se puede elegir el ancho y dos colores, sin imagen. Asi que ahi
+   queda una barra fina en los mismos tonos y no el trazo. La otra salida seria
+   esconder la nativa y dibujar una propia con JavaScript, y eso significa
+   reimplementar la rueda, el arrastre, el teclado y el impulso del telefono:
+   mucha superficie para romper el scroll de una pagina que funciona. */
+
+/* Firefox: lo unico que acepta */
+html { scrollbar-width: thin; scrollbar-color: var(--line-hi) transparent; }
+
+@media (hover: hover) and (pointer: fine) {
+  ::-webkit-scrollbar { width: 14px; height: 14px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+
+  /* El pulgar es un trazo dibujado, no un rectangulo: el borde va como
+     `border-image` desde un SVG, que es lo unico que estira una forma
+     irregular sin deformarle el grosor de la linea. Con un `border-radius` a
+     secas la esquina sale perfecta y se nota al lado del resto. */
+  ::-webkit-scrollbar-thumb {
+    background: var(--surface);
+    border: 5px solid transparent;
+    border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='60' fill='none'%3E%3Cpath d='M20.5 3.4c6.2.2 9.8 2.6 9.9 8.1.2 12.4.1 24.6-.2 36.9-.1 5.4-3.6 8-9.9 8.2-6.4.2-10.2-2.4-10.4-8-.4-12.3-.3-24.6 0-36.9.2-5.6 4-8.5 10.6-8.3Z' stroke='%232a2620' stroke-width='2.6' fill='%23fcfbf8'/%3E%3C/svg%3E") 14 fill / 5px stretch;
+  }
+  ::-webkit-scrollbar-thumb:hover { filter: brightness(0.94); }
+  ::-webkit-scrollbar-corner { background: transparent; }
+
+  /* ⚠️ El trazo del dibujo esta escrito adentro del SVG, asi que no lo alcanza
+     ninguna variable: el tema oscuro necesita su propio archivo o queda una
+     capsula clara con borde negro sobre fondo negro. */
+  :root[data-theme="dark"] ::-webkit-scrollbar-thumb,
+  :root:not([data-theme="light"]) ::-webkit-scrollbar-thumb {
+    border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='60' fill='none'%3E%3Cpath d='M20.5 3.4c6.2.2 9.8 2.6 9.9 8.1.2 12.4.1 24.6-.2 36.9-.1 5.4-3.6 8-9.9 8.2-6.4.2-10.2-2.4-10.4-8-.4-12.3-.3-24.6 0-36.9.2-5.6 4-8.5 10.6-8.3Z' stroke='%23cfc9bd' stroke-width='2.6' fill='%23262320'/%3E%3C/svg%3E") 14 fill / 5px stretch;
+  }
+}
+
+/* 🔴 Y NADA DE ESTO EN EL TELEFONO. La barra de ahi se muestra sola y se va
+   sola; pintandola queda fija y comiendo catorce pixeles de ancho de pantalla
+   todo el tiempo. Por eso el bloque entero va detras de `pointer: fine`. */
+
+/* ---------- el cursor de escribir ---------- */
+
+@media (hover: hover) and (pointer: fine) {
+  /* ⚠️ El punto sensible va en el centro del palo, 16 16, y no en una esquina:
+     un cursor de texto apunta con el medio, que es donde va a caer la letra.
+     Con el hotspot arriba a la izquierda el clic cae media palabra corrido. */
+  input:not([type="submit"]):not([type="button"]), textarea {
+    cursor: url("doodles/cursor/texto.png") 16 16, text;
+    cursor: image-set(url("doodles/cursor/texto.png") 1x,
+                      url("doodles/cursor/texto@2x.png") 2x) 16 16, text;
+  }
+}
+
+/* La rayita que parpadea adentro del campo no se puede dibujar, pero si pintar:
+   en el color de acento deja de ser la del sistema. */
+input, textarea { caret-color: var(--accent-ink); }
 
 /* ---------- interaction layer ---------- */
 
