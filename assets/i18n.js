@@ -103,9 +103,7 @@ window.ES = {
 
 
 
-  'one per product': 'uno por producto',
 
-  'private': 'sin publicar',
 
 
 
@@ -362,6 +360,9 @@ window.ES = {
     'Tu negocio online',
   'Your site has not changed since you made it, you do not know how many people arrive, and whoever turns up at three in the morning finds nobody.':
     'Tu sitio no cambió desde que lo hiciste, no sabés cuánta gente entra, y el que llega a las tres de la mañana no encuentra a nadie.',
+
+  'Private': 'Privado',
+  'one per product I run': 'uno por cada producto mío',
 
   /* --- Lima --- */
   "Axel's assistant":

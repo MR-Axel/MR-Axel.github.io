@@ -95,6 +95,29 @@
     });
   });
 
+
+  /* ================= la tarjeta entera es el enlace ================= */
+
+  /* ⚠️ Delegado en el documento y no atado a cada tarjeta, porque en telefono
+     `mobile.js` clona las tarjetas para la marquesina y `cloneNode` NO copia
+     los escuchas: atandolo a cada una, las copias quedarian muertas y la mitad
+     de la fila no llevaria a ningun lado.
+
+     El arrastre de la marquesina ya frena su propio click en fase de captura,
+     asi que mover el carrusel no abre nada. */
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest) return;
+    var tarjeta = e.target.closest('.card');
+    if (!tarjeta) return;
+    /* lo que ya es clickeable se maneja solo */
+    if (e.target.closest('a, button, input, textarea, select, [role="button"]')) return;
+    /* si hay texto seleccionado, la persona estaba copiando y no tocando */
+    var sel = window.getSelection && window.getSelection();
+    if (sel && String(sel).length > 2) return;
+    var enlace = tarjeta.querySelector('.card__link');
+    if (enlace) enlace.click();
+  });
+
   /* ================= language ================= */
 
   /* Keys are the English innerHTML with whitespace collapsed. Anything not in

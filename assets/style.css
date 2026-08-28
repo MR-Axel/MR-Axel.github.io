@@ -1823,6 +1823,46 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
   .hoja__flecha path, .arbol__marca path { stroke-dashoffset: 0; }
 }
 
+
+/* 🔴 LA TARJETA ENTERA LLEVA AL PRODUCTO, Y NO SE PUEDE HACER SOLO CON CSS ACA.
+   Lo normal seria estirar un `::after` del enlace sobre la caja, pero el
+   pseudo se ancla al ancestro posicionado mas cercano y en estas tarjetas
+   `.card > *` esta en `position: relative` por la capa del spotlight: el
+   `::after` cubria el encabezado y nada mas. Medido: el click en el cuerpo no
+   navegaba.
+   Envolver la tarjeta en otro <a> tampoco: serian DOS enlaces al mismo sitio,
+   el lector de pantalla los anuncia los dos y tabular pasa dos veces por
+   producto. Queda un solo enlace, el del titulo, y el click se reenvia desde
+   la tarjeta en `app.js`. */
+.card { position: relative; }
+@media (hover: hover) and (pointer: fine) {
+  .card { cursor: url("doodles/cursor/flecha-click.png") 5 3, pointer; cursor: var(--cursor-click) 5 3, pointer; }
+}
+
+/* Los skills sin publicar llevan una banda al costado. Es lo que se ve de lejos,
+   sin tener que leer nada; la palabra va en el `title` y para el lector de
+   pantalla, porque repetida siete veces en fichas de una palabra no entra. */
+.mini--own {
+  position: relative; padding-left: 16px;
+}
+.mini--own::before {
+  content: ""; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 3px;
+  border-radius: 2px; background: var(--accent);
+}
+
+/* 🔴 El cursor de click solo sobre lo que se puede tocar. La regla apuntaba al
+   paso entero, que incluye el titulo y la descripcion de abajo: el dibujo de
+   click aparecia sobre parrafos que no llevan a ningun lado, que es la forma
+   mas barata de prometer algo que no pasa. */
+@media (hover: hover) and (pointer: fine) {
+  .arc.is-scrubbing .arc__step { cursor: auto; }
+  .arc.is-scrubbing .arc__node,
+  .arc.is-scrubbing .arc__label {
+    cursor: url("doodles/cursor/flecha-click.png") 5 3, pointer;
+    cursor: var(--cursor-click) 5 3, pointer;
+  }
+}
+
 /* ---------- interaction layer ---------- */
 
 /* Everything here is painted from custom properties that interact.js writes
