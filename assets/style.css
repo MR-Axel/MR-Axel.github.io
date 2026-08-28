@@ -1883,9 +1883,9 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
   color: var(--accent-ink);
 }
 .abanico path { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
-.abanico .trazo { stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 1; }
-.abanico .punta { stroke-width: 1.6; stroke-dasharray: 1; stroke-dashoffset: 1; }
-.abanico .caja { stroke-width: 1.6; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0.85; }
+.abanico .trazo { stroke-width: 1.75; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.abanico .punta { stroke-width: 1.85; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.abanico .caja { stroke-width: 1.75; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0.85; }
 .abanico.dibuja .caja { stroke-dashoffset: 0; transition: stroke-dashoffset 0.7s ease 0.05s; }
 .abanico.dibuja .trazo {
   stroke-dashoffset: 0;

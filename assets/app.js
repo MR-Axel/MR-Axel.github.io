@@ -76,21 +76,31 @@
       return (x - Math.floor(x)) * 2 - 1;
     }
 
-    /* Convierte una curva suave en una linea temblada: la muestrea, corre cada
-       punto en perpendicular, y vuelve a unirlos con cuadraticas que pasan por
-       los puntos medios. Es lo que hace que el trazo tenga pulso en vez de ser
-       una parabola perfecta. */
+    /* Corre la linea con una ONDA, no con ruido.
+
+       🔴 Corriendo cada muestra por su cuenta, las desviaciones se alternan de
+       signo y sale una linea con rulos: no parece dibujada, parece con ruido.
+       El anillo del recorrido se lee como hecho a mano por otra cosa: la
+       geometria no es perfecta, pero el trazo es uno solo y seguro. Con una
+       curva suave a lo largo del camino, mas una segunda mas chica encima, los
+       puntos vecinos se mueven juntos y la linea sale panzona en vez de
+       peluda. */
     function aMano(puntos, semilla, amplitud) {
+      var fase = temblor(semilla) * Math.PI;
+      var signo = temblor(semilla + 1) > 0 ? 1 : -1;
       var s = [];
       for (var k = 0; k < puntos.length; k++) {
+        var t = k / (puntos.length - 1);
         var ant = puntos[Math.max(0, k - 1)];
         var sig = puntos[Math.min(puntos.length - 1, k + 1)];
         var dx = sig[0] - ant[0], dy = sig[1] - ant[1];
         var largo = Math.sqrt(dx * dx + dy * dy) || 1;
-        /* las puntas quedan quietas: si tiemblan, la flecha deja de salir del
-           titulo y de llegar al texto */
-        var borde = (k === 0 || k === puntos.length - 1) ? 0 : 1;
-        var d = temblor(semilla + k) * amplitud * borde;
+        /* las dos puntas quedan clavadas: si se mueven, la flecha deja de
+           salir del titulo y de llegar al texto */
+        var d = signo * amplitud * (
+          Math.sin(t * Math.PI) * 1.0 +
+          Math.sin(t * Math.PI * 2 + fase) * 0.35
+        );
         s.push([puntos[k][0] - (dy / largo) * d, puntos[k][1] + (dx / largo) * d]);
       }
       var d2 = 'M' + s[0][0].toFixed(1) + ' ' + s[0][1].toFixed(1);
@@ -196,7 +206,7 @@
         var denso = [];
         for (var e = 0; e < esquinas.length - 1; e++) {
           var a = esquinas[e], bq = esquinas[e + 1];
-          var pasos = Math.max(2, Math.round(Math.hypot(bq[0] - a[0], bq[1] - a[1]) / 26));
+          var pasos = Math.max(2, Math.round(Math.hypot(bq[0] - a[0], bq[1] - a[1]) / 44));
           for (var q = 0; q < pasos; q++) {
             denso.push([a[0] + (bq[0] - a[0]) * (q / pasos), a[1] + (bq[1] - a[1]) * (q / pasos)]);
           }
@@ -205,7 +215,7 @@
         var caja = document.createElementNS(SVGNS, 'path');
         caja.setAttribute('class', 'caja');
         caja.setAttribute('pathLength', '1');
-        caja.setAttribute('d', aMano(denso, 91, 1.7));
+        caja.setAttribute('d', aMano(denso, 91, 1.1));
         lienzo.appendChild(caja);
       }
 
@@ -229,14 +239,14 @@
         var c2y = y1;
 
         var muestras = [];
-        for (var t = 0; t <= 16; t++) {
-          muestras.push(enCubica([x0, y0], [c1x, c1y], [c2x, c2y], [x1, y1], t / 16));
+        for (var t = 0; t <= 24; t++) {
+          muestras.push(enCubica([x0, y0], [c1x, c1y], [c2x, c2y], [x1, y1], t / 24));
         }
         var trazo = document.createElementNS(SVGNS, 'path');
         trazo.setAttribute('class', 'trazo');
         trazo.setAttribute('pathLength', '1');
         trazo.style.setProperty('--i', i);
-        trazo.setAttribute('d', aMano(muestras, i * 31 + 7, 2.2));
+        trazo.setAttribute('d', aMano(muestras, i * 31 + 7, 1.6));
         lienzo.appendChild(trazo);
 
         /* La punta se orienta con la tangente de llegada, que en una cubica es
@@ -251,8 +261,8 @@
         punta.style.setProperty('--i', i);
         /* las dos patas con largo distinto: una punta de flecha simetrica se
            lee como un icono, y una despareja como algo trazado de un tiron */
-        var l1 = largo * (1 + temblor(i * 7) * 0.22);
-        var l2 = largo * (1 + temblor(i * 7 + 3) * 0.22);
+        var l1 = largo * (1 + temblor(i * 7) * 0.13);
+        var l2 = largo * (1 + temblor(i * 7 + 3) * 0.13);
         punta.setAttribute('d',
           'M' + (x1 + Math.cos(a1) * l1).toFixed(1) + ' ' + (y1 + Math.sin(a1) * l1).toFixed(1) +
           ' L' + x1.toFixed(1) + ' ' + y1.toFixed(1) +
