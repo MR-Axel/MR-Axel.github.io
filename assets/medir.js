@@ -143,4 +143,40 @@
     var mini = e.target.closest && e.target.closest('a.mini, .skill-card[href]');
     if (mini) window.medir('skill');
   }, true);
+  /* ---------------- de donde vino ---------------- */
+
+  /* 🔴 SE GUARDA EL PRIMER ORIGEN, NO EL ULTIMO. Alguien llega por un aviso,
+     mira, se va, y vuelve tres horas despues escribiendo el dominio a mano: si
+     se pisa el dato, esa consulta figura como "directo" y el aviso que la pago
+     no se entera. El primero es el que trajo a la persona.
+
+     ⚠️ En `sessionStorage` y no en `localStorage`: es para atribuir UNA visita.
+     Guardado para siempre, el que vuelve en marzo sigue contando como traido
+     por la campana de agosto. */
+  function primerContacto() {
+    var guardado;
+    try { guardado = window.sessionStorage.getItem('origen'); } catch (e) { guardado = null; }
+    if (guardado) return guardado;
+
+    var p = new URLSearchParams(window.location.search);
+    var partes = [];
+    ['utm_source', 'utm_medium', 'utm_campaign'].forEach(function (k) {
+      var v = p.get(k);
+      if (v) partes.push(k.replace('utm_', '') + '=' + v.slice(0, 40));
+    });
+    if (!partes.length && document.referrer) {
+      try {
+        var d = new URL(document.referrer).hostname;
+        if (d && d !== window.location.hostname) partes.push(d);
+      } catch (e) { /* referrer raro */ }
+    }
+    var valor = partes.join(' · ') || 'directo';
+    try { window.sessionStorage.setItem('origen', valor); } catch (e) { /* modo privado */ }
+    return valor;
+  }
+
+  window.origenVisita = primerContacto;
+  primerContacto();
+
+
 })();
