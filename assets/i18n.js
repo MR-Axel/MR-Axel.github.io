@@ -14,6 +14,7 @@ window.ES = {
   'Skip to content': 'Saltar al contenido',
   'Work': 'Productos',
   'Craft': 'Oficio',
+  'What I do': 'Lo que hago',
   'Activity': 'Actividad',
   'Get in touch': 'Escribime',
   'See what I build': 'Mirá lo que construyo',
@@ -242,8 +243,6 @@ window.ES = {
     'Cosas anteriores y una en pausa. Dos siguen en pie y el resto está apagado.',
 
   /* --- voz, revision completa --- */
-  'What I do best.':
-    'Lo que hago mejor.',
   'Claude Code and Cursor every day. I write the production features myself.':
     'Claude Code y Cursor todos los días. Las features de producción las escribo yo.',
   'SQL, Tableau, Metabase. Dashboards that get opened when there is a decision to make.':
@@ -296,8 +295,6 @@ window.ES = {
   /* --- hero y oficio --- */
   'Agents and apps:<br>from idea to product.':
     'Agentes y aplicaciones:<br>de la idea al producto.',
-  'Agent systems end to end: chat, WhatsApp and voice. The hard part was never the model, it is what the agent is allowed to do.':
-    'Sistemas de agentes de punta a punta: chat, WhatsApp y voz. Lo difícil nunca fue el modelo, es qué tiene permitido hacer el agente.',
   'Where the agents live and who builds them: which tools each one may touch, when it hands off to a person, and what counts as a good answer.':
     'Dónde viven los agentes y quién los construye: qué herramientas puede tocar cada uno, cuándo le pasa la posta a una persona, y qué cuenta como buena respuesta.',
   'n8n, Activepieces, Retool, Zapier, Make. And that it still runs six months after whoever built it has gone.':
@@ -313,6 +310,11 @@ window.ES = {
 
   'Shared rides for the daily commute, on a flat fare. You travel comfortably, for a good price, and it earns you perks.':
     'Viajes compartidos para el día a día, con tarifa plana. Viajás cómodo, a buen precio y con beneficios.',
+
+  'What I can build':
+    'Lo que puedo construir',
+  'Agent systems end to end: chat, WhatsApp and voice.':
+    'Sistemas de agentes de punta a punta: chat, WhatsApp y voz.',
 
   /* --- Lima --- */
   "Axel's assistant":
