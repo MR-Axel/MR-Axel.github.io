@@ -1855,7 +1855,15 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
    click aparecia sobre parrafos que no llevan a ningun lado, que es la forma
    mas barata de prometer algo que no pasa. */
 @media (hover: hover) and (pointer: fine) {
-  .arc.is-scrubbing .arc__step { cursor: auto; }
+  /* ⚠️ `auto` NO, la flecha dibujada. `auto` devuelve el puntero del sistema, y
+     entonces bajar la vista del icono al texto cambia de un dibujo a mano al
+     cursor de Windows: el sitio se le cae encima a la persona por medio
+     segundo. Lo que cambia entre una zona y la otra son las rayitas de click,
+     no el dibujo. */
+  .arc.is-scrubbing .arc__step {
+    cursor: url("doodles/cursor/flecha.png") 5 3, auto;
+    cursor: var(--cursor-flecha) 5 3, auto;
+  }
   .arc.is-scrubbing .arc__node,
   .arc.is-scrubbing .arc__label {
     cursor: url("doodles/cursor/flecha-click.png") 5 3, pointer;
