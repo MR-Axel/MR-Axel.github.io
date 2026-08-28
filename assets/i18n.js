@@ -42,8 +42,6 @@ window.ES = {
   'An AI tutor for kids in LatAm. Nova builds missions around what a kid already loves, and never hands over the answer.':
     'Un tutor de IA para chicos en LatAm. Nova arma misiones desde lo que al chico ya le copa, y nunca le da la respuesta.',
 
-  'Daily carpooling in Buenos Aires. A flat prepaid fare that does not spike at rush hour, matched to drivers already making that trip.':
-    'Carpooling diario en Buenos Aires. Tarifa prepaga que no se dispara en hora pico, con conductores que ya hacían ese viaje.',
 
   'Where early projects get found. Builders publish what they are working on and meet co-founders before there is anything to demo.':
     'Donde se encuentran los proyectos tempranos. Publicás en qué estás y conocés cofundadores antes de tener algo para mostrar.',
@@ -274,8 +272,6 @@ window.ES = {
     'Producto para optimización de rutas y operación de flotas. Armé el equipo de prototipado desde cero y lo dirigí, hasta que nadie discutía una idea sin tener algo andando adelante.',
   'Agent architecture and the roadmap over it: what the agent may do, where it hands off, how you tell whether it is any good. I led the team that built the workflow builder they run on, and shipped features into it myself.':
     'Arquitectura de agentes y el roadmap encima: qué puede hacer el agente, dónde le pasa la posta, cómo te das cuenta de si es bueno. Lideré el equipo que construyó el workflow builder sobre el que corren, y shippeé features a producción yo mismo.',
-  'Agent systems end to end: chat, WhatsApp and voice. The model was never the hard part. The hard part is what the agent is allowed to do.':
-    'Sistemas de agentes de punta a punta: chat, WhatsApp y voz. El modelo nunca fue la parte difícil. La parte difícil es qué tiene permitido hacer el agente.',
   'Voice LLMs on live calls, where it all comes down to latency and to what happens when somebody interrupts you. And images as input: a screenshot comes in and something has to decide from it.':
     'LLMs de voz en llamadas reales, donde todo se juega en la latencia y en qué pasa cuando el otro te interrumpe. E imágenes como entrada: entra una captura y algo tiene que decidir con eso.',
   'I write what the agent may do, where it hands off to a person, and how you find out when it stops being good. Chat, WhatsApp and voice, and the ones that read an image and decide from it.':
@@ -284,30 +280,39 @@ window.ES = {
     'Una landing que diga lo que hacés de verdad, con la medición puesta desde el día uno. Y un agente entrenado con tu negocio, así el que cae a las tres de la mañana tiene respuesta.',
 
   /* --- el hero --- */
-  'Agents and software:<br>from idea to product.':
-    'Agentes y desarrollos:<br>de la idea al producto.',
-  'Chat, voice and image. Automation and internal tooling. I write the code myself.':
-    'Chat, voz e imagen. Automatizaciones y herramientas internas. El código lo escribo yo.',
-  'I spent six years testing what other people built. Now I build it, and I trust it just as little.':
-    'Me pasé seis años testeando lo que construían otros. Ahora lo construyo yo, y desconfío igual.',
 
   /* --- fuera lo generico --- */
-  'Where the agents live and who builds them: which tools each one may touch, when it hands off to a person, and what counts as a good answer. Without that last one there is nothing to measure.':
-    'Dónde viven los agentes y quién los construye: qué herramientas puede tocar cada uno, cuándo le pasa la posta a una persona, y qué cuenta como buena respuesta. Sin eso último no hay nada que medir.',
   'Image generation and product video, prompt to rendered clip. Every doodle on this page came out of that, including the one waving at you.':
     'Generación de imágenes y video de producto, del prompt al clip. Todos los dibujos de esta página salieron de ahí, incluido el que te saluda.',
-  'n8n, Activepieces, Retool, Zapier, Make. Wiring it up is the easy half. The other half is that it still runs six months after whoever built it has gone.':
-    'n8n, Activepieces, Retool, Zapier, Make. Armarla es la mitad fácil. La otra mitad es que siga andando seis meses después de que el que la armó se fue.',
   'Umami, LogRocket, session review, Meta Ads. On one of my own products 39% of signups were dying at the email confirmation. The dashboard did not show it. The database did.':
     'Umami, LogRocket, revisión de sesiones, Meta Ads. En uno de mis productos el 39% de las altas se moría en la confirmación del mail. El panel no lo mostraba. La base sí.',
-  'Building a team or a product where there was nothing, and then designing how it keeps running without me. Leaving without it falling over is the part almost nobody does.':
-    'Armar un equipo o un producto donde no había nada, y después diseñar cómo sigue andando sin mí. Irse sin que se caiga es la parte que casi nadie hace.',
   'Six years in QA and release automation before product: test design, on-premise deployments, pipelines. I still read a release plan looking for where it breaks.':
     'Seis años en QA y automatización de releases antes de producto: diseño de pruebas, despliegues on-premise, pipelines. Todavía leo un plan de release buscando dónde se rompe.',
   "The same things, pointed at someone else's problem.":
     'Lo mismo de arriba, apuntado al problema de otro.',
   'The skills I write for Claude Code and use every day. These six are the ones I run most.':
     'Los skills que escribo para Claude Code y uso todos los días. Estos seis son los que más corro.',
+
+  /* --- hero y oficio --- */
+  'Agents and apps:<br>from idea to product.':
+    'Agentes y aplicaciones:<br>de la idea al producto.',
+  'Agent systems end to end: chat, WhatsApp and voice. The hard part was never the model, it is what the agent is allowed to do.':
+    'Sistemas de agentes de punta a punta: chat, WhatsApp y voz. Lo difícil nunca fue el modelo, es qué tiene permitido hacer el agente.',
+  'Where the agents live and who builds them: which tools each one may touch, when it hands off to a person, and what counts as a good answer.':
+    'Dónde viven los agentes y quién los construye: qué herramientas puede tocar cada uno, cuándo le pasa la posta a una persona, y qué cuenta como buena respuesta.',
+  'n8n, Activepieces, Retool, Zapier, Make. And that it still runs six months after whoever built it has gone.':
+    'n8n, Activepieces, Retool, Zapier, Make. Y que siga andando seis meses después de que el que la armó se fue.',
+  'Building a team or a product where there was nothing, and then designing how it keeps running without me.':
+    'Armar un equipo o un producto donde no había nada, y después diseñar cómo sigue andando sin mí.',
+
+  'Six years testing what other people built. Now I build it myself, to that standard.':
+    'Me pasé seis años testeando lo que construían otros. Ahora lo construyo yo, con calidad.',
+
+  'Agent chat, Voice AI, image generation and analysis. Automation with escalation when it is needed. Internal tools for your team, or to take to market.':
+    'Chat de agentes, Voz IA, creación y análisis de imágenes. Automatizaciones con escalamiento si hace falta. Herramientas internas para tu equipo o para salir al mercado.',
+
+  'Shared rides for the daily commute, on a flat fare. You travel comfortably, for a good price, and it earns you perks.':
+    'Viajes compartidos para el día a día, con tarifa plana. Viajás cómodo, a buen precio y con beneficios.',
 
   /* --- Lima --- */
   "Axel's assistant":

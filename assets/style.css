@@ -1613,11 +1613,63 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
 /* Con la escena andando cada paso es un destino, asi que tiene que verse que
    se puede tocar. El area sensible es la columna entera y no solo el icono:
    apuntarle a 46px de dibujo con el dedo es pedir demasiado. */
+/* la regla del cursor dibujado apunta a `.arc__step` a secas y esta le gana
+   por especificidad, asi que el dibujo tiene que repetirse aca o el paso se
+   queda con la manito del sistema */
 .arc.is-scrubbing .arc__step { cursor: pointer; }
+@media (hover: hover) and (pointer: fine) {
+  .arc.is-scrubbing .arc__step {
+    cursor: url("doodles/cursor/flecha-click.png") 3 2, pointer;
+    cursor: var(--cursor-click) 3 2, pointer;
+  }
+}
 .arc.is-scrubbing .arc__step:focus-visible {
   outline: 2px solid var(--accent-ink); outline-offset: 6px; border-radius: 10px;
 }
 .arc.is-scrubbing .arc__step:hover .arc__label { opacity: 1; }
+
+
+/* ---------- el cursor dibujado ---------- */
+
+/* 🔴 SOLO DONDE HAY UN MOUSE DE VERDAD. `hover: hover` y `pointer: fine`
+   juntos: en un telefono no hay cursor que reemplazar, y en una pantalla
+   tactil grande el navegador informa `hover` pero el dedo no apunta fino, asi
+   que el par de consultas es lo unico que distingue las tres situaciones.
+
+   ⚠️ Y el par de tamanos no es opcional. El cursor se dibuja con los pixeles
+   del archivo, no con pixeles CSS: un PNG de 52px se ve gigante en una pantalla
+   comun y uno de 26 se ve borroso en una retina. `image-set` deja que el
+   navegador elija, y detras queda el de 26 suelto para el que no la soporte.
+
+   ⚠️ Los dos numeros del final son el punto sensible, la punta de la flecha.
+   Sin eso el click cae en el centro de la imagen y todo el sitio queda
+   apuntando 13px abajo y a la derecha de donde se ve la punta. */
+@media (hover: hover) and (pointer: fine) {
+  :root {
+    --cursor-flecha: image-set(url("doodles/cursor/flecha.png") 1x,
+                               url("doodles/cursor/flecha@2x.png") 2x);
+    --cursor-click: image-set(url("doodles/cursor/flecha-click.png") 1x,
+                              url("doodles/cursor/flecha-click@2x.png") 2x);
+  }
+
+  body { cursor: url("doodles/cursor/flecha.png") 3 2, auto; }
+  body { cursor: var(--cursor-flecha) 3 2, auto; }
+
+  a, button, summary, [role="button"], .arc__step, label,
+  input[type="submit"], input[type="button"] {
+    cursor: url("doodles/cursor/flecha-click.png") 3 2, pointer;
+    cursor: var(--cursor-click) 3 2, pointer;
+  }
+
+  /* escribir es escribir: ahi el cursor tiene que decir donde cae la letra */
+  input, textarea, select { cursor: auto; }
+  input[type="submit"], input[type="button"], select { cursor: url("doodles/cursor/flecha-click.png") 3 2, pointer; }
+
+  /* la marquesina se agarra, y para eso la manito del sistema dice mas que un
+     dibujo: es el gesto que la persona ya conoce */
+  .marquesina { cursor: grab; }
+  .marquesina.agarrando, .marquesina.agarrando * { cursor: grabbing; }
+}
 
 /* ---------- interaction layer ---------- */
 
