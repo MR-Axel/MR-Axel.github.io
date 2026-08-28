@@ -334,7 +334,6 @@ window.ES = {
     'Tu negocio online',
 
   'Private': 'Privado',
-  'one per product I run': 'uno por cada producto mío',
 
   'Ask about a service': 'Consultar por servicios',
 

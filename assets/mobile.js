@@ -29,7 +29,7 @@
      no interpola, y la alternativa clásica —medir con scrollHeight y escribir
      un px— se rompe apenas el texto reflowea: el contenedor queda con la altura
      de antes y corta la última línea. */
-  function acordeon(itemSel, cabezaSel) {
+  function acordeon(itemSel, cabezaSel, arrancaCerrado) {
     var items = [].slice.call(document.querySelectorAll(itemSel));
     items.forEach(function (item, i) {
       var cabeza = item.querySelector(cabezaSel);
@@ -76,9 +76,15 @@
       });
 
       item.dataset.plegado = '1';
-      /* El primero abierto: un acordeón entero cerrado no muestra de qué se
-         trata la sección, solo una lista de títulos. */
-      if (i === 0) { item.classList.add('esta-abierto'); boton.setAttribute('aria-expanded', 'true'); }
+      /* El primero abierto, salvo que se pida lo contrario: un acordeon entero
+         cerrado no muestra de que se trata la seccion, solo una lista de
+         titulos. En el recorrido si conviene cerrado, porque los seis titulos
+         ya cuentan la historia y abierto el primero empuja los otros cinco
+         fuera de la pantalla. */
+      if (i === 0 && !arrancaCerrado) {
+        item.classList.add('esta-abierto');
+        boton.setAttribute('aria-expanded', 'true');
+      }
       armado.push(item);
     });
   }
@@ -168,7 +174,7 @@
       /* vuelta suave a la velocidad de siempre. Exponencial y no lineal: un
          envion fuerte pierde mucho al principio y despues se va arrimando, que
          es como frena cualquier cosa que rueda. */
-      m.v += (m.base - m.v) * (1 - Math.exp(-dt / 0.55));
+      m.v += (m.base - m.v) * (1 - Math.exp(-dt / 0.78));
       m.x += m.v * dt;
       ubicar(m);
     }
@@ -249,9 +255,13 @@
       m.agarrado = false;
       arrastrando = false;
       fila.classList.remove('agarrando');
-      /* tope de velocidad: un envion muy corto y muy rapido da numeros
-         absurdos y la fila desaparece de un cuadro al otro */
-      m.v = Math.max(-5000, Math.min(5000, m.envion));
+      /* El envion se multiplica: arrastrando uno a uno el dedo alcanza para
+         mover dos fichas y la fila se siente pesada. Con el impulso servido
+         por encima, un manotazo recorre media lista, que es lo que uno espera
+         de un carrusel en un telefono.
+         ⚠️ El tope sigue: un envion muy corto y muy rapido da numeros absurdos
+         y la fila desaparece de un cuadro al otro. */
+      m.v = Math.max(-9000, Math.min(9000, m.envion * 1.55));
       m.envion = 0;
       m.arrastro = recorrido > 8;
       /* la marca de "esto fue un arrastre" dura lo que tarda en llegar el
@@ -375,7 +385,7 @@
   /* ------------------------------------------------------------ armado */
 
   function montar() {
-    acordeon('.arc__step', '.arc__label');
+    acordeon('.arc__step', '.arc__label', true);
     /* Una fila y despacio: son tarjetas que hay que leer y tocar, no fichas.
        La velocidad sale de la cantidad, y el gesto se frena al tocarlo. */
     marquesina('.cards', 1, 13);

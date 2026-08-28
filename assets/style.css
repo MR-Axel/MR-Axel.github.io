@@ -1587,7 +1587,11 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
      porque quede lindo: la caja recorta, y el trazo dibujado del skin se sale
      de la caja del elemento por los cuatro lados. Con 10px arriba, el borde de
      arriba de la fila se comia. */
-  .marquesina { padding: 18px 0 22px; }
+  /* 🔴 22px arriba, medidos y no elegidos. La caja recorta, y en este skin
+     una fila dibuja fuera de su caja por los cuatro lados: el borde trazado se
+     sale un pelo, la sombra corrida baja 4px y la rotacion del skin levanta las
+     esquinas. Con 18 el borde de arriba todavia se comia. */
+  .marquesina { padding: 22px 0 24px; }
   .marquesina__pista.cards > *,
   .marquesina__pista.skills-grid > * { flex: 0 0 78vw; min-width: 0; }
 
@@ -1756,7 +1760,23 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
 }
 .arbol__rama.esta-abierta .hoja { opacity: 1; translate: none; }
 
-.hoja h4 { grid-column: 2; margin: 0 0 5px; font-size: 1.03rem; font-weight: 600; }
+/* El icono comparte la fila con el titulo, en una linea propia adentro de la
+   columna del texto: puesto en una tercera columna del grid, las descripciones
+   de dos lineas se corrian y la lista dejaba de leerse como lista. */
+.hoja h4 {
+  grid-column: 2; margin: 0 0 5px; font-size: 1.03rem; font-weight: 600;
+  display: flex; align-items: center; gap: 9px;
+}
+/* ⚠️ `inline-flex` y no el `display` de fabrica. Es un <span>, o sea en linea,
+   y a un elemento en linea no le entran ni ancho ni alto: el SVG de adentro si
+   media 20px, asi que empujaba la caja de linea y el titulo se iba al renglon
+   de abajo. Se veia el icono arriba y el nombre debajo, en dos lineas. */
+.hoja__ico {
+  display: inline-flex; align-items: center; flex: none;
+  width: 20px; height: 20px; color: var(--muted);
+}
+.hoja__ico svg { width: 100%; height: 100%; display: block; }
+.arbol__rama.esta-abierta .hoja__ico { color: var(--accent-ink); }
 .hoja p { grid-column: 2; margin: 0; font-size: 0.95rem; line-height: 1.55; color: var(--muted); }
 
 /* La flecha se dibuja sola, y siempre justo antes de que llegue su hoja.
@@ -1849,12 +1869,19 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
 /* Los skills sin publicar llevan una banda al costado. Es lo que se ve de lejos,
    sin tener que leer nada; la palabra va en el `title` y para el lector de
    pantalla, porque repetida siete veces en fichas de una palabra no entra. */
-.mini--own {
-  position: relative; padding-left: 16px;
-}
+/* Un moño en diagonal en la esquina de arriba a la derecha, no una barra al
+   costado. La barra se leia como parte del borde de la ficha; el triangulo en
+   la esquina es la señal que ya significa "esto tiene algo distinto" en
+   cualquier lista de cosas.
+
+   ⚠️ Va con `overflow: hidden` en la ficha: el triangulo se dibuja mas grande
+   que la esquina y es el recorte lo que le da la forma. Sin eso asoma como un
+   cuadrado girado por fuera del borde. */
+.mini--own { position: relative; overflow: hidden; }
 .mini--own::before {
-  content: ""; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 3px;
-  border-radius: 2px; background: var(--accent);
+  content: ""; position: absolute; top: 0; right: 0;
+  border-top: 15px solid var(--ink, #1b1a17);
+  border-left: 15px solid transparent;
 }
 
 /* 🔴 El cursor de click solo sobre lo que se puede tocar. La regla apuntaba al
@@ -1997,6 +2024,45 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
 .stack .marquesina { padding: 4px 0; }
 .stack .marquesina__pista { gap: 10px; }
 .stack .marquesina + .marquesina { margin-top: 10px; }
+
+
+/* En el telefono, la flecha del costado avisa que la rama se abre. Sin ella
+   los seis titulos parecen una lista de texto y nadie los toca. */
+@media (max-width: 899px) {
+  .arbol__titulo { position: relative; padding-right: 34px; }
+  .arbol__titulo::after {
+    content: ""; position: absolute; right: 4px; top: 50%; translate: 0 -50%;
+    width: 15px; height: 10px; background: currentColor; opacity: 0.5;
+    transition: rotate 0.3s ease, opacity 0.2s ease;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='10' fill='none'%3E%3Cpath d='M1.3 1.5c2.4 2.2 4.2 4.3 6.2 6.7 1.9-2.5 3.8-4.8 6.1-6.9' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='10' fill='none'%3E%3Cpath d='M1.3 1.5c2.4 2.2 4.2 4.3 6.2 6.7 1.9-2.5 3.8-4.8 6.1-6.9' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+  .arbol__rama.esta-abierta .arbol__titulo::after { rotate: 180deg; opacity: 1; }
+
+  /* y una linea vertical dibujada a la izquierda del panel abierto, que es de
+     donde salen las flechitas de cada opcion */
+  .arbol__rama.esta-abierta .panel { position: relative; }
+  .arbol__rama.esta-abierta .panel::before {
+    content: ""; position: absolute; left: 8px; top: 4px; bottom: 46px; width: 2px;
+    background: var(--accent); opacity: 0.5; border-radius: 2px;
+    transform-origin: top;
+    animation: bajarLinea 0.45s ease both;
+  }
+}
+@keyframes bajarLinea { from { scale: 1 0; } to { scale: 1 1; } }
+
+/* El recorrido en el telefono: cerrado de entrada, asi que los seis titulos
+   tienen que entrar juntos en la pantalla y no pueden llevar el aire de cuando
+   uno estaba siempre abierto. */
+@media (max-width: 760px) {
+  /* ⚠️ `.arc` a secas: en telefono la escena esta desmontada y la lista no
+     lleva ninguna clase extra, asi que colgarse de una inventada no aplicaba
+     nada. */
+  .arc { gap: 0; }
+  .arc .arc__step { padding: 0; }
+  .arc .plegable__tirador { padding: 12px 0; }
+  .arc .arc__step::before { display: none; }
+}
 
 /* ---------- interaction layer ---------- */
 
