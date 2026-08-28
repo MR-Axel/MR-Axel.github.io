@@ -1588,6 +1588,16 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
 .pill--off { padding-left: 9px; padding-right: 9px; }
 .pill--off::before { margin-right: 0; }
 
+
+/* Con la escena andando cada paso es un destino, asi que tiene que verse que
+   se puede tocar. El area sensible es la columna entera y no solo el icono:
+   apuntarle a 46px de dibujo con el dedo es pedir demasiado. */
+.arc.is-scrubbing .arc__step { cursor: pointer; }
+.arc.is-scrubbing .arc__step:focus-visible {
+  outline: 2px solid var(--accent-ink); outline-offset: 6px; border-radius: 10px;
+}
+.arc.is-scrubbing .arc__step:hover .arc__label { opacity: 1; }
+
 /* ---------- interaction layer ---------- */
 
 /* Everything here is painted from custom properties that interact.js writes

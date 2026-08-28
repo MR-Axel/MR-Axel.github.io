@@ -91,8 +91,6 @@ window.ES = {
   /* --- craft --- */
 
   'AI agent products': 'Productos con agentes de IA',
-  'Agent systems end to end, across chat, WhatsApp and voice. The hard part is never the model, it is what the agent is allowed to do.':
-    'Sistemas de agentes de punta a punta: chat, WhatsApp y voz. La parte difícil nunca es el modelo, es qué tiene permitido hacer el agente.',
 
   'Agentic coding': 'Programación con agentes',
 
@@ -218,8 +216,6 @@ window.ES = {
   /* --- servicios --- */
   'Agent systems, spec to production':
     'Sistemas de agentes, de la spec a producción',
-  'What the agent is allowed to do, where it hands off to a person, and how you find out when it stops being good. Chat, WhatsApp and voice, and the ones that read an image and decide from it.':
-    'Qué tiene permitido hacer el agente, dónde le pasa la posta a una persona, y cómo te enterás cuando deja de ser bueno. Chat, WhatsApp y voz, y los que miran una imagen y deciden a partir de eso.',
   'For a process that is currently a person copying between two screens.':
     'Para un proceso que hoy es una persona copiando entre dos pantallas.',
   '0 to 1':
@@ -230,8 +226,6 @@ window.ES = {
     'Para una hipótesis que todavía no tiene producto, o una empresa que necesita algo funcionando arriba de la mesa.',
   'Your business online, and something that answers':
     'Tu negocio online, y algo que conteste',
-  'A landing built or redesigned so it says what you do, with the measurement wired in from the start, and a chat agent trained on your business so somebody who arrives at three in the morning gets an answer.':
-    'Una landing armada o rediseñada para que diga lo que hacés, con la medición puesta desde el principio, y un agente entrenado con tu negocio para que el que llega a las tres de la mañana tenga respuesta.',
   'If your site has not changed since you made it and you do not know how many people arrive.':
     'Si tu sitio no cambió desde que lo hiciste y no sabés cuánta gente entra.',
   'Automation and internal tooling':
@@ -266,16 +260,10 @@ window.ES = {
     'Agentes de chat, de voz y de imagen. Automatizaciones. Y productos enteros desde cero.',
   'Almost everything below started as something that annoyed me and nobody else was fixing.':
     'Casi todo lo que hay acá abajo salió de algo que me molestaba y que nadie estaba arreglando.',
-  'Before the current title, mostly in rooms where being wrong cost more than a rollback.':
-    'Antes del título actual, casi siempre en lugares donde equivocarse costaba más que un rollback.',
-  'Product for route optimisation and fleet operations. Built the prototyping practice from nothing and led it, with loops short enough that every conversation already had a working thing in it.':
-    'Producto para optimización de rutas y operación de flotas. Armé la práctica de prototipado desde cero y la lideré, con loops lo bastante cortos como para que en cada conversación ya hubiera algo andando.',
   'What I do best.':
     'Lo que hago mejor.',
   'Claude Code and Cursor every day. I write the production features myself.':
     'Claude Code y Cursor todos los días. Las features de producción las escribo yo.',
-  'Voice LLMs on live calls, and images as input: reading a screenshot or a photo and deciding from it.':
-    'LLMs de voz en llamadas reales, e imágenes como entrada: leer una captura o una foto y decidir a partir de eso.',
   'Umami, LogRocket, session review, Meta Ads. I count the funnel from the database, because the dashboard has lied to me more than once.':
     'Umami, LogRocket, revisión de sesiones, Meta Ads. El embudo lo cuento desde la base de datos, porque el panel ya me mintió más de una vez.',
   'SQL, Tableau, Metabase. Dashboards that get opened when there is a decision to make.':
@@ -288,6 +276,32 @@ window.ES = {
     'Agente de WhatsApp',
   'Buenos Aires, Argentina · open to remote AI product &amp; AI engineering roles':
     'Buenos Aires, Argentina · abierto a roles remotos de producto e ingeniería de IA',
+
+  /* --- voz: recorrido, oficio y servicios --- */
+  'Six places, and in most of them being wrong cost more than a rollback: a misread cardiology trace, an energy unit sitting out in a field.':
+    'Seis lugares, y en casi todos equivocarse costaba más que un rollback: una lectura de cardiología, un equipo de energía en el medio del campo.',
+  'Before software. I walked operations and drew how the work actually moved, which was never how the manual said it moved. I still open a product with that same question.':
+    'Antes del software. Recorría operaciones y dibujaba cómo se movía el trabajo de verdad, que nunca era como decía el manual. Sigo abriendo un producto con esa misma pregunta.',
+  'QA on cardiology systems. A wrong reading there is not a bug report, and that is where I picked up the habit of not believing anything I cannot test myself.':
+    'QA en sistemas de cardiología. Una lectura equivocada ahí no es un reporte de bug, y de ahí me quedó la costumbre de no creerle a nada que no pueda testear yo.',
+  'Closed networks: no remote access, no reading the logs from home. I rebuilt their Linux environments on my side to test against, and I ran the releases myself. Anything I did twice ended up as a script.':
+    'Redes cerradas: nada de acceso remoto, nada de mirar los logs desde casa. Replicaba sus entornos Linux de este lado para poder testear, y los releases los corría yo. Lo que hice dos veces terminó en un script.',
+  'Devices and energy systems out in the field, where undoing a release means sending a truck. I tested against the real hardware, which unlike a mock does not always agree with you.':
+    'Dispositivos y sistemas de energía en el campo, donde deshacer un release es mandar una camioneta. Probaba contra el hardware real, que a diferencia de un mock no siempre te da la razón.',
+  'Product for route optimisation and fleet operations. I built the prototyping team from nothing and led it, until nobody argued about an idea without something working in front of them.':
+    'Producto para optimización de rutas y operación de flotas. Armé el equipo de prototipado desde cero y lo dirigí, hasta que nadie discutía una idea sin tener algo andando adelante.',
+  'Agent architecture and the roadmap over it: what the agent may do, where it hands off, how you tell whether it is any good. I led the team that built the workflow builder they run on, and shipped features into it myself.':
+    'Arquitectura de agentes y el roadmap encima: qué puede hacer el agente, dónde le pasa la posta, cómo te das cuenta de si es bueno. Lideré el equipo que construyó el workflow builder sobre el que corren, y shippeé features a producción yo mismo.',
+  'Agent systems end to end: chat, WhatsApp and voice. The model was never the hard part. The hard part is what the agent is allowed to do.':
+    'Sistemas de agentes de punta a punta: chat, WhatsApp y voz. El modelo nunca fue la parte difícil. La parte difícil es qué tiene permitido hacer el agente.',
+  'Where the agents live and who builds them: tool boundaries, escalation to a person, and agreeing what a good answer is before anyone starts measuring it.':
+    'Dónde viven los agentes y quién los construye: límites de herramientas, escalamiento a una persona, y ponerse de acuerdo en qué es una buena respuesta antes de salir a medirla.',
+  'Voice LLMs on live calls, where it all comes down to latency and to what happens when somebody interrupts you. And images as input: a screenshot comes in and something has to decide from it.':
+    'LLMs de voz en llamadas reales, donde todo se juega en la latencia y en qué pasa cuando el otro te interrumpe. E imágenes como entrada: entra una captura y algo tiene que decidir con eso.',
+  'I write what the agent may do, where it hands off to a person, and how you find out when it stops being good. Chat, WhatsApp and voice, and the ones that read an image and decide from it.':
+    'Escribo qué tiene permitido hacer el agente, dónde le pasa la posta a una persona, y cómo te enterás cuando deja de ser bueno. Chat, WhatsApp y voz, y los que miran una imagen y deciden con eso.',
+  'A landing that says what you actually do, with the measurement wired in from day one. Plus a chat agent trained on your business, so whoever turns up at three in the morning gets an answer.':
+    'Una landing que diga lo que hacés de verdad, con la medición puesta desde el día uno. Y un agente entrenado con tu negocio, así el que cae a las tres de la mañana tiene respuesta.',
 
   /* --- Lima --- */
   "Axel's assistant":
@@ -315,36 +329,24 @@ window.ES = {
 
   'Consulting': 'Consultoría',
   'Process consulting for industry': 'Consultoría de procesos en industrias',
-  'Before software: walking an operation and mapping how the work actually moves through it against how the manual says it does, then finding the step that costs the most. Nothing about that question changed when the subject became a product.':
-    'Antes del software: recorrer una operación y mapear cómo se mueve el trabajo de verdad contra lo que dice el manual, y después encontrar el paso que más cuesta. Esa pregunta no cambió en nada cuando el sujeto pasó a ser un producto.',
 
   'Health': 'Salud',
   'Cardiology and clinical systems': 'Sistemas de cardiología y clínicos',
-  'QA on systems where a wrong reading is not a bug report. It is where the habit started: I only trust a system I can test, and I would rather find the failure than be told it cannot happen.':
-    'QA sobre sistemas donde una lectura equivocada no es un reporte de bug. Ahí empezó la costumbre: solo confío en un sistema que puedo testear, y prefiero encontrar la falla antes que escuchar que no puede pasar.',
 
   'Energy': 'Energía',
   'IoT and hardware in the field': 'IoT y hardware en el campo',
-  'Devices and energy systems that live outside the datacentre, where a release you cannot roll back is a truck roll. Testing against real hardware behaviour instead of a mock that always agrees with you.':
-    'Dispositivos y sistemas de energía que viven fuera del datacenter, donde un release que no se puede revertir es mandar una camioneta. Probar contra el comportamiento real del hardware en vez de un mock que siempre te da la razón.',
 
   'Security': 'Seguridad',
   'On-premise, locked down, Linux': 'On-premise, redes cerradas, Linux',
-  'QA and on-premise deployments for enterprise clients with closed networks, simulating their Linux environments to test against and running the releases myself. Everything that ran twice got scripted.':
-    'QA y despliegues on-premise para clientes enterprise con redes cerradas, simulando sus entornos Linux para poder testear y corriendo yo mismo los releases. Todo lo que se hacía dos veces terminaba en un script.',
 
   'Logistics': 'Logística',
   'Routing, fleets, and a team': 'Ruteo, flotas y un equipo',
 
   'AI product': 'Producto de IA',
   'Agents from zero to production': 'Agentes de cero a producción',
-  'Architecture for agent systems and the roadmap over them: what the agent may do, where it escalates, how it is evaluated. Led the team that built the workflow builder those agents run on, and shipped features into production alongside it.':
-    'Arquitectura de sistemas de agentes y el roadmap encima: qué puede hacer el agente, dónde escala a una persona, cómo se evalúa. Lideré el equipo que construyó el workflow builder sobre el que corren esos agentes, y shippeé features a producción en paralelo.',
 
   /* --- craft, the four new ones --- */
   'Agent architecture': 'Arquitectura de agentes',
-  'The system the agents live in, zero to production, and the team that builds it: tool boundaries, escalation, what counts as a good answer.':
-    'El sistema donde viven los agentes, de cero a producción, y el equipo que lo construye: límites, escalamiento, qué es una buena respuesta.',
 
   'Voice and multimodal': 'Voz y multimodal',
 

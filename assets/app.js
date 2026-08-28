@@ -365,8 +365,46 @@
     arcTrack.classList.remove('is-pinned');
     arcList.classList.remove('is-scrubbing');
     arcList.style.removeProperty('--draw');
-    arcSteps.forEach(function (el) { el.classList.remove('is-on', 'is-current'); });
+    arcSteps.forEach(function (el) {
+      el.classList.remove('is-on', 'is-current');
+      /* sin escena no hay a donde saltar: la lista esta entera a la vista y un
+         boton que no lleva a ningun lado es peor que ninguno */
+      el.removeAttribute('role');
+      el.removeAttribute('tabindex');
+    });
   }
+
+  /* Tocar un paso lleva a ese paso.
+
+     La escena no se mueve sola: todo lo que se ve sale del scroll, asi que
+     "ir al paso 4" es en realidad "poner el scroll donde el paso 4 esta
+     encendido". Se invierte la misma cuenta que pinta la linea, y de ahi sale
+     el pixel exacto.
+
+     ⚠️ Y se recalcula en cada click en vez de guardarse: `arc` se rehace en
+     cada resize y cada vez que cambia el idioma, asi que una posicion
+     calculada al cargar la pagina queda vieja apenas se toca la ventana. */
+  function irAlPaso(i) {
+    if (!arc) return;
+    /* un pelo pasado del umbral, para caer adentro de la franja del paso y no
+       justo en el borde donde todavia manda el anterior */
+    var draw = Math.min(1, arc.at[i] + 0.005);
+    var y = arc.top + (draw * 0.74 + 0.08) * arc.scrub;
+    window.scrollTo({ top: Math.round(y), behavior: reduced ? 'auto' : 'smooth' });
+  }
+
+  arcSteps.forEach(function (el, i) {
+    el.addEventListener('click', function () { irAlPaso(i); });
+    /* Enter y barra espaciadora, porque un <li> con un click encima no es un
+       boton para nadie que no use el mouse. La barra ademas scrollea la pagina
+       por defecto, asi que hay que frenarla. */
+    el.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      if (!arc) return;
+      e.preventDefault();
+      irAlPaso(i);
+    });
+  });
 
   function measureArc() {
     if (!arcTrack || !arcStage || !arcList || arcSteps.length < 2 || reduced) return unpinArc();
@@ -396,6 +434,10 @@
          rail, so the thresholds are exact without touching the DOM */
       at: arcSteps.map(function (el, i) { return i / (arcSteps.length - 1); })
     };
+    arcSteps.forEach(function (el) {
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '0');
+    });
     frame();
   }
 
