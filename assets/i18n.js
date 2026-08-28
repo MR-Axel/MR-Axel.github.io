@@ -56,11 +56,12 @@ window.ES = {
 
   /* tags */
   'Job search': 'Búsqueda laboral',
-  'Product': 'Producto',
   'Community': 'Comunidad',
   'AI agents': 'Agentes de IA',
+  'Voice AI': 'Voz IA',
+  'AI tutor': 'Tutor de IA',
+  'Vision': 'Visión',
   'Automation': 'Automatización',
-  'Voice': 'Voz',
   'SMB': 'PyMEs',
 
 
