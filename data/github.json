@@ -1,7 +1,7 @@
 {
  "generated": "2026-08-28",
  "contributions": {
-  "total": 5020,
+  "total": 5021,
   "days": [
    {
     "d": "2025-08-24",
@@ -1481,18 +1481,36 @@
    },
    {
     "d": "2026-08-28",
-    "c": 27
+    "c": 28
    }
   ]
  },
  "repos": [
+  {
+   "name": "monitor-sistema",
+   "description": "Panel en vivo del estado de una PC con Windows, con registro que sobrevive a un apag\u00f3n. Pensado para diagnosticar reinicios espont\u00e1neos que no dejan rastro en el Visor de eventos.",
+   "url": "https://github.com/MR-Axel/monitor-sistema",
+   "language": "HTML",
+   "stars": 1,
+   "updated": "2026-08-28T06:45:36Z",
+   "archived": false,
+   "topics": [
+    "dashboard",
+    "hardware-monitoring",
+    "libre-hardware-monitor",
+    "monitoring",
+    "nodejs",
+    "system-monitor",
+    "windows"
+   ]
+  },
   {
    "name": "MR-Axel.github.io",
    "description": "Personal site. Live at mr-axel.github.io",
    "url": "https://github.com/MR-Axel/MR-Axel.github.io",
    "language": "JavaScript",
    "stars": 0,
-   "updated": "2026-08-28T06:43:41Z",
+   "updated": "2026-08-28T06:43:54Z",
    "archived": false,
    "topics": []
   },
@@ -1505,24 +1523,6 @@
    "updated": "2026-08-28T06:43:28Z",
    "archived": false,
    "topics": []
-  },
-  {
-   "name": "monitor-sistema",
-   "description": "Panel en vivo del estado de una PC con Windows, con registro que sobrevive a un apag\u00f3n. Pensado para diagnosticar reinicios espont\u00e1neos que no dejan rastro en el Visor de eventos.",
-   "url": "https://github.com/MR-Axel/monitor-sistema",
-   "language": "HTML",
-   "stars": 1,
-   "updated": "2026-08-28T06:36:35Z",
-   "archived": false,
-   "topics": [
-    "dashboard",
-    "hardware-monitoring",
-    "libre-hardware-monitor",
-    "monitoring",
-    "nodejs",
-    "system-monitor",
-    "windows"
-   ]
   },
   {
    "name": "skills",
