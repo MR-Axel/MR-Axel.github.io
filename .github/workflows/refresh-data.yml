@@ -37,12 +37,15 @@ jobs:
 
       - name: Commit if changed
         run: |
-          if [ -z "$(git status --porcelain data/github.json)" ]; then
+          # index.html tambien: adentro va el numero de respaldo, el que se
+          # ve mientras el JSON no llego y el unico que se ve si la peticion
+          # falla. Escrito a mano envejece en silencio.
+          if [ -z "$(git status --porcelain data/github.json index.html)" ]; then
             echo "no change"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/github.json
+          git add data/github.json index.html
           git commit -m "chore(data): refresh GitHub activity"
           git push

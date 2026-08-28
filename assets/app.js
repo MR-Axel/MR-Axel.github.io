@@ -358,6 +358,128 @@
     if (enlace) enlace.click();
   });
 
+
+  /* ================= el desplegable ================= */
+
+  /* 🔴 La lista de un <select> NO SE PUEDE ESTILAR. El campo cerrado si, pero
+     el menu abierto lo dibuja el sistema operativo: fondo blanco, resaltado
+     azul de Windows, tipografia del sistema. Al lado de una pagina dibujada a
+     mano canta.
+
+     ⚠️ El <select> NO se saca del formulario: se esconde y sigue siendo el
+     dueño del valor. Reemplazandolo por divs se pierde el envio nativo, el
+     autocompletado y lo que lee un lector de pantalla; asi, si este script no
+     corre, queda el desplegable de siempre y el formulario funciona igual. */
+  document.querySelectorAll('.field select').forEach(function (nativo) {
+    if (nativo.dataset.propio) return;
+    nativo.dataset.propio = '1';
+
+    var campo = nativo.parentElement;
+    campo.classList.add('field--sel');
+    nativo.classList.add('sel__nativo');
+
+    var boton = document.createElement('button');
+    boton.type = 'button';
+    boton.className = 'sel__boton';
+    boton.setAttribute('aria-haspopup', 'listbox');
+    boton.setAttribute('aria-expanded', 'false');
+    var etiqueta = campo.querySelector('label');
+    if (etiqueta) boton.setAttribute('aria-labelledby', etiqueta.id || (etiqueta.id = 'lbl-' + nativo.id));
+
+    var texto = document.createElement('span');
+    texto.className = 'sel__texto';
+    boton.appendChild(texto);
+
+    var lista = document.createElement('ul');
+    lista.className = 'sel__lista';
+    lista.setAttribute('role', 'listbox');
+    lista.hidden = true;
+
+    function pintar() {
+      var elegida = nativo.options[nativo.selectedIndex];
+      texto.textContent = elegida ? elegida.textContent : '';
+      [].forEach.call(lista.children, function (li, k) {
+        li.setAttribute('aria-selected', k === nativo.selectedIndex ? 'true' : 'false');
+      });
+    }
+
+    function construir() {
+      lista.textContent = '';
+      [].forEach.call(nativo.options, function (op, k) {
+        var li = document.createElement('li');
+        li.className = 'sel__op';
+        li.setAttribute('role', 'option');
+        li.setAttribute('tabindex', '-1');
+        li.textContent = op.textContent;
+        li.addEventListener('click', function () {
+          nativo.selectedIndex = k;
+          nativo.dispatchEvent(new Event('change', { bubbles: true }));
+          cerrar(true);
+        });
+        lista.appendChild(li);
+      });
+      pintar();
+    }
+
+    function abrir() {
+      lista.hidden = false;
+      boton.setAttribute('aria-expanded', 'true');
+      campo.classList.add('esta-abierto');
+      var sel = lista.children[nativo.selectedIndex];
+      if (sel) sel.focus();
+    }
+
+    function cerrar(devolverFoco) {
+      lista.hidden = true;
+      boton.setAttribute('aria-expanded', 'false');
+      campo.classList.remove('esta-abierto');
+      if (devolverFoco) boton.focus();
+    }
+
+    boton.addEventListener('click', function () {
+      if (lista.hidden) abrir(); else cerrar(true);
+    });
+
+    /* el teclado tiene que hacer lo mismo que hace un <select> de verdad, o el
+       reemplazo es peor que el original para quien no usa mouse */
+    function mover(paso) {
+      var n = nativo.options.length;
+      nativo.selectedIndex = (nativo.selectedIndex + paso + n) % n;
+      nativo.dispatchEvent(new Event('change', { bubbles: true }));
+      if (!lista.hidden) { var f = lista.children[nativo.selectedIndex]; if (f) f.focus(); }
+    }
+    function teclas(e) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); if (lista.hidden) abrir(); else mover(1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); if (lista.hidden) abrir(); else mover(-1); }
+      else if (e.key === 'Escape' && !lista.hidden) { e.preventDefault(); cerrar(true); }
+      else if ((e.key === 'Enter' || e.key === ' ')) {
+        e.preventDefault();
+        if (lista.hidden) abrir(); else cerrar(true);
+      }
+    }
+    boton.addEventListener('keydown', teclas);
+    lista.addEventListener('keydown', teclas);
+
+    document.addEventListener('click', function (e) {
+      if (!lista.hidden && !campo.contains(e.target)) cerrar(false);
+    });
+
+    nativo.addEventListener('change', pintar);
+    /* el cambio de idioma reescribe las opciones del <select>, asi que la lista
+       propia se rehace entera en vez de quedar con los textos viejos */
+    var btnIdioma = document.getElementById('lang-toggle');
+    if (btnIdioma) btnIdioma.addEventListener('click', function () { window.setTimeout(construir, 60); });
+
+    campo.appendChild(boton);
+    campo.appendChild(lista);
+    construir();
+    /* ⚠️ Y otra vez en el proximo turno. Este bloque corre antes de que el
+       diccionario traduzca la pagina, asi que la primera copia se lleva los
+       textos en ingles: el boton decia "Something else" con la lista ya en
+       castellano abajo. */
+    window.setTimeout(construir, 0);
+  });
+
   /* ================= language ================= */
 
   /* Keys are the English innerHTML with whitespace collapsed. Anything not in

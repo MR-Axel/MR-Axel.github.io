@@ -58,7 +58,6 @@ window.ES = {
   'AI agents': 'Agentes de IA',
   'AI tutor': 'Tutor de IA',
   'Vision': 'Visión',
-  'Automation': 'Automatización',
   'SMB': 'PyMEs',
 
 
@@ -253,8 +252,6 @@ window.ES = {
     'Imágenes',
   'Architecture':
     'Arquitectura',
-  'Development flows':
-    'Flujos de desarrollo',
   'Web, WhatsApp and whatever channel the team already uses, answering from the business own data.':
     'Web, WhatsApp y el canal que el equipo ya usa, respondiendo con los datos del negocio.',
   'Live calls, with latency, interruptions and tone under control.':
@@ -265,8 +262,6 @@ window.ES = {
     'Guion, generación y edición, del prompt al clip terminado.',
   'Where they run, which tools they may touch, when they hand off to a person.':
     'Dónde corren, qué herramientas pueden tocar, cuándo le pasan la posta a una persona.',
-  'Skills, subagents and orchestrators, for a team to use every day.':
-    'Skills, subagentes y orquestadores, para que un equipo los use todos los días.',
   'Products, 0 to 1':
     'Productos de 0 a 1',
   'Strategy':
@@ -345,8 +340,6 @@ window.ES = {
 
   'What it is about':
     'Sobre qué',
-  'Pick one':
-    'Elegí uno',
   'Something else':
     'Otro',
 
@@ -373,6 +366,11 @@ window.ES = {
 
   "Tell me what idea you have and we'll talk about whether I'm the right person to make it real.":
     'Contame qué idea tenés y hablamos si soy la persona indicada para hacerla realidad.',
+
+  'Automation and flows': 'Automatizaciones y flujos',
+
+  'Automation and internal tooling':
+    'Automatizaciones y herramientas internas',
 
   /* --- Lima --- */
   "Axel's assistant":

@@ -381,9 +381,18 @@
     marquesina('.cards', 1, 13);
     marquesina('.skills-grid', 1, 13);
     marquesina('.sidelist', 1, 11);
-    marquesina('.stack .chips', 2);
     marquesina('.minis', 2);
+  }
 
+  /* El stack corre en los dos anchos, y es el unico que lo hace. Cuarenta
+     fichas quietas son un muro que nadie lee; moviendose, la vista engancha
+     una y sigue. Y esa lista esta ahi para un recruiter, que es quien la mira
+     ficha por ficha. */
+  function montarStack() {
+    marquesina('.stack .chips', 2);
+  }
+
+  function arrancarSiHay() {
     if (pistas.length) {
       arrancarReloj();
       /* Las fichas cambian de ancho cuando llegan las fuentes y cuando se gira
@@ -427,9 +436,19 @@
     pararReloj();
   }
 
+  /* ⚠️ Se compara contra el modo anterior y no contra `armado.length`. Con la
+     longitud, arrancando en escritorio nunca se montaba nada, porque la lista
+     vacia y "no hace falta montar" se ven igual. */
+  var modo = null;
+
   function mirar() {
-    if (ANGOSTO.matches) { if (!armado.length) montar(); }
-    else if (armado.length) desmontar();
+    var quiero = ANGOSTO.matches ? 'angosto' : 'ancho';
+    if (quiero === modo) return;
+    desmontar();
+    modo = quiero;
+    if (quiero === 'angosto') montar();
+    montarStack();
+    arrancarSiHay();
   }
 
   mirar();

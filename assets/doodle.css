@@ -97,7 +97,11 @@
 [data-skin="doodle"] .sideitem,
 [data-skin="doodle"] .form .field input,
 [data-skin="doodle"] .form .field textarea,
-[data-skin="doodle"] .form .field select {
+[data-skin="doodle"] .form .field select,
+/* el desplegable propio es un <button>, y sin nombrarlo se quedaba con el
+   borde redondo de fabrica al lado de tres campos dibujados a mano */
+[data-skin="doodle"] .form .field .sel__boton,
+[data-skin="doodle"] .form .field .sel__lista {
   border-style: solid;
   border-width: var(--trazo);
   border-color: var(--ink);
