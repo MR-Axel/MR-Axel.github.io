@@ -2,7 +2,12 @@ name: Refresh GitHub data
 
 on:
   schedule:
-    - cron: "17 6 * * *" # daily, 03:17 ART
+    # Cada dos horas y no una vez al dia. El numero se movia de a decenas entre
+    # corridas y en la pagina quedaba viejo al lado del perfil de GitHub: 5.006
+    # contra 5.018 el mismo dia.
+    # Minuto 17 y no en punto: a las horas exactas la cola de Actions esta
+    # llena y los cron programados arrancan varios minutos tarde.
+    - cron: "17 */2 * * *"
   workflow_dispatch:
   push:
     branches: [main]
