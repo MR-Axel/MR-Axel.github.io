@@ -65,14 +65,244 @@
   if (ramas.length) {
     var finoYConMouse = window.matchMedia('(hover: hover) and (pointer: fine)');
 
-    function abrirRama(rama) {
-      ramas.forEach(function (otra) {
-        var abierta = otra === rama;
-        otra.classList.toggle('esta-abierta', abierta);
-        var b = otra.querySelector('.arbol__titulo');
-        if (b) b.setAttribute('aria-expanded', abierta ? 'true' : 'false');
+
+    /* 🔴 El temblor es determinista, no `Math.random()`. Con azar de verdad, la
+       misma flecha se dibuja distinta en cada apertura y en cada `resize`, y
+       eso no se lee como un dibujo sino como un error de render. Una funcion
+       seno con dos semillas da siempre el mismo garabato para la misma flecha,
+       y uno distinto para la de al lado. */
+    function temblor(n) {
+      var x = Math.sin(n * 12.9898 + 78.233) * 43758.5453;
+      return (x - Math.floor(x)) * 2 - 1;
+    }
+
+    /* Convierte una curva suave en una linea temblada: la muestrea, corre cada
+       punto en perpendicular, y vuelve a unirlos con cuadraticas que pasan por
+       los puntos medios. Es lo que hace que el trazo tenga pulso en vez de ser
+       una parabola perfecta. */
+    function aMano(puntos, semilla, amplitud) {
+      var s = [];
+      for (var k = 0; k < puntos.length; k++) {
+        var ant = puntos[Math.max(0, k - 1)];
+        var sig = puntos[Math.min(puntos.length - 1, k + 1)];
+        var dx = sig[0] - ant[0], dy = sig[1] - ant[1];
+        var largo = Math.sqrt(dx * dx + dy * dy) || 1;
+        /* las puntas quedan quietas: si tiemblan, la flecha deja de salir del
+           titulo y de llegar al texto */
+        var borde = (k === 0 || k === puntos.length - 1) ? 0 : 1;
+        var d = temblor(semilla + k) * amplitud * borde;
+        s.push([puntos[k][0] - (dy / largo) * d, puntos[k][1] + (dx / largo) * d]);
+      }
+      var d2 = 'M' + s[0][0].toFixed(1) + ' ' + s[0][1].toFixed(1);
+      for (var m = 1; m < s.length - 1; m++) {
+        var mx = (s[m][0] + s[m + 1][0]) / 2, my = (s[m][1] + s[m + 1][1]) / 2;
+        d2 += ' Q' + s[m][0].toFixed(1) + ' ' + s[m][1].toFixed(1) +
+              ' ' + mx.toFixed(1) + ' ' + my.toFixed(1);
+      }
+      var u = s[s.length - 1];
+      d2 += ' L' + u[0].toFixed(1) + ' ' + u[1].toFixed(1);
+      return d2;
+    }
+
+    function enCubica(p0, c1, c2, p3, t) {
+      var u = 1 - t;
+      return [u * u * u * p0[0] + 3 * u * u * t * c1[0] + 3 * u * t * t * c2[0] + t * t * t * p3[0],
+              u * u * u * p0[1] + 3 * u * u * t * c1[1] + 3 * u * t * t * c2[1] + t * t * t * p3[1]];
+    }
+
+    /* 🔴 La lista reserva el alto del panel MAS LARGO, medido, no uno fijo.
+       Los paneles estan fuera del flujo, asi que no empujan nada: el de
+       Agentes mide 593px contra 505 de la columna de titulos y se metia encima
+       del parrafo de cierre. Reservando el maximo, el hueco es siempre el
+       mismo y abrir una rama u otra no mueve ni un pixel de la pagina. */
+    function reservarAlto() {
+      var lista = document.querySelector('.arbol');
+      if (!lista || !window.matchMedia('(min-width: 900px)').matches) {
+        if (lista) lista.style.removeProperty('min-height');
+        return;
+      }
+      var abiertaAntes = lista.querySelector('.arbol__rama.esta-abierta');
+      var alto = 0;
+      [].forEach.call(lista.querySelectorAll('.arbol__rama'), function (r) {
+        r.classList.add('esta-abierta');
+        var pan = r.querySelector('.panel');
+        if (pan) alto = Math.max(alto, pan.getBoundingClientRect().height);
+        if (r !== abiertaAntes) r.classList.remove('esta-abierta');
+      });
+      lista.style.minHeight = Math.ceil(alto + 8) + 'px';
+    }
+
+    var lienzo = document.querySelector('.abanico');
+    var anchoParaAbanico = window.matchMedia('(min-width: 900px)');
+    var SVGNS = 'http://www.w3.org/2000/svg';
+
+    /* 🔴 Una flecha por hoja, del titulo elegido a cada cosa que incluye. Se
+       calculan acá y no se pueden escribir a mano en el html: las dos puntas
+       dependen del alto del texto, del idioma y del ancho de la ventana, asi
+       que cualquier `d` fijo quedaria bien en una sola pantalla y torcido en
+       todas las demas.
+
+       ⚠️ Las coordenadas van relativas a la lista, no a la pantalla. El lienzo
+       cubre `.arbol`, que es el elemento posicionado, y usar las de la ventana
+       manda las flechas a cualquier lado apenas la pagina esta scrolleada. */
+    function dibujarAbanico(rama) {
+      if (!lienzo) return;
+      lienzo.classList.remove('dibuja');
+      while (lienzo.firstChild) lienzo.removeChild(lienzo.firstChild);
+      if (!anchoParaAbanico.matches || !rama) return;
+
+      var lista = lienzo.parentElement;
+      var base = lista.getBoundingClientRect();
+      var boton = rama.querySelector('.arbol__titulo');
+      var hojas = [].slice.call(rama.querySelectorAll('.hoja h4'));
+      if (!boton || !hojas.length) return;
+
+      /* 🔴 EL ORIGEN ES DONDE TERMINA EL TEXTO, NO EL BORDE DEL BOTON. El boton
+         ocupa el ancho entero de la columna, asi que arrancando de su borde
+         derecho quedaban 45px hasta las hojas contra 400 de caida: seis curvas
+         casi verticales, superpuestas en una sola raya gorda. Desde la ultima
+         letra del titulo hay 200px de corrida y el abanico se abre. */
+      var texto = boton.querySelector('.arbol__nombre') || boton;
+      var rb = texto.getBoundingClientRect();
+      var x0 = rb.right - base.left + 14;
+      var y0 = rb.top - base.top + rb.height / 2;
+
+      lienzo.setAttribute('viewBox', '0 0 ' + Math.round(base.width) + ' ' + Math.round(base.height));
+
+      /* El recuadro del gancho: un rectangulo trazado a mano alrededor del
+         texto que abre el panel. Va en el mismo lienzo y no con un `border`,
+         porque un borde de CSS no se puede dibujar de a poco ni temblar. */
+      var gancho = rama.querySelector('.panel__hook');
+      if (gancho) {
+        var rg = gancho.getBoundingClientRect();
+        var gx = rg.left - base.left - 13;
+        var gy = rg.top - base.top - 10;
+        var gw = rg.width + 26;
+        var gh = rg.height + 20;
+        var r = 10;
+        var esquinas = [];
+        /* arranca en el medio de arriba y da la vuelta: asi la animacion se ve
+           como una mano cerrando el recuadro, no como cuatro lados apareciendo */
+        esquinas.push([gx + gw * 0.5, gy]);
+        esquinas.push([gx + gw - r, gy]);
+        esquinas.push([gx + gw, gy + r]);
+        esquinas.push([gx + gw, gy + gh - r]);
+        esquinas.push([gx + gw - r, gy + gh]);
+        esquinas.push([gx + r, gy + gh]);
+        esquinas.push([gx, gy + gh - r]);
+        esquinas.push([gx, gy + r]);
+        esquinas.push([gx + r, gy]);
+        esquinas.push([gx + gw * 0.5 - 4, gy + 1.5]);
+        var denso = [];
+        for (var e = 0; e < esquinas.length - 1; e++) {
+          var a = esquinas[e], bq = esquinas[e + 1];
+          var pasos = Math.max(2, Math.round(Math.hypot(bq[0] - a[0], bq[1] - a[1]) / 26));
+          for (var q = 0; q < pasos; q++) {
+            denso.push([a[0] + (bq[0] - a[0]) * (q / pasos), a[1] + (bq[1] - a[1]) * (q / pasos)]);
+          }
+        }
+        denso.push(esquinas[esquinas.length - 1]);
+        var caja = document.createElementNS(SVGNS, 'path');
+        caja.setAttribute('class', 'caja');
+        caja.setAttribute('pathLength', '1');
+        caja.setAttribute('d', aMano(denso, 91, 1.7));
+        lienzo.appendChild(caja);
+      }
+
+      hojas.forEach(function (h, i) {
+        var rh = h.getBoundingClientRect();
+        var x1 = rh.left - base.left - 9;
+        var y1 = rh.top - base.top + rh.height / 2;
+
+        /* Sale horizontal del titulo y llega horizontal a la hoja: las dos
+           manijas van sobre la altura de su propia punta. Es lo que separa las
+           curvas entre si, porque cada una toma su altura apenas arranca en
+           vez de subir todas juntas por el medio.
+           ⚠️ La primera manija se corre un poco por indice, o las seis salen
+           exactamente del mismo punto con la misma pendiente y los primeros
+           veinte pixeles quedan pegados. */
+        var dx = x1 - x0;
+        if (dx < 60) return;
+        var c1x = x0 + dx * (0.34 + i * 0.045);
+        var c1y = y0 + (y1 - y0) * 0.06;
+        var c2x = x1 - dx * 0.32;
+        var c2y = y1;
+
+        var muestras = [];
+        for (var t = 0; t <= 16; t++) {
+          muestras.push(enCubica([x0, y0], [c1x, c1y], [c2x, c2y], [x1, y1], t / 16));
+        }
+        var trazo = document.createElementNS(SVGNS, 'path');
+        trazo.setAttribute('class', 'trazo');
+        trazo.setAttribute('pathLength', '1');
+        trazo.style.setProperty('--i', i);
+        trazo.setAttribute('d', aMano(muestras, i * 31 + 7, 2.2));
+        lienzo.appendChild(trazo);
+
+        /* La punta se orienta con la tangente de llegada, que en una cubica es
+           la direccion de la ultima manija a la punta. Con un angulo fijo, las
+           flechas que llegan desde arriba apuntan al costado. */
+        var ang = Math.atan2(y1 - c2y, x1 - c2x);
+        var largo = 7;
+        var a1 = ang + 2.5, a2 = ang - 2.5;
+        var punta = document.createElementNS(SVGNS, 'path');
+        punta.setAttribute('class', 'punta');
+        punta.setAttribute('pathLength', '1');
+        punta.style.setProperty('--i', i);
+        /* las dos patas con largo distinto: una punta de flecha simetrica se
+           lee como un icono, y una despareja como algo trazado de un tiron */
+        var l1 = largo * (1 + temblor(i * 7) * 0.22);
+        var l2 = largo * (1 + temblor(i * 7 + 3) * 0.22);
+        punta.setAttribute('d',
+          'M' + (x1 + Math.cos(a1) * l1).toFixed(1) + ' ' + (y1 + Math.sin(a1) * l1).toFixed(1) +
+          ' L' + x1.toFixed(1) + ' ' + y1.toFixed(1) +
+          ' L' + (x1 + Math.cos(a2) * l2).toFixed(1) + ' ' + (y1 + Math.sin(a2) * l2).toFixed(1));
+        lienzo.appendChild(punta);
+      });
+
+      /* un cuadro despues, para que la clase que dispara el trazado entre como
+         un cambio y no junto con el nodo recien creado */
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () { lienzo.classList.add('dibuja'); });
       });
     }
+
+    var abierta = null;
+
+    function abrirRama(rama) {
+      ramas.forEach(function (otra) {
+        var esta = otra === rama;
+        otra.classList.toggle('esta-abierta', esta);
+        var b = otra.querySelector('.arbol__titulo');
+        if (b) b.setAttribute('aria-expanded', esta ? 'true' : 'false');
+      });
+      abierta = rama;
+      reservarAlto();
+      dibujarAbanico(rama);
+    }
+
+    var redibujo;
+    function redibujar() {
+      window.clearTimeout(redibujo);
+      redibujo = window.setTimeout(function () {
+        reservarAlto();
+        dibujarAbanico(abierta);
+      }, 120);
+    }
+    window.addEventListener('resize', redibujar, { passive: true });
+    window.addEventListener('load', redibujar);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(redibujar);
+    /* el cambio de idioma mueve cada hoja, porque el castellano corre mas largo */
+    var btnIdioma = document.getElementById('lang-toggle');
+    if (btnIdioma) btnIdioma.addEventListener('click', function () {
+      window.setTimeout(redibujar, 60);
+    });
+
+    abierta = document.querySelector('.arbol__rama.esta-abierta');
+    if (abierta) window.requestAnimationFrame(function () {
+      reservarAlto();
+      dibujarAbanico(abierta);
+    });
 
     ramas.forEach(function (rama) {
       var boton = rama.querySelector('.arbol__titulo');
@@ -605,8 +835,20 @@
           el.classList.remove('is-past');
           el.classList.add('is-in');
         } else {
+          /* 🔴 UN BLOQUE MAS ALTO QUE LA PANTALLA NI SALE NI SE APAGA. El
+             estado `is-past` lleva la opacidad a cero, y para un bloque corto
+             eso pasa cuando ya salio de la vista. Pero el arbol de servicios en
+             telefono mide varias pantallas: apenas su borde de arriba cruza,
+             se apagaba entero mientras la persona lo estaba mirando. Medido en
+             captura: los seis titulos en blanco y solo el pie legible.
+
+             ⚠️ Y hay que salir ANTES de sacarle `is-in`, no solo evitar el
+             `is-past`. Sin ninguna de las dos clases el elemento vuelve al
+             estado inicial del reveal, que tambien es opacidad cero: la
+             primera version de esta guarda dejaba el arbol igual de apagado. */
+          var alto = entry.boundingClientRect.height;
+          if (alto >= window.innerHeight * 0.7) return;
           el.classList.remove('is-in');
-          /* above the fold means read; below still means not yet */
           el.classList.toggle('is-past', entry.boundingClientRect.top < 0);
         }
       });

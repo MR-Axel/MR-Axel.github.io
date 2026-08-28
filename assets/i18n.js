@@ -142,9 +142,6 @@ window.ES = {
     'n8n, Activepieces, Retool, Zapier, Make. Más el proceso que evita que se pudra cuando me voy.',
 
 
-  'Tell me what is broken and I will tell you whether I am the right person for it. If I am not, I will say so, which is cheaper for both of us than finding out in week three.':
-    'Contame qué está roto y te digo si soy la persona indicada. Si no lo soy, te lo digo, que sale más barato para los dos que descubrirlo en la semana tres.',
-  'Start a conversation': 'Empecemos a hablar',
 
   /* --- agent skills --- */
   'The 14 open ones, on GitHub<span class="arrow" aria-hidden="true">↗</span>':
@@ -284,8 +281,6 @@ window.ES = {
     'De la spec al release, en semanas. El repo queda tuyo.',
   'Out to market with the measurement wired in from day one.':
     'Salida al mercado con la medición puesta desde el día uno.',
-  'Automation and internal tooling':
-    'Automatizaciones y herramientas internas',
   'Automation':
     'Automatizaciones',
   'Internal tools':
@@ -318,8 +313,6 @@ window.ES = {
     'Para la landing, el producto y la campaña.',
   'Prompt to rendered clip.':
     'Del prompt al clip renderizado.',
-  'Every doodle on this page came out of that.':
-    'Todos los dibujos de esta página salieron de ahí.',
 
   /* --- la seccion unica --- */
   'What I can help with':
@@ -330,39 +323,56 @@ window.ES = {
     'Uno a uno',
   'Alongside the team':
     'Al lado del equipo',
-  'What the AI does not do':
-    'Qué no hace la IA',
   'With the founder, on what is about to be decided.':
     'Con el fundador, sobre lo que se está por decidir.',
   'Next to the people building, in the AI calls.':
     'Al lado de los que construyen, en las decisiones de IA.',
-  'Saying no to the demo that will not survive a user.':
-    'Decirle que no a la demo que no sobrevive a un usuario.',
   'Built or redesigned so it says what you actually do.':
     'Armada o rediseñada para que diga lo que hacés de verdad.',
-  'You have the idea and no team to build it.':
-    'Tenés la idea y no tenés equipo para construirla.',
-  'You have engineers and the AI decisions are being made by whoever is free.':
-    'Tenés equipo técnico y las decisiones de IA las toma el que está libre.',
-  'The process lives in a spreadsheet that only one person understands.':
-    'El proceso vive en una planilla que entiende una sola persona.',
-  'Every piece of a campaign takes a week to come out.':
-    'Cada pieza de campaña tarda una semana en salir.',
 
   /* --- las seis ramas --- */
   'An agent that answers':
     'Un agente que contesta',
-  'Somebody on your team spends the day answering the same thing, or moving the same data between two screens.':
-    'Alguien de tu equipo se pasa el día contestando lo mismo, o moviendo los mismos datos entre dos pantallas.',
   'Trained on your business, on the site and on WhatsApp.':
     'Entrenado con tu negocio, en el sitio y en WhatsApp.',
   'Your business online':
     'Tu negocio online',
-  'Your site has not changed since you made it, you do not know how many people arrive, and whoever turns up at three in the morning finds nobody.':
-    'Tu sitio no cambió desde que lo hiciste, no sabés cuánta gente entra, y el que llega a las tres de la mañana no encuentra a nadie.',
 
   'Private': 'Privado',
   'one per product I run': 'uno por cada producto mío',
+
+  'Ask about a service': 'Consultar por servicios',
+
+  'What it is about':
+    'Sobre qué',
+  'Pick one':
+    'Elegí uno',
+  'Something else':
+    'Otro',
+
+  'Put real value into your product, with features that stand out.':
+    'Entregá valor en tus productos, con funcionalidades que se destaquen.',
+  'Give your customers an experience that lands, and get the data to make good decisions.':
+    'Lográ una experiencia increíble para tus clientes y obtené los mejores datos para tomar decisiones de calidad.',
+  "Let's turn your idea into something real.":
+    'Convirtamos tu sueño en una realidad.',
+  "Let's save the hours that go into repetitive work, and get data and tracking on how it moves.":
+    'Ahorremos horas de tareas repetitivas y obtené data y seguimiento de tus avances.',
+  'I help you unblock agentic designs, get products out the door, or bring AI into your teams.':
+    'Te ayudo a desbloquear diseños agénticos, llevar productos a la realidad o integrar IA en tus equipos.',
+  "Let's make your site and your campaigns stand out.":
+    'Destaquemos tu sitio y tus campañas.',
+  'Logo and identity, with the pieces that hold it up.':
+    'Logo e identidad, con las piezas que la sostienen.',
+  'Product':
+    'Producto',
+  'Demo recordings of your product, ready to show.':
+    'Grabación de demos de tu producto, listas para mostrar.',
+  'Automation and<br>internal tooling':
+    'Automatizaciones y<br>herramientas internas',
+
+  "Tell me what idea you have and we'll talk about whether I'm the right person to make it real.":
+    'Contame qué idea tenés y hablamos si soy la persona indicada para hacerla realidad.',
 
   /* --- Lima --- */
   "Axel's assistant":

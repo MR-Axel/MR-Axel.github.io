@@ -96,7 +96,8 @@
 /* Wide and short: same pen, flatter corners. */
 [data-skin="doodle"] .sideitem,
 [data-skin="doodle"] .form .field input,
-[data-skin="doodle"] .form .field textarea {
+[data-skin="doodle"] .form .field textarea,
+[data-skin="doodle"] .form .field select {
   border-style: solid;
   border-width: var(--trazo);
   border-color: var(--ink);

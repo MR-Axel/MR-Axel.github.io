@@ -1141,7 +1141,8 @@ a.mini:hover .arrow { color: var(--accent-ink); }
 }
 
 .field input,
-.field textarea {
+.field textarea,
+.field select {
   width: 100%; font: inherit; font-size: 15px; color: var(--text);
   background: var(--surface); border: 1px solid var(--line);
   border-radius: 11px; padding: 12px 14px;
@@ -1150,10 +1151,12 @@ a.mini:hover .arrow { color: var(--accent-ink); }
 .field textarea { resize: vertical; min-height: 108px; line-height: 1.55; }
 
 .field input:hover,
-.field textarea:hover { border-color: var(--line-hi); }
+.field textarea:hover,
+.field select:hover { border-color: var(--line-hi); }
 
 .field input:focus,
-.field textarea:focus {
+.field textarea:focus,
+.field select:focus {
   outline: none; background: var(--surface-hi);
   border-color: var(--accent-line); box-shadow: 0 0 0 3px var(--accent-soft);
 }
@@ -1681,8 +1684,9 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
 
 .arbol { list-style: none; margin: 30px 0 0; padding: 0; }
 
-.arbol__rama { border-top: var(--trazo, 1px) solid var(--line); }
-.arbol__rama:last-child { border-bottom: var(--trazo, 1px) solid var(--line); }
+/* Sin lineas entre ramas: con el abanico dibujado atras, cada renglon
+   horizontal competia con las flechas y la seccion se leia como una tabla. */
+.arbol__rama { border: 0; }
 
 .arbol__titulo {
   position: relative; display: flex; align-items: center; gap: 13px;
@@ -1700,19 +1704,6 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
 .arbol__rama.esta-abierta .arbol__titulo { color: var(--text); }
 .arbol__rama.esta-abierta .arbol__icono { color: var(--accent-ink); rotate: -4deg; }
 
-/* La marca de la rama abierta: una flecha corta escrita a mano que se dibuja
-   sola. Vive en el hueco de la izquierda y no empuja nada, asi que aparecer y
-   desaparecer no mueve el titulo ni un pixel. */
-.arbol__marca {
-  position: absolute; left: -30px; top: 50%; translate: 0 -50%;
-  width: 24px; height: 13px; color: var(--accent-ink); opacity: 0;
-  transition: opacity 0.25s ease;
-}
-.arbol__marca path { stroke-dasharray: 1; stroke-dashoffset: 1; }
-.arbol__rama.esta-abierta .arbol__marca { opacity: 1; }
-.arbol__rama.esta-abierta .arbol__marca path {
-  stroke-dashoffset: 0; transition: stroke-dashoffset 0.45s ease 0.05s;
-}
 
 .arbol__hijos {
   display: grid; grid-template-rows: 0fr;
@@ -1727,8 +1718,12 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
    incluye, no lo lee nadie: la persona ya decidio si le interesa antes de
    llegar. Arriba es lo primero que cae bajo el ojo cuando la rama se abre. */
 .panel__hook {
-  margin: 0 0 20px; max-width: 54ch;
-  font-size: clamp(0.98rem, 1.5vw, 1.08rem); line-height: 1.5; color: var(--text);
+  /* ⚠️ `fit-content` y no el ancho del panel: el recuadro se dibuja midiendo
+     este elemento, y como <p> de bloque medía la columna entera aunque el
+     texto ocupara la mitad. El resultado era una caja que se pasaba del borde
+     derecho por trece pixeles y quedaba cortada. */
+  width: fit-content; margin: 4px 0 34px; max-width: 50ch;
+  font-size: clamp(1.02rem, 1.6vw, 1.14rem); line-height: 1.55; color: var(--text);
   opacity: 0; translate: 0 -6px;
   transition: opacity 0.35s ease, translate 0.35s ease;
 }
@@ -1736,7 +1731,7 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
 
 .hojas {
   list-style: none; margin: 0; padding: 0;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(238px, 1fr)); gap: 20px 30px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 30px 34px;
 }
 
 .hoja {
@@ -1750,8 +1745,8 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
 }
 .arbol__rama.esta-abierta .hoja { opacity: 1; translate: none; }
 
-.hoja h4 { grid-column: 2; margin: 0 0 4px; font-size: 0.97rem; font-weight: 600; }
-.hoja p { grid-column: 2; margin: 0; font-size: 0.9rem; line-height: 1.5; color: var(--muted); }
+.hoja h4 { grid-column: 2; margin: 0 0 5px; font-size: 1.03rem; font-weight: 600; }
+.hoja p { grid-column: 2; margin: 0; font-size: 0.95rem; line-height: 1.55; color: var(--muted); }
 
 /* La flecha se dibuja sola, y siempre justo antes de que llegue su hoja.
    `pathLength="1"` normaliza el largo del trazo, asi que el mismo par de
@@ -1794,10 +1789,10 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
    abre sola en cascada. Medido: pasar por la cuarta terminaba con la quinta
    abierta. Con el panel absoluto los seis titulos no se mueven nunca. */
 @media (min-width: 900px) {
-  .arbol { position: relative; padding-right: 54%; min-height: 430px; }
+  .arbol { position: relative; padding-right: 52%; }
 
   .arbol__hijos {
-    position: absolute; top: 0; right: 0; width: 50%;
+    position: absolute; top: 0; right: 0; width: 47%;
     display: block; grid-template-rows: none;
     opacity: 0; visibility: hidden; pointer-events: none;
     /* el que se va desaparece de golpe y solo el que entra se funde: fundiendo
@@ -1812,7 +1807,8 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
   .arbol__hijos > * { overflow: visible; }
 
   .panel { padding: 0; }
-  .panel__hook { padding-left: 16px; border-left: 2px solid var(--accent); }
+  /* el recuadro lo dibuja el lienzo, no un borde */
+  .panel__hook { padding: 0; }
   .arbol__rama.esta-abierta .arbol__titulo { translate: 4px 0; }
 }
 
@@ -1870,6 +1866,70 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
     cursor: var(--cursor-click) 5 3, pointer;
   }
 }
+
+
+/* ---------- el abanico ---------- */
+
+/* 🔴 Las flechas se calculan en JavaScript y no se pueden escribir a mano: van
+   desde el titulo elegido hasta cada hoja, y esas dos posiciones dependen del
+   alto del texto, del idioma y del ancho de la ventana. Cualquier `d` fijo
+   quedaria bien en una sola pantalla.
+
+   El lienzo cubre la lista entera, no dispara eventos, y se redibuja al abrir
+   otra rama, al cambiar de idioma y al mover la ventana. */
+.abanico {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; overflow: visible; z-index: 0;
+  color: var(--accent-ink);
+}
+.abanico path { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+.abanico .trazo { stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.abanico .punta { stroke-width: 1.6; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.abanico .caja { stroke-width: 1.6; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0.85; }
+.abanico.dibuja .caja { stroke-dashoffset: 0; transition: stroke-dashoffset 0.7s ease 0.05s; }
+.abanico.dibuja .trazo {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.5s ease calc(var(--i, 0) * 70ms);
+}
+.abanico.dibuja .punta {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.25s ease calc(var(--i, 0) * 70ms + 340ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .abanico .trazo, .abanico .punta { stroke-dashoffset: 0; transition: none; }
+}
+
+@media (min-width: 900px) {
+  /* las flechitas en linea de cada hoja se van: su trabajo lo hace el abanico */
+  .hoja__flecha { display: none; }
+  .hoja { grid-template-columns: 1fr; }
+  .hoja h4, .hoja p { grid-column: 1; }
+  /* el boton por rama tambien: queda uno solo, abajo y al medio */
+  .rama__cta { display: none; }
+}
+
+/* El unico boton de la seccion, centrado. Antes eran siete: uno por rama mas
+   este, y el de la rama abierta caia encima del parrafo de cierre porque el
+   panel esta fuera del flujo. */
+.cierre, .cierre__cta { text-align: center; }
+.cierre { margin-left: auto; margin-right: auto; }
+.cierre__cta { margin-top: 22px; }
+
+
+/* El desplegable del formulario. ⚠️ `appearance: none` mas una flecha propia:
+   el control nativo se pinta con los colores del sistema operativo y en el tema
+   oscuro quedaba texto negro sobre fondo negro. Con la flecha dibujada aparte
+   el campo se ve igual que los otros dos. */
+.field select {
+  padding-right: 38px;
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' fill='none'%3E%3Cpath d='M1.2 1.4c2.2 2 3.9 4 5.8 6.2 1.8-2.3 3.5-4.4 5.7-6.4' stroke='%236b6b63' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+}
+.field select:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 2px; }
+/* el menu desplegado lo pinta el sistema, asi que las opciones van con colores
+   explicitos o en tema oscuro salen ilegibles en algunos navegadores */
+.field select option { color: #1b1a17; background: #fff; }
 
 /* ---------- interaction layer ---------- */
 

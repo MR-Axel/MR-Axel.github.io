@@ -65,6 +65,7 @@
       body: JSON.stringify({
         nombre: valor('nombre'),
         mail: valor('mail'),
+        tema: valor('tema'),
         busca: valor('busca'),
         web: valor('web'),
         t: abierto
