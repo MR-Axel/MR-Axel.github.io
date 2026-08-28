@@ -271,8 +271,8 @@ window.ES = {
     'Producto para optimización de rutas y operación de flotas. Armé el equipo de prototipado desde cero y lo dirigí, hasta que nadie discutía una idea sin tener algo andando adelante.',
   'Agent architecture and the roadmap over it: what the agent may do, where it hands off, how you tell whether it is any good. I led the team that built the workflow builder they run on, and shipped features into it myself.':
     'Arquitectura de agentes y el roadmap encima: qué puede hacer el agente, dónde le pasa la posta, cómo te das cuenta de si es bueno. Lideré el equipo que construyó el workflow builder sobre el que corren, y shippeé features a producción yo mismo.',
-  'Voice LLMs on live calls, where it all comes down to latency and to what happens when somebody interrupts you. And images as input: a screenshot comes in and something has to decide from it.':
-    'LLMs de voz en llamadas reales, donde todo se juega en la latencia y en qué pasa cuando el otro te interrumpe. E imágenes como entrada: entra una captura y algo tiene que decidir con eso.',
+  'AI on live calls, with latency, interruptions and tone under control.':
+    'Llamadas con IA, con control de latencia, interrupciones, tono.',
   'I write what the agent may do, where it hands off to a person, and how you find out when it stops being good. Chat, WhatsApp and voice, and the ones that read an image and decide from it.':
     'Escribo qué tiene permitido hacer el agente, dónde le pasa la posta a una persona, y cómo te enterás cuando deja de ser bueno. Chat, WhatsApp y voz, y los que miran una imagen y deciden con eso.',
   'A landing that says what you actually do, with the measurement wired in from day one. Plus a chat agent trained on your business, so whoever turns up at three in the morning gets an answer.':
@@ -361,7 +361,6 @@ window.ES = {
   /* --- craft, the four new ones --- */
   'Agent architecture': 'Arquitectura de agentes',
 
-  'Voice and multimodal': 'Voz y multimodal',
 
   'Generative production': 'Producción generativa',
 
