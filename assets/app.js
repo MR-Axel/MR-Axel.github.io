@@ -20,6 +20,36 @@
     try { localStorage.setItem(key, value); } catch (e) { /* private mode */ }
   }
 
+
+  /* ================= la URL se limpia sola ================= */
+
+  /* Al tocar "Escribime" el navegador salta a #contact y DEJA ESO EN LA BARRA,
+     que despues entra en el historial. La proxima vez que se escriben tres
+     letras del dominio, el autocompletado ofrece la version con el ancla, y el
+     sitio abre a mitad de pagina sin que nadie haya pedido eso.
+
+     🔴 Y el ancla sobrevive a las redirecciones: el navegador nunca manda la
+     parte de "#..." al servidor, la vuelve a pegar en el destino. Por eso un
+     "#contact" viejo guardado sobre el dominio anterior seguia abriendo el
+     nuevo directo en el formulario, aunque la redireccion en si estuviera
+     limpia.
+
+     ⚠️ El salto se deja pasar tal cual y recien despues se saca el ancla de la
+     barra. Cancelando el evento habria que reimplementar a mano el
+     desplazamiento suave y el margen de 82px que compensa la barra de arriba, y
+     el enlace dejaria de funcionar sin JavaScript. */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a || a.getAttribute('href').length < 2) return;
+    if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    if (!document.querySelector(a.getAttribute('href'))) return;
+    window.setTimeout(function () {
+      try {
+        history.replaceState(null, '', location.pathname + location.search);
+      } catch (err) { /* file:// y navegadores viejos */ }
+    }, 0);
+  });
+
   /* ================= language ================= */
 
   /* Keys are the English innerHTML with whitespace collapsed. Anything not in
