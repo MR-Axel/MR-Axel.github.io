@@ -369,7 +369,14 @@ section[id] { scroll-margin-top: 82px; }
   flex-shrink: 0; margin-top: 0.55em; /* lines the dot up with the first row of text */
 }
 
-.hero h1 { font-size: clamp(2.4rem, 5.2vw, 3.7rem); font-weight: 600; margin-bottom: 34px; }
+/* `pretty` y no `balance`: el titular ya trae sus cortes escritos a mano con
+   <br>, y en un telefono cada uno de esos tramos vuelve a partirse. Sin esto el
+   ultimo tramo terminaba en una linea con la palabra "yo." sola, que es el
+   defecto tipografico que mas se nota en un titular grande. `balance` no lo
+   arregla porque reparte el ancho parejo entre lineas; `pretty` es el que mira
+   el final del parrafo y evita la ultima linea huerfana. */
+.hero h1 { font-size: clamp(2.4rem, 5.2vw, 3.7rem); font-weight: 600; margin-bottom: 34px;
+  text-wrap: pretty; }
 /* Spanish runs about a fifth longer than English for the same sentence, so it
    gets its own step on the scale rather than a compromised headline */
 [data-lang="es"] .hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.2rem); }

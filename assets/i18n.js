@@ -89,15 +89,12 @@ window.ES = {
     'Desafíos diarios gamificados con rankings y un loop de WhatsApp.',
 
   /* --- craft --- */
-  'What I am genuinely good at.': 'En qué soy bueno de verdad.',
 
   'AI agent products': 'Productos con agentes de IA',
   'Agent systems end to end, across chat, WhatsApp and voice. The hard part is never the model, it is what the agent is allowed to do.':
     'Sistemas de agentes de punta a punta: chat, WhatsApp y voz. La parte difícil nunca es el modelo, es qué tiene permitido hacer el agente.',
 
   'Agentic coding': 'Programación con agentes',
-  'Claude Code and Cursor every day. I write production features and ship them, so I do not just prioritize work, I move it.':
-    'Claude Code y Cursor todos los días. Escribo features de producción y las shippeo, así que no solo priorizo el trabajo: lo muevo.',
 
   'n8n, Activepieces, Retool, Zapier, Make. The boring machinery that hands a team its hours back, and the process that keeps it from rotting.':
     'n8n, Activepieces, Retool, Zapier, Make. La maquinaria aburrida que le devuelve las horas a un equipo, y el proceso que evita que se pudra.',
@@ -111,8 +108,6 @@ window.ES = {
     'Seis años en QA y releases antes de producto: diseño de pruebas, despliegues on-premise, pipelines. Por eso solo confío en lo que puedo testear.',
 
   'Data and BI': 'Datos y BI',
-  'SQL, Tableau, Metabase. Dashboards people actually make decisions on, not screenshots for a monthly deck.':
-    'SQL, Tableau, Metabase. Tableros sobre los que la gente realmente decide, no capturas para un deck mensual.',
 
   /* --- agent skills --- */
 
@@ -199,8 +194,6 @@ window.ES = {
   'Let\'s talk': 'Hablemos',
 
   /* --- the contact form --- */
-  'Open to remote AI roles, open to building for you, and always up for a conversation about agents, automation, or why the commute is still broken. Leave it here and it reaches my phone in a few seconds.':
-    'Abierto a roles remotos de IA, abierto a construir para vos, y siempre listo para una charla sobre agentes, automatización, o por qué el viaje al trabajo sigue roto. Dejámelo acá y me llega al teléfono en unos segundos.',
   'Your name':
     'Tu nombre',
   'Email':
@@ -217,12 +210,6 @@ window.ES = {
     'No salió. Por LinkedIn le pego la vuelta y lo veo igual.',
 
   /* --- el hero --- */
-  'I go after the systems nobody designed badly on purpose. They just got old and nobody touched them.':
-    'Voy a los sistemas que nadie diseñó mal a propósito. Quedaron viejos y nadie los tocó.',
-  'Strategy, product and code.<br>I think it and I build it.':
-    'Estrategia, producto y código.<br>Lo pienso y lo construyo.',
-  'Agents, automation and whole products from nothing. I think them through, I build them, and I put them in front of people. <strong>Weeks, not quarters.</strong>':
-    'Agentes, automatización y productos enteros desde nada. Los pienso, los construyo y los pongo a andar. <strong>Semanas, no trimestres.</strong>',
   'Years on my own products':
     'Años con productos propios',
   'Tools delivered':
@@ -259,8 +246,6 @@ window.ES = {
     'Los ingenieros los tenés. Falta alguien que decida qué NO tiene que hacer la IA, y que le diga que no a la demo que no sobrevive a un usuario. Uno a uno con un fundador, o al lado del equipo.',
   'For a team shipping AI features with nobody owning their shape.':
     'Para un equipo que shippea features de IA sin que nadie se haga cargo de su forma.',
-  'Buenos Aires, Argentina · open to remote AI product & AI engineering roles':
-    'Buenos Aires, Argentina · abierto a roles remotos de producto e ingeniería de IA',
   'Bs. As. · open to remote AI roles':
     'Bs. As. · abierto a roles remotos de IA',
   'MBA en Tecnología e Innovación':
@@ -274,11 +259,39 @@ window.ES = {
   'Earlier builds and one on pause. Two are still up and the rest are off.':
     'Cosas anteriores y una en pausa. Dos siguen en pie y el resto está apagado.',
 
+  /* --- voz, revision completa --- */
+  'AI products.<br>Idea to production,<br>and I write the code.':
+    'Productos con IA.<br>De la idea a producción,<br>y el código lo escribo yo.',
+  'Chat agents, voice agents, agents that read an image. Automation. And whole products from zero, which is most of what I do.':
+    'Agentes de chat, de voz y de imagen. Automatizaciones. Y productos enteros desde cero, que es lo que más hago.',
+  'Almost everything below started as something that annoyed me and nobody else was fixing.':
+    'Casi todo lo que hay acá abajo salió de algo que me molestaba y que nadie estaba arreglando.',
+  'Before the current title, mostly in rooms where being wrong cost more than a rollback.':
+    'Antes del título actual, casi siempre en lugares donde equivocarse costaba más que un rollback.',
+  'Product for route optimisation and fleet operations. Built the prototyping practice from nothing and led it, with loops short enough that every conversation already had a working thing in it.':
+    'Producto para optimización de rutas y operación de flotas. Armé la práctica de prototipado desde cero y la lideré, con loops lo bastante cortos como para que en cada conversación ya hubiera algo andando.',
+  'What I do best.':
+    'Lo que hago mejor.',
+  'Claude Code and Cursor every day. I write the production features myself, so I know what everything I prioritise actually costs.':
+    'Claude Code y Cursor todos los días. Las features de producción las escribo yo, así que sé lo que cuesta cada cosa que priorizo.',
+  'Voice LLMs on live calls, and images as input: reading a screenshot or a photo and deciding from it.':
+    'LLMs de voz en llamadas reales, e imágenes como entrada: leer una captura o una foto y decidir a partir de eso.',
+  'Umami, LogRocket, session review, Meta Ads. I count the funnel from the database, because the dashboard has lied to me more than once.':
+    'Umami, LogRocket, revisión de sesiones, Meta Ads. El embudo lo cuento desde la base de datos, porque el panel ya me mintió más de una vez.',
+  'SQL, Tableau, Metabase. Dashboards that get opened when there is a decision to make.':
+    'SQL, Tableau, Metabase. Tableros que se abren cuando hay que decidir algo.',
+  'Open to remote AI roles, and to building something for you. Write it here and it lands on my phone in a few seconds.':
+    'Abierto a roles remotos de IA, y a construir algo para vos. Escribilo acá y me llega al teléfono en unos segundos.',
+  'Tell me what you need':
+    'Contame qué necesitás',
+  'WhatsApp agent':
+    'Agente de WhatsApp',
+  'Buenos Aires, Argentina · open to remote AI product &amp; AI engineering roles':
+    'Buenos Aires, Argentina · abierto a roles remotos de producto e ingeniería de IA',
+
   /* --- Lima --- */
   "Axel's assistant":
     'Asistente de Axel',
-  'Here to answer whatever you need':
-    'Estoy acá para responderte',
   'Close':
     'Cerrar',
   'Your message':
@@ -299,8 +312,6 @@ window.ES = {
   /* --- the arc --- */
   'Path': 'Recorrido',
   'How I got here': 'Cómo llegué acá',
-  'Before the current title, mostly in rooms where being wrong cost more than a rollback. In order.':
-    'Antes del título actual, casi siempre en lugares donde equivocarse costaba más que un rollback. En orden.',
 
   'Consulting': 'Consultoría',
   'Process consulting for industry': 'Consultoría de procesos en industrias',
@@ -324,8 +335,6 @@ window.ES = {
 
   'Logistics': 'Logística',
   'Routing, fleets, and a team': 'Ruteo, flotas y un equipo',
-  'Product for route optimisation and fleet operations. Built the prototyping practice from nothing and led it, short enough loops that a working thing showed up in the conversation instead of a slide.':
-    'Producto para optimización de rutas y operación de flotas. Armé la práctica de prototipado desde cero y la lideré, con loops lo bastante cortos como para que en la conversación apareciera algo funcionando en vez de una lámina.',
 
   'AI product': 'Producto de IA',
   'Agents from zero to production': 'Agentes de cero a producción',
@@ -338,16 +347,12 @@ window.ES = {
     'El sistema donde viven los agentes, de cero a producción, y el equipo que lo construye: límites, escalamiento, qué es una buena respuesta.',
 
   'Voice and multimodal': 'Voz y multimodal',
-  'Voice LLMs on live calls, and images as input rather than decoration: reading a screenshot or a photo and deciding from it.':
-    'LLMs de voz en llamadas reales, e imágenes como entrada y no como adorno: leer una captura o una foto y decidir a partir de eso.',
 
   'Generative production': 'Producción generativa',
   'Image generation and product video, prompt to rendered clip, on a pipeline. A landing gets its visuals the week it gets its copy.':
     'Generación de imágenes y video de producto, del prompt al clip, en un pipeline. Una landing tiene visuales la semana que tiene el texto.',
 
   'Growth and instrumentation': 'Growth e instrumentación',
-  'Umami, LogRocket, session review, Meta Ads. Counting the funnel from the database and not the dashboard, because the dashboard lies.':
-    'Umami, LogRocket, revisión de sesiones, Meta Ads. Contar el embudo desde la base y no desde el panel, porque el panel miente.',
 
   /* --- strings JS builds, so they are not in the DOM to be matched --- */
   '_contributions': '{n} contribuciones en el último año',
