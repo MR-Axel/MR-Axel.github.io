@@ -1619,8 +1619,8 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
 .arc.is-scrubbing .arc__step { cursor: pointer; }
 @media (hover: hover) and (pointer: fine) {
   .arc.is-scrubbing .arc__step {
-    cursor: url("doodles/cursor/flecha-click.png") 3 2, pointer;
-    cursor: var(--cursor-click) 3 2, pointer;
+    cursor: url("doodles/cursor/flecha-click.png") 5 3, pointer;
+    cursor: var(--cursor-click) 5 3, pointer;
   }
 }
 .arc.is-scrubbing .arc__step:focus-visible {
@@ -1652,18 +1652,18 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
                               url("doodles/cursor/flecha-click@2x.png") 2x);
   }
 
-  body { cursor: url("doodles/cursor/flecha.png") 3 2, auto; }
-  body { cursor: var(--cursor-flecha) 3 2, auto; }
+  body { cursor: url("doodles/cursor/flecha.png") 5 3, auto; }
+  body { cursor: var(--cursor-flecha) 5 3, auto; }
 
   a, button, summary, [role="button"], .arc__step, label,
   input[type="submit"], input[type="button"] {
-    cursor: url("doodles/cursor/flecha-click.png") 3 2, pointer;
-    cursor: var(--cursor-click) 3 2, pointer;
+    cursor: url("doodles/cursor/flecha-click.png") 5 3, pointer;
+    cursor: var(--cursor-click) 5 3, pointer;
   }
 
   /* escribir es escribir: ahi el cursor tiene que decir donde cae la letra */
   input, textarea, select { cursor: auto; }
-  input[type="submit"], input[type="button"], select { cursor: url("doodles/cursor/flecha-click.png") 3 2, pointer; }
+  input[type="submit"], input[type="button"], select { cursor: url("doodles/cursor/flecha-click.png") 5 3, pointer; }
 
   /* la marquesina se agarra, y para eso la manito del sistema dice mas que un
      dibujo: es el gesto que la persona ya conoce */

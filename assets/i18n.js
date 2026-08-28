@@ -37,8 +37,8 @@ window.ES = {
   'Products I built and still run. All of them are live, and you can walk into every one.':
     'Productos que construí y sigo manteniendo. Todos están vivos, y a todos se puede entrar.',
 
-  'Tailored CVs per posting, tracked applications, and the eligibility check up front instead of after you have already applied.':
-    'CV a medida para cada aviso, postulaciones con seguimiento, y la compuerta de elegibilidad antes de aplicar y no después.',
+  'Tailored CVs per posting, tracked applications, and the eligibility check up front.':
+    'CV a medida para cada aviso, postulaciones con seguimiento, y la compuerta de elegibilidad antes de aplicar.',
 
   'An AI tutor for kids in LatAm. Nova builds missions around what a kid already loves, and never hands over the answer.':
     'Un tutor de IA para chicos en LatAm. Nova arma misiones desde lo que al chico ya le copa, y nunca le da la respuesta.',
@@ -243,8 +243,8 @@ window.ES = {
     'Cosas anteriores y una en pausa. Dos siguen en pie y el resto está apagado.',
 
   /* --- voz, revision completa --- */
-  'Claude Code and Cursor every day. I write the production features myself.':
-    'Claude Code y Cursor todos los días. Las features de producción las escribo yo.',
+  'Skills, agents, agentic design patterns and the orchestrators that run them, built for a team to use.':
+    'Armado de skills, agentes, patrones de diseño agéntico y los orquestadores que los corren, para que los use un equipo.',
   'SQL, Tableau, Metabase. Dashboards that get opened when there is a decision to make.':
     'SQL, Tableau, Metabase. Tableros que se abren cuando hay que decidir algo.',
   'Open to remote AI roles, and to building something for you. Write it here and it lands on my phone in a few seconds.':
@@ -302,8 +302,8 @@ window.ES = {
   'Building a team or a product where there was nothing, and then designing how it keeps running without me.':
     'Armar un equipo o un producto donde no había nada, y después diseñar cómo sigue andando sin mí.',
 
-  'Six years testing what other people built. Now I build it myself, to that standard.':
-    'Me pasé seis años testeando lo que construían otros. Ahora lo construyo yo, con calidad.',
+  'Six years testing what other people built.<br>Now I build it myself, to that standard.':
+    'Me pasé seis años testeando lo que construían otros.<br>Ahora lo construyo yo, con calidad.',
 
   'Agent chat, Voice AI, image generation and analysis. Automation with escalation when it is needed. Internal tools for your team, or to take to market.':
     'Chat de agentes, Voz IA, creación y análisis de imágenes. Automatizaciones con escalamiento si hace falta. Herramientas internas para tu equipo o para salir al mercado.',
