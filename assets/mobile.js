@@ -376,23 +376,6 @@
 
   function montar() {
     acordeon('.arc__step', '.arc__label');
-    acordeon('.offer', 'h3');
-    /* 🔴 Un boton adentro de cada servicio, y no solo el del final. Plegado, el
-       unico camino para consultar quedaba despues de cinco titulos: la persona
-       lee el que le sirve, lo abre, y para escribir tiene que cerrarlo y seguir
-       bajando. El pedido se hace donde nacio el interes. */
-    document.querySelectorAll('.offer .plegable > div').forEach(function (cuerpo) {
-      if (cuerpo.querySelector('.offer__cta')) return;
-      var a = document.createElement('a');
-      a.className = 'btn btn--sm offer__cta';
-      a.href = '#contact';
-      a.textContent = document.documentElement.getAttribute('data-lang') === 'es'
-        ? 'Consultar por esto' : 'Ask about this';
-      a.addEventListener('click', function () {
-        if (window.medir) window.medir('servicio_consulta');
-      });
-      cuerpo.appendChild(a);
-    });
     /* Una fila y despacio: son tarjetas que hay que leer y tocar, no fichas.
        La velocidad sale de la cantidad, y el gesto se frena al tocarlo. */
     marquesina('.cards', 1, 13);

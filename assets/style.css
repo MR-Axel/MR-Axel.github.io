@@ -1672,121 +1672,155 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
 }
 
 
-/* ---------- el arbol de lo que puede construir ---------- */
+/* ---------- el arbol ---------- */
 
-/* Seis ramas, una abierta a la vez. La rama abierta corre el titulo a la
-   izquierda y saca las hojas a su derecha, con una flecha dibujada apuntando a
-   cada una.
+/* Seis ramas, una abierta a la vez. La secuencia al abrir esta pensada como una
+   sola frase: primero entra el dolor, despues se dibujan las flechas y las
+   hojas de a una, y al final aparece el boton. Todo en 700ms, que es lo que
+   tarda en leerse el titulo que se acaba de tocar. */
 
-   🔴 El alto se anima con `grid-template-rows: 0fr -> 1fr` y NO con una altura
-   en pixeles. Es lo unico que interpola un alto desconocido: `height: auto` no
-   interpola, y medir con scrollHeight y escribir un numero se rompe apenas el
-   texto reflowea, que en un sitio en dos idiomas pasa cada vez que se toca el
-   selector. */
-
-.arbol { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 4px; }
+.arbol { list-style: none; margin: 30px 0 0; padding: 0; }
 
 .arbol__rama { border-top: var(--trazo, 1px) solid var(--line); }
 .arbol__rama:last-child { border-bottom: var(--trazo, 1px) solid var(--line); }
 
 .arbol__titulo {
-  display: flex; align-items: center; gap: 14px;
-  width: 100%; padding: 18px 6px; border: 0; background: none;
-  font: inherit; color: var(--text); text-align: left;
-  transition: translate 0.5s cubic-bezier(0.22, 1, 0.36, 1), color 0.25s ease;
+  position: relative; display: flex; align-items: center; gap: 13px;
+  width: 100%; padding: 19px 6px; border: 0; background: none;
+  font: inherit; color: var(--muted); text-align: left;
+  transition: color 0.25s ease, translate 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.arbol__nombre { font-size: clamp(1.15rem, 2.3vw, 1.55rem); font-weight: 600; letter-spacing: -0.02em; }
-.arbol__icono { flex: none; width: 30px; height: 30px; color: var(--muted); transition: color 0.25s ease; }
+.arbol__nombre {
+  font-size: clamp(1.12rem, 2.2vw, 1.5rem); font-weight: 600; letter-spacing: -0.02em;
+}
+.arbol__icono { flex: none; width: 29px; height: 29px; transition: color 0.25s ease, rotate 0.5s ease; }
 .arbol__icono svg { width: 100%; height: 100%; }
 
-.arbol__rama:hover .arbol__icono,
-.arbol__rama.esta-abierta .arbol__icono { color: var(--accent-ink); }
+.arbol__rama:hover .arbol__titulo,
+.arbol__rama.esta-abierta .arbol__titulo { color: var(--text); }
+.arbol__rama.esta-abierta .arbol__icono { color: var(--accent-ink); rotate: -4deg; }
 
-/* ⚠️ La fila cerrada mide 0 pero el contenido sigue existiendo, asi que hay que
-   recortarlo: sin `overflow: hidden` en el hijo, el texto se desborda de una
-   caja de cero y queda flotando sobre la rama de abajo. */
+/* La marca de la rama abierta: una flecha corta escrita a mano que se dibuja
+   sola. Vive en el hueco de la izquierda y no empuja nada, asi que aparecer y
+   desaparecer no mueve el titulo ni un pixel. */
+.arbol__marca {
+  position: absolute; left: -30px; top: 50%; translate: 0 -50%;
+  width: 24px; height: 13px; color: var(--accent-ink); opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.arbol__marca path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.arbol__rama.esta-abierta .arbol__marca { opacity: 1; }
+.arbol__rama.esta-abierta .arbol__marca path {
+  stroke-dashoffset: 0; transition: stroke-dashoffset 0.45s ease 0.05s;
+}
+
 .arbol__hijos {
   display: grid; grid-template-rows: 0fr;
-  transition: grid-template-rows 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: grid-template-rows 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .arbol__hijos > * { overflow: hidden; min-height: 0; }
 .arbol__rama.esta-abierta .arbol__hijos { grid-template-rows: 1fr; }
 
+.panel { padding: 2px 6px 26px 42px; }
+
+/* 🔴 El dolor va primero y va grande. Al pie, despues de la lista de lo que
+   incluye, no lo lee nadie: la persona ya decidio si le interesa antes de
+   llegar. Arriba es lo primero que cae bajo el ojo cuando la rama se abre. */
+.panel__hook {
+  margin: 0 0 20px; max-width: 54ch;
+  font-size: clamp(0.98rem, 1.5vw, 1.08rem); line-height: 1.5; color: var(--text);
+  opacity: 0; translate: 0 -6px;
+  transition: opacity 0.35s ease, translate 0.35s ease;
+}
+.arbol__rama.esta-abierta .panel__hook { opacity: 1; translate: none; }
+
 .hojas {
-  list-style: none; margin: 0; padding: 0 6px 22px 44px;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px 26px;
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(238px, 1fr)); gap: 20px 30px;
 }
 
 .hoja {
-  display: grid; grid-template-columns: 30px 1fr; column-gap: 8px; align-items: start;
-  opacity: 0; translate: -10px 0;
-  transition: opacity 0.4s ease, translate 0.4s ease;
-  /* cada hoja entra un poco despues que la anterior: leido de corrido parece
-     que la flecha las va senalando de a una */
-  transition-delay: calc(var(--i, 0) * 55ms);
+  display: grid; grid-template-columns: 30px 1fr; column-gap: 9px; align-items: start;
+  opacity: 0; translate: -12px 0;
+  transition: opacity 0.34s ease, translate 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+  /* cada hoja entra detras de la anterior. Leido de corrido parece que la
+     flecha las va senalando de a una, y ese es el punto: la lista no aparece
+     de golpe, se recorre. */
+  transition-delay: calc(140ms + var(--i, 0) * 62ms);
 }
 .arbol__rama.esta-abierta .hoja { opacity: 1; translate: none; }
 
-.hoja h4 { grid-column: 2; margin: 0 0 3px; font-size: 0.97rem; font-weight: 600; }
+.hoja h4 { grid-column: 2; margin: 0 0 4px; font-size: 0.97rem; font-weight: 600; }
 .hoja p { grid-column: 2; margin: 0; font-size: 0.9rem; line-height: 1.5; color: var(--muted); }
 
-/* La flecha se dibuja sola al abrir. `pathLength: 1` normaliza el largo, asi
-   que el mismo par de numeros sirve para los dos trazos aunque midan distinto. */
-.hoja__flecha { grid-column: 1; grid-row: 1 / span 2; width: 30px; height: 15px; margin-top: 4px; color: var(--accent-ink); }
+/* La flecha se dibuja sola, y siempre justo antes de que llegue su hoja.
+   `pathLength="1"` normaliza el largo del trazo, asi que el mismo par de
+   numeros sirve para los dos caminos aunque midan distinto. */
+.hoja__flecha {
+  grid-column: 1; grid-row: 1 / span 2; width: 30px; height: 14px; margin-top: 4px;
+  color: var(--accent-ink);
+}
 .hoja__flecha path { stroke-dasharray: 1; stroke-dashoffset: 1; }
 .arbol__rama.esta-abierta .hoja__flecha path {
   stroke-dashoffset: 0;
-  transition: stroke-dashoffset 0.5s ease calc(var(--i, 0) * 55ms + 90ms);
+  transition: stroke-dashoffset 0.42s ease calc(110ms + var(--i, 0) * 62ms);
+}
+
+.rama__cta {
+  margin-top: 24px; opacity: 0; translate: 0 6px;
+  transition: opacity 0.3s ease, translate 0.3s ease;
+}
+.arbol__rama.esta-abierta .rama__cta {
+  opacity: 1; translate: none;
+  /* ultimo de la fila: aparece cuando ya se puede leer que ofrece */
+  transition-delay: 0.34s;
 }
 
 @media (max-width: 760px) {
-  .arbol__titulo { padding: 15px 2px; gap: 11px; }
+  .arbol__titulo { padding: 16px 2px; gap: 10px; }
   .arbol__icono { width: 24px; height: 24px; }
-  .hojas { padding: 0 2px 18px 30px; grid-template-columns: 1fr; gap: 14px; }
-  .hoja { grid-template-columns: 24px 1fr; }
-  .hoja__flecha { width: 24px; }
+  .arbol__marca { left: auto; right: 2px; }
+  .panel { padding: 0 2px 20px 30px; }
+  .panel__hook { margin-bottom: 16px; }
+  .hojas { grid-template-columns: 1fr; gap: 15px; }
+  .hoja { grid-template-columns: 25px 1fr; }
+  .hoja__flecha { width: 25px; }
+  .rama__cta { margin-top: 18px; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .arbol__hijos, .hoja, .hoja__flecha path { transition: none; }
-}
-
-
-/* 🔴 ANCHO: el detalle sale del flujo. Abriendose dentro de la lista, cada
-   apertura corre las ramas de abajo, el puntero queda parado sobre otra rama
-   distinta de la que toco, y esa se abre sola en cascada. Medido: pasar por la
-   cuarta terminaba con la quinta abierta.
-   Con el panel absoluto los seis titulos no se mueven nunca. */
+/* 🔴 ANCHO: el detalle sale del flujo, y no es una decision estetica. Con el
+   panel abriendose dentro de la lista, cada apertura corre las ramas de abajo,
+   el puntero queda parado sobre otra rama distinta de la que toco, y esa se
+   abre sola en cascada. Medido: pasar por la cuarta terminaba con la quinta
+   abierta. Con el panel absoluto los seis titulos no se mueven nunca. */
 @media (min-width: 900px) {
-  .arbol { position: relative; padding-right: 56%; }
-  .arbol__rama { position: static; }
+  .arbol { position: relative; padding-right: 54%; min-height: 430px; }
 
   .arbol__hijos {
-    position: absolute; top: 0; right: 0; width: 52%;
+    position: absolute; top: 0; right: 0; width: 50%;
     display: block; grid-template-rows: none;
-    /* 🔴 EL QUE SE VA DESAPARECE DE GOLPE Y SOLO EL QUE ENTRA SE FUNDE. Con
-       las dos transiciones puestas, recorrer la lista rapido deja dos y tres
-       paneles superpuestos a media opacidad, y el texto de uno se lee encima
-       del otro. Medido en captura: el detalle de Growth pisando el de
-       Produccion generativa. */
     opacity: 0; visibility: hidden; pointer-events: none;
+    /* el que se va desaparece de golpe y solo el que entra se funde: fundiendo
+       los dos, recorrer la lista rapido deja dos y tres paneles superpuestos a
+       media opacidad y el texto de uno se lee encima del otro */
     transition: none;
   }
   .arbol__rama.esta-abierta .arbol__hijos {
     opacity: 1; visibility: visible; pointer-events: auto;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.25s ease;
   }
   .arbol__hijos > * { overflow: visible; }
 
-  .hojas { padding: 4px 0 0 0; gap: 20px 28px; }
+  .panel { padding: 0; }
+  .panel__hook { padding-left: 16px; border-left: 2px solid var(--accent); }
+  .arbol__rama.esta-abierta .arbol__titulo { translate: 4px 0; }
+}
 
-  /* el titulo abierto se corre un pelo hacia la izquierda, que es el gesto que
-     conecta la lista con el panel de la derecha */
-  .arbol__rama.esta-abierta .arbol__titulo { translate: -6px 0; }
-  .arbol__rama.esta-abierta .arbol__nombre { color: var(--text); }
-  .arbol__titulo { color: var(--muted); }
-  .arbol__rama.esta-abierta .arbol__titulo,
-  .arbol__rama:hover .arbol__titulo { color: var(--text); }
+@media (prefers-reduced-motion: reduce) {
+  .arbol__hijos, .hoja, .hoja__flecha path, .panel__hook, .rama__cta, .arbol__marca {
+    transition: none;
+  }
+  .hoja__flecha path, .arbol__marca path { stroke-dashoffset: 0; }
 }
 
 /* ---------- interaction layer ---------- */

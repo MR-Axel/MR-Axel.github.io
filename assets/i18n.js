@@ -14,7 +14,6 @@ window.ES = {
   'Skip to content': 'Saltar al contenido',
   'Work': 'Productos',
   'Craft': 'Oficio',
-  'What I do': 'Lo que hago',
   'Activity': 'Actividad',
   'Get in touch': 'Escribime',
   'See what I build': 'Mirá lo que construyo',
@@ -139,19 +138,11 @@ window.ES = {
   /* &#39; in the source, but the browser hands back a plain apostrophe, so the
      key has to be written the way innerHTML reads it */
 
-  'If somebody on your team spends the day moving the same data between two screens.':
-    'Si alguien de tu equipo se pasa el día moviendo los mismos datos entre dos pantallas.',
 
-  'If you have the idea and no team to build it.':
-    'Si tenés la idea y no tenés equipo para construirla.',
 
   'n8n, Activepieces, Retool, Zapier, Make. Plus the process that keeps it from rotting after I leave.':
     'n8n, Activepieces, Retool, Zapier, Make. Más el proceso que evita que se pudra cuando me voy.',
-  'If the process lives in a spreadsheet that only one person understands.':
-    'Si el proceso vive en una planilla que entiende una sola persona.',
 
-  'If you have engineers and the AI decisions are being made by whoever is free.':
-    'Si tenés equipo técnico y las decisiones de IA las toma el que está libre.',
 
   'Tell me what is broken and I will tell you whether I am the right person for it. If I am not, I will say so, which is cheaper for both of us than finding out in week three.':
     'Contame qué está roto y te digo si soy la persona indicada. Si no lo soy, te lo digo, que sale más barato para los dos que descubrirlo en la semana tres.',
@@ -197,30 +188,10 @@ window.ES = {
     'Herramientas entregadas',
 
   /* --- servicios --- */
-  'Agent systems, spec to production':
-    'Sistemas de agentes, de la spec a producción',
-  'For a process that is currently a person copying between two screens.':
-    'Para un proceso que hoy es una persona copiando entre dos pantallas.',
-  '0 to 1':
-    'De 0 a 1',
-  'An idea to something people can use. Spec, build, release, in weeks. You end up owning the repo.':
-    'De una idea a algo que la gente pueda usar. Spec, construcción y release, en semanas. El repo queda tuyo.',
-  'For a thesis with no product yet, or a company that needs a real thing in the room.':
-    'Para una hipótesis que todavía no tiene producto, o una empresa que necesita algo funcionando arriba de la mesa.',
-  'Your business online, and something that answers':
-    'Tu negocio online, y algo que conteste',
-  'If your site has not changed since you made it and you do not know how many people arrive.':
-    'Si tu sitio no cambió desde que lo hiciste y no sabés cuánta gente entra.',
   'n8n, Activepieces, Retool, Zapier, Make. Plus the process that keeps it from rotting after I leave, which is the part that goes missing.':
     'n8n, Activepieces, Retool, Zapier, Make. Más el proceso que evita que se pudra cuando me voy, que es la parte que suele faltar.',
-  'For an operation running on spreadsheets and goodwill.':
-    'Para una operación que anda con planillas y buena voluntad.',
   'Strategy and advisory':
     'Estrategia y asesoría',
-  'You have the engineers. What is missing is someone deciding what the AI should not do, and saying no to the demo that will not survive a user. One to one with a founder, or alongside the team.':
-    'Los ingenieros los tenés. Falta alguien que decida qué NO tiene que hacer la IA, y que le diga que no a la demo que no sobrevive a un usuario. Uno a uno con un fundador, o al lado del equipo.',
-  'For a team shipping AI features with nobody owning their shape.':
-    'Para un equipo que shippea features de IA sin que nadie se haga cargo de su forma.',
   'Bs. As. · open to remote AI roles':
     'Bs. As. · abierto a roles remotos de IA',
   'MBA en Tecnología e Innovación':
@@ -259,16 +230,10 @@ window.ES = {
     'Producto para optimización de rutas y operación de flotas. Armé el equipo de prototipado desde cero y lo dirigí, hasta que nadie discutía una idea sin tener algo andando adelante.',
   'Agent architecture and the roadmap over it: what the agent may do, where it hands off, how you tell whether it is any good. I led the team that built the workflow builder they run on, and shipped features into it myself.':
     'Arquitectura de agentes y el roadmap encima: qué puede hacer el agente, dónde le pasa la posta, cómo te das cuenta de si es bueno. Lideré el equipo que construyó el workflow builder sobre el que corren, y shippeé features a producción yo mismo.',
-  'I write what the agent may do, where it hands off to a person, and how you find out when it stops being good. Chat, WhatsApp and voice, and the ones that read an image and decide from it.':
-    'Escribo qué tiene permitido hacer el agente, dónde le pasa la posta a una persona, y cómo te enterás cuando deja de ser bueno. Chat, WhatsApp y voz, y los que miran una imagen y deciden con eso.',
-  'A landing that says what you actually do, with the measurement wired in from day one. Plus a chat agent trained on your business, so whoever turns up at three in the morning gets an answer.':
-    'Una landing que diga lo que hacés de verdad, con la medición puesta desde el día uno. Y un agente entrenado con tu negocio, así el que cae a las tres de la mañana tiene respuesta.',
 
   /* --- el hero --- */
 
   /* --- fuera lo generico --- */
-  "The same things, pointed at someone else's problem.":
-    'Lo mismo de arriba, apuntado al problema de otro.',
   'The skills I write for Claude Code and use every day. These six are the ones I run most.':
     'Los skills que escribo para Claude Code y uso todos los días. Estos seis son los que más corro.',
 
@@ -285,12 +250,8 @@ window.ES = {
   'Shared rides for the daily commute, on a flat fare. You travel comfortably, for a good price, and it earns you perks.':
     'Viajes compartidos para el día a día, con tarifa plana. Viajás cómodo, a buen precio y con beneficios.',
 
-  'What I can build':
-    'Lo que puedo construir',
 
   /* --- el arbol de lo que puede construir --- */
-  'Agents':
-    'Agentes',
   'Voice':
     'Voz',
   'Images':
@@ -339,32 +300,18 @@ window.ES = {
     'Paneles y back office para tu equipo, o para salir al mercado.',
   'That it still runs six months after whoever built it has gone.':
     'Que siga andando seis meses después de que el que la armó se fue.',
-  'Data and BI':
-    'Datos y BI',
-  'Data model':
-    'Modelo de datos',
   'Dashboards':
     'Tableros',
-  'Figures':
-    'Números',
-  'How what happens gets stored, so you can ask it something later.':
-    'Cómo se guarda lo que pasa, para poder preguntarle algo después.',
   'The ones that get opened when there is a decision to make.':
     'Los que se abren cuando hay que decidir algo.',
-  'One number per question, and where it comes from.':
-    'Un número por pregunta, y de dónde sale.',
   'Measurement':
     'Medición',
   'Funnel':
     'Embudo',
-  'Conversion':
-    'Conversión',
   'How many people arrive, where they leave, and what they did before leaving.':
     'Cuánta gente entra, por dónde se va, y qué hizo antes de irse.',
   'Finding the step that loses people and taking it out of the way.':
     'Encontrar el paso que pierde gente y sacarlo del camino.',
-  'That whoever arrives understands what to do, and does it.':
-    'Que el que llega entienda qué hacer, y lo haga.',
   'Generative production':
     'Producción generativa',
   'Brand':
@@ -375,6 +322,46 @@ window.ES = {
     'Del prompt al clip renderizado.',
   'Every doodle on this page came out of that.':
     'Todos los dibujos de esta página salieron de ahí.',
+
+  /* --- la seccion unica --- */
+  'What I can help with':
+    'Con qué te puedo ayudar',
+  'Ask about this':
+    'Consultar por esto',
+  'One to one':
+    'Uno a uno',
+  'Alongside the team':
+    'Al lado del equipo',
+  'What the AI does not do':
+    'Qué no hace la IA',
+  'With the founder, on what is about to be decided.':
+    'Con el fundador, sobre lo que se está por decidir.',
+  'Next to the people building, in the AI calls.':
+    'Al lado de los que construyen, en las decisiones de IA.',
+  'Saying no to the demo that will not survive a user.':
+    'Decirle que no a la demo que no sobrevive a un usuario.',
+  'Built or redesigned so it says what you actually do.':
+    'Armada o rediseñada para que diga lo que hacés de verdad.',
+  'You have the idea and no team to build it.':
+    'Tenés la idea y no tenés equipo para construirla.',
+  'You have engineers and the AI decisions are being made by whoever is free.':
+    'Tenés equipo técnico y las decisiones de IA las toma el que está libre.',
+  'The process lives in a spreadsheet that only one person understands.':
+    'El proceso vive en una planilla que entiende una sola persona.',
+  'Every piece of a campaign takes a week to come out.':
+    'Cada pieza de campaña tarda una semana en salir.',
+
+  /* --- las seis ramas --- */
+  'An agent that answers':
+    'Un agente que contesta',
+  'Somebody on your team spends the day answering the same thing, or moving the same data between two screens.':
+    'Alguien de tu equipo se pasa el día contestando lo mismo, o moviendo los mismos datos entre dos pantallas.',
+  'Trained on your business, on the site and on WhatsApp.':
+    'Entrenado con tu negocio, en el sitio y en WhatsApp.',
+  'Your business online':
+    'Tu negocio online',
+  'Your site has not changed since you made it, you do not know how many people arrive, and whoever turns up at three in the morning finds nobody.':
+    'Tu sitio no cambió desde que lo hiciste, no sabés cuánta gente entra, y el que llega a las tres de la mañana no encuentra a nadie.',
 
   /* --- Lima --- */
   "Axel's assistant":

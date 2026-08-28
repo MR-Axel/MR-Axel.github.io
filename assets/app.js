@@ -88,6 +88,13 @@
     });
   }
 
+  /* el boton de cada rama se mide, para saber cual mueve la aguja */
+  document.querySelectorAll('.rama__cta').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (window.medir) window.medir('servicio_consulta');
+    });
+  });
+
   /* ================= language ================= */
 
   /* Keys are the English innerHTML with whitespace collapsed. Anything not in
