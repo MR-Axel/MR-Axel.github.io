@@ -104,8 +104,8 @@ window.ES = {
     'Levantar una función, un equipo o un producto donde no había nada, y diseñar cómo funciona sin mí en el medio. Más de una vez.',
 
   'Quality and release engineering': 'Calidad e ingeniería de releases',
-  'Six years in QA and release automation before product: test design, on-premise deployments, pipelines. It is why I only trust systems I can test.':
-    'Seis años en QA y releases antes de producto: diseño de pruebas, despliegues on-premise, pipelines. Por eso solo confío en lo que puedo testear.',
+  'Six years in QA and release automation before product: test design, on-premise deployments, pipelines.':
+    'Seis años en QA y releases antes de producto: diseño de pruebas, despliegues on-premise, pipelines.',
 
   'Data and BI': 'Datos y BI',
 
@@ -162,8 +162,8 @@ window.ES = {
   'If you have the idea and no team to build it.':
     'Si tenés la idea y no tenés equipo para construirla.',
 
-  'n8n, Activepieces, Retool, Zapier, Make. Plus the process that keeps it from rotting after I leave, which is the part that goes missing.':
-    'n8n, Activepieces, Retool, Zapier, Make. Más el proceso que evita que se pudra cuando me voy, que es la parte que suele faltar.',
+  'n8n, Activepieces, Retool, Zapier, Make. Plus the process that keeps it from rotting after I leave.':
+    'n8n, Activepieces, Retool, Zapier, Make. Más el proceso que evita que se pudra cuando me voy.',
   'If the process lives in a spreadsheet that only one person understands.':
     'Si el proceso vive en una planilla que entiende una sola persona.',
 
@@ -187,8 +187,8 @@ window.ES = {
   'Less': 'Menos',
   'More': 'Más',
 
-  'What is public is this site and the Agent Skills above. Everything else is product code in private repos, which is where most of that graph comes from. <a href="https://github.com/MR-Axel" target="_blank" rel="noopener">See the profile on GitHub<span class="arrow" aria-hidden="true">↗</span></a>':
-    'Lo público es este sitio y los Agent Skills de arriba. Todo lo demás es código de producto en repos privados, que es de donde sale casi todo ese gráfico. <a href="https://github.com/MR-Axel" target="_blank" rel="noopener">Ver el perfil en GitHub<span class="arrow" aria-hidden="true">↗</span></a>',
+  'What is public is this site and the Agent Skills above. Everything else is product code in private repos. <a href="https://github.com/MR-Axel" target="_blank" rel="noopener">See the profile on GitHub<span class="arrow" aria-hidden="true">↗</span></a>':
+    'Lo público es este sitio y los Agent Skills de arriba. Todo lo demás es código de producto en repos privados. <a href="https://github.com/MR-Axel" target="_blank" rel="noopener">Ver el perfil en GitHub<span class="arrow" aria-hidden="true">↗</span></a>',
 
   /* --- contact --- */
   'Let\'s talk': 'Hablemos',
@@ -262,8 +262,8 @@ window.ES = {
   /* --- voz, revision completa --- */
   'AI products.<br>Idea to production,<br>and I write the code.':
     'Productos con IA.<br>De la idea a producción,<br>y el código lo escribo yo.',
-  'Chat agents, voice agents, agents that read an image. Automation. And whole products from zero, which is most of what I do.':
-    'Agentes de chat, de voz y de imagen. Automatizaciones. Y productos enteros desde cero, que es lo que más hago.',
+  'Chat agents, voice agents, agents that read an image. Automation. And whole products from zero.':
+    'Agentes de chat, de voz y de imagen. Automatizaciones. Y productos enteros desde cero.',
   'Almost everything below started as something that annoyed me and nobody else was fixing.':
     'Casi todo lo que hay acá abajo salió de algo que me molestaba y que nadie estaba arreglando.',
   'Before the current title, mostly in rooms where being wrong cost more than a rollback.':
@@ -272,8 +272,8 @@ window.ES = {
     'Producto para optimización de rutas y operación de flotas. Armé la práctica de prototipado desde cero y la lideré, con loops lo bastante cortos como para que en cada conversación ya hubiera algo andando.',
   'What I do best.':
     'Lo que hago mejor.',
-  'Claude Code and Cursor every day. I write the production features myself, so I know what everything I prioritise actually costs.':
-    'Claude Code y Cursor todos los días. Las features de producción las escribo yo, así que sé lo que cuesta cada cosa que priorizo.',
+  'Claude Code and Cursor every day. I write the production features myself.':
+    'Claude Code y Cursor todos los días. Las features de producción las escribo yo.',
   'Voice LLMs on live calls, and images as input: reading a screenshot or a photo and deciding from it.':
     'LLMs de voz en llamadas reales, e imágenes como entrada: leer una captura o una foto y decidir a partir de eso.',
   'Umami, LogRocket, session review, Meta Ads. I count the funnel from the database, because the dashboard has lied to me more than once.':
