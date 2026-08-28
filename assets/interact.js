@@ -156,7 +156,9 @@
      because the separator is re-derived from the locale on every frame rather
      than sliced off the string and pasted back on. */
   function countUp(el) {
-    var raw = el.textContent.trim();
+    /* el destino vive en el atributo si alguien ya lo dejo ahi: es lo que
+       permite que `github.json` actualice la meta sin pelear con el texto */
+    var raw = (el.getAttribute('data-meta') || el.textContent).trim();
     var match = raw.match(/^([\d.,]+)(\D*)$/);
     if (!match) return;
     var digits = match[1].replace(/[.,]/g, '');
@@ -190,17 +192,31 @@
   if (!reduced && 'IntersectionObserver' in window) {
     var statsEl = document.querySelector('.stats');
     if (statsEl) {
+      /* Los ceros los puso el guion en linea del html, antes del pintado.
+         Aca solo se decide cuando empieza la cuenta. */
+      function contarStats() {
+        [].forEach.call(statsEl.querySelectorAll('dd'), function (el) {
+          countUp(el);
+          el.removeAttribute('data-meta');
+        });
+      }
+
       var counted = false;
+      /* red de seguridad: si el observador nunca dispara, nadie se queda
+         mirando una fila de ceros */
+      var red = window.setTimeout(function () {
+        if (!counted) { counted = true; contarStats(); }
+      }, 2500);
+
       var sio = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (!entry.isIntersecting || counted) return;
           counted = true;
+          window.clearTimeout(red);
           sio.disconnect();
-          /* one frame late, so the contributions figure from github.json has
-             landed and we count to the real number rather than the fallback */
-          window.setTimeout(function () {
-            [].forEach.call(statsEl.querySelectorAll('dd'), countUp);
-          }, 260);
+          /* un respiro para que la cifra de github.json ya haya llegado y la
+             cuenta termine en el numero real y no en el del html */
+          window.setTimeout(contarStats, 220);
         });
       }, { threshold: 0.3 });
       sio.observe(statsEl);

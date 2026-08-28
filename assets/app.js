@@ -1048,6 +1048,14 @@
 
   function setText(sel, value) {
     var el = document.querySelector(sel);
+    /* 🔴 Si el numero todavia esta esperando su cuenta, se cambia la META y no
+       el texto. Escribiendo el texto, la cuenta arrancaba igual desde cero y
+       terminaba en el valor viejo del html, pisando el que acababa de llegar
+       del JSON: se veia subir hasta un numero desactualizado. */
+    if (el && el.hasAttribute && el.hasAttribute('data-meta')) {
+      el.setAttribute('data-meta', value);
+      return;
+    }
     if (el) el.textContent = value;
   }
 

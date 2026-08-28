@@ -1663,8 +1663,12 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
                               url("doodles/cursor/flecha-click@2x.png") 2x);
   }
 
-  body { cursor: url("doodles/cursor/flecha.png") 5 3, auto; }
-  body { cursor: var(--cursor-flecha) 5 3, auto; }
+  /* 🔴 `html` TAMBIEN, no solo `body`. El cuerpo no llega hasta los bordes de
+     la ventana: la franja de los costados y lo que sobra abajo las pinta el
+     elemento raiz, y ahi el cursor volvia al de Windows. Cruzar de un lado al
+     otro cambiaba el dibujo dos veces. */
+  html, body { cursor: url("doodles/cursor/flecha.png") 5 3, auto; }
+  html, body { cursor: var(--cursor-flecha) 5 3, auto; }
 
   a, button, summary, [role="button"], .arc__step, label,
   input[type="submit"], input[type="button"] {
