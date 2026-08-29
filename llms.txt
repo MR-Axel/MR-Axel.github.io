@@ -1,0 +1,30 @@
+# Axel Rosso
+
+> Agentes de IA, páginas web y productos digitales, para empresas y para
+> personas con una idea. Remoto desde Buenos Aires para LatAm y España.
+
+Qué hace, en una línea por cosa:
+
+- Agentes de IA de punta a punta: chat en web y WhatsApp, agentes de voz con
+  control de latencia e interrupciones, y agentes que leen una imagen y deciden
+  a partir de eso.
+- Páginas web y landings con la medición puesta desde el primer día, y un
+  agente entrenado con el negocio que contesta a cualquier hora.
+- Productos desde cero: de la idea a algo que la gente pueda usar, en semanas,
+  y el repositorio queda del cliente.
+- Automatizaciones y herramientas internas con n8n, Activepieces, Retool,
+  Zapier y Make, más el proceso para que sigan andando cuando él ya no está.
+- Estrategia y asesoría sobre IA, uno a uno con un fundador o al lado del
+  equipo que construye.
+- Producción generativa: imágenes, video de producto y piezas de campaña.
+
+## Páginas
+
+- [Portada en castellano](https://axelrosso.com/): quién es, qué construyó y
+  con qué puede ayudar.
+- [Portada en inglés](https://axelrosso.com/en/): la misma, en inglés.
+
+## Cómo contactarlo
+
+El formulario de https://axelrosso.com/#contact le llega al teléfono y contesta
+él. Sirve cualquier dato de contacto: un mail, un teléfono o un LinkedIn.

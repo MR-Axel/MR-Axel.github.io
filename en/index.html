@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="en" data-skin="doodle">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI agents, websites and products built from zero · Axel Rosso</title>
+<meta name="description" content="AI agents for WhatsApp, web and voice, websites with the measurement wired in, automation and whole products from zero. Remote from Buenos Aires.">
+<link rel="canonical" href="https://axelrosso.com/en/">
+<link rel="alternate" hreflang="en" href="https://axelrosso.com/en/">
+<link rel="alternate" hreflang="es" href="https://axelrosso.com/">
+<link rel="alternate" hreflang="x-default" href="https://axelrosso.com/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="AI agents, websites and products built from zero · Axel Rosso">
+<meta property="og:description" content="AI agents for WhatsApp, web and voice, websites with the measurement wired in, automation and whole products from zero. Remote from Buenos Aires.">
+<meta property="og:url" content="https://axelrosso.com/en/">
+<meta property="og:image" content="https://axelrosso.com/assets/og.jpg?v=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A hand-drawn figure waving.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@ArrobAxel">
+<meta name="theme-color" content="#FBFAF7">
+<link rel="icon" type="image/png" href="../assets/favicon.png?v=1">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/style.css?v=89">
+<link rel="stylesheet" href="../assets/doodle.css?v=4">
+<script>
+/* Runs before the body parses, so the page never flashes the wrong theme or
+   the wrong language.
+
+   A stored choice always wins. What follows only decides what somebody sees on
+   their very first visit, and the toggles are in the bar either way.
+
+   🔴 LIGHT BY DEFAULT, AND prefers-color-scheme IS DELIBERATELY IGNORED. Most
+   people never touched that setting, so on a laptop it mostly reports whatever
+   the OS shipped with rather than a preference. The skin is drawn ink, and ink
+   on paper is what it was designed for: dark is a good version of it, light is
+   the one it was drawn as.
+
+   🔴 SPANISH BY DEFAULT, AND THE TEST IS WHERE THEY ARE, NOT WHAT THEIR BROWSER
+   IS SET TO. navigator.language answers a different question: plenty of people
+   in Latin America run their browser in English without wanting to read this
+   page in it. Time zone is the only location signal available with no network
+   call and no consent to ask for, and it is not spoofed by accident.
+
+   ⚠️ THE ZONE LIST IS THE US AND CANADA ENUMERATED, NOT `America/` AS A PREFIX.
+   Buenos Aires, Mexico City and Sao Paulo are all `America/` too, so a prefix
+   would put the whole continent into English, which is the exact opposite of
+   what was asked. Enumerated it can only ever be incomplete, never wrong: an
+   unlisted zone falls to Spanish, which is the default anyway. navigator
+   .language stays as a second chance, so en-US and en-CA also get English even
+   from a zone that is not on the list. */
+(function () {
+  var d = document.documentElement;
+  d.classList.add('js');
+
+  /* 🔴 SOLO LA ZONA HORARIA DECIDE, Y navigator.language NO PARTICIPA. Estaba
+     como segunda oportunidad, y era el error: alguien en Buenos Aires con el
+     navegador en inglés, que es medio gremio, caía en inglés. La pregunta es
+     dónde está la persona, no en qué idioma tiene puesto el Chrome.
+
+     ⚠️ La lista es enumerada y por eso está completa a propósito: ahora que es
+     la única señal, una zona que falte manda a alguien de Estados Unidos a
+     castellano. Enumerar sigue siendo lo correcto contra usar `America/` como
+     prefijo, porque Buenos Aires, México y São Paulo también son `America/` y
+     eso mandaría el continente entero a inglés.
+
+     Los prefijos de abajo cubren las zonas con subcarpeta (Indiana, Kentucky,
+     Dakota del Norte) y los alias viejos `US/` y `Canada/` que algunos
+     navegadores todavía reportan. */
+  var ZONAS = (
+    /* Estados Unidos */
+    'America/New_York America/Detroit America/Chicago America/Denver ' +
+    'America/Phoenix America/Los_Angeles America/Anchorage America/Adak ' +
+    'America/Boise America/Juneau America/Sitka America/Nome America/Menominee ' +
+    'America/Metlakatla America/Yakutat Pacific/Honolulu ' +
+    /* Canadá */
+    'America/Toronto America/Vancouver America/Edmonton America/Winnipeg ' +
+    'America/Halifax America/St_Johns America/Regina America/Moncton ' +
+    'America/Whitehorse America/Yellowknife America/Iqaluit America/Dawson ' +
+    'America/Dawson_Creek America/Fort_Nelson America/Creston America/Inuvik ' +
+    'America/Cambridge_Bay America/Rankin_Inlet America/Resolute ' +
+    'America/Swift_Current America/Atikokan America/Glace_Bay ' +
+    'America/Goose_Bay America/Blanc-Sablon '
+  );
+
+  function enNorteamerica() {
+    var zona = '';
+    try { zona = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    if (!zona) return false;
+    if (ZONAS.indexOf(zona + ' ') > -1) return true;
+    return zona.indexOf('America/Indiana/') === 0 ||
+           zona.indexOf('America/Kentucky/') === 0 ||
+           zona.indexOf('America/North_Dakota/') === 0 ||
+           zona.indexOf('US/') === 0 ||
+           zona.indexOf('Canada/') === 0;
+  }
+
+  var theme, lang;
+  try { theme = localStorage.getItem('site-theme'); lang = localStorage.getItem('site-lang'); } catch (e) {}
+  if (theme !== 'light' && theme !== 'dark') theme = 'light';
+  if (lang !== 'es' && lang !== 'en') lang = enNorteamerica() ? 'en' : 'es';
+
+  /* 🔴 EL IDIOMA AHORA ES UNA URL Y NO UNA CLASE. `/` viene en castellano y
+     `/en/` en ingles, con el texto adentro del HTML: es lo unico que hace que
+     un buscador vea la version en castellano, porque rastrea desde Estados
+     Unidos y con la regla de la zona horaria siempre le tocaba ingles.
+
+     La regla de arriba no cambio: decide, y si lo que decidio no coincide con
+     la pagina que se esta cargando, se cambia de direccion.
+
+     ⚠️ `location.replace` y no `location.href`: con `href` queda una entrada en
+     el historial y el boton de volver del navegador rebota entre las dos
+     versiones sin poder salir.
+
+     ⚠️ Y no se toca `lang` si ya coincide, ni se redirige a nadie que haya
+     elegido a mano: `guardado` gana siempre. */
+  var ruta = window.location.pathname.replace(/index\.html$/, '');
+  var esPortada = ruta === '/' || ruta === '/en/' || ruta === '';
+  var paginaActual = (ruta === '/en/') ? 'en' : 'es';
+
+  /* ⚠️ EN UN SOLO SENTIDO: de la raiz al ingles, nunca de `/en/` al castellano.
+     Quien abre `/en/` ya pidio ingles, sea porque siguio un enlace o porque lo
+     encontro asi en un buscador, y devolverlo es discutirle. Ademas protege a
+     esa pagina de que un rastreador que no venga de Estados Unidos la vea
+     rebotar, que es la forma mas rapida de que no la indexe.
+
+     ⚠️ Y solo en la portada, con la ruta comparada entera. Las paginas de
+     servicio existen unicamente en castellano: mandando a `/` a cualquiera con
+     el ingles guardado, quien abre `/agentes-de-ia/` termina en la portada sin
+     la pagina que fue a buscar. Con `indexOf('/en')` cualquier ruta que empiece
+     con esas dos letras se tomaria por la version en ingles. */
+  if (ruta !== '/en/' && esPortada && lang === 'en') {
+    window.location.replace('/en/' + window.location.search + window.location.hash);
+    return;
+  }
+  lang = paginaActual;
+
+  d.setAttribute('data-theme', theme);
+  d.setAttribute('data-lang', lang);
+  d.setAttribute('lang', lang);
+  var m = document.querySelector('meta[name="theme-color"]');
+  if (m) m.setAttribute('content', theme === 'light' ? '#fbfaf7' : '#08090b');
+})();
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Person",
+   "@id": "https://axelrosso.com/#axel",
+   "name": "Axel Rosso",
+   "alternateName": "Ax",
+   "jobTitle": "AI Product Manager & AI Engineer",
+   "url": "https://axelrosso.com/",
+   "image": "https://axelrosso.com/assets/og.jpg",
+   "sameAs": [
+    "https://www.linkedin.com/in/axelrosso/",
+    "https://github.com/MR-Axel",
+    "https://x.com/ArrobAxel",
+    "https://unlaunched.online/u/axel"
+   ],
+   "knowsAbout": [
+    "Agentes de IA",
+    "Agentes de WhatsApp",
+    "Automatización de procesos",
+    "Product management",
+    "Desarrollo de productos digitales",
+    "Analítica de producto"
+   ],
+   "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Buenos Aires",
+    "addressCountry": "AR"
+   }
+  },
+  {
+   "@type": "ProfessionalService",
+   "@id": "https://axelrosso.com/#servicio",
+   "name": "Axel Rosso · Agentes de IA y productos digitales",
+   "url": "https://axelrosso.com/",
+   "founder": {
+    "@id": "https://axelrosso.com/#axel"
+   },
+   "description": "Agentes de IA para WhatsApp, web y voz, páginas web con la medición puesta desde el principio, automatizaciones, herramientas internas y productos enteros desde cero.",
+   "areaServed": [
+    {
+     "@type": "Country",
+     "name": "Argentina"
+    },
+    {
+     "@type": "Country",
+     "name": "Chile"
+    },
+    {
+     "@type": "Country",
+     "name": "México"
+    },
+    {
+     "@type": "Country",
+     "name": "Uruguay"
+    },
+    {
+     "@type": "Country",
+     "name": "Colombia"
+    },
+    {
+     "@type": "Country",
+     "name": "España"
+    }
+   ],
+   "availableLanguage": [
+    "es",
+    "en"
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<div class="bg" aria-hidden="true">
+  <span class="bg__wash"></span>
+  <span class="bg__grid"></span>
+  <span class="bg__orb bg__orb--1"></span>
+  <span class="bg__orb bg__orb--2"></span>
+  <span class="bg__orb bg__orb--3"></span>
+</div>
+<div class="grain" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+  <div class="wrap nav__inner">
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#experience">Path</a>
+      <a href="#services">Services</a>
+      <a href="#skills">Agent Skills</a>
+      <a href="#activity">Activity</a>
+    </nav>
+
+    <div class="nav__end">
+      <div class="switches">
+        <button class="sw" id="lang-toggle" type="button" aria-label="Cambiar idioma / Switch language"><span id="lang-label">ES</span></button>
+        <button class="sw" id="theme-toggle" type="button" aria-label="Switch theme">
+          <svg class="sw__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+          <svg class="sw__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/></svg>
+        </button>
+      </div>
+      <a class="btn btn--sm" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section id="top" class="hero">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="hero__grid">
+      <div class="hero__copy">
+      <p class="eyebrow reveal"><span class="dot"></span> <span class="solo-ancho" data-t>Buenos Aires, Argentina · I take on work from companies and from people, remote</span><span class="solo-angosto" data-t>Bs. As. · for companies and for people, remote</span></p>
+      <h1 class="reveal">Agents and apps:<br>from idea to product.</h1>
+      <p class="lede reveal">Agent chat, Voice AI, image generation and analysis. Automation with escalation when it is needed. Internal tools for your team, or to take to market.</p>
+      <p class="lede lede--sub reveal">Six years testing what other people built.<br>Now I build it myself, to that standard.</p>
+      <div class="cta reveal">
+        <a class="btn" href="#work">See what I build</a>
+        <a class="btn btn--ghost" href="https://www.linkedin.com/in/axelrosso/" rel="me noopener" target="_blank">LinkedIn</a>
+        <a class="btn btn--ghost" href="https://github.com/MR-Axel" rel="me noopener" target="_blank">GitHub</a>
+      </div>
+      </div>
+
+      <div class="hero__art" aria-hidden="true">
+    <div class="garabatos" id="garabatos">
+      <img class="garabato" src="../assets/doodles/marcas/espiral.png" alt=""
+           style="--x: 6%; --y: 10%; --t: 74px; --g: -9deg; --p: 1.35"
+           width="120" height="120" loading="lazy" decoding="async">
+      <img class="garabato" src="../assets/doodles/marcas/estrella.png" alt=""
+           style="--x: 62%; --y: 2%; --t: 58px; --g: 11deg; --p: 0.55"
+           width="120" height="120" loading="lazy" decoding="async">
+      <img class="garabato" src="../assets/doodles/marcas/flecha.png" alt=""
+           style="--x: 28%; --y: 24%; --t: 96px; --g: -3deg; --p: 0.85"
+           width="120" height="120" loading="lazy" decoding="async">
+      <img class="garabato" src="../assets/doodles/marcas/rayo.png" alt=""
+           style="--x: 84%; --y: 17%; --t: 52px; --g: 14deg; --p: 1.6"
+           width="120" height="120" loading="lazy" decoding="async">
+      <img class="garabato" src="../assets/doodles/marcas/garabato.png" alt=""
+           style="--x: 2%; --y: 46%; --t: 84px; --g: 5deg; --p: 0.35"
+           width="120" height="120" loading="lazy" decoding="async">
+      <img class="garabato" src="../assets/doodles/marcas/lampara.png" alt=""
+           style="--x: 72%; --y: 40%; --t: 66px; --g: -7deg; --p: 1.05"
+           width="120" height="120" loading="lazy" decoding="async">
+      <img class="garabato" src="../assets/doodles/marcas/nube.png" alt=""
+           style="--x: 38%; --y: 58%; --t: 92px; --g: 3deg; --p: 0.6"
+           width="120" height="120" loading="lazy" decoding="async">
+      <img class="garabato" src="../assets/doodles/marcas/asterisco.png" alt=""
+           style="--x: 88%; --y: 62%; --t: 46px; --g: -12deg; --p: 1.45"
+           width="120" height="120" loading="lazy" decoding="async">
+      <img class="garabato" src="../assets/doodles/marcas/onda.png" alt=""
+           style="--x: 14%; --y: 76%; --t: 88px; --g: 7deg; --p: 0.9"
+           width="120" height="120" loading="lazy" decoding="async">
+      <img class="garabato" src="../assets/doodles/marcas/pregunta.png" alt=""
+           style="--x: 58%; --y: 82%; --t: 54px; --g: -5deg; --p: 1.2"
+           width="120" height="120" loading="lazy" decoding="async">
+    </div>
+  </div>
+      </div>
+
+      <dl class="stats reveal">
+        <div><dt>Products built</dt><dd>14</dd></div>
+        <div><dt>Years in software</dt><dd>10+</dd></div>
+        <div><dt>Years on my own products</dt><dd>4</dd></div>
+        <div><dt>Tools delivered</dt><dd>2,500+</dd></div>
+        <div><dt>Contributions, last year</dt><dd data-stat="contributions">5,021</dd></div>
+      </dl>
+      <script>
+        /* 🔴 En linea y aca abajo, no en un archivo con `defer`. Un script
+           diferido corre despues de parsear pero el navegador ya pinto, asi
+           que los numeros finales alcanzaban a verse antes de saltar a cero.
+           Este corre mientras se parsea, apenas la lista existe y antes del
+           primer pintado: el numero nace en cero y sube una sola vez.
+           Si el JavaScript no corre, esto tampoco, y quedan los valores
+           escritos en el html. */
+        (function () {
+          var m = window.matchMedia('(prefers-reduced-motion: reduce)');
+          if (m && m.matches) return;
+          var dds = document.querySelectorAll('.stats dd');
+          for (var i = 0; i < dds.length; i++) {
+            var t = dds[i].textContent.trim();
+            var p = t.match(/^([\d.,]+)(\D*)$/);
+            if (!p) continue;
+            dds[i].setAttribute('data-meta', t);
+            dds[i].textContent = '0' + (p[2] || '');
+          }
+        })();
+      </script>
+      <p class="credencial">MBA en Tecnología e Innovación</p>
+    </div>
+  </section>
+
+  <section id="work" class="section">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <h2>Work</h2>
+        <p>Products I built and still run. All of them are live, and you can walk into every one.</p>
+      </div>
+
+      <div class="cards-stage">
+      <span class="mascot mascot--hornero" aria-hidden="true"><img src="../assets/mascots/hornero-doodle.png" alt="" loading="lazy" decoding="async"></span>
+      <span class="mascot mascot--carpincho" aria-hidden="true"><img src="../assets/mascots/carpincho-doodle.png" alt="" loading="lazy" decoding="async"></span>
+      <span class="mascot mascot--nova" aria-hidden="true"><img src="../assets/mascots/nova-doodle.png" alt="" loading="lazy" decoding="async"></span>
+
+      <div class="cards">
+        <article class="card reveal">
+          <div class="card__top">
+            <div class="card__title">
+              <span class="card__logo"><img src="../assets/logos/dametrabajo.png" alt="" loading="lazy"></span>
+              <h3><a class="card__link" href="https://dametrabajo.com" target="_blank" rel="noopener">dametrabajo<span class="arrow" aria-hidden="true">↗</span></a></h3>
+            </div>
+            <span class="pill pill--live">Live</span>
+          </div>
+          <p>Tailored CVs per posting, tracked applications, and the eligibility check up front.</p>
+          <ul class="tags"><li>Job search</li><li>AI agents</li><li>Voice AI</li><li>Claude API</li></ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__top">
+            <div class="card__title">
+              <span class="card__logo"><img src="../assets/logos/kidonauta.svg" alt="" loading="lazy"></span>
+              <h3><a class="card__link" href="https://www.kidonauta.com" target="_blank" rel="noopener">Kidonauta<span class="arrow" aria-hidden="true">↗</span></a></h3>
+            </div>
+            <span class="pill pill--live">Live</span>
+          </div>
+          <p>An AI tutor for kids in LatAm. Nova builds missions around what a kid already loves,
+             and never hands over the answer.</p>
+          <ul class="tags"><li>Ed-tech</li><li>AI tutor</li><li>Voice AI</li><li>Claude API</li></ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__top">
+            <div class="card__title">
+              <span class="card__logo"><img src="../assets/logos/nuchus.png" alt="" loading="lazy"></span>
+              <h3><a class="card__link" href="https://nuchus.app" target="_blank" rel="noopener">Nuchus<span class="arrow" aria-hidden="true">↗</span></a></h3>
+            </div>
+            <span class="pill pill--live">Live</span>
+          </div>
+          <p>Shared rides for the daily commute, on a flat fare. You travel comfortably, for a good price, and it earns you perks.</p>
+          <ul class="tags"><li>Carpooling</li><li>Marketplace</li><li>WhatsApp agent</li></ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__top">
+            <div class="card__title">
+              <span class="card__logo"><img src="../assets/logos/unlaunched.svg" alt="" loading="lazy"></span>
+              <h3><a class="card__link" href="https://unlaunched.online" target="_blank" rel="noopener">Unlaunched<span class="arrow" aria-hidden="true">↗</span></a></h3>
+            </div>
+            <span class="pill pill--live">Live</span>
+          </div>
+          <p>Where early projects get found. Builders publish what they are working on and meet
+             co-founders before there is anything to demo.</p>
+          <ul class="tags"><li>Community</li><li>AI agents</li><li>Claude API</li></ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__top">
+            <div class="card__title">
+              <span class="card__logo"><img src="../assets/logos/buildeable.svg" alt="" loading="lazy"></span>
+              <h3><a class="card__link" href="https://buildeable.com" target="_blank" rel="noopener">Buildeable<span class="arrow" aria-hidden="true">↗</span></a></h3>
+            </div>
+            <span class="pill pill--live">Live</span>
+          </div>
+          <p>Specs, roadmaps, research and audits for PMs, founders and small product teams.
+             Product management built on Claude.</p>
+          <ul class="tags"><li>B2B SaaS</li><li>AI agents</li><li>Vision</li><li>Claude API</li></ul>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__top">
+            <div class="card__title">
+              <span class="card__logo"><img src="../assets/logos/pedimelo.png" alt="" loading="lazy"></span>
+              <h3><a class="card__link" href="https://pedimelo.com" target="_blank" rel="noopener">Pedimelo<span class="arrow" aria-hidden="true">↗</span></a></h3>
+            </div>
+            <span class="pill pill--live">Live</span>
+          </div>
+          <p>AI agents for small businesses: WhatsApp, web and voice, wired to the data they already
+             have, with a dashboard on top.</p>
+          <ul class="tags"><li>AI agents</li><li>Automation</li><li>Voice AI</li><li>SMB</li></ul>
+        </article>
+      </div>
+      </div>
+
+      <div class="also">
+        <div class="also__head reveal">
+          <h3>Also built</h3>
+          <p>Earlier builds and one on pause. Two are still up and the rest are off.</p>
+        </div>
+
+        <ul class="sidelist">
+          <li class="sideitem reveal">
+            <span class="sideitem__idx">01</span>
+            <span class="sideitem__logo" aria-hidden="true"><img src="../assets/logos/comovenimos.png" alt="" loading="lazy" decoding="async"></span>
+            <div class="sideitem__body">
+              <h4><a href="https://comovenimos.com" target="_blank" rel="noopener">ComoVenimos<span class="arrow" aria-hidden="true">↗</span></a></h4>
+              <p>A community for tech and startup people, with a blog and paid memberships.</p>
+            </div>
+            <span class="pill pill--live">Live</span>
+          </li>
+
+          <li class="sideitem reveal">
+            <span class="sideitem__idx">02</span>
+            <span class="sideitem__logo" aria-hidden="true"><img src="../assets/logos/fiteando.png" alt="" loading="lazy" decoding="async"></span>
+            <div class="sideitem__body">
+              <h4><a href="https://fiteando.com" target="_blank" rel="noopener">Fiteando<span class="arrow" aria-hidden="true">↗</span></a></h4>
+              <p>A social app for finding a training partner at your gym, at your hour.</p>
+            </div>
+            <span class="pill pill--off" title="Off"><span class="pill__txt">Off</span></span>
+          </li>
+
+          <li class="sideitem reveal">
+            <span class="sideitem__idx">03</span>
+            <span class="sideitem__logo" aria-hidden="true"><img src="../assets/logos/booktranslated.png" alt="" loading="lazy" decoding="async"></span>
+            <div class="sideitem__body">
+              <h4><a href="https://booktranslated.com" target="_blank" rel="noopener">Book Translated<span class="arrow" aria-hidden="true">↗</span></a></h4>
+              <p>Translates and summarises whole books the same day, priced by word count.</p>
+            </div>
+            <span class="pill pill--off" title="Off"><span class="pill__txt">Off</span></span>
+          </li>
+
+          <li class="sideitem reveal">
+            <span class="sideitem__idx">04</span>
+            <span class="sideitem__logo" aria-hidden="true"><img src="../assets/logos/valmidor.png" alt="" loading="lazy" decoding="async"></span>
+            <div class="sideitem__body">
+              <h4><a href="https://valmidor.com" target="_blank" rel="noopener">Valmidor<span class="arrow" aria-hidden="true">↗</span></a></h4>
+              <p>Daily gamified challenges with rankings and a WhatsApp loop.</p>
+            </div>
+            <span class="pill pill--off" title="Off"><span class="pill__txt">Off</span></span>
+          </li>
+                  <li class="sideitem reveal">
+            <span class="sideitem__idx">05</span>
+            <span class="sideitem__logo sideitem__logo--letter" aria-hidden="true">CP</span>
+            <div class="sideitem__body">
+              <h4>ContablePosnet</h4>
+              <p>Point of sale, stock and the fiscal side wired together, for a monotributista who today invoices by hand.</p>
+            </div>
+            <span class="pill pill--off" title="Off"><span class="pill__txt">Off</span></span>
+          </li>
+</ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="section section--alt arc-track">
+    <div class="arc-stage">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <h2>How I got here</h2>
+        <p>Six places, and in most of them being wrong cost more than a rollback: a misread cardiology trace, an energy unit sitting out in a field.</p>
+      </div>
+
+      <ol class="arc">
+        <span class="arc__rail" aria-hidden="true"><span class="arc__rail-fill"></span></span>
+        <li class="arc__step">
+          <span class="arc__node"><svg class="arc__anillo" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path pathLength="1" d="M71 11C93 21 99 47 88 63C78 80 56 95 38 88C19 81 5 62 10 43C15 24 35 7 56 11"/></svg><img class="arc__ico" src="../assets/doodles/consultoria.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
+          <span class="arc__label">Consulting</span>
+            <div class="arc__body">
+            <h3>Process consulting for industry</h3>
+            <p>Before software. I walked operations and drew how the work actually moved, which was never how the manual said it moved. I still open a product with that same question.</p>
+          </div>
+        </li>
+
+        <li class="arc__step">
+          <span class="arc__node"><svg class="arc__anillo" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path pathLength="1" d="M71 11C93 21 99 47 88 63C78 80 56 95 38 88C19 81 5 62 10 43C15 24 35 7 56 11"/></svg><img class="arc__ico" src="../assets/doodles/salud.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
+          <span class="arc__label">Health</span>
+            <div class="arc__body">
+            <h3>Cardiology and clinical systems</h3>
+            <p>QA on cardiology systems. A wrong reading there is not a bug report, and that is where I picked up the habit of not believing anything I cannot test myself.</p>
+          </div>
+        </li>
+
+        <li class="arc__step">
+          <span class="arc__node"><svg class="arc__anillo" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path pathLength="1" d="M71 11C93 21 99 47 88 63C78 80 56 95 38 88C19 81 5 62 10 43C15 24 35 7 56 11"/></svg><img class="arc__ico" src="../assets/doodles/seguridad.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
+          <span class="arc__label">Security</span>
+            <div class="arc__body">
+            <h3>On-premise, locked down, Linux</h3>
+            <p>Closed networks: no remote access, no reading the logs from home. I rebuilt their Linux environments on my side to test against, and I ran the releases myself. Anything I did twice ended up as a script.</p>
+          </div>
+        </li>
+
+        <li class="arc__step">
+          <span class="arc__node"><svg class="arc__anillo" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path pathLength="1" d="M71 11C93 21 99 47 88 63C78 80 56 95 38 88C19 81 5 62 10 43C15 24 35 7 56 11"/></svg><img class="arc__ico" src="../assets/doodles/energia.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
+          <span class="arc__label">Energy</span>
+            <div class="arc__body">
+            <h3>IoT and hardware in the field</h3>
+            <p>Devices and energy systems out in the field, where undoing a release means sending a truck. I tested against the real hardware, which unlike a mock does not always agree with you.</p>
+          </div>
+        </li>
+
+        <li class="arc__step">
+          <span class="arc__node"><svg class="arc__anillo" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path pathLength="1" d="M71 11C93 21 99 47 88 63C78 80 56 95 38 88C19 81 5 62 10 43C15 24 35 7 56 11"/></svg><img class="arc__ico" src="../assets/doodles/logistica.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
+          <span class="arc__label">Logistics</span>
+            <div class="arc__body">
+            <h3>Routing, fleets, and a team</h3>
+            <p>Product for route optimisation and fleet operations. I built the prototyping team from nothing and led it, until nobody argued about an idea without something working in front of them.</p>
+          </div>
+        </li>
+
+        <li class="arc__step">
+          <span class="arc__node"><svg class="arc__anillo" viewBox="0 0 100 100" fill="none" aria-hidden="true"><path pathLength="1" d="M71 11C93 21 99 47 88 63C78 80 56 95 38 88C19 81 5 62 10 43C15 24 35 7 56 11"/></svg><img class="arc__ico" src="../assets/doodles/producto.png" alt="" width="200" height="200" loading="lazy" decoding="async"></span>
+          <span class="arc__label">AI product</span>
+            <div class="arc__body">
+            <h3>Agents from zero to production</h3>
+            <p>Agent architecture and the roadmap over it: what the agent may do, where it hands off, how you tell whether it is any good. I led the team that built the workflow builder they run on, and shipped features into it myself.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <h2>What I can help with</h2>
+      </div>
+
+      <ol class="arbol reveal">
+        <svg class="abanico" aria-hidden="true"></svg>
+        <li class="arbol__rama esta-abierta">
+          <button class="arbol__titulo" type="button" aria-expanded="true">
+            <span class="arbol__icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5.4" r="2"/><circle cx="5.6" cy="16.4" r="2"/><circle cx="18.4" cy="16.4" r="2"/><path d="M10.6 7.2 7 14.6M13.4 7.2 17 14.6M7.6 16.4h8.8"/></svg></span>
+            <span class="arbol__nombre" data-t>AI agents</span>
+          </button>
+          <div class="arbol__hijos">
+            <div class="panel">
+              <p class="panel__hook">Put real value into your product, with features that stand out.</p>
+              <ul class="hojas">
+                <li class="hoja" style="--i: 0"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 6.6a2.4 2.4 0 0 1 2.4-2.4h10.4a2.4 2.4 0 0 1 2.4 2.4v6.6a2.4 2.4 0 0 1-2.4 2.4H10l-4 3.4v-3.4h-1.6Z"/><path d="M8.4 8.6h7.2M8.4 11.6h4.4"/></svg></span><span data-t>Chat</span></h4><p>Web, WhatsApp and whatever channel the team already uses, answering from the business own data.</p></li>
+                <li class="hoja" style="--i: 1"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.8a2.6 2.6 0 0 1 2.6 2.6v4.8a2.6 2.6 0 0 1-5.2 0V6.4A2.6 2.6 0 0 1 12 3.8Z"/><path d="M6.6 11a5.4 5.4 0 0 0 10.8 0"/><path d="M12 16.4v3.4M9.4 19.8h5.2"/></svg></span><span data-t>Voice</span></h4><p>Live calls, with latency, interruptions and tone under control.</p></li>
+                <li class="hoja" style="--i: 2"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.6" y="5" width="16.8" height="14" rx="2.4"/><circle cx="8.6" cy="9.8" r="1.4"/><path d="m4.4 16.6 4.2-4 3.4 3.2 3-2.6 4.4 3.8"/></svg></span><span data-t>Images</span></h4><p>A screenshot or a photo comes in and the agent decides from it.</p></li>
+                <li class="hoja" style="--i: 3"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="12.6" height="12" rx="2.4"/><path d="m15.6 11 5.4-3.2v8.4L15.6 13"/></svg></span><span data-t>Video</span></h4><p>Script, generation and edit, prompt to finished clip.</p></li>
+                <li class="hoja" style="--i: 4"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9.2" y="3.4" width="5.6" height="4.4" rx="1.4"/><rect x="2.8" y="16.2" width="5.6" height="4.4" rx="1.4"/><rect x="15.6" y="16.2" width="5.6" height="4.4" rx="1.4"/><path d="M12 7.8v4.4M5.6 16.2v-2.6h12.8v2.6M12 12.2v1.4"/></svg></span><span data-t>Architecture</span></h4><p>Where they run, which tools they may touch, when they hand off to a person.</p></li>
+              </ul>
+              <a class="btn btn--sm rama__cta" href="#contact" data-t>Ask about this</a>
+            </div>
+          </div>
+        </li>
+        <li class="arbol__rama">
+          <button class="arbol__titulo" type="button" aria-expanded="false">
+            <span class="arbol__icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="4.4" width="18.4" height="13.4" rx="2.4"/><path d="M2.8 8.4h18.4"/><circle cx="6" cy="6.4" r="0.7" fill="currentColor" stroke="none"/><path d="M8 20.4h8"/><path d="M7.4 12.2h6.4M7.4 15h4"/></svg></span>
+            <span class="arbol__nombre" data-t>Your business online</span>
+          </button>
+          <div class="arbol__hijos">
+            <div class="panel">
+              <p class="panel__hook">Give your customers an experience that lands, and get the data to make good decisions.</p>
+              <ul class="hojas">
+                <li class="hoja" style="--i: 0"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.6" width="18" height="14.8" rx="2.4"/><path d="M3 8.8h18"/><circle cx="6" cy="6.7" r="0.7" fill="currentColor" stroke="none"/><path d="M6.6 12h7M6.6 15.4h4.4"/></svg></span><span data-t>Landing</span></h4><p>Built or redesigned so it says what you actually do.</p></li>
+                <li class="hoja" style="--i: 1"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 20h16.8"/><path d="M4.6 16.4 9.4 11l3.6 3.2 6-7"/><path d="M16.6 7.2h2.6v2.6"/></svg></span><span data-t>Measurement</span></h4><p>How many people arrive, where they leave, and what they did before leaving.</p></li>
+                <li class="hoja" style="--i: 2"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 5h16.8l-6.3 7.4v6.1l-4.2 2.1v-8.2L3.6 5Z"/></svg></span><span data-t>Funnel</span></h4><p>Finding the step that loses people and taking it out of the way.</p></li>
+                <li class="hoja" style="--i: 3"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><path d="M9.4 10.2a2.6 2.6 0 1 1 3.4 2.5c-.6.2-.8.6-.8 1.2v.5"/><circle cx="12" cy="17" r="0.9" fill="currentColor" stroke="none"/></svg></span><span data-t>An agent that answers</span></h4><p>Trained on your business, on the site and on WhatsApp.</p></li>
+              </ul>
+              <a class="btn btn--sm rama__cta" href="#contact" data-t>Ask about this</a>
+            </div>
+          </div>
+        </li>
+        <li class="arbol__rama">
+          <button class="arbol__titulo" type="button" aria-expanded="false">
+            <span class="arbol__icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 19.4c3.2 0 4.4-4.6 6.2-8.6 1.4-3.1 3-5.4 6-5.4"/><path d="M12.9 5.4h2.9v2.9"/><circle cx="3.6" cy="19.4" r="1.5" fill="currentColor" stroke="none"/><path d="M18.4 19.4h2M14.4 19.4h1"/></svg></span>
+            <span class="arbol__nombre" data-t>Products, 0 to 1</span>
+          </button>
+          <div class="arbol__hijos">
+            <div class="panel">
+              <p class="panel__hook">Let's turn your idea into something real.</p>
+              <ul class="hojas">
+                <li class="hoja" style="--i: 0"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg></span><span data-t>Strategy</span></h4><p>What gets built, for whom, and what stays out of the first version.</p></li>
+                <li class="hoja" style="--i: 1"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.8 5.4a4.2 4.2 0 0 0-5.7 5.2L4 15.6a2 2 0 0 0 2.8 2.8l5-5.1a4.2 4.2 0 0 0 5.2-5.7l-2.4 2.4-2.2-.6-.6-2.2Z"/></svg></span><span data-t>Build</span></h4><p>Spec to release, in weeks. The repo ends up yours.</p></li>
+                <li class="hoja" style="--i: 2"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.4 14.2c3.4-8 8-10.4 12.8-10.4.2 4.8-2.2 9.4-10.2 12.8"/><path d="m5.4 14.2 4 4"/><path d="M6.6 18.6c-1 1-1.4 2.6-1.4 2.6s1.6-.4 2.6-1.4"/><circle cx="14.4" cy="9" r="1.6"/></svg></span><span data-t>Launch</span></h4><p>Out to market with the measurement wired in from day one.</p></li>
+              </ul>
+              <a class="btn btn--sm rama__cta" href="#contact" data-t>Ask about this</a>
+            </div>
+          </div>
+        </li>
+        <li class="arbol__rama">
+          <button class="arbol__titulo" type="button" aria-expanded="false">
+            <span class="arbol__icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.4" y="4.2" width="6.2" height="5" rx="1.6"/><rect x="14.4" y="14.8" width="6.2" height="5" rx="1.6"/><path d="M9.6 6.7h4.2a3.6 3.6 0 0 1 3.6 3.6v4.5"/><path d="M15.5 12.9 17.4 15l1.9-2.1"/><path d="M6.5 9.2v5.6a2.5 2.5 0 0 0 2.5 2.5h2.4"/></svg></span>
+            <span class="arbol__nombre" data-t>Automation and<br>internal tooling</span>
+          </button>
+          <div class="arbol__hijos">
+            <div class="panel">
+              <p class="panel__hook">Let's save the hours that go into repetitive work, and get data and tracking on how it moves.</p>
+              <ul class="hojas">
+                <li class="hoja" style="--i: 0"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.6 9.4a7.6 7.6 0 0 1 12.6-3.2l2.2 2.2"/><path d="M19.4 4.6v3.8h-3.8"/><path d="M19.4 14.6a7.6 7.6 0 0 1-12.6 3.2l-2.2-2.2"/><path d="M4.6 19.4v-3.8h3.8"/></svg></span><span data-t>Automation and flows</span></h4><p>The process that today is a person copying between two screens.</p></li>
+                <li class="hoja" style="--i: 1"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.2" y="4.4" width="17.6" height="15.2" rx="2.4"/><path d="M3.2 9h17.6M9 9v10.6"/><path d="M12.2 12.4h5.4M12.2 15.6h3.4"/></svg></span><span data-t>Internal tools</span></h4><p>Panels and back offices for your team, or to take to market.</p></li>
+                <li class="hoja" style="--i: 2"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.4" y="4.4" width="17.2" height="15.2" rx="2.4"/><path d="M7.4 15.4v-3M11.6 15.4V9.6M15.8 15.4v-4.6"/></svg></span><span data-t>Dashboards</span></h4><p>The ones that get opened when there is a decision to make.</p></li>
+                <li class="hoja" style="--i: 3"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.6 12.4 6 15a3.4 3.4 0 0 0 4.8 4.8l1.6-1.6"/><path d="M15.4 11.6 18 9a3.4 3.4 0 0 0-4.8-4.8l-1.6 1.6"/><path d="m9.6 14.4 4.8-4.8"/></svg></span><span data-t>Handover</span></h4><p>That it still runs six months after whoever built it has gone.</p></li>
+              </ul>
+              <a class="btn btn--sm rama__cta" href="#contact" data-t>Ask about this</a>
+            </div>
+          </div>
+        </li>
+        <li class="arbol__rama">
+          <button class="arbol__titulo" type="button" aria-expanded="false">
+            <span class="arbol__icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6a8.4 8.4 0 1 0 8.4 8.4"/><path d="M12 7.8a4.2 4.2 0 1 0 4.2 4.2"/><path d="M12 12 20.4 3.6"/><path d="M17.6 3.6h2.8v2.8"/></svg></span>
+            <span class="arbol__nombre" data-t>Strategy and advisory</span>
+          </button>
+          <div class="arbol__hijos">
+            <div class="panel">
+              <p class="panel__hook">I help you unblock agentic designs, get products out the door, or bring AI into your teams.</p>
+              <ul class="hojas">
+                <li class="hoja" style="--i: 0"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.4" cy="8.6" r="3"/><path d="M3.4 19.4a5 5 0 0 1 10 0"/><path d="M16.4 7.4h4.2M16.4 11h4.2M16.4 14.6h2.6"/></svg></span><span data-t>One to one</span></h4><p>With the founder, on what is about to be decided.</p></li>
+                <li class="hoja" style="--i: 1"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="2.6"/><circle cx="15.6" cy="9" r="2.6"/><path d="M3.4 18.6a4.6 4.6 0 0 1 9.2 0"/><path d="M12.6 18.6a4.6 4.6 0 0 1 8 -2.8"/></svg></span><span data-t>Alongside the team</span></h4><p>Next to the people building, in the AI calls.</p></li>
+              </ul>
+              <a class="btn btn--sm rama__cta" href="#contact" data-t>Ask about this</a>
+            </div>
+          </div>
+        </li>
+        <li class="arbol__rama">
+          <button class="arbol__titulo" type="button" aria-expanded="false">
+            <span class="arbol__icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="5.2" width="13.4" height="13.6" rx="2.6"/><path d="m8 10.2 3.6 2.2L8 14.6v-4.4Z"/><path d="m16.2 10.4 4.4-2.6v8.4l-4.4-2.6"/></svg></span>
+            <span class="arbol__nombre" data-t>Generative production</span>
+          </button>
+          <div class="arbol__hijos">
+            <div class="panel">
+              <p class="panel__hook">Let's make your site and your campaigns stand out.</p>
+              <ul class="hojas">
+                <li class="hoja" style="--i: 0"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.6" y="5" width="16.8" height="14" rx="2.4"/><circle cx="8.6" cy="9.8" r="1.4"/><path d="m4.4 16.6 4.2-4 3.4 3.2 3-2.6 4.4 3.8"/></svg></span><span data-t>Images</span></h4><p>For the landing, the product and the campaign.</p></li>
+                <li class="hoja" style="--i: 1"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="12.6" height="12" rx="2.4"/><path d="m15.6 11 5.4-3.2v8.4L15.6 13"/></svg></span><span data-t>Video</span></h4><p>Prompt to rendered clip.</p></li>
+                <li class="hoja" style="--i: 2"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3.6 7.4 4v8.8L12 20.4l-7.4-4V7.6L12 3.6Z"/><path d="m4.6 7.6 7.4 4 7.4-4M12 11.6v8.8"/></svg></span><span data-t>Product</span></h4><p>Demo recordings of your product, ready to show.</p></li>
+                <li class="hoja" style="--i: 3"><svg class="hoja__flecha" viewBox="0 0 34 16" fill="none" aria-hidden="true"><path pathLength="1" d="M1.5 8.4C7 8.1 14 7.6 24.5 7.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path pathLength="1" d="M19.8 3.2c1.9 2 3.5 3.3 5.6 4.2-2.2 1.1-3.8 2.4-5.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><h4><span class="hoja__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 4 2.4 5 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 9.8 9.6 9 12 4Z"/></svg></span><span data-t>Brand</span></h4><p>Logo and identity, with the pieces that hold it up.</p></li>
+              </ul>
+              <a class="btn btn--sm rama__cta" href="#contact" data-t>Ask about this</a>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <p class="cierre reveal">Tell me what idea you have and we'll talk about whether I'm the right person to make it real.</p>
+      <div class="cierre__cta reveal"><a class="btn" href="#contact">Ask about a service</a></div>
+
+      <div class="stack reveal">
+        <h3 class="stack__label">Stack</h3>
+        <ul class="chips">
+          <li>Python</li><li>TypeScript</li><li>SQL</li><li>Node</li><li>Deno</li>
+          <li>React</li><li>Vite</li><li>Tailwind</li><li>React Native</li><li>Expo</li>
+          <li>FastAPI</li><li>Supabase</li><li>PostgreSQL</li><li>Hedera</li>
+          <li>Claude API</li><li>Claude Code</li><li>Cursor</li><li>Gemini</li><li>Ollama</li>
+          <li>n8n</li><li>Activepieces</li><li>Retool</li><li>Zapier</li><li>Make</li>
+          <li>Docker</li><li>Caddy</li><li>Vercel</li><li>Coolify</li><li>GitHub Actions</li><li>Jenkins</li><li>Playwright</li>
+          <li>MercadoPago</li><li>Lemon Squeezy</li><li>Resend</li><li>Telegram API</li>
+          <li>Umami</li><li>LogRocket</li><li>Sentry</li><li>Tableau</li><li>Metabase</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="skills" class="section section--alt">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <h2>Agent Skills</h2>
+        <p>The skills I write for Claude Code and use every day. These six are the ones I run most.</p>
+      </div>
+
+      <div class="skills-grid">
+        <a class="skill-card reveal" href="https://github.com/MR-Axel/skills/tree/main/ship" target="_blank" rel="noopener">
+          <span class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 19 5"/><path d="M9 5h10v10"/></svg></span>
+          <h3>ship<span class="arrow" aria-hidden="true">↗</span></h3>
+          <p>The full loop for a feature: plan, implement, validate, review, deploy. Chains the other skills together.</p>
+        </a>
+
+        <a class="skill-card reveal" href="https://github.com/MR-Axel/skills/tree/main/feature-agents" target="_blank" rel="noopener">
+          <span class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="5" r="1.8" fill="currentColor" stroke="none"/><circle cx="5" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="8" cy="19" r="1.8" fill="currentColor" stroke="none"/><circle cx="16" cy="19" r="1.8" fill="currentColor" stroke="none"/><line x1="12" y1="5" x2="5" y2="12"/><line x1="12" y1="5" x2="19" y2="12"/><line x1="5" y1="12" x2="8" y2="19"/><line x1="19" y1="12" x2="16" y2="19"/></svg></span>
+          <h3>feature-agents<span class="arrow" aria-hidden="true">↗</span></h3>
+          <p>Same as ship, delegated to five subagents with narrow tool access: the one writing the spec cannot write code.</p>
+        </a>
+
+        <article class="skill-card skill-card--own reveal">
+          <span class="skill-icon"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.8" r="1.9"/><circle cx="5.6" cy="19.2" r="1.9"/><circle cx="12" cy="19.2" r="1.9"/><circle cx="18.4" cy="19.2" r="1.9"/><path d="M12 6.7v3.1M12 9.8H5.6v7.5M12 9.8v7.5M12 9.8h6.4v7.5"/></svg></span>
+          <h3>arquitecturas<span class="skill-mark">Private</span></h3>
+          <p>Picks the agent architecture a task deserves out of 32 methods, and returns the one to use, why not the others, and the signal to abandon it.</p>
+        </article>
+
+        <a class="skill-card reveal" href="https://github.com/MR-Axel/skills/tree/main/review" target="_blank" rel="noopener">
+          <span class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="6"/><line x1="14.5" y1="14.5" x2="20" y2="20"/></svg></span>
+          <h3>review<span class="arrow" aria-hidden="true">↗</span></h3>
+          <p>Code review of a diff. Every finding anchored to a real file and line, with the concrete failure scenario spelled out.</p>
+        </a>
+
+        <a class="skill-card reveal" href="https://github.com/MR-Axel/skills/tree/main/test" target="_blank" rel="noopener">
+          <span class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><polyline points="8 12.5 11 15.5 16 9"/></svg></span>
+          <h3>test<span class="arrow" aria-hidden="true">↗</span></h3>
+          <p>Runs your validation pipeline and reports honestly: what passed, what failed, what got skipped. Never marks green something that never ran.</p>
+        </a>
+
+        <a class="skill-card reveal" href="https://github.com/MR-Axel/skills/tree/main/deploy" target="_blank" rel="noopener">
+          <span class="skill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="6"/><polyline points="6 11 12 5 18 11"/><line x1="5" y1="20" x2="19" y2="20"/></svg></span>
+          <h3>deploy<span class="arrow" aria-hidden="true">↗</span></h3>
+          <p>The release pipeline. Separate permissions for commit, push and deploy, and it never ships a build that hasn't passed.</p>
+        </a>
+      </div>
+
+      <h3 class="skills-band">Others</h3>
+      <ul class="minis">
+        <li class="reveal"><a class="mini" href="https://github.com/MR-Axel/skills/tree/main/project-setup" target="_blank" rel="noopener">project-setup<span class="arrow" aria-hidden="true">↗</span></a></li>
+        <li class="reveal"><a class="mini" href="https://github.com/MR-Axel/skills/tree/main/dev" target="_blank" rel="noopener">dev<span class="arrow" aria-hidden="true">↗</span></a></li>
+        <li class="reveal"><a class="mini" href="https://github.com/MR-Axel/skills/tree/main/deep-review" target="_blank" rel="noopener">deep-review<span class="arrow" aria-hidden="true">↗</span></a></li>
+        <li class="reveal"><a class="mini" href="https://github.com/MR-Axel/skills/tree/main/ux" target="_blank" rel="noopener">ux<span class="arrow" aria-hidden="true">↗</span></a></li>
+        <li class="reveal"><a class="mini" href="https://github.com/MR-Axel/skills/tree/main/product" target="_blank" rel="noopener">product<span class="arrow" aria-hidden="true">↗</span></a></li>
+        <li class="reveal"><a class="mini" href="https://github.com/MR-Axel/skills/tree/main/deploy-qa" target="_blank" rel="noopener">deploy-qa<span class="arrow" aria-hidden="true">↗</span></a></li>
+        <li class="reveal"><a class="mini" href="https://github.com/MR-Axel/skills/tree/main/decision-log" target="_blank" rel="noopener">decision-log<span class="arrow" aria-hidden="true">↗</span></a></li>
+        <li class="reveal"><a class="mini" href="https://github.com/MR-Axel/skills/tree/main/design-system" target="_blank" rel="noopener">design-system<span class="arrow" aria-hidden="true">↗</span></a></li>
+        <li class="reveal"><a class="mini" href="https://github.com/MR-Axel/skills/tree/main/community-manager" target="_blank" rel="noopener">community-manager<span class="arrow" aria-hidden="true">↗</span></a></li>
+        <li class="reveal"><span class="mini mini--own" title="Private">web-cinematica</span></li>
+        <li class="reveal"><span class="mini mini--own" title="Private">video-producto</span></li>
+        <li class="reveal"><span class="mini mini--own" title="Private">voz-auditar</span></li>
+      </ul>
+
+      <div class="skills-cta reveal">
+        <a class="btn btn--ghost" href="https://github.com/MR-Axel/skills" target="_blank" rel="noopener">The 14 open ones, on GitHub<span class="arrow" aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="activity" class="section">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <h2>Activity</h2>
+        <p>Most of the code lives in private product repos, so the graph is the honest
+           part of it.</p>
+      </div>
+
+      <figure class="heat reveal" aria-labelledby="heat-caption">
+        <div class="heat__scroll">
+          <div class="heat__grid" id="heatmap" role="img" aria-label="GitHub contribution graph for the last year"></div>
+        </div>
+        <figcaption id="heat-caption" class="heat__caption">
+          <span data-stat="contributions-line">5,024 contributions in the last year</span>
+          <span class="heat__legend"><span data-t>Less</span>
+            <i class="lv lv0"></i><i class="lv lv1"></i><i class="lv lv2"></i><i class="lv lv3"></i><i class="lv lv4"></i>
+            <span data-t>More</span></span>
+        </figcaption>
+      </figure>
+
+      <p class="note reveal">
+        What is public is this site and the Agent Skills above. Everything else is product code in private repos. <a href="https://github.com/MR-Axel" target="_blank" rel="noopener">See the profile on GitHub<span class="arrow" aria-hidden="true">↗</span></a>
+      </p>
+    </div>
+  </section>
+
+  <section id="contact" class="section section--alt contact">
+    <div class="wrap">
+      <div class="contact__grid">
+        <div class="contact__side reveal">
+          <h2>Let&#39;s talk</h2>
+          <p class="contact__lede">I build for companies and for people with a project. Write it here and it lands on my phone in a few seconds.</p>
+          <div class="contact__redes">
+            <a class="btn btn--ghost" href="https://www.linkedin.com/in/axelrosso/" rel="me noopener" target="_blank">LinkedIn<span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="btn btn--ghost" href="https://github.com/MR-Axel" rel="me noopener" target="_blank">GitHub<span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="btn btn--ghost" href="https://x.com/ArrobAxel" rel="me noopener" target="_blank">X<span class="arrow" aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+
+        <form class="form reveal" id="contact-form" autocomplete="on">
+          <div class="field">
+            <label for="f-name" data-t>Your name</label>
+            <input id="f-name" name="nombre" type="text" required minlength="2" maxlength="80" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="f-mail" data-t>Email</label>
+            <input id="f-mail" name="mail" type="email" required maxlength="120" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="f-tema" data-t>What it is about</label>
+            <select id="f-tema" name="tema" required>
+              <option value="otro" data-t selected>Something else</option>
+              <option value="agentes" data-t>AI agents</option>
+              <option value="online" data-t>Your business online</option>
+              <option value="cero" data-t>Products, 0 to 1</option>
+              <option value="automatizacion" data-t>Automation and internal tooling</option>
+              <option value="estrategia" data-t>Strategy and advisory</option>
+              <option value="generativa" data-t>Generative production</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-what" data-t>What you are looking for</label>
+            <textarea id="f-what" name="busca" required minlength="10" maxlength="2000" rows="4"></textarea>
+          </div>
+
+          <div class="trampa" aria-hidden="true">
+            <label for="f-web">Website</label>
+            <input id="f-web" name="web" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <button class="btn" type="submit" data-t>Send it</button>
+
+          <p class="form__msg" data-estado="enviando" hidden>Sending.</p>
+          <p class="form__msg form__msg--ok" data-estado="listo" hidden>It arrived. I read these myself and answer from my own inbox, usually inside a day.</p>
+          <p class="form__msg form__msg--mal" data-estado="error" hidden>That did not go through. LinkedIn is the way around it, and I will see it there.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <filter id="tiembla" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="3" seed="7" result="ruido"/>
+    <feDisplacementMap in="SourceGraphic" in2="ruido" scale="1.9"
+                       xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+
+<div class="lima" id="lima" hidden>
+  <button class="lima__launch" id="lima-launch" type="button"
+          aria-expanded="false" aria-controls="lima-panel">
+    <img class="lima__cara" src="../assets/doodles/asistente.png" alt="" width="512" height="561" aria-hidden="true">
+    <span class="lima__pitch">
+      <strong data-t>Axel&#39;s assistant</strong>
+      <span data-t>Tell me what you need</span>
+    </span>
+  </button>
+
+  <section class="lima__panel" id="lima-panel" aria-labelledby="lima-title" hidden>
+    <header class="lima__head">
+      <img class="lima__cara lima__cara--grande" src="../assets/doodles/asistente.png" alt="" width="512" height="561" aria-hidden="true">
+      <span class="lima__who">
+        <strong id="lima-title" data-t>Axel&#39;s assistant</strong>
+      </span>
+      <button class="lima__x" id="lima-close" type="button">
+        <span class="oculto" data-t>Close</span>
+        <span aria-hidden="true">×</span>
+      </button>
+    </header>
+
+    <div class="lima__log" id="lima-log" role="log" aria-live="polite"></div>
+
+    <form class="lima__ask" id="lima-ask">
+      <label class="oculto" for="lima-input" data-t>Your message</label>
+      <input id="lima-input" type="text" maxlength="1200" autocomplete="off"
+             required>
+      <button class="lima__send" type="submit">
+        <span class="oculto" data-t>Send</span>
+        <span aria-hidden="true">→</span>
+      </button>
+    </form>
+  </section>
+
+  <div class="lima__strings" hidden>
+    <p data-frase="hola">Hi, I am the assistant on this site. Tell me what you are trying to build or fix and I will point you at the right thing, or hand you straight to Axel.</p>
+    <p data-frase="pensando">Thinking.</p>
+    <p data-frase="dejar">Leave my details</p>
+    <p data-frase="caido">Something went wrong on my side. The form further up still reaches him.</p>
+  </div>
+</div>
+
+
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <p>Axel · Buenos Aires (UTC-3)</p>
+  </div>
+</footer>
+
+<script src="../assets/medir.js?v=2" defer></script>
+<script src="../assets/i18n.js?v=62"></script>
+<script src="../assets/app.js?v=40"></script>
+<script src="../assets/interact.js?v=3" defer></script>
+<script src="../assets/form.js?v=5" defer></script>
+<script src="../assets/mobile.js?v=8" defer></script>
+<script src="../assets/lima.js?v=2" defer></script>
+</body>
+</html>

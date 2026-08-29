@@ -1,0 +1,11 @@
+# axelrosso.com
+User-agent: *
+Allow: /
+
+# La pagina de prueba del skin no es contenido y no tiene que indexarse.
+Disallow: /prueba-doodle.html
+# El fuente sin generar es la misma pagina en ingles en otra direccion: si se
+# indexa, compite con /en/ por lo mismo.
+Disallow: /src/
+
+Sitemap: https://axelrosso.com/sitemap.xml

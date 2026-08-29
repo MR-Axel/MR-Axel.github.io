@@ -13,7 +13,6 @@ window.ES = {
   /* --- chrome --- */
   'Skip to content': 'Saltar al contenido',
   'Work': 'Productos',
-  'Craft': 'Oficio',
   'Activity': 'Actividad',
   'Get in touch': 'Escribime',
   'See what I build': 'Mirá lo que construyo',
@@ -129,14 +128,11 @@ window.ES = {
 
   /* --- services --- */
   'Services': 'Servicios',
-  'Work with me': 'Trabajemos juntos',
   /* &#39; in the source, but the browser hands back a plain apostrophe, so the
      key has to be written the way innerHTML reads it */
 
 
 
-  'n8n, Activepieces, Retool, Zapier, Make. Plus the process that keeps it from rotting after I leave.':
-    'n8n, Activepieces, Retool, Zapier, Make. Más el proceso que evita que se pudra cuando me voy.',
 
 
 
@@ -180,8 +176,6 @@ window.ES = {
     'Herramientas entregadas',
 
   /* --- servicios --- */
-  'n8n, Activepieces, Retool, Zapier, Make. Plus the process that keeps it from rotting after I leave, which is the part that goes missing.':
-    'n8n, Activepieces, Retool, Zapier, Make. Más el proceso que evita que se pudra cuando me voy, que es la parte que suele faltar.',
   'Strategy and advisory':
     'Estrategia y asesoría',
   'MBA en Tecnología e Innovación':
@@ -190,8 +184,6 @@ window.ES = {
     'Otros',
   'Point of sale, stock and the fiscal side wired together, for a monotributista who today invoices by hand.':
     'Punto de venta, stock y la parte fiscal atados entre sí, para un monotributista que hoy factura a mano.',
-  'In progress':
-    'En curso',
   'Earlier builds and one on pause. Two are still up and the rest are off.':
     'Cosas anteriores y una en pausa. Dos siguen en pie y el resto está apagado.',
 

@@ -19,7 +19,6 @@ import urllib.request
 USER = os.environ.get("GH_USER", "MR-Axel")
 TOKEN = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
 OUT = pathlib.Path(__file__).resolve().parent.parent / "data" / "github.json"
-INDEX = pathlib.Path(__file__).resolve().parent.parent / "index.html"
 
 QUERY = """
 query($login: String!) {
@@ -64,28 +63,6 @@ def graphql():
 
 
 
-def refrescar_respaldo(total):
-    """Deja el numero escrito en el html igual al de la API.
-
-    🔴 Ese numero no es decoracion: es lo que se ve mientras `github.json`
-    todavia no llego, y lo unico que se ve si la peticion falla o si alguien
-    entra con el JavaScript a medio cargar. Escrito a mano en el html envejece
-    en silencio: llego a estar 85 contribuciones abajo del real, y nadie se
-    entera porque la version buena aparece medio segundo despues.
-    """
-    try:
-        html = INDEX.read_text(encoding="utf-8")
-    except OSError:
-        return
-    nuevo, cuantos = re.subn(
-        r'(data-stat="contributions">)[^<]*',
-        lambda m: m.group(1) + format(total, ",d"),
-        html, count=1)
-    if cuantos and nuevo != html:
-        INDEX.write_text(nuevo, encoding="utf-8", newline=chr(10))
-        print("respaldo del html actualizado a", format(total, ",d"))
-
-
 def main():
     user = graphql()
     calendar = user["contributionsCollection"]["contributionCalendar"]
@@ -119,7 +96,6 @@ def main():
     print("wrote %s: %d days, %d contributions, %d repos"
           % (OUT.name, len(days), data["contributions"]["total"], len(data["repos"])))
 
-    refrescar_respaldo(data["contributions"]["total"])
 
 
 if __name__ == "__main__":

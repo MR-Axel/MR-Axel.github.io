@@ -538,14 +538,20 @@
     paintContributions();
   }
 
-  translate(lang);
+  /* 🔴 YA NO SE TRADUCE NADA AL CARGAR. El HTML viene en su idioma desde el
+     servidor, asi que `translate()` no tendria con que: buscaria las frases en
+     castellano como si fueran claves en ingles y no encontraria ninguna.
+     La funcion se queda porque `paintContributions` usa el diccionario, y
+     porque sirve de red si alguna vez se sirve el fuente sin generar. */
 
   var langBtn = document.getElementById('lang-toggle');
   if (langBtn) {
     langBtn.addEventListener('click', function () {
       var to = lang === 'es' ? 'en' : 'es';
-      translate(to);
+      /* la eleccion se guarda ANTES de irse, o la pagina de destino vuelve a
+         mandar de vuelta con la regla de la zona horaria */
       store('site-lang', to);
+      window.location.href = (to === 'en' ? '/en/' : '/') + window.location.hash;
     });
   }
 
@@ -1035,7 +1041,10 @@
     setText('[data-stat="contributions-line"]', tpl.replace('{n}', nf.format(n)));
   }
 
-  fetch('data/github.json', { cache: 'no-cache' })
+  /* ⚠️ Absoluta y no relativa: la misma pagina se sirve en `/` y en `/en/`,
+     y desde la carpeta pedia `/en/data/github.json`, que no existe. El
+     grafico quedaba vacio y el numero se quedaba en el del html. */
+  fetch('/data/github.json', { cache: 'no-cache' })
     .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
     .then(function (data) {
       if (!data.contributions) return;
