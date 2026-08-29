@@ -1,7 +1,7 @@
 {
  "generated": "2026-08-28",
  "contributions": {
-  "total": 5021,
+  "total": 5024,
   "days": [
    {
     "d": "2025-08-24",
@@ -1481,11 +1481,21 @@
    },
    {
     "d": "2026-08-28",
-    "c": 28
+    "c": 31
    }
   ]
  },
  "repos": [
+  {
+   "name": "MR-Axel.github.io",
+   "description": "Personal site. Live at mr-axel.github.io",
+   "url": "https://github.com/MR-Axel/MR-Axel.github.io",
+   "language": "JavaScript",
+   "stars": 0,
+   "updated": "2026-08-28T21:49:38Z",
+   "archived": false,
+   "topics": []
+  },
   {
    "name": "monitor-sistema",
    "description": "Panel en vivo del estado de una PC con Windows, con registro que sobrevive a un apag\u00f3n. Pensado para diagnosticar reinicios espont\u00e1neos que no dejan rastro en el Visor de eventos.",
@@ -1503,16 +1513,6 @@
     "system-monitor",
     "windows"
    ]
-  },
-  {
-   "name": "MR-Axel.github.io",
-   "description": "Personal site. Live at mr-axel.github.io",
-   "url": "https://github.com/MR-Axel/MR-Axel.github.io",
-   "language": "JavaScript",
-   "stars": 0,
-   "updated": "2026-08-28T06:43:54Z",
-   "archived": false,
-   "topics": []
   },
   {
    "name": "MR-Axel",
