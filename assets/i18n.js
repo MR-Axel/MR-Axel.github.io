@@ -46,8 +46,8 @@ window.ES = {
   'Specs, roadmaps, research and audits for PMs, founders and small product teams. Product management built on Claude.':
     'Specs, roadmaps, research y auditorías para PMs, fundadores y equipos chicos. Product management sobre Claude.',
 
-  'AI agents for small businesses: WhatsApp, web and voice, wired to the data they already have, with a dashboard on top.':
-    'Agentes de IA para negocios chicos: WhatsApp, web y voz, conectados a los datos que ya tienen, con un tablero arriba.',
+  'AI agents for small businesses on WhatsApp, web and voice, wired to the data they already had.':
+    'Agentes de IA para negocios chicos en WhatsApp, web y voz, conectados a los datos que ya tenían.',
 
   /* tags */
   'Job search': 'Búsqueda laboral',
@@ -55,7 +55,7 @@ window.ES = {
   'AI agents': 'Agentes de IA',
   'AI tutor': 'Tutor de IA',
   'Vision': 'Visión',
-  'SMB': 'PyMEs',
+  'Paused': 'En pausa',
 
 
   /* pills */
@@ -184,8 +184,8 @@ window.ES = {
     'Otros',
   'Point of sale, stock and the fiscal side wired together, for a monotributista who today invoices by hand.':
     'Punto de venta, stock y la parte fiscal atados entre sí, para un monotributista que hoy factura a mano.',
-  'Earlier builds and one on pause. Two are still up and the rest are off.':
-    'Cosas anteriores y una en pausa. Dos siguen en pie y el resto está apagado.',
+  'Earlier builds and one on pause. One is still up and the rest are off.':
+    'Cosas anteriores y una en pausa. Una sigue en pie y el resto está apagado.',
 
   /* --- voz, revision completa --- */
   'Tell me what you need':
@@ -260,8 +260,6 @@ window.ES = {
     'De la spec al release, en semanas. El repo queda tuyo.',
   'Out to market with the measurement wired in from day one.':
     'Salida al mercado con la medición puesta desde el día uno.',
-  'Automation':
-    'Automatizaciones',
   'Internal tools':
     'Herramientas internas',
   'Handover':
