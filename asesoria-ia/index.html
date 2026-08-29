@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="es" data-skin="doodle">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asesoría y consultoría en IA para equipos y fundadores · Axel Rosso</title>
+<meta name="description" content="Uno a uno con el fundador sobre lo que se está por decidir, o al lado del equipo en las decisiones de IA: diseño agéntico, alcance, y qué conviene no construir.">
+<link rel="canonical" href="https://axelrosso.com/asesoria-ia/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Asesoría y consultoría en IA para equipos y fundadores · Axel Rosso">
+<meta property="og:description" content="Uno a uno con el fundador sobre lo que se está por decidir, o al lado del equipo en las decisiones de IA: diseño agéntico, alcance, y qué conviene no construir.">
+<meta property="og:url" content="https://axelrosso.com/asesoria-ia/">
+<meta property="og:image" content="https://axelrosso.com/assets/og.jpg?v=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Un dibujo a mano de alguien saludando.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@ArrobAxel">
+<meta name="theme-color" content="#FBFAF7">
+<link rel="icon" type="image/png" href="../assets/favicon.png?v=1">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/style.css?v=92">
+<link rel="stylesheet" href="../assets/doodle.css?v=4">
+<script>
+/* Runs before the body parses, so the page never flashes the wrong theme or
+   the wrong language.
+
+   A stored choice always wins. What follows only decides what somebody sees on
+   their very first visit, and the toggles are in the bar either way.
+
+   🔴 LIGHT BY DEFAULT, AND prefers-color-scheme IS DELIBERATELY IGNORED. Most
+   people never touched that setting, so on a laptop it mostly reports whatever
+   the OS shipped with rather than a preference. The skin is drawn ink, and ink
+   on paper is what it was designed for: dark is a good version of it, light is
+   the one it was drawn as.
+
+   🔴 SPANISH BY DEFAULT, AND THE TEST IS WHERE THEY ARE, NOT WHAT THEIR BROWSER
+   IS SET TO. navigator.language answers a different question: plenty of people
+   in Latin America run their browser in English without wanting to read this
+   page in it. Time zone is the only location signal available with no network
+   call and no consent to ask for, and it is not spoofed by accident.
+
+   ⚠️ THE ZONE LIST IS THE US AND CANADA ENUMERATED, NOT `America/` AS A PREFIX.
+   Buenos Aires, Mexico City and Sao Paulo are all `America/` too, so a prefix
+   would put the whole continent into English, which is the exact opposite of
+   what was asked. Enumerated it can only ever be incomplete, never wrong: an
+   unlisted zone falls to Spanish, which is the default anyway. navigator
+   .language stays as a second chance, so en-US and en-CA also get English even
+   from a zone that is not on the list. */
+(function () {
+  var d = document.documentElement;
+  d.classList.add('js');
+
+  /* 🔴 SOLO LA ZONA HORARIA DECIDE, Y navigator.language NO PARTICIPA. Estaba
+     como segunda oportunidad, y era el error: alguien en Buenos Aires con el
+     navegador en inglés, que es medio gremio, caía en inglés. La pregunta es
+     dónde está la persona, no en qué idioma tiene puesto el Chrome.
+
+     ⚠️ La lista es enumerada y por eso está completa a propósito: ahora que es
+     la única señal, una zona que falte manda a alguien de Estados Unidos a
+     castellano. Enumerar sigue siendo lo correcto contra usar `America/` como
+     prefijo, porque Buenos Aires, México y São Paulo también son `America/` y
+     eso mandaría el continente entero a inglés.
+
+     Los prefijos de abajo cubren las zonas con subcarpeta (Indiana, Kentucky,
+     Dakota del Norte) y los alias viejos `US/` y `Canada/` que algunos
+     navegadores todavía reportan. */
+  var ZONAS = (
+    /* Estados Unidos */
+    'America/New_York America/Detroit America/Chicago America/Denver ' +
+    'America/Phoenix America/Los_Angeles America/Anchorage America/Adak ' +
+    'America/Boise America/Juneau America/Sitka America/Nome America/Menominee ' +
+    'America/Metlakatla America/Yakutat Pacific/Honolulu ' +
+    /* Canadá */
+    'America/Toronto America/Vancouver America/Edmonton America/Winnipeg ' +
+    'America/Halifax America/St_Johns America/Regina America/Moncton ' +
+    'America/Whitehorse America/Yellowknife America/Iqaluit America/Dawson ' +
+    'America/Dawson_Creek America/Fort_Nelson America/Creston America/Inuvik ' +
+    'America/Cambridge_Bay America/Rankin_Inlet America/Resolute ' +
+    'America/Swift_Current America/Atikokan America/Glace_Bay ' +
+    'America/Goose_Bay America/Blanc-Sablon '
+  );
+
+  function enNorteamerica() {
+    var zona = '';
+    try { zona = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    if (!zona) return false;
+    if (ZONAS.indexOf(zona + ' ') > -1) return true;
+    return zona.indexOf('America/Indiana/') === 0 ||
+           zona.indexOf('America/Kentucky/') === 0 ||
+           zona.indexOf('America/North_Dakota/') === 0 ||
+           zona.indexOf('US/') === 0 ||
+           zona.indexOf('Canada/') === 0;
+  }
+
+  var theme, lang;
+  try { theme = localStorage.getItem('site-theme'); lang = localStorage.getItem('site-lang'); } catch (e) {}
+  if (theme !== 'light' && theme !== 'dark') theme = 'light';
+  if (lang !== 'es' && lang !== 'en') lang = enNorteamerica() ? 'en' : 'es';
+
+  /* 🔴 EL IDIOMA AHORA ES UNA URL Y NO UNA CLASE. `/` viene en castellano y
+     `/en/` en ingles, con el texto adentro del HTML: es lo unico que hace que
+     un buscador vea la version en castellano, porque rastrea desde Estados
+     Unidos y con la regla de la zona horaria siempre le tocaba ingles.
+
+     La regla de arriba no cambio: decide, y si lo que decidio no coincide con
+     la pagina que se esta cargando, se cambia de direccion.
+
+     ⚠️ `location.replace` y no `location.href`: con `href` queda una entrada en
+     el historial y el boton de volver del navegador rebota entre las dos
+     versiones sin poder salir.
+
+     ⚠️ Y no se toca `lang` si ya coincide, ni se redirige a nadie que haya
+     elegido a mano: `guardado` gana siempre. */
+  var ruta = window.location.pathname.replace(/index\.html$/, '');
+  var esPortada = ruta === '/' || ruta === '/en/' || ruta === '';
+  var paginaActual = (ruta === '/en/') ? 'en' : 'es';
+
+  /* ⚠️ EN UN SOLO SENTIDO: de la raiz al ingles, nunca de `/en/` al castellano.
+     Quien abre `/en/` ya pidio ingles, sea porque siguio un enlace o porque lo
+     encontro asi en un buscador, y devolverlo es discutirle. Ademas protege a
+     esa pagina de que un rastreador que no venga de Estados Unidos la vea
+     rebotar, que es la forma mas rapida de que no la indexe.
+
+     ⚠️ Y solo en la portada, con la ruta comparada entera. Las paginas de
+     servicio existen unicamente en castellano: mandando a `/` a cualquiera con
+     el ingles guardado, quien abre `/agentes-de-ia/` termina en la portada sin
+     la pagina que fue a buscar. Con `indexOf('/en')` cualquier ruta que empiece
+     con esas dos letras se tomaria por la version en ingles. */
+  if (ruta !== '/en/' && esPortada && lang === 'en') {
+    window.location.replace('/en/' + window.location.search + window.location.hash);
+    return;
+  }
+  lang = paginaActual;
+
+  d.setAttribute('data-theme', theme);
+  d.setAttribute('data-lang', lang);
+  d.setAttribute('lang', lang);
+  var m = document.querySelector('meta[name="theme-color"]');
+  if (m) m.setAttribute('content', theme === 'light' ? '#fbfaf7' : '#08090b');
+})();
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Person",
+   "@id": "https://axelrosso.com/#axel",
+   "name": "Axel Rosso",
+   "url": "https://axelrosso.com/"
+  },
+  {
+   "@type": "Service",
+   "@id": "https://axelrosso.com/asesoria-ia/#servicio",
+   "name": "Estrategia y asesoría",
+   "serviceType": "Asesoría en IA, para fundadores y equipos",
+   "url": "https://axelrosso.com/asesoria-ia/",
+   "description": "La asesoría sirve cuando hay una decisión adelante y alguien la tiene que tomar esta semana.",
+   "provider": {
+    "@id": "https://axelrosso.com/#axel"
+   },
+   "areaServed": [
+    {
+     "@type": "Country",
+     "name": "Argentina"
+    },
+    {
+     "@type": "Country",
+     "name": "Chile"
+    },
+    {
+     "@type": "Country",
+     "name": "México"
+    },
+    {
+     "@type": "Country",
+     "name": "Uruguay"
+    },
+    {
+     "@type": "Country",
+     "name": "Colombia"
+    },
+    {
+     "@type": "Country",
+     "name": "Perú"
+    },
+    {
+     "@type": "Country",
+     "name": "España"
+    }
+   ],
+   "availableLanguage": [
+    "es",
+    "en"
+   ],
+   "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": "https://axelrosso.com/asesoria-ia/#contact"
+   },
+   "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Estrategia y asesoría",
+    "itemListElement": [
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "Uno a uno",
+       "description": "Con el fundador, sobre lo que se está por decidir. Cada sesión termina con una decisión tomada y escrita, así el mes que viene no se vuelve a discutir lo mismo."
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "Al lado del equipo",
+       "description": "Con la gente que construye, en las decisiones de IA: revisión de diseño, límites de los agentes y qué medir. Entro en las reuniones donde se decide."
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "Revisión de un diseño agéntico",
+       "description": "Sobre algo que ya está armado o dibujado: qué herramientas toca cada agente, dónde se puede quedar en loop, qué pasa cuando el modelo se equivoca y cuánto sale por mes si funciona."
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "Segunda opinión sobre un presupuesto",
+       "description": "Antes de firmar. Qué está de más, qué falta, y qué se va a cobrar aparte en tres meses."
+      }
+     }
+    ]
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://axelrosso.com/asesoria-ia/#preguntas",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "¿Das asesoría uno a uno?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sí. Con el fundador, sobre la decisión que tiene adelante."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "¿Es una sesión suelta o algo sostenido?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Las dos formas existen. Una decisión puntual entra en una sesión; acompañar a un equipo mientras construye es mensual."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "¿Sirve si no tengo equipo técnico?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sí, y suele ser cuando más sirve: la mayoría de las decisiones caras de IA no son técnicas."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "¿Podés revisar algo que ya está armado?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sí. Se mira el diseño, qué herramientas toca cada agente y por dónde se puede ir de las manos."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "¿Trabajás con el equipo que ya tenemos?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sí. Entro al lado de los que construyen, y las decisiones las toman ellos."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "¿Y si después quiero que lo construyas vos?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Se puede, y lo digo antes: si en la asesoría aparece algo que conviene que haga yo, te lo marco y decidís vos."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "¿Conocés mi industria?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Casi seguro que no como vos. Lo que llevo es cómo se decide con IA, el negocio lo conocés vos, y esa mezcla es la que sirve."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Inicio",
+     "item": "https://axelrosso.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Estrategia y asesoría",
+     "item": "https://axelrosso.com/asesoria-ia/"
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<div class="bg" aria-hidden="true">
+  <span class="bg__wash"></span>
+  <span class="bg__grid"></span>
+  <span class="bg__orb bg__orb--1"></span>
+  <span class="bg__orb bg__orb--2"></span>
+  <span class="bg__orb bg__orb--3"></span>
+</div>
+<div class="grain" aria-hidden="true"></div>
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<header class="nav">
+  <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+  <div class="wrap nav__inner">
+    <nav class="nav__links" aria-label="Sections">
+      <a href="/#work">Productos</a>
+      <a href="/#experience">Recorrido</a>
+      <a href="/#services">Servicios</a>
+      <a href="/#skills">Agent Skills</a>
+      <a href="/#activity">Actividad</a>
+    </nav>
+
+    <div class="nav__end">
+      <div class="switches">
+        <button class="sw" id="lang-toggle" type="button" aria-label="Cambiar idioma / Switch language"><span id="lang-label">ES</span></button>
+        <button class="sw" id="theme-toggle" type="button" aria-label="Switch theme">
+          <svg class="sw__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+          <svg class="sw__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/></svg>
+        </button>
+      </div>
+      <a class="btn btn--sm" href="#contact">Escribime</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <article class="srv">
+    <div class="wrap">
+      <nav class="miga" aria-label="Dónde estás"><a href="/">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">Estrategia y asesoría</span></nav>
+      <header class="srv__head">
+        <h1>Asesoría en IA, para fundadores y equipos</h1>
+        <p class="srv__respuesta">La asesoría sirve cuando hay una decisión adelante y alguien la tiene que tomar esta semana.</p>
+      </header>
+      <div class="srv__intro">
+        <p>Hasta dónde dejar que el agente decida solo. Esa es la pregunta que más me llega, y no aparece en ninguna demo.</p>
+        <p>Alrededor hay otras: qué conviene no construir, qué se puede comprar hecho, y cuánto va a costar mantener dentro de un año lo que se decida hoy.</p>
+        <p>Y la que casi nadie hace a tiempo: qué pasa el día que el modelo que estás usando cambia de precio o deja de existir.</p>
+      </div>
+    </div>
+  </article>
+  <section class="section">
+    <div class="wrap">
+      <div class="section__head"><h2>Qué incluye</h2></div>
+      <ul class="srv__lista">
+        <li><h3>Uno a uno</h3><p>Con el fundador, sobre lo que se está por decidir. Cada sesión termina con una decisión tomada y escrita, así el mes que viene no se vuelve a discutir lo mismo.</p></li>
+        <li><h3>Al lado del equipo</h3><p>Con la gente que construye, en las decisiones de IA: revisión de diseño, límites de los agentes y qué medir. Entro en las reuniones donde se decide.</p></li>
+        <li><h3>Revisión de un diseño agéntico</h3><p>Sobre algo que ya está armado o dibujado: qué herramientas toca cada agente, dónde se puede quedar en loop, qué pasa cuando el modelo se equivoca y cuánto sale por mes si funciona.</p></li>
+        <li><h3>Segunda opinión sobre un presupuesto</h3><p>Antes de firmar. Qué está de más, qué falta, y qué se va a cobrar aparte en tres meses.</p></li>
+      </ul>
+    </div>
+  </section>
+  <section class="section section--alt">
+    <div class="wrap">
+      <div class="section__head"><h2>Para quién es</h2></div>
+      <ul class="srv__quien">
+        <li>Un fundador que tiene que decidir esta semana y no tiene con quién hablarlo.</li>
+        <li>Un equipo técnico que sabe programar y está entrando a IA por primera vez.</li>
+        <li>Una empresa con una propuesta arriba de la mesa y sin cómo evaluarla.</li>
+        <li>Un área de producto que quiere meter IA sin romper lo que ya funciona.</li>
+        <li>Un equipo con algo de IA ya andando que no sabe si lo que gasta por mes es normal.</li>
+      </ul>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="section__head"><h2>Cómo funciona</h2></div>
+      <ol class="srv__pasos">
+        <li><span class="srv__num" aria-hidden="true">01</span><h3>Se define la decisión</h3><p>Antes de la sesión, por escrito, para no gastarla en ponerme al día.</p></li>
+        <li><span class="srv__num" aria-hidden="true">02</span><h3>La sesión</h3><p>Una hora, sobre esa decisión.</p></li>
+        <li><span class="srv__num" aria-hidden="true">03</span><h3>Queda escrito</h3><p>Qué se decidió y por qué, para el que llegue después.</p></li>
+      </ol>
+    </div>
+  </section>
+  <section class="section section--alt" id="preguntas">
+    <div class="wrap">
+      <div class="section__head"><h2>Preguntas frecuentes</h2></div>
+      <dl class="srv__faq">
+        <div class="srv__qa"><dt>¿Das asesoría uno a uno?</dt><dd>Sí. Con el fundador, sobre la decisión que tiene adelante.</dd></div>
+        <div class="srv__qa"><dt>¿Es una sesión suelta o algo sostenido?</dt><dd>Las dos formas existen. Una decisión puntual entra en una sesión; acompañar a un equipo mientras construye es mensual.</dd></div>
+        <div class="srv__qa"><dt>¿Sirve si no tengo equipo técnico?</dt><dd>Sí, y suele ser cuando más sirve: la mayoría de las decisiones caras de IA no son técnicas.</dd></div>
+        <div class="srv__qa"><dt>¿Podés revisar algo que ya está armado?</dt><dd>Sí. Se mira el diseño, qué herramientas toca cada agente y por dónde se puede ir de las manos.</dd></div>
+        <div class="srv__qa"><dt>¿Trabajás con el equipo que ya tenemos?</dt><dd>Sí. Entro al lado de los que construyen, y las decisiones las toman ellos.</dd></div>
+        <div class="srv__qa"><dt>¿Y si después quiero que lo construyas vos?</dt><dd>Se puede, y lo digo antes: si en la asesoría aparece algo que conviene que haga yo, te lo marco y decidís vos.</dd></div>
+        <div class="srv__qa"><dt>¿Conocés mi industria?</dt><dd>Casi seguro que no como vos. Lo que llevo es cómo se decide con IA, el negocio lo conocés vos, y esa mezcla es la que sirve.</dd></div>
+      </dl>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="section__head"><h2>Con qué más te puedo ayudar</h2></div>
+      <ul class="srv__otros">
+        <li><a href="/agentes-de-ia/"><strong>Agentes de IA</strong><span>Un agente de IA es un programa que sostiene una conversación con los datos de tu negocio adentro: contesta, consulta, agenda, y cuando no le da, le pasa la conversación a una persona.</span></a></li>
+        <li><a href="/producto-desde-cero/"><strong>Productos de 0 a 1</strong><span>Hacer un producto desde cero es, sobre todo, decidir qué no entra en la primera versión.</span></a></li>
+        <li><a href="/automatizaciones/"><strong>Automatizaciones y herramientas internas</strong><span>Automatizar es sacarle a una persona la parte del trabajo que ya hace siempre igual.</span></a></li>
+      </ul>
+    </div>
+  </section>
+  <section id="contact" class="section section--alt contact">
+    <div class="wrap">
+      <div class="contact__grid">
+        <div class="contact__side">
+          <h2>Hablemos</h2>
+          <p class="contact__lede">Contame qué tenés que decidir y vemos si una hora alcanza.</p>
+          <div class="contact__redes">
+            <a class="btn btn--ghost" href="https://www.linkedin.com/in/axelrosso/" rel="me noopener" target="_blank">LinkedIn<span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="btn btn--ghost" href="https://github.com/MR-Axel" rel="me noopener" target="_blank">GitHub<span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="btn btn--ghost" href="https://x.com/ArrobAxel" rel="me noopener" target="_blank">X<span class="arrow" aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+
+        <form class="form" id="contact-form" autocomplete="on">
+          <div class="field">
+            <label for="f-name" data-t>Tu nombre</label>
+            <input id="f-name" name="nombre" type="text" required minlength="2" maxlength="80" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="f-mail" data-t>Mail</label>
+            <input id="f-mail" name="mail" type="email" required maxlength="120" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="f-tema" data-t>Sobre qué</label>
+            <select id="f-tema" name="tema" required>
+              <option value="otro" data-t>Otro</option>
+              <option value="agentes" data-t>Agentes de IA</option>
+              <option value="online" data-t>Tu negocio online</option>
+              <option value="cero" data-t>Productos de 0 a 1</option>
+              <option value="automatizacion" data-t>Automatizaciones y herramientas internas</option>
+              <option value="estrategia" data-t selected>Estrategia y asesoría</option>
+              <option value="generativa" data-t>Producción generativa</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-what" data-t>Qué estás buscando</label>
+            <textarea id="f-what" name="busca" required minlength="10" maxlength="2000" rows="4"></textarea>
+          </div>
+
+          <div class="trampa" aria-hidden="true">
+            <label for="f-web">Website</label>
+            <input id="f-web" name="web" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <button class="btn" type="submit" data-t>Mandalo</button>
+
+          <p class="form__msg" data-estado="enviando" hidden>Mandando.</p>
+          <p class="form__msg form__msg--ok" data-estado="listo" hidden>Llegó. Los leo yo y contesto desde mi correo, casi siempre dentro del día.</p>
+          <p class="form__msg form__msg--mal" data-estado="error" hidden>No salió. Por LinkedIn le pego la vuelta y lo veo igual.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <filter id="tiembla" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="3" seed="7" result="ruido"/>
+    <feDisplacementMap in="SourceGraphic" in2="ruido" scale="1.9"
+                       xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+
+<div class="lima" id="lima" hidden>
+  <button class="lima__launch" id="lima-launch" type="button"
+          aria-expanded="false" aria-controls="lima-panel">
+    <img class="lima__cara" src="../assets/doodles/asistente.png" alt="" width="512" height="561" aria-hidden="true">
+    <span class="lima__pitch">
+      <strong data-t>Asistente de Axel</strong>
+      <span data-t>Contame qué necesitás</span>
+    </span>
+  </button>
+
+  <section class="lima__panel" id="lima-panel" aria-labelledby="lima-title" hidden>
+    <header class="lima__head">
+      <img class="lima__cara lima__cara--grande" src="../assets/doodles/asistente.png" alt="" width="512" height="561" aria-hidden="true">
+      <span class="lima__who">
+        <strong id="lima-title" data-t>Asistente de Axel</strong>
+      </span>
+      <button class="lima__x" id="lima-close" type="button">
+        <span class="oculto" data-t>Cerrar</span>
+        <span aria-hidden="true">×</span>
+      </button>
+    </header>
+
+    <div class="lima__log" id="lima-log" role="log" aria-live="polite"></div>
+
+    <form class="lima__ask" id="lima-ask">
+      <label class="oculto" for="lima-input" data-t>Tu mensaje</label>
+      <input id="lima-input" type="text" maxlength="1200" autocomplete="off"
+             required>
+      <button class="lima__send" type="submit">
+        <span class="oculto" data-t>Mandar</span>
+        <span aria-hidden="true">→</span>
+      </button>
+    </form>
+  </section>
+
+  <div class="lima__strings" hidden>
+    <p data-frase="hola">Hola, soy el asistente de este sitio. Contame qué estás tratando de construir o de arreglar y te oriento, o te paso derecho con Axel.</p>
+    <p data-frase="pensando">Pensando.</p>
+    <p data-frase="dejar">Dejar mis datos</p>
+    <p data-frase="caido">Algo se rompió de mi lado. El formulario de más arriba le llega igual.</p>
+  </div>
+</div>
+
+
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <p>Axel · Buenos Aires (UTC-3)</p>
+  </div>
+</footer>
+
+<script src="../assets/medir.js?v=2" defer></script>
+<script src="../assets/i18n.js?v=63"></script>
+<script src="../assets/app.js?v=41"></script>
+<script src="../assets/interact.js?v=3" defer></script>
+<script src="../assets/form.js?v=6" defer></script>
+<script src="../assets/mobile.js?v=8" defer></script>
+<script src="../assets/lima.js?v=2" defer></script>
+</body>
+</html>

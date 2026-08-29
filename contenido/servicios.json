@@ -1,0 +1,529 @@
+[
+  {
+    "ruta": "agentes-de-ia",
+    "tema": "agentes",
+    "nombre": "Agentes de IA",
+    "h1": "Agentes de IA para WhatsApp, web y voz",
+    "titulo": "Agentes de IA para WhatsApp, web y voz · Axel Rosso",
+    "descripcion": "Armo agentes de IA que contestan con los datos de tu negocio en WhatsApp, en el sitio y por teléfono. Qué puede tocar cada agente, cuándo le pasa la posta a una persona, y cómo se mide. Remoto desde Buenos Aires para LatAm.",
+    "respuesta": "Un agente de IA es un programa que sostiene una conversación con los datos de tu negocio adentro: contesta, consulta, agenda, y cuando no le da, le pasa la conversación a una persona.",
+    "intro": [
+      "«Vendo repuestos y me escriben todo el día por lo mismo.» Alguien lo escribió en el chat de esta misma página, y es el caso más común de todos.",
+      "La misma pregunta entra por WhatsApp, por Instagram y por el formulario, y alguien la contesta a mano cada vez.",
+      "Un agente se hace cargo de esa parte. El trabajo está en definir qué tiene permitido hacer, con qué datos, y en qué momento deja de contestar y avisa."
+    ],
+    "incluye": [
+      {
+        "t": "Chat",
+        "p": "Web, WhatsApp y el canal que tu equipo ya usa. Contesta con los datos del negocio: precios, stock, horarios, lo que haya cargado. Si algo no está, lo dice."
+      },
+      {
+        "t": "Voz",
+        "p": "Llamadas con control de latencia, interrupciones y tono. Cuando el otro corta a mitad de frase, el agente tiene que frenar como frena una persona."
+      },
+      {
+        "t": "Imágenes",
+        "p": "Entra una foto del repuesto, una captura del error o el comprobante de una transferencia, y el agente decide a partir de eso."
+      },
+      {
+        "t": "Arquitectura",
+        "p": "Dónde corren, qué herramientas pueden tocar, cuándo le pasan la posta a una persona. Y el registro de cada conversación, que es de donde salen las mejoras de la semana siguiente."
+      }
+    ],
+    "para_quien": [
+      "Un negocio que atiende por WhatsApp y no da abasto con la misma pregunta.",
+      "Un producto que necesita una función con IA adentro.",
+      "Un equipo que probó un chatbot, se le fue de las manos y quedó desconfiando.",
+      "Una operación con turnos, reservas o pedidos que hoy se anotan a mano."
+    ],
+    "pasos": [
+      {
+        "t": "Qué contesta y qué deriva",
+        "p": "Una charla y la lista de las preguntas que entran de verdad. De ahí sale qué resuelve solo y en qué casos avisa a una persona."
+      },
+      {
+        "t": "Un canal andando",
+        "p": "El agente conectado a tus datos, en el canal donde ya te escriben, con el registro de cada conversación desde el primer día."
+      },
+      {
+        "t": "Se abre al resto",
+        "p": "Cuando lo que contesta ya no sorprende, entra el siguiente canal."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Hacés agentes de WhatsApp?",
+        "r": "Sí. Va sobre la API oficial de WhatsApp Business, así que el número sigue siendo tuyo y las conversaciones quedan en tu cuenta."
+      },
+      {
+        "q": "Tengo una peluquería y quiero que tome turnos. ¿Se puede?",
+        "r": "Sí, y es de los casos que mejor salen, porque la conversación es corta y termina en algo concreto: un turno en la agenda. Lo mismo sirve para una veterinaria, un taller o un consultorio."
+      },
+      {
+        "q": "¿Puede leer imágenes?",
+        "r": "Sí. Entra una foto o una captura y el agente decide a partir de eso: qué repuesto es, qué dice el comprobante, qué error tiene la pantalla."
+      },
+      {
+        "q": "¿Y si contesta cualquier cosa?",
+        "r": "Es la preocupación más razonable de todas. El agente responde consultando tus datos, y cuando no encuentra, lo dice y deriva. Todas las conversaciones quedan registradas, así que lo que sale mal se ve y se corrige."
+      },
+      {
+        "q": "Manejamos datos sensibles. ¿Se puede igual?",
+        "r": "Se puede, y cambia el diseño. Los datos se consultan donde ya están en vez de copiarse a otro lado, el agente ve solo el campo que necesita para responder, y queda registro de qué consultó y cuándo."
+      },
+      {
+        "q": "¿Cuánto sale?",
+        "r": "Depende de cuántos canales, con qué sistemas se conecta y qué tiene permitido hacer. Un agente que contesta preguntas y uno que además agenda y cobra no son el mismo trabajo. Después de la primera charla te paso el número."
+      }
+    ],
+    "cierre": "Contame qué te preguntan todo el día y te digo si un agente lo resuelve.",
+    "relacionados": [
+      "automatizaciones",
+      "paginas-web",
+      "asesoria-ia"
+    ]
+  },
+  {
+    "ruta": "paginas-web",
+    "tema": "online",
+    "nombre": "Tu negocio online",
+    "h1": "Páginas web y landings, con la medición adentro",
+    "titulo": "Páginas web y landings que se miden · Axel Rosso",
+    "descripcion": "Armo o rediseño tu página para que diga lo que hacés, con la medición puesta desde el primer día: cuánta gente entra, de dónde viene, por dónde se va y qué hizo antes de irse.",
+    "respuesta": "Una página web recién sirve cuando se puede saber qué pasó adentro: cuánta gente entró, por dónde se fue y qué hizo antes de irse.",
+    "intro": [
+      "En uno de mis productos el 39% de las altas se moría en la confirmación del mail. Hotmail confirmaba el 20%, Gmail el 69%.",
+      "El panel de analítica no mostraba nada de eso. La base de datos sí.",
+      "Por eso la medición no se agrega al final. Va desde la primera versión."
+    ],
+    "incluye": [
+      {
+        "t": "Landing o sitio",
+        "p": "Armado o rediseñado para que diga lo que hacés de verdad, con una página por cada cosa que ofrecés."
+      },
+      {
+        "t": "Medición",
+        "p": "Cuánta gente entra, de dónde viene, por dónde se va y qué hizo antes de irse. Analítica propia, sin cookies de terceros."
+      },
+      {
+        "t": "Embudo",
+        "p": "Encontrar el paso que pierde gente y sacarlo del camino. Se cuenta desde la base de datos, porque el panel ya me mintió más de una vez."
+      },
+      {
+        "t": "Un agente que contesta",
+        "p": "Entrenado con tu negocio, en el sitio y en WhatsApp. El chat de esta página es exactamente eso."
+      }
+    ],
+    "para_quien": [
+      "Un negocio sin página, o con una que hicieron hace años y ya no dice lo que hace.",
+      "Alguien que paga publicidad y no sabe qué pasa después del clic.",
+      "Un producto que ya vende y quiere saber dónde se le cae la gente.",
+      "Un profesional que hoy manda el catálogo por WhatsApp, de a una foto por vez."
+    ],
+    "rubros": {
+      "titulo": "Según a qué te dedicás",
+      "lede": "Lo que cambia entre una peluquería y un estudio contable no es el diseño. Es qué tiene que pasar cuando alguien entra.",
+      "items": [
+        "Peluquería, barbería, estética: el turno se toma en la página o en WhatsApp y queda en una agenda.",
+        "Estudio contable o jurídico: la consulta llega separada por tipo, con lo que hace falta para responderla.",
+        "Veterinaria, consultorio, kinesiología: turno, recordatorio y la ficha del que vuelve.",
+        "Taller, servicio técnico, repuestos: entra una foto por WhatsApp y sale un presupuesto.",
+        "Gimnasio, escuela, academia: inscripción, plan y cobro en el mismo lugar.",
+        "Inmobiliaria y comercio: catálogo que se actualiza solo y consultas que llegan ordenadas."
+      ]
+    },
+    "pasos": [
+      {
+        "t": "Qué tiene que pasar cuando alguien entra",
+        "p": "Un turno, un presupuesto, una consulta o una venta. Todo lo demás en la página existe para llevar a eso."
+      },
+      {
+        "t": "La página, con la medición puesta",
+        "p": "Armada, con la analítica y los eventos desde el primer día."
+      },
+      {
+        "t": "Se mira y se corrige",
+        "p": "Con los primeros visitantes ya se ve por dónde se va la gente, y eso se arregla sin rehacer nada."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Hacés landings?",
+        "r": "Sí, y también sitios de varias páginas. La diferencia la marca cuántas cosas distintas ofrecés."
+      },
+      {
+        "q": "¿Cuánto tarda?",
+        "r": "Depende de qué tiene que hacer. Una página que informa y una que toma turnos y cobra no son el mismo trabajo. Te lo digo con número después de la primera charla."
+      },
+      {
+        "q": "¿Me queda el sitio a mí?",
+        "r": "Sí. El dominio, el hosting y el código quedan a tu nombre. Si mañana seguís con otra persona, se lleva todo."
+      },
+      {
+        "q": "Ya tengo una página. ¿Sirve rehacerla?",
+        "r": "A veces no hace falta. Primero se mide la que está: si la gente entra y se va en el primer scroll, el problema es el mensaje y se arregla sin tocar el diseño."
+      },
+      {
+        "q": "¿Se puede usar WordPress?",
+        "r": "Se puede, y conviene si tu equipo ya lo maneja. Cuando la página tiene que hacer algo más que informar, la armo a medida y queda más liviana."
+      },
+      {
+        "q": "¿Hace falta pagar publicidad?",
+        "r": "No para empezar. Primero conviene que la página convierta a la gente que ya llega, y recién después invertir en anuncios."
+      }
+    ],
+    "cierre": "Contame qué querés que pase cuando alguien entra a tu página.",
+    "relacionados": [
+      "agentes-de-ia",
+      "contenido-con-ia",
+      "producto-desde-cero"
+    ]
+  },
+  {
+    "ruta": "producto-desde-cero",
+    "tema": "cero",
+    "nombre": "Productos de 0 a 1",
+    "h1": "Un producto desde cero, hasta que está vivo",
+    "titulo": "Desarrollo de productos desde cero · MVP y lanzamiento · Axel Rosso",
+    "descripcion": "De la idea al producto vivo: qué se construye, qué queda afuera de la primera versión, y la salida al mercado con la medición puesta. Seis productos propios andando hoy.",
+    "respuesta": "Hacer un producto desde cero es, sobre todo, decidir qué no entra en la primera versión.",
+    "intro": [
+      "En axelrosso.com hay seis productos vivos. Todos empezaron como una idea sin una línea escrita.",
+      "El que se cae no es el que tiene una función de menos. Es el que arrancó con doce y no terminó ninguna.",
+      "La primera versión sale con lo mínimo que se puede usar de verdad, y con la medición puesta para saber si a alguien le importa.",
+      "La primera semana no se construye nada. Se escribe qué hace, para quién y qué no hace, y recién con eso cerrado se puede decir cuánto sale."
+    ],
+    "incluye": [
+      {
+        "t": "Estrategia",
+        "p": "Qué se construye, para quién, y qué queda afuera de la primera versión. Sale escrito, con el alcance cerrado antes de empezar. Ese documento es el que después evita la discusión de si algo estaba incluido."
+      },
+      {
+        "t": "Desarrollo",
+        "p": "De la spec al release. El repositorio queda tuyo desde el primer commit y el avance se ve todas las semanas."
+      },
+      {
+        "t": "Lanzamiento",
+        "p": "Salida al mercado con la medición puesta desde el día uno: de dónde viene cada usuario, hasta dónde llega y en qué paso se cae."
+      },
+      {
+        "t": "Continuidad",
+        "p": "Cómo sigue andando cuando yo no estoy: documentación, accesos a tu nombre y el proceso para que otro pueda seguir."
+      }
+    ],
+    "para_quien": [
+      "Alguien con una idea y sin equipo técnico.",
+      "Un fundador con un producto a medio hacer que no termina de salir.",
+      "Una empresa que quiere probar algo nuevo sin frenar lo que ya vende.",
+      "Un equipo que necesita la primera versión andando para levantar plata.",
+      "Alguien que ya pasó por una agencia y quedó con algo que no puede tocar."
+    ],
+    "pasos": [
+      {
+        "t": "La spec",
+        "p": "Qué hace, para quién, y qué no hace. Con el alcance cerrado, el presupuesto también."
+      },
+      {
+        "t": "La primera versión",
+        "p": "Andando, con usuarios de verdad adentro y avance visible cada semana."
+      },
+      {
+        "t": "Sale y se mide",
+        "p": "De dónde viene cada uno y dónde se cae. Eso decide qué se construye después."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Tomás proyectos chicos?",
+        "r": "Sí. Los chicos suelen ser los más claros: se sabe qué tiene que hacer y se termina."
+      },
+      {
+        "q": "¿El código queda mío?",
+        "r": "Sí, desde el primer commit. El repositorio es tuyo, los servicios se dan de alta a tu nombre y las claves son tuyas."
+      },
+      {
+        "q": "¿Necesito tener el diseño?",
+        "r": "No. Si lo tenés, lo uso. Si no, sale junto con el producto."
+      },
+      {
+        "q": "¿Puedo empezar por una parte?",
+        "r": "Sí, y suele convenir. La primera versión es la más chica que se puede poner delante de alguien."
+      },
+      {
+        "q": "¿Qué pasa cuando terminás?",
+        "r": "Queda documentado y andando. Si querés que lo siga manteniendo yo, se acuerda aparte; si lo toma tu equipo, la entrega incluye lo que necesitan para arrancar."
+      },
+      {
+        "q": "¿Trabajás con el equipo que ya tengo?",
+        "r": "Sí. En ese caso entro en el diseño y en las decisiones, y el desarrollo lo lleva tu equipo."
+      },
+      {
+        "q": "¿Qué tecnología usás?",
+        "r": "La que le convenga al producto y a quien lo vaya a mantener. Si tu equipo sabe React y Postgres, va con eso, aunque otra cosa me resulte más cómoda a mí."
+      }
+    ],
+    "cierre": "Contame la idea y te digo qué entra en la primera versión.",
+    "relacionados": [
+      "agentes-de-ia",
+      "paginas-web",
+      "asesoria-ia"
+    ]
+  },
+  {
+    "ruta": "automatizaciones",
+    "tema": "automatizacion",
+    "nombre": "Automatizaciones y herramientas internas",
+    "h1": "Automatizaciones y herramientas internas",
+    "titulo": "Automatizaciones y herramientas internas · n8n y a medida · Axel Rosso",
+    "descripcion": "El proceso que hoy es una persona copiando entre dos pantallas, hecho software: automatizaciones con n8n o a medida, paneles internos y tableros que se abren cuando hay que decidir algo.",
+    "respuesta": "Automatizar es sacarle a una persona la parte del trabajo que ya hace siempre igual.",
+    "intro": [
+      "El resumen de lo que pasó en esta página me llega solo a Telegram todas las noches: cuánta gente entró, de dónde vino y qué tocó. Nadie lo arma.",
+      "Ese es el tamaño de la mayoría de las automatizaciones que valen la pena. No hace falta cambiar el sistema, alcanza con sacar del medio lo que se repite."
+    ],
+    "incluye": [
+      {
+        "t": "Automatizaciones y flujos",
+        "p": "El proceso que hoy es una persona copiando entre dos pantallas. Sobre n8n cuando conviene que tu equipo lo pueda ver y tocar, o a medida cuando el flujo no entra en una caja."
+      },
+      {
+        "t": "Herramientas internas",
+        "p": "Paneles y back office para tu equipo, o para salir al mercado. Que carguen rápido y que no necesiten un instructivo al lado."
+      },
+      {
+        "t": "Tableros",
+        "p": "Los que se abren cuando hay que decidir algo, con los tres números que se miran de verdad."
+      },
+      {
+        "t": "Continuidad",
+        "p": "Que siga andando seis meses después de que el que lo armó se fue. Avisa cuando se rompe, en vez de fallar en silencio."
+      }
+    ],
+    "para_quien": [
+      "Un equipo donde alguien exporta la misma planilla todos los lunes.",
+      "Una operación que creció y hoy vive en Excel compartidos.",
+      "Un negocio que carga los mismos datos en dos sistemas que no se hablan.",
+      "Un área que necesita un panel propio y no lo va a conseguir del sistema que ya tiene."
+    ],
+    "pasos": [
+      {
+        "t": "Se mira cómo se hace hoy",
+        "p": "Con la persona que lo hace, paso por paso. Ahí aparece cuál es el paso caro."
+      },
+      {
+        "t": "Se automatiza ese primero",
+        "p": "Uno solo, andando en producción, con aviso cuando falla."
+      },
+      {
+        "t": "Se suman los que siguen",
+        "p": "Con lo que se aprendió del primero."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Hacés automatizaciones con n8n?",
+        "r": "Sí. Lo uso cuando conviene que tu equipo pueda abrir el flujo y tocarlo. Cuando hay que hacer algo que n8n no hace bien, va a medida."
+      },
+      {
+        "q": "Ya usamos Zapier o Make. ¿Sirve igual?",
+        "r": "Sí, y a veces la respuesta es quedarse donde están. Lo que suele romperse son los casos raros que nadie definió: qué pasa cuando el dato viene vacío, cuando el mail rebota, cuando el sistema del otro lado no contesta."
+      },
+      {
+        "q": "Somos tres personas. ¿Nos sirve?",
+        "r": "Si dos de las tres pasan un rato largo copiando datos, sí."
+      },
+      {
+        "q": "¿Qué pasa si se rompe?",
+        "r": "Avisa. Cada flujo tiene una alerta cuando falla y un registro de qué estaba haciendo. Fallar en silencio es peor que no automatizar."
+      },
+      {
+        "q": "¿Se conecta con el sistema que ya usamos?",
+        "r": "Casi siempre. Si tiene API, directo. Si no, hay caminos: archivos, correo, base de datos. Se define en la primera charla."
+      },
+      {
+        "q": "¿Cuánto sale?",
+        "r": "Depende de cuántos pasos tiene el proceso y con cuántos sistemas habla. Un flujo suelto y un back office completo no son el mismo trabajo."
+      }
+    ],
+    "cierre": "Contame qué hace tu equipo todos los lunes y vemos qué se puede sacar del medio.",
+    "relacionados": [
+      "agentes-de-ia",
+      "producto-desde-cero",
+      "asesoria-ia"
+    ]
+  },
+  {
+    "ruta": "asesoria-ia",
+    "tema": "estrategia",
+    "nombre": "Estrategia y asesoría",
+    "h1": "Asesoría en IA, para fundadores y equipos",
+    "titulo": "Asesoría y consultoría en IA para equipos y fundadores · Axel Rosso",
+    "descripcion": "Uno a uno con el fundador sobre lo que se está por decidir, o al lado del equipo en las decisiones de IA: diseño agéntico, alcance, y qué conviene no construir.",
+    "respuesta": "La asesoría sirve cuando hay una decisión adelante y alguien la tiene que tomar esta semana.",
+    "intro": [
+      "Hasta dónde dejar que el agente decida solo. Esa es la pregunta que más me llega, y no aparece en ninguna demo.",
+      "Alrededor hay otras: qué conviene no construir, qué se puede comprar hecho, y cuánto va a costar mantener dentro de un año lo que se decida hoy.",
+      "Y la que casi nadie hace a tiempo: qué pasa el día que el modelo que estás usando cambia de precio o deja de existir."
+    ],
+    "incluye": [
+      {
+        "t": "Uno a uno",
+        "p": "Con el fundador, sobre lo que se está por decidir. Cada sesión termina con una decisión tomada y escrita, así el mes que viene no se vuelve a discutir lo mismo."
+      },
+      {
+        "t": "Al lado del equipo",
+        "p": "Con la gente que construye, en las decisiones de IA: revisión de diseño, límites de los agentes y qué medir. Entro en las reuniones donde se decide."
+      },
+      {
+        "t": "Revisión de un diseño agéntico",
+        "p": "Sobre algo que ya está armado o dibujado: qué herramientas toca cada agente, dónde se puede quedar en loop, qué pasa cuando el modelo se equivoca y cuánto sale por mes si funciona."
+      },
+      {
+        "t": "Segunda opinión sobre un presupuesto",
+        "p": "Antes de firmar. Qué está de más, qué falta, y qué se va a cobrar aparte en tres meses."
+      }
+    ],
+    "para_quien": [
+      "Un fundador que tiene que decidir esta semana y no tiene con quién hablarlo.",
+      "Un equipo técnico que sabe programar y está entrando a IA por primera vez.",
+      "Una empresa con una propuesta arriba de la mesa y sin cómo evaluarla.",
+      "Un área de producto que quiere meter IA sin romper lo que ya funciona.",
+      "Un equipo con algo de IA ya andando que no sabe si lo que gasta por mes es normal."
+    ],
+    "pasos": [
+      {
+        "t": "Se define la decisión",
+        "p": "Antes de la sesión, por escrito, para no gastarla en ponerme al día."
+      },
+      {
+        "t": "La sesión",
+        "p": "Una hora, sobre esa decisión."
+      },
+      {
+        "t": "Queda escrito",
+        "p": "Qué se decidió y por qué, para el que llegue después."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Das asesoría uno a uno?",
+        "r": "Sí. Con el fundador, sobre la decisión que tiene adelante."
+      },
+      {
+        "q": "¿Es una sesión suelta o algo sostenido?",
+        "r": "Las dos formas existen. Una decisión puntual entra en una sesión; acompañar a un equipo mientras construye es mensual."
+      },
+      {
+        "q": "¿Sirve si no tengo equipo técnico?",
+        "r": "Sí, y suele ser cuando más sirve: la mayoría de las decisiones caras de IA no son técnicas."
+      },
+      {
+        "q": "¿Podés revisar algo que ya está armado?",
+        "r": "Sí. Se mira el diseño, qué herramientas toca cada agente y por dónde se puede ir de las manos."
+      },
+      {
+        "q": "¿Trabajás con el equipo que ya tenemos?",
+        "r": "Sí. Entro al lado de los que construyen, y las decisiones las toman ellos."
+      },
+      {
+        "q": "¿Y si después quiero que lo construyas vos?",
+        "r": "Se puede, y lo digo antes: si en la asesoría aparece algo que conviene que haga yo, te lo marco y decidís vos."
+      },
+      {
+        "q": "¿Conocés mi industria?",
+        "r": "Casi seguro que no como vos. Lo que llevo es cómo se decide con IA, el negocio lo conocés vos, y esa mezcla es la que sirve."
+      }
+    ],
+    "cierre": "Contame qué tenés que decidir y vemos si una hora alcanza.",
+    "relacionados": [
+      "agentes-de-ia",
+      "producto-desde-cero",
+      "automatizaciones"
+    ]
+  },
+  {
+    "ruta": "contenido-con-ia",
+    "tema": "generativa",
+    "nombre": "Producción generativa",
+    "h1": "Imágenes, video y marca hechos con IA",
+    "titulo": "Imágenes, video y marca con IA · Producción generativa · Axel Rosso",
+    "descripcion": "Imágenes para la landing y las campañas, video del prompt al clip terminado, demos grabadas de tu producto, y la identidad con las piezas que la sostienen.",
+    "respuesta": "Producción generativa es hacer con modelos las piezas que antes se encargaban afuera: imágenes, video, demos de producto y la identidad.",
+    "intro": [
+      "Todos los dibujos de esta página salieron de ahí, incluido el que te saluda desde el chat.",
+      "El trabajo no está en escribir el prompt. Está en que veinte piezas parezcan de la misma marca, y eso sale con referencias fijas y una revisión de a una.",
+      "Una imagen sola sale en dos minutos. Veinte que se parezcan entre sí y que además funcionen en el lugar donde van es otra cosa."
+    ],
+    "incluye": [
+      {
+        "t": "Imágenes",
+        "p": "Para la landing, el producto y la campaña. En el formato y la medida donde van, así entran directo, y en varias versiones para probar cuál rinde."
+      },
+      {
+        "t": "Video",
+        "p": "Del prompt al clip renderizado, con el corte y el sonido. Vertical para redes y horizontal para el sitio, del mismo material."
+      },
+      {
+        "t": "Producto",
+        "p": "Grabación de demos de tu producto, listas para mostrar. Con guion, para que se entienda sin nadie explicando al lado."
+      },
+      {
+        "t": "Marca",
+        "p": "Logo e identidad, con las piezas que la sostienen: tipografías, colores y los archivos para que el que siga pueda seguir."
+      }
+    ],
+    "para_quien": [
+      "Un negocio que necesita fotos y no tiene producto para fotografiar.",
+      "Una campaña que necesita quince piezas para el jueves.",
+      "Un producto que se explica mejor mostrándolo que contándolo.",
+      "Una marca nueva que necesita verse como una marca.",
+      "Un equipo que ya sabe qué quiere mostrar y no tiene con qué."
+    ],
+    "pasos": [
+      {
+        "t": "Referencias",
+        "p": "Tres o cuatro imágenes de a dónde querés ir. Con eso queda fijado el estilo, y todo lo que salga después se compara contra eso."
+      },
+      {
+        "t": "Una tanda",
+        "p": "Se genera, se elige y se corrige. Lo que no da, se descarta."
+      },
+      {
+        "t": "Entrega",
+        "p": "Los archivos en alta, en las medidas donde van, y de qué herramienta salió cada pieza."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Se nota que es IA?",
+        "r": "Depende de cuánto se revise. Lo que delata una imagen generada casi siempre es un detalle chico: las manos, el texto adentro de la imagen, una sombra que no da. Se corrige o se descarta."
+      },
+      {
+        "q": "¿Puedo usarlo comercialmente?",
+        "r": "Sí. Trabajo con herramientas de plan comercial y te quedan los archivos originales."
+      },
+      {
+        "q": "¿Podés respetar mi identidad?",
+        "r": "Sí. Con el logo, los colores y dos o tres piezas que ya tengas, las nuevas salen de la misma familia."
+      },
+      {
+        "q": "¿Cuántas versiones entran?",
+        "r": "Se acuerda antes, por tanda. Generar es barato y elegir es lo que lleva tiempo."
+      },
+      {
+        "q": "¿Sirve para un catálogo de muchos productos?",
+        "r": "Sirve cuando los productos se parecen entre sí. Si cada uno es distinto y hay que fotografiar el real, la IA ayuda con el fondo y el armado."
+      },
+      {
+        "q": "¿Y si necesito que aparezca una persona real?",
+        "r": "Ahí conviene la foto de verdad. La IA se usa para el fondo, el retoque y las variantes de la misma toma."
+      }
+    ],
+    "cierre": "Pasame tres imágenes de a dónde querés ir y te digo qué se puede.",
+    "relacionados": [
+      "paginas-web",
+      "agentes-de-ia",
+      "producto-desde-cero"
+    ]
+  }
+]

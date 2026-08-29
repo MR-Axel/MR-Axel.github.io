@@ -52,12 +52,19 @@ jobs:
           # index.html tambien: adentro va el numero de respaldo, el que se
           # ve mientras el JSON no llego y el unico que se ve si la peticion
           # falla. Escrito a mano envejece en silencio.
-          if [ -z "$(git status --porcelain data/github.json index.html en/ sitemap.xml)" ]; then
+          #
+          # ⚠️ Las carpetas de servicio salen del propio json y no escritas a
+          # mano: agregar un servicio septimo no tiene que acordarse de tocar
+          # este archivo tambien. Lo que no este en esta lista se genera, queda
+          # sucio en el runner y nunca se publica.
+          SRV=$(python -c "import json;print(' '.join(s['ruta']+'/' for s in json.load(open('contenido/servicios.json',encoding='utf-8'))))")
+          RUTAS="data/github.json index.html en/ sitemap.xml llms.txt $SRV"
+          if [ -z "$(git status --porcelain $RUTAS)" ]; then
             echo "no change"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/github.json index.html en/ sitemap.xml
+          git add $RUTAS
           git commit -m "chore(data): refresh GitHub activity"
           git push

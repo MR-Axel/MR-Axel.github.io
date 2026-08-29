@@ -31,6 +31,8 @@ import pathlib
 import re
 import sys
 
+from servicios import generar as generar_servicios
+
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
@@ -48,6 +50,7 @@ META = {
             "automatizaciones y productos desde cero. Para empresas y para "
             "personas con una idea, en remoto desde Buenos Aires para LatAm."
         ),
+        "alt": "Un dibujo a mano de alguien saludando.",
     },
     "en": {
         "title": "AI agents, websites and products built from zero · Axel Rosso",
@@ -56,6 +59,7 @@ META = {
             "measurement wired in, automation and whole products from zero. "
             "Remote from Buenos Aires."
         ),
+        "alt": "A hand-drawn figure waving.",
     },
 }
 
@@ -206,6 +210,11 @@ def cabecera(html, idioma):
     html = re.sub(r'<meta property="og:description" content="[^"]*">',
                   '<meta property="og:description" content="%s">'
                   % META[idioma]["description"], html, count=1)
+    # el texto alternativo de la imagen de compartir es lo único de la cabecera
+    # que el diccionario no alcanza: vive en un atributo, no en un innerHTML
+    html = re.sub(r'<meta property="og:image:alt" content="[^"]*">',
+                  '<meta property="og:image:alt" content="%s">' % META[idioma]["alt"],
+                  html, count=1)
     html = html.replace('<meta property="og:type" content="website">',
                         '<meta property="og:type" content="website">\n'
                         '<meta property="og:locale" content="%s">'
@@ -223,6 +232,14 @@ def armar(idioma, dic):
     usadas = set()
     if idioma == "es":
         html, usadas = traducir(html, dic)
+    else:
+        # 🔴 Las paginas de servicio existen SOLO en castellano, asi que sus
+        # enlaces salen de la portada en ingles. Dejarlos seria mandar a alguien
+        # que esta leyendo en ingles a una pagina que no puede leer, y en el
+        # camino declarar contenido en castellano como parte del sitio en
+        # ingles. El resto del arbol queda igual: la rama sigue contando lo
+        # mismo, sin el enlace al detalle.
+        html = re.sub(r'\s*<p class="rama__mas">.*?</p>', "", html, flags=re.S)
     html = cabecera(html, idioma)
     return html, usadas
 
@@ -270,11 +287,12 @@ def main():
     (RAIZ / "en" / "index.html").write_text(en, encoding="utf-8", newline="\n")
     print("escrito: index.html (es) y en/index.html")
 
-    rutas = [("/", "1.0"), ("/en/", "0.8")]
-    servicios = RAIZ / "contenido" / "servicios.json"
-    if servicios.exists():
-        for s in json.loads(servicios.read_text(encoding="utf-8")):
-            rutas.append(("/" + s["ruta"] + "/", "0.9"))
+    # ⚠️ Se arman del html en castellano YA TERMINADO, no del fuente: así heredan
+    # el menú, el asistente y el pie traducidos una sola vez.
+    servicios = generar_servicios(RAIZ, es)
+    print("servicios: %d páginas" % len(servicios))
+
+    rutas = [("/", "1.0"), ("/en/", "0.8")] + [(r, "0.9") for r in servicios]
     (RAIZ / "sitemap.xml").write_text(sitemap(rutas), encoding="utf-8", newline="\n")
     print("sitemap: %d urls" % len(rutas))
     return 0

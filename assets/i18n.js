@@ -296,6 +296,12 @@ window.ES = {
   /* --- la seccion unica --- */
   'What I can help with':
     'Con qué te puedo ayudar',
+  'AI agents, in detail': 'Agentes de IA, en detalle',
+  'Websites and measurement, in detail': 'Páginas web y medición, en detalle',
+  'Products from zero, in detail': 'Productos desde cero, en detalle',
+  'Automation, in detail': 'Automatizaciones, en detalle',
+  'AI advisory, in detail': 'Asesoría en IA, en detalle',
+  'Generative production, in detail': 'Producción generativa, en detalle',
   'Ask about this':
     'Consultar por esto',
   'One to one':

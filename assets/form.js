@@ -37,6 +37,37 @@
   var boton = form.querySelector('button[type="submit"]');
   var enviando = false;
 
+  /* ---- el tema llega elegido ----
+
+     Dos caminos, y los dos terminan igual. Desde el árbol de la portada el
+     botón de cada rama trae `data-tema`, porque el formulario está en la misma
+     página y una recarga sería absurda. Desde afuera viene en la dirección
+     (`/?tema=agentes#contact`), que es lo que hace que un enlace pegado en
+     cualquier lado llegue con la consulta ya encuadrada.
+
+     Sirve para las dos puntas: la persona se saltea un campo, y el aviso que me
+     llega dice de qué salió la consulta sin que nadie lo haya escrito. */
+  function elegirTema(clave) {
+    var campo = form.elements['tema'];
+    if (!campo || !clave) return;
+    for (var k = 0; k < campo.options.length; k++) {
+      if (campo.options[k].value !== clave) continue;
+      campo.selectedIndex = k;
+      /* 🔴 El <select> nativo está escondido y el que se ve lo dibuja app.js.
+         Sin avisar del cambio, el valor que se manda es el nuevo pero el botón
+         sigue mostrando el anterior, que es peor que no preseleccionar nada. */
+      campo.dispatchEvent(new Event('change', { bubbles: true }));
+      return;
+    }
+  }
+
+  elegirTema((window.location.search.match(/[?&]tema=([a-z]+)/) || [])[1]);
+
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('[data-tema]');
+    if (a) elegirTema(a.getAttribute('data-tema'));
+  });
+
   function mostrar(estado) {
     for (var k in mensajes) {
       if (Object.prototype.hasOwnProperty.call(mensajes, k)) {

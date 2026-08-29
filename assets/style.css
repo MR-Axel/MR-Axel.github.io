@@ -1796,9 +1796,23 @@ html[data-transicion="vaciando"]::view-transition-old(root) { z-index: 2; }
   transition: stroke-dashoffset 0.42s ease calc(110ms + var(--i, 0) * 62ms);
 }
 
+/* El enlace al detalle entra antes que el boton: primero se ofrece leer mas,
+   y despues escribir. Al reves, quien todavia esta decidiendo ve el boton de
+   consultar como unica salida de la rama. */
+.rama__mas { margin: 22px 0 0; font-size: 0.92rem; }
+.rama__mas a {
+  color: var(--text-mid); text-decoration: none;
+  border-bottom: 1px solid var(--line-hi); padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.rama__mas a:hover { color: var(--text); border-bottom-color: var(--accent-ink); }
+.rama__mas a::after { content: " →"; color: var(--accent-ink); }
+
+.rama__mas, .rama__cta { opacity: 0; translate: 0 6px; transition: opacity 0.3s ease, translate 0.3s ease; }
+.arbol__rama.esta-abierta .rama__mas { opacity: 1; translate: none; transition-delay: 0.3s; }
+
 .rama__cta {
-  margin-top: 24px; opacity: 0; translate: 0 6px;
-  transition: opacity 0.3s ease, translate 0.3s ease;
+  margin-top: 14px;
 }
 .arbol__rama.esta-abierta .rama__cta {
   opacity: 1; translate: none;
@@ -2273,4 +2287,113 @@ input, textarea { caret-color: var(--accent-ink); }
   .chip { transform: rotate(var(--a)) translateY(calc(var(--r, 130px) * -1)) rotate(calc(var(--a) * -1)); }
   .arc__step::before { transform: none; transition: none; }
   .js .craft__item.reveal:not(.is-in) .craft__icon { scale: none; }
+}
+
+/* ============================================================
+   Las paginas de servicio (/agentes-de-ia/, /paginas-web/, ...)
+   ============================================================
+
+   Una hoja de lectura, no otra portada. La portada tiene arbol, carrusel y
+   escena pinneada porque su trabajo es que alguien se quede dando vueltas;
+   estas seis existen para que una persona que ya sabe lo que busca lea seis
+   parrafos y escriba. Todo lo que aparece aca es tipografia y ritmo.
+
+   🔴 SIN `reveal`. El contenido tiene que estar visible en el html servido: es
+   el unico motivo por el que estas paginas existen, y un bloque que arranca en
+   opacidad 0 esperando un observador es texto que un rastreador puede leer como
+   oculto. La seccion de contacto se recorta de la portada y trae sus `reveal`
+   puestos, y esos se quedan: ese bloque ya estaba asi y no es el contenido que
+   se indexa. */
+
+.srv { padding: clamp(30px, 6vw, 54px) 0 clamp(34px, 6vw, 58px); }
+
+.miga {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.03em;
+  color: var(--muted); margin-bottom: clamp(22px, 4vw, 34px);
+}
+.miga a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line-hi); }
+.miga a:hover { color: var(--text); }
+.miga span[aria-hidden] { opacity: 0.5; }
+
+.srv__head h1 {
+  max-width: 18ch;
+  font-size: clamp(2rem, 5.6vw, 3.2rem); line-height: 1.08;
+  letter-spacing: -0.02em; margin: 0;
+}
+
+/* 🔴 LA ORACION QUE SE CITA. Es la respuesta completa a "que es esto", en una
+   sola oracion que no depende de la anterior, y es la que un modelo levanta
+   entera cuando alguien le pregunta. Va grande y sola por eso, no por diseño. */
+.srv__respuesta {
+  margin: 22px 0 0; max-width: 44ch;
+  font-size: clamp(1.12rem, 2.1vw, 1.34rem); line-height: 1.5;
+  color: var(--text-mid);
+  border-left: 2px solid var(--accent-line); padding-left: 18px;
+}
+
+.srv__intro { max-width: 60ch; margin-top: clamp(26px, 4vw, 40px); }
+.srv__intro p { margin: 0 0 16px; color: var(--muted); line-height: 1.68; }
+.srv__intro p:last-child { margin-bottom: 0; }
+
+/* ---- que incluye ---- */
+.srv__lista {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: 34px 40px;
+}
+.srv__lista > li { border-top: 1px solid var(--line); padding-top: 16px; }
+.srv__lista h3 { margin: 0 0 7px; font-size: 1.05rem; font-weight: 600; }
+.srv__lista p { margin: 0; font-size: 0.95rem; line-height: 1.6; color: var(--muted); }
+
+/* ---- para quien / rubros ---- */
+.srv__quien, .srv__rubros { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.srv__quien { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.srv__rubros { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.srv__quien > li, .srv__rubros > li {
+  position: relative; padding-left: 26px; line-height: 1.6; color: var(--text-mid);
+}
+/* la marca de item es un tilde dibujado, del mismo trazo que el resto */
+.srv__quien > li::before, .srv__rubros > li::before {
+  content: ""; position: absolute; left: 0; top: 0.44em;
+  width: 13px; height: 9px; border-left: 2px solid var(--accent-ink);
+  border-bottom: 2px solid var(--accent-ink); rotate: -45deg;
+}
+
+/* ---- como funciona ---- */
+.srv__pasos {
+  list-style: none; margin: 0; padding: 0; counter-reset: paso;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 34px 40px;
+}
+.srv__pasos > li { border-top: 2px solid var(--line-hi); padding-top: 16px; }
+.srv__num {
+  display: block; font-family: var(--mono); font-size: 12px;
+  color: var(--accent-ink); margin-bottom: 10px; letter-spacing: 0.06em;
+}
+.srv__pasos h3 { margin: 0 0 7px; font-size: 1.05rem; font-weight: 600; }
+.srv__pasos p { margin: 0; font-size: 0.95rem; line-height: 1.6; color: var(--muted); }
+
+/* ---- preguntas ---- */
+.srv__faq { margin: 0; display: grid; gap: 0; max-width: 74ch; }
+.srv__qa { padding: 22px 0; border-top: 1px solid var(--line); }
+.srv__qa:last-child { border-bottom: 1px solid var(--line); }
+.srv__faq dt { margin: 0 0 8px; font-size: 1.02rem; font-weight: 600; color: var(--text); }
+.srv__faq dd { margin: 0; line-height: 1.68; color: var(--muted); }
+
+/* ---- las otras cinco ---- */
+.srv__otros {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;
+}
+.srv__otros a {
+  display: block; height: 100%; text-decoration: none;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 20px 22px; background: var(--surface);
+  transition: border-color 0.2s ease, transform 0.25s var(--ease-out);
+}
+.srv__otros a:hover { border-color: var(--line-hi); transform: translateY(-2px); }
+.srv__otros strong { display: block; margin-bottom: 8px; font-size: 1rem; color: var(--text); }
+.srv__otros span { display: block; font-size: 0.9rem; line-height: 1.55; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .srv__otros a:hover { transform: none; }
 }

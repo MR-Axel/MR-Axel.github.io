@@ -287,6 +287,15 @@
         if (b) b.setAttribute('aria-expanded', esta ? 'true' : 'false');
       });
       abierta = rama;
+
+      /* ⚠️ En escritorio el botón de cada rama está oculto y queda uno solo
+         abajo de la sección, así que ese es el que tiene que llevarse el tema
+         de la rama abierta. Sin esto la preselección del formulario andaba en
+         el teléfono y no en la computadora, que es donde se lee la sección. */
+      var cierre = document.querySelector('.cierre__cta');
+      var propio = rama.querySelector('[data-tema]');
+      if (cierre && propio) cierre.setAttribute('data-tema', propio.getAttribute('data-tema'));
+
       reservarAlto();
       dibujarAbanico(rama);
     }

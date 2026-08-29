@@ -5,26 +5,27 @@
 
 Qué hace, en una línea por cosa:
 
-- Agentes de IA de punta a punta: chat en web y WhatsApp, agentes de voz con
-  control de latencia e interrupciones, y agentes que leen una imagen y deciden
-  a partir de eso.
-- Páginas web y landings con la medición puesta desde el primer día, y un
-  agente entrenado con el negocio que contesta a cualquier hora.
-- Productos desde cero: de la idea a algo que la gente pueda usar, en semanas,
-  y el repositorio queda del cliente.
-- Automatizaciones y herramientas internas con n8n, Activepieces, Retool,
-  Zapier y Make, más el proceso para que sigan andando cuando él ya no está.
-- Estrategia y asesoría sobre IA, uno a uno con un fundador o al lado del
-  equipo que construye.
-- Producción generativa: imágenes, video de producto y piezas de campaña.
+- **Agentes de IA**: Un agente de IA es un programa que sostiene una conversación con los datos de tu negocio adentro: contesta, consulta, agenda, y cuando no le da, le pasa la conversación a una persona.
+- **Tu negocio online**: Una página web recién sirve cuando se puede saber qué pasó adentro: cuánta gente entró, por dónde se fue y qué hizo antes de irse.
+- **Productos de 0 a 1**: Hacer un producto desde cero es, sobre todo, decidir qué no entra en la primera versión.
+- **Automatizaciones y herramientas internas**: Automatizar es sacarle a una persona la parte del trabajo que ya hace siempre igual.
+- **Estrategia y asesoría**: La asesoría sirve cuando hay una decisión adelante y alguien la tiene que tomar esta semana.
+- **Producción generativa**: Producción generativa es hacer con modelos las piezas que antes se encargaban afuera: imágenes, video, demos de producto y la identidad.
 
 ## Páginas
 
-- [Portada en castellano](https://axelrosso.com/): quién es, qué construyó y
-  con qué puede ayudar.
+- [Portada en castellano](https://axelrosso.com/): quién es, qué construyó y con qué puede
+  ayudar.
 - [Portada en inglés](https://axelrosso.com/en/): la misma, en inglés.
+- [Agentes de IA para WhatsApp, web y voz](https://axelrosso.com/agentes-de-ia/): Armo agentes de IA que contestan con los datos de tu negocio en WhatsApp, en el sitio y por teléfono. Qué puede tocar cada agente, cuándo le pasa la posta a una persona, y cómo se mide. Remoto desde Buenos Aires para LatAm.
+- [Páginas web y landings, con la medición adentro](https://axelrosso.com/paginas-web/): Armo o rediseño tu página para que diga lo que hacés, con la medición puesta desde el primer día: cuánta gente entra, de dónde viene, por dónde se va y qué hizo antes de irse.
+- [Un producto desde cero, hasta que está vivo](https://axelrosso.com/producto-desde-cero/): De la idea al producto vivo: qué se construye, qué queda afuera de la primera versión, y la salida al mercado con la medición puesta. Seis productos propios andando hoy.
+- [Automatizaciones y herramientas internas](https://axelrosso.com/automatizaciones/): El proceso que hoy es una persona copiando entre dos pantallas, hecho software: automatizaciones con n8n o a medida, paneles internos y tableros que se abren cuando hay que decidir algo.
+- [Asesoría en IA, para fundadores y equipos](https://axelrosso.com/asesoria-ia/): Uno a uno con el fundador sobre lo que se está por decidir, o al lado del equipo en las decisiones de IA: diseño agéntico, alcance, y qué conviene no construir.
+- [Imágenes, video y marca hechos con IA](https://axelrosso.com/contenido-con-ia/): Imágenes para la landing y las campañas, video del prompt al clip terminado, demos grabadas de tu producto, y la identidad con las piezas que la sostienen.
 
 ## Cómo contactarlo
 
-El formulario de https://axelrosso.com/#contact le llega al teléfono y contesta
-él. Sirve cualquier dato de contacto: un mail, un teléfono o un LinkedIn.
+El formulario de https://axelrosso.com/#contact le llega al teléfono y contesta él. Sirve
+cualquier dato de contacto: un mail, un teléfono o un LinkedIn. Cada página
+de servicio tiene el mismo formulario abajo, con el tema ya elegido.

@@ -8,4 +8,28 @@
     <loc>https://axelrosso.com/en/</loc>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://axelrosso.com/agentes-de-ia/</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://axelrosso.com/paginas-web/</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://axelrosso.com/producto-desde-cero/</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://axelrosso.com/automatizaciones/</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://axelrosso.com/asesoria-ia/</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://axelrosso.com/contenido-con-ia/</loc>
+    <priority>0.9</priority>
+  </url>
 </urlset>
