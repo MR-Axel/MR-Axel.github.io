@@ -1,7 +1,7 @@
 {
  "generated": "2026-08-29",
  "contributions": {
-  "total": 5025,
+  "total": 5060,
   "days": [
    {
     "d": "2025-08-24",
@@ -1477,15 +1477,15 @@
    },
    {
     "d": "2026-08-27",
-    "c": 88
+    "c": 93
    },
    {
     "d": "2026-08-28",
-    "c": 31
+    "c": 53
    },
    {
     "d": "2026-08-29",
-    "c": 1
+    "c": 9
    }
   ]
  },
@@ -1494,9 +1494,9 @@
    "name": "MR-Axel.github.io",
    "description": "Personal site. Live at mr-axel.github.io",
    "url": "https://github.com/MR-Axel/MR-Axel.github.io",
-   "language": "JavaScript",
+   "language": "HTML",
    "stars": 0,
-   "updated": "2026-08-29T03:41:16Z",
+   "updated": "2026-08-29T06:23:37Z",
    "archived": false,
    "topics": []
   },
