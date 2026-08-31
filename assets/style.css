@@ -522,6 +522,43 @@ section[id] { scroll-margin-top: 82px; }
   display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px;
 }
 
+/* 🔴 CINCO TARJETAS EN UNA GRILLA DE TRES DEJAN LA ULTIMA FILA COJA. Quedaban
+   tres arriba y dos abajo pegadas a la izquierda, con un hueco del ancho de una
+   tarjeta a la derecha: se lee como que falta algo, que es exactamente lo que
+   pasaba (se fue Pedimelo).
+
+   Se centra la fila que sobra. Seis columnas en vez de tres y cada tarjeta
+   ocupa dos, asi la cuarta puede arrancar en la columna 2 y las dos quedan
+   simetricas.
+
+   ⚠️ El `:has` no es adorno: la regla se apaga sola el dia que sean seis
+   tarjetas y la grilla normal vuelve a cerrar sin huecos. Y va detras de un
+   ancho minimo porque debajo de eso `auto-fit` ya arma dos columnas, donde
+   forzar seis dejaria las tarjetas por debajo de los 300px que piden. */
+@media (min-width: 1024px) {
+  .cards:has(> .card:nth-child(5):last-child) {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .cards:has(> .card:nth-child(5):last-child) > .card { grid-column: span 2; }
+  .cards:has(> .card:nth-child(5):last-child) > .card:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+}
+
+/* Y lo mismo una banda mas abajo, donde `auto-fit` arma dos columnas: ahi la
+   que queda sola es la quinta, y sin esto se apoya contra el margen izquierdo
+   con media pantalla vacia al lado. Cuatro columnas, cada tarjeta ocupa dos, y
+   la ultima arranca en la 2. */
+@media (min-width: 760px) and (max-width: 1023.98px) {
+  .cards:has(> .card:nth-child(5):last-child) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .cards:has(> .card:nth-child(5):last-child) > .card { grid-column: span 2; }
+  .cards:has(> .card:nth-child(5):last-child) > .card:nth-child(5) {
+    grid-column: 2 / span 2;
+  }
+}
+
 .card {
   position: relative; overflow: hidden;
   background: var(--surface); border: 1px solid var(--line);
