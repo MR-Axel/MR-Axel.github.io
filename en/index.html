@@ -21,6 +21,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@ArrobAxel">
 <meta name="theme-color" content="#FBFAF7">
+<!-- 🔴 EL .ICO DE LA RAIZ VA PRIMERO Y SIN VERSION EN LA URL. Google saca
+     el icono del resultado de busqueda de lo que declara la portada, pero
+     su rastreador pide `/favicon.ico` igual y hasta hoy eso daba 404. Y
+     pide una URL estable: un `?v=` es una URL que cambia. El png queda
+     detras para la pestaña del navegador, que es donde el cache-buster si
+     hace falta. -->
+<link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="../assets/favicon.png?v=1">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
