@@ -821,14 +821,15 @@
      que bajaba rapido se los perdia igual, porque a esa velocidad la escena
      entera pasa en medio segundo.
 
-     Ahora hay un reloj. El paso cambia cada 2,6 segundos, que es lo suficiente
-     para leer el titulo y lo bastante rapido para que alguien que viene
-     scrolleando alcance a ver por lo menos un cambio.
+     Ahora hay un reloj. El paso cambia cada 2 segundos: con 2,6 se sentia
+     lento, y a 2 alcanza para leer el titulo y el primer renglon sin que la
+     escena se haga esperar. La transicion de la linea tarda 0,55s, asi que
+     todavia quedan casi un segundo y medio de paso quieto para leerlo.
 
      ⚠️ Y SE FRENA AL PRIMER CLICK, para siempre. Alguien que toca un paso esta
      diciendo "quiero leer este": que el reloj se lo cambie a los dos segundos
      es la peor forma de contestarle. */
-  var ARC_MS = 2600;
+  var ARC_MS = 2000;
   var arcActual = 0;
   var arcReloj = null;
   var arcQuieto = false;   // lo apago una persona, no se vuelve a prender
