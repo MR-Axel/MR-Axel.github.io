@@ -872,13 +872,19 @@ section[id] { scroll-margin-top: 82px; }
   .arc__node { width: 40px; height: 40px; }
 }
 
-/* ---------- the pinned scene ---------- */
+/* ---------- la escena, que ahora corre sola ----------
 
-.arc-track.is-pinned { padding-top: 0; padding-bottom: 0; height: 340vh; }
-.arc-track.is-pinned .arc-stage {
-  position: sticky; top: 0; min-height: 100vh;
+   🔴 ANTES ERAN 340vh DE PISTA Y EL SCROLL MOVIA LA ESCENA. Funcionaba, pero le
+   cobraba a la persona tres pantallas y media de rueda para ver seis pasos, y
+   quien venia bajando rapido se los perdia enteros igual. Ahora la seccion mide
+   lo que mide su contenido y los pasos se turnan solos con un reloj.
+
+   ⚠️ Se quedan `position: sticky` y `min-height` afuera a proposito: sin pista
+   larga no hay nada contra que pegarse, y una escena sticky adentro de una caja
+   de su mismo alto es una caja normal con mas reglas. */
+.arc-track.esta-animada { padding: clamp(56px, 8vw, 92px) 0; }
+.arc-track.esta-animada .arc-stage {
   display: flex; flex-direction: column; justify-content: center;
-  padding: 48px 0;
 }
 
 /* the rail turns horizontal. Its ends land on the first and last node centres
@@ -894,6 +900,9 @@ section[id] { scroll-margin-top: 82px; }
   position: absolute; inset: 0; display: block;
   background: var(--accent-ink);
   transform-origin: left center; transform: scaleX(var(--draw, 0));
+  /* el scroll daba una posicion por cuadro; el reloj da un salto por paso,
+     asi que el viaje entre uno y otro lo tiene que hacer la transicion */
+  transition: transform 0.55s var(--ease-out);
   box-shadow: 0 0 14px var(--accent-soft);
 }
 
@@ -2313,8 +2322,8 @@ input, textarea { caret-color: var(--accent-ink); }
     opacity: 1; translate: none; scale: none; transition: none;
   }
   .js .craft__item.reveal:not(.is-in) h3::before { transform: none; transition: none; }
-  .arc-track.is-pinned { height: auto; padding: clamp(64px, 10vw, 108px) 0; }
-  .arc-track.is-pinned .arc-stage { position: static; min-height: 0; padding: 0; }
+  .arc-track.esta-animada { height: auto; padding: clamp(64px, 10vw, 108px) 0; }
+  .arc-track.esta-animada .arc-stage { position: static; min-height: 0; padding: 0; }
   .arc__step::before { transform: none; transition: none; }
   .btn:hover, .card:hover, .skill-card:hover { transform: none; }
   .rich .card, .rich .skill-card, .rich .btn, .rich .sw { transform: none; }

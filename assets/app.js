@@ -744,8 +744,6 @@
     if (bar) bar.style.width = (progress * 100).toFixed(2) + '%';
     if (reduced) return;
 
-    paintArc(y);
-
     /* The scattered marks in the hero. One number written once and each mark
        multiplies it by its own factor in CSS, instead of this loop touching
        ten elements every frame. It is driven by raw scrollY and not by page
@@ -786,6 +784,18 @@
     }
   }
 
+  /* ⚠️ Este oyente vivia abajo, junto al recorrido, y se fue con el cuando la
+     escena dejo de moverse con el scroll. No era suyo: de `frame` dependen la
+     barra de progreso, la barra de arriba que se pega y el parallax del fondo.
+     Sin esto la pagina se ve igual quieta y no reacciona a nada. */
+  function onScroll() {
+    if (pending) return;
+    pending = true;
+    window.requestAnimationFrame(frame);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  frame();
+
   /* ---- the pinned Path scene ----
 
      The section stays on screen while you travel it and a line draws from the
@@ -804,127 +814,125 @@
   var arcSteps = [].slice.call(document.querySelectorAll('.arc__step'));
   var arc = null;
 
-  function unpinArc() {
-    arc = null;
+  /* 🔴 LA ESCENA CORRE SOLA, NO LA MUEVE EL SCROLL.
+
+     Antes eran 340vh de pista y cada cuadro salia de la posicion de la rueda.
+     Se veia bien y costaba caro: tres pantallas y media para seis pasos, y el
+     que bajaba rapido se los perdia igual, porque a esa velocidad la escena
+     entera pasa en medio segundo.
+
+     Ahora hay un reloj. El paso cambia cada 2,6 segundos, que es lo suficiente
+     para leer el titulo y lo bastante rapido para que alguien que viene
+     scrolleando alcance a ver por lo menos un cambio.
+
+     ⚠️ Y SE FRENA AL PRIMER CLICK, para siempre. Alguien que toca un paso esta
+     diciendo "quiero leer este": que el reloj se lo cambie a los dos segundos
+     es la peor forma de contestarle. */
+  var ARC_MS = 2600;
+  var arcActual = 0;
+  var arcReloj = null;
+  var arcQuieto = false;   // lo apago una persona, no se vuelve a prender
+  var arcVive = false;
+
+  function pintarArc(i) {
+    if (!arcSteps.length) return;
+    arcActual = i;
+    arcList.style.setProperty('--draw', (i / (arcSteps.length - 1)).toFixed(4));
+    arcSteps.forEach(function (el, k) {
+      /* `is-on` es acumulativo (por donde ya paso la linea) y `is-current` es
+         uno solo (el que tiene su texto arriba). Son dos preguntas distintas. */
+      el.classList.toggle('is-on', k <= i);
+      el.classList.toggle('is-current', k === i);
+    });
+  }
+
+  function pararArc() {
+    window.clearInterval(arcReloj);
+    arcReloj = null;
+  }
+
+  function arrancarArc() {
+    if (arcReloj || arcQuieto || !arcVive || reduced) return;
+    arcReloj = window.setInterval(function () {
+      pintarArc((arcActual + 1) % arcSteps.length);
+    }, ARC_MS);
+  }
+
+  function apagarArc() {
+    arcVive = false;
+    pararArc();
     if (!arcTrack) return;
-    arcTrack.classList.remove('is-pinned');
+    arcTrack.classList.remove('esta-animada');
     arcList.classList.remove('is-scrubbing');
     arcList.style.removeProperty('--draw');
     arcSteps.forEach(function (el) {
       el.classList.remove('is-on', 'is-current');
-      /* sin escena no hay a donde saltar: la lista esta entera a la vista y un
-         boton que no lleva a ningun lado es peor que ninguno */
+      /* sin escena la lista esta entera a la vista, y un boton que no lleva a
+         ningun lado es peor que ninguno */
       el.removeAttribute('role');
       el.removeAttribute('tabindex');
     });
   }
 
-  /* Tocar un paso lleva a ese paso.
-
-     La escena no se mueve sola: todo lo que se ve sale del scroll, asi que
-     "ir al paso 4" es en realidad "poner el scroll donde el paso 4 esta
-     encendido". Se invierte la misma cuenta que pinta la linea, y de ahi sale
-     el pixel exacto.
-
-     ⚠️ Y se recalcula en cada click en vez de guardarse: `arc` se rehace en
-     cada resize y cada vez que cambia el idioma, asi que una posicion
-     calculada al cargar la pagina queda vieja apenas se toca la ventana. */
-  function irAlPaso(i) {
-    if (!arc) return;
-    /* un pelo pasado del umbral, para caer adentro de la franja del paso y no
-       justo en el borde donde todavia manda el anterior */
-    var draw = Math.min(1, arc.at[i] + 0.005);
-    var y = arc.top + (draw * 0.74 + 0.08) * arc.scrub;
-    window.scrollTo({ top: Math.round(y), behavior: reduced ? 'auto' : 'smooth' });
+  function tocarPaso(i) {
+    if (!arcVive) return;
+    arcQuieto = true;
+    pararArc();
+    pintarArc(i);
   }
 
   arcSteps.forEach(function (el, i) {
-    el.addEventListener('click', function () { irAlPaso(i); });
+    el.addEventListener('click', function () { tocarPaso(i); });
     /* Enter y barra espaciadora, porque un <li> con un click encima no es un
        boton para nadie que no use el mouse. La barra ademas scrollea la pagina
        por defecto, asi que hay que frenarla. */
     el.addEventListener('keydown', function (e) {
       if (e.key !== 'Enter' && e.key !== ' ') return;
-      if (!arc) return;
+      if (!arcVive) return;
       e.preventDefault();
-      irAlPaso(i);
+      tocarPaso(i);
     });
   });
 
   function measureArc() {
-    if (!arcTrack || !arcStage || !arcList || arcSteps.length < 2 || reduced) return unpinArc();
-    if (window.innerWidth < 900) return unpinArc();
+    if (!arcTrack || !arcStage || !arcList || arcSteps.length < 2 || reduced) return apagarArc();
+    if (window.innerWidth < 900) return apagarArc();
 
-    /* Measure with the scene actually on, because the two modes are different
-       shapes: the vertical list is twice the height of the rail, so measuring
-       the wrong one answers the wrong question. If the rail does not fit
-       either, everything comes back off and the plain list stands. */
-    arcTrack.classList.add('is-pinned');
+    /* Se mide con la escena puesta, porque los dos modos son formas distintas:
+       la lista vertical mide el doble que el riel, asi que medir la que no es
+       contesta otra pregunta. Si el riel tampoco entra, se vuelve a la lista. */
+    arcTrack.classList.add('esta-animada');
     arcList.classList.add('is-scrubbing');
 
-    /* The content, not the box. The stage carries min-height: 100vh, so its
-       own rect always measures exactly one screen and comparing that against
-       the screen can only ever say no. */
     var inner = arcStage.firstElementChild;
-    var pad = parseFloat(getComputedStyle(arcStage).paddingTop) +
-              parseFloat(getComputedStyle(arcStage).paddingBottom);
-    if (!inner || inner.getBoundingClientRect().height + pad > window.innerHeight - 24) {
-      return unpinArc();
+    if (!inner || inner.getBoundingClientRect().height > window.innerHeight - 24) {
+      return apagarArc();
     }
 
-    arc = {
-      top: arcTrack.getBoundingClientRect().top + (window.pageYOffset || 0),
-      scrub: Math.max(1, arcTrack.offsetHeight - window.innerHeight),
-      /* six equal flex columns put the node centres at even fractions of the
-         rail, so the thresholds are exact without touching the DOM */
-      at: arcSteps.map(function (el, i) { return i / (arcSteps.length - 1); })
-    };
+    arcVive = true;
     arcSteps.forEach(function (el) {
       el.setAttribute('role', 'button');
       el.setAttribute('tabindex', '0');
     });
-    frame();
+    pintarArc(arcActual);
   }
 
-  function paintArc(y) {
-    if (!arc) return;
-    var p = Math.max(0, Math.min(1, (y - arc.top) / arc.scrub));
-    /* head and tail of the track are dead air, so the line finishes before
-       the section lets go instead of completing on the very last pixel */
-    var draw = Math.max(0, Math.min(1, (p - 0.08) / 0.74));
-    arcList.style.setProperty('--draw', draw.toFixed(4));
-
-    /* two different states, and they are not the same question. `is-on` is
-       cumulative: everything the line has already passed stays lit, so you can
-       see how far you have come. `is-current` is the one step whose story is
-       up in the panel, and there is exactly one at a time. */
-    var current = 0;
-    for (var i = 0; i < arcSteps.length; i++) {
-      var reached = draw >= arc.at[i] - 0.02;
-      arcSteps[i].classList.toggle('is-on', reached);
-      if (reached) current = i;
-    }
-    for (var j = 0; j < arcSteps.length; j++) {
-      arcSteps[j].classList.toggle('is-current', j === current);
-    }
+  /* ⚠️ El reloj corre SOLO con la seccion a la vista. Andando en una seccion
+     que nadie mira gasta bateria y, peor, cuando la persona llega la escena ya
+     va por el paso cuatro y se perdio el principio. */
+  if (arcTrack && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (e.isIntersecting) arrancarArc(); else pararArc();
+      });
+    }, { threshold: 0.25 }).observe(arcTrack);
   }
 
-  function onScroll() {
-    if (pending) return;
-    pending = true;
-    window.requestAnimationFrame(frame);
-  }
-
-  /* first measurement inside a rAF: run it straight away and the stage has not
-     been laid out yet, so its height reads as nearly nothing and the section
-     pins when it should not */
   window.requestAnimationFrame(measureArc);
-  frame();
-  window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', measureArc, { passive: true });
   window.addEventListener('load', measureArc);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(measureArc);
-  /* the language swap changes how many lines each step takes */
+  /* el cambio de idioma cambia cuantas lineas ocupa cada paso */
   var langBtnArc = document.getElementById('lang-toggle');
   if (langBtnArc) langBtnArc.addEventListener('click', function () { window.setTimeout(measureArc, 60); });
 
