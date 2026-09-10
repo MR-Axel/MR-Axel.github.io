@@ -1483,22 +1483,22 @@
  },
  "repos": [
   {
+   "name": "MR-Axel.github.io",
+   "description": "Personal site. Live at mr-axel.github.io",
+   "url": "https://github.com/MR-Axel/MR-Axel.github.io",
+   "language": "HTML",
+   "stars": 0,
+   "updated": "2026-09-10T04:44:19Z",
+   "archived": false,
+   "topics": []
+  },
+  {
    "name": "codi.com.ar",
    "description": null,
    "url": "https://github.com/codisoftware/codi.com.ar",
    "language": "HTML",
    "stars": 0,
    "updated": "2026-09-10T01:20:23Z",
-   "archived": false,
-   "topics": []
-  },
-  {
-   "name": "MR-Axel.github.io",
-   "description": "Personal site. Live at mr-axel.github.io",
-   "url": "https://github.com/MR-Axel/MR-Axel.github.io",
-   "language": "HTML",
-   "stars": 0,
-   "updated": "2026-09-10T00:13:57Z",
    "archived": false,
    "topics": []
   },
