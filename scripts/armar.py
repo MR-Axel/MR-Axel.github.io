@@ -46,19 +46,20 @@ META = {
     "es": {
         "title": "Agentes de IA, páginas web y productos a medida · Axel Rosso",
         "description": (
-            "Agentes de IA para WhatsApp, web y voz, páginas web con medición, "
-            "automatizaciones y productos desde cero. Para empresas y para "
-            "personas con una idea, en remoto desde Buenos Aires para LatAm."
+            "Agentes de IA, páginas web con medición, automatizaciones y "
+            "productos desde cero. Trabajo como Forward Deployed Engineer: "
+            "construyo sobre tus datos y me quedo hasta que funciona. Para "
+            "empresas y para personas con una idea."
         ),
         "alt": "Un dibujo a mano de alguien saludando.",
     },
     "en": {
         "title": "AI agents, websites and products built from zero · Axel Rosso",
         "description": (
-            "AI agents for WhatsApp, web and voice, websites with the "
-            "measurement wired in, automation and whole products from zero. "
-            "Remote from Buenos Aires, working forward deployed: I embed "
-            "with the team, build on their data and stay until it runs."
+            "AI agents, websites with the measurement wired in, automation "
+            "and whole products from zero. I work as a Forward Deployed "
+            "Engineer: I build on your data and stay until it runs. For "
+            "companies and for people with an idea."
         ),
         "alt": "A hand-drawn figure waving.",
     },

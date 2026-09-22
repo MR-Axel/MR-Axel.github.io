@@ -1,14 +1,15 @@
 # Axel Rosso
 
-> Agentes de IA, páginas web y productos digitales, para empresas y para
-> personas con una idea. Remoto desde Buenos Aires para LatAm y España.
+> Agentes de IA, páginas web y productos digitales. Trabaja como
+> **Forward Deployed Engineer**: entra al problema, construye sobre los
+> datos que el cliente ya tiene y se queda hasta que funciona.
+
+Lo contrata una empresa o una persona sola con una idea, sin mínimo de
+tamaño ni de equipo. No hace falta tener gente técnica del otro lado.
 
 Se contrata de dos formas, y son distintas:
 
 - **Por proyecto.** Se arma, sale a andar y el repositorio queda del cliente.
-  Es la figura que en inglés se llama *forward deployed engineer*: entra al
-  equipo, construye sobre los datos que ya tienen y se queda hasta que
-  funciona.
 - **Como servicio.** El agente se arma y además alguien lo opera: setup al
   principio y un mensual que cubre el uso y los ajustes. El cliente ve lo que
   contesta y lo aprueba, sin equipo técnico propio.
@@ -28,8 +29,8 @@ Qué hace, en una línea por cosa:
 - [Portada en castellano](https://axelrosso.com/): quién es, qué construyó y con qué puede
   ayudar.
 - [Portada en inglés](https://axelrosso.com/en/): la misma, en inglés.
-- [Agentes de IA para WhatsApp, web y voz](https://axelrosso.com/agentes-de-ia/): Armo agentes de IA que contestan con los datos de tu negocio en WhatsApp, en el sitio y por teléfono. Qué puede tocar cada agente, cuándo le pasa la posta a una persona, y cómo se mide. Remoto desde Buenos Aires para LatAm.
-- [Agentes de IA operados, con un precio por mes](https://axelrosso.com/agentes-como-servicio/): El agente se arma, se conecta a tus datos y alguien se queda operándolo: setup al principio y un mensual que cubre el uso, los ajustes y que siga contestando bien. Remoto desde Buenos Aires para LatAm.
+- [Agentes de IA para WhatsApp, web y voz](https://axelrosso.com/agentes-de-ia/): Armo agentes de IA que contestan con los datos de tu negocio en WhatsApp, en el sitio y por teléfono. Qué puede tocar cada agente, cuándo le pasa la posta a una persona, y cómo se mide.
+- [Agentes de IA operados, con un precio por mes](https://axelrosso.com/agentes-como-servicio/): El agente se arma, se conecta a tus datos y alguien se queda operándolo: setup al principio y un mensual que cubre el uso, los ajustes y que siga contestando bien.
 - [Páginas web y landings, con la medición adentro](https://axelrosso.com/paginas-web/): Armo o rediseño tu página para que diga lo que hacés, con la medición puesta desde el primer día: cuánta gente entra, de dónde viene, por dónde se va y qué hizo antes de irse.
 - [Un producto desde cero, hasta que está vivo](https://axelrosso.com/producto-desde-cero/): De la idea al producto vivo: qué se construye, qué queda afuera de la primera versión, y la salida al mercado con la medición puesta. Seis productos propios andando hoy.
 - [Automatizaciones y herramientas internas](https://axelrosso.com/automatizaciones/): El proceso que hoy es una persona copiando entre dos pantallas, hecho software: automatizaciones con n8n o a medida, paneles internos y tableros que se abren cuando hay que decidir algo.

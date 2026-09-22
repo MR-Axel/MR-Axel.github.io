@@ -361,10 +361,15 @@ window.ES = {
   'Automation and internal tooling':
     'Automatizaciones y herramientas internas',
 
-  'Buenos Aires, Argentina · I take on work from companies and from people, remote':
-    'Buenos Aires, Argentina · tomo proyectos de empresas y de personas, en remoto',
-  'Bs. As. · for companies and for people, remote':
-    'Bs. As. · para empresas y para personas, remoto',
+  /* 🔴 SIN LA CIUDAD Y SIN "REMOTO". Decir que se trabaja remoto en 2026 es
+     declarar lo obvio, y la ciudad encima achica: parece que atiende Buenos
+     Aires. En ese lugar entra el rol, escrito entero y no en sigla, porque
+     "FDE" no lo busca ni lo entiende nadie que no esté adentro del rubro.
+     Y al lado, en criollo, quién puede contratarlo: no es solo para empresas. */
+  'Forward Deployed Engineer · I take on work from companies and from people':
+    'Forward Deployed Engineer · tomo proyectos de empresas y de personas',
+  'Forward Deployed Engineer · companies and people':
+    'Forward Deployed Engineer · para empresas y para personas',
   'I build for companies and for people with a project. Write it here and it lands on my phone in a few seconds.':
     'Construyo para empresas y para personas con un proyecto. Escribilo acá y me llega al teléfono en unos segundos.',
 
