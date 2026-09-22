@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Las seis páginas de servicio, armadas del mismo fuente que la portada.
+"""Las páginas de servicio, armadas del mismo fuente que la portada.
 
 🔴 EL ARMAZÓN NO SE DUPLICA. La cabecera, el menú, el asistente, el pie y los
 scripts salen de `src/index.html` ya traducido, y lo único que cambia es el
 `<main>`. Una plantilla aparte garantiza que dentro de dos semanas la portada
-tenga una versión del menú y estas seis páginas otra.
+tenga una versión del menú y estas páginas otra.
 
 Por qué existen, en una línea: la portada compite por un tema y acá hay siete
 intenciones distintas. Quien busca "agente de whatsapp para turnos" y quien
@@ -293,6 +293,16 @@ def llms(todos):
     o = ["# Axel Rosso", "",
          "> Agentes de IA, páginas web y productos digitales, para empresas y para",
          "> personas con una idea. Remoto desde Buenos Aires para LatAm y España.",
+         "",
+         "Se contrata de dos formas, y son distintas:",
+         "",
+         "- **Por proyecto.** Se arma, sale a andar y el repositorio queda del cliente.",
+         "  Es la figura que en inglés se llama *forward deployed engineer*: entra al",
+         "  equipo, construye sobre los datos que ya tienen y se queda hasta que",
+         "  funciona.",
+         "- **Como servicio.** El agente se arma y además alguien lo opera: setup al",
+         "  principio y un mensual que cubre el uso y los ajustes. El cliente ve lo que",
+         "  contesta y lo aprueba, sin equipo técnico propio.",
          "", "Qué hace, en una línea por cosa:", ""]
     for s in todos:
         o.append("- **%s**: %s" % (s["nombre"], s["respuesta"]))

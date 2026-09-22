@@ -57,7 +57,8 @@ META = {
         "description": (
             "AI agents for WhatsApp, web and voice, websites with the "
             "measurement wired in, automation and whole products from zero. "
-            "Remote from Buenos Aires."
+            "Remote from Buenos Aires, working forward deployed: I embed "
+            "with the team, build on their data and stay until it runs."
         ),
         "alt": "A hand-drawn figure waving.",
     },

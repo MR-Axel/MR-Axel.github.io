@@ -295,6 +295,8 @@ window.ES = {
   'What I can help with':
     'Con qué te puedo ayudar',
   'AI agents, in detail': 'Agentes de IA, en detalle',
+  'Agents as a service': 'Agentes como servicio',
+  'Or operated for you, monthly': 'O que lo opere yo, por mes',
   'Websites and measurement, in detail': 'Páginas web y medición, en detalle',
   'Products from zero, in detail': 'Productos desde cero, en detalle',
   'Automation, in detail': 'Automatizaciones, en detalle',

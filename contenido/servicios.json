@@ -78,8 +78,92 @@
     ],
     "cierre": "Contame qué te preguntan todo el día y te digo si un agente lo resuelve.",
     "relacionados": [
+      "agentes-como-servicio",
       "automatizaciones",
-      "paginas-web",
+      "paginas-web"
+    ]
+  },
+  {
+    "ruta": "agentes-como-servicio",
+    "tema": "servicio",
+    "nombre": "Agentes como servicio",
+    "h1": "Agentes de IA operados, con un precio por mes",
+    "titulo": "Agentes de IA como servicio · setup y mensual · Axel Rosso",
+    "descripcion": "El agente se arma, se conecta a tus datos y alguien se queda operándolo: setup al principio y un mensual que cubre el uso, los ajustes y que siga contestando bien. Remoto desde Buenos Aires para LatAm.",
+    "respuesta": "Agentes como servicio es no comprar un proyecto: el agente se arma, se conecta a tus datos y alguien se queda operándolo, con un precio por mes.",
+    "intro": [
+      "Los agentes que se rompen casi nunca se rompen el día uno. Se rompen el mes cuatro, cuando cambió un precio y nadie tocó el agente.",
+      "Un proyecto termina y te deja el repositorio. Esto no termina: sale a andar, y todas las semanas alguien mira las conversaciones y lo corrige.",
+      "Vos ves lo que contesta y lo aprobás. Tenerlo andando no es tu problema."
+    ],
+    "incluye": [
+      {
+        "t": "Armado y puesta en marcha",
+        "p": "El agente conectado a tus datos y andando en el canal donde ya te escriben. Es la parte de una sola vez, y es la que va en el setup."
+      },
+      {
+        "t": "Operación",
+        "p": "Las conversaciones se miran todas las semanas. Lo que contestó mal se corrige y lo que nadie preguntó nunca se saca, así el agente se achica en vez de crecer."
+      },
+      {
+        "t": "El uso adentro",
+        "p": "Los modelos, los números y el alojamiento van dentro del mensual, con un tope acordado. Sin una factura sorpresa el mes que alguien lo descubre."
+      },
+      {
+        "t": "Vos aprobás",
+        "p": "Los cambios se muestran antes de salir. No hay un agente hablando en nombre de tu negocio con algo que no viste."
+      }
+    ],
+    "para_quien": [
+      "Un negocio que quiere el agente andando y no quiere un equipo técnico adentro.",
+      "Alguien que ya pagó un desarrollo y a los seis meses no tenía a quién llamar.",
+      "Una empresa que necesita que alguien se haga cargo cuando el agente contesta mal un martes a la noche.",
+      "Un equipo que prefiere un costo mensual conocido antes que un proyecto grande de una vez."
+    ],
+    "pasos": [
+      {
+        "t": "Qué contesta y qué deriva",
+        "p": "Una charla y la lista de las preguntas que entran de verdad. De ahí salen el alcance y los dos números."
+      },
+      {
+        "t": "Sale andando",
+        "p": "Primero en un canal, con el registro de cada conversación desde el primer día."
+      },
+      {
+        "t": "Se corrige todas las semanas",
+        "p": "Con lo que la gente preguntó de verdad, no con lo que suponíamos que iba a preguntar."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Cuál es la diferencia con que me lo construyan y listo?",
+        "r": "Quién se queda con el problema. Un proyecto termina con el repositorio en tus manos y desde ahí es tuyo. Esto no termina: el agente sigue siendo responsabilidad mía mientras dure el mensual."
+      },
+      {
+        "q": "¿Cuánto sale?",
+        "r": "Un setup al principio y un mensual. El mensual depende de cuántos canales, cuántas conversaciones y con qué sistemas se conecta. Después de la primera charla te paso los dos números."
+      },
+      {
+        "q": "¿Y si quiero cortar?",
+        "r": "Te llevás el agente. El código, los prompts y el historial de conversaciones son tuyos desde el principio: lo que se corta es la operación, no el acceso."
+      },
+      {
+        "q": "¿Qué pasa si contesta mal?",
+        "r": "Se corrige esa semana y el caso queda anotado para que no vuelva. Todas las conversaciones quedan registradas, así que discutir qué pasó no es una discusión de memoria."
+      },
+      {
+        "q": "¿Puedo empezar con un proyecto y pasar a esto después?",
+        "r": "Sí, y es el camino más común: se arma, anda unas semanas, y recién ahí se decide si lo operás vos o lo opero yo."
+      },
+      {
+        "q": "¿Trabajás con mi equipo técnico?",
+        "r": "Sí. Si tenés gente, entro al lado y les queda todo documentado. El mensual pasa a ser la parte que nadie quiere tener de guardia."
+      }
+    ],
+    "cierre": "Contame qué tendría que contestar y te paso el setup y el mensual.",
+    "relacionados": [
+      "agentes-de-ia",
+      "automatizaciones",
       "asesoria-ia"
     ]
   },
