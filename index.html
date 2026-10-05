@@ -57,7 +57,7 @@
   .lang { height: 32px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: transparent; color: var(--fg-2); font: 600 12px var(--mono); cursor: pointer; }
   .lang:hover { color: var(--fg); border-color: var(--fg-3); }
 
-  .hero { padding: 76px 0 54px; }
+  .hero { padding-top: 76px; padding-bottom: 54px; }
   .hero .linea { font-family: var(--mono); font-size: 13.5px; color: var(--lime-ink); margin: 0 0 18px; }
   .hero .linea::before { content: "$ "; color: var(--fg-3); }
   h1 { margin: 0; font-size: clamp(34px, 6vw, 58px); line-height: 1.06; letter-spacing: -0.03em; max-width: 16ch; }
@@ -135,7 +135,7 @@
     .tool__img, .tool:nth-of-type(even) .tool__img { border: 0; border-top: 1px solid var(--line); min-height: 0; }
     .cab { flex-wrap: wrap; } .cab p { margin: 0; text-align: left; }
     .top nav { display: none; } .lang { margin-left: auto; }
-    .hero { padding: 48px 0 34px; }
+    .hero { padding-top: 48px; padding-bottom: 34px; }
     .skills { padding: 22px 18px; } .tool__txt { padding: 24px 20px; }
     .medidores { grid-template-columns: 1fr 1fr; }
   }
@@ -329,15 +329,15 @@
     ['ship', 'The full loop for a feature: plan, implement, validate, review, deploy.', 'El circuito completo de una feature: planear, implementar, validar, revisar, desplegar.'],
     ['feature-agents', 'Same as ship, delegated to five subagents with narrow tool access.', 'Lo mismo que ship, delegado a cinco subagentes con herramientas acotadas.'],
     ['test', 'Runs your validation pipeline and reports what passed, failed and was skipped.', 'Corre tu pipeline de validación y reporta qué pasó, qué falló y qué se salteó.'],
-    ['review', 'Code review of a diff, every finding tied to a real file and line.', 'Revisión de un diff, con cada hallazgo atado a un archivo y una línea reales.'],
-    ['deep-review', 'A slower, wider review for changes that carry risk.', 'Una revisión más lenta y más ancha, para cambios con riesgo.'],
-    ['deploy', 'The release pipeline, with separate permissions for commit, push and deploy.', 'El pipeline de release, con permisos separados para commit, push y deploy.'],
-    ['deploy-qa', 'Checks a deploy against what was supposed to ship.', 'Revisa un deploy contra lo que tenía que salir.'],
-    ['product', 'Specs and product decisions written against your own context.', 'Specs y decisiones de producto escritas contra tu propio contexto.'],
-    ['ux', 'UX review of a screen or a flow.', 'Revisión de UX de una pantalla o de un flujo.'],
-    ['design-system', 'Keeps tokens and components consistent across the product.', 'Mantiene tokens y componentes consistentes en todo el producto.'],
-    ['decision-log', 'Records why a decision was made, with its date.', 'Deja escrito por qué se tomó una decisión, con su fecha.'],
-    ['community-manager', 'Plans and writes social content in your brand voice.', 'Planifica y escribe contenido para redes con la voz de tu marca.']
+    ["review", "Code review of a diff. Every finding tied to a real file and line, with the concrete failure scenario.", "Code review de un diff. Cada hallazgo atado a un archivo y una línea reales, con el escenario de falla concreto."],
+    ["deep-review", "Interactive architecture review. Every issue comes with options and their effort, risk and impact, and you set the priority.", "Review de arquitectura interactivo. Cada issue viene con opciones y su esfuerzo, riesgo e impacto, y priorizás vos."],
+    ["deploy", "The release pipeline. Separate permissions for commit, push and deploy, and it never ships a build that has not passed.", "El pipeline de release. Permisos separados para commit, push y deploy, y nunca despliega un build que no pasó."],
+    ["deploy-qa", "QA after the deploy. Reads the diff, picks its depth by blast radius, and starts by proving the new build is live.", "QA después del deploy. Lee el diff, elige la profundidad por blast radius y arranca probando que el build nuevo esté en el aire."],
+    ["product", "Business review: does it solve the need, do the gates hold, is the flow complete, can it be found.", "Review de negocio: si resuelve la necesidad, si los gates aguantan, si el flujo está completo y si se encuentra."],
+    ["ux", "UI audit: accessibility, responsive, interaction states and consistency with your design system.", "Auditoría de UI: accesibilidad, responsive, estados de interacción y consistencia con tu design system."],
+    ["design-system", "Sets up a design system where there is none and enforces the one you have, with gates that fail a check.", "Arma un design system donde no hay y hace cumplir el que existe, con gates que hacen fallar un check."],
+    ["decision-log", "A log of the decisions you cannot recover by reading the code: why that limit, why that model, what was discarded.", "Bitácora de las decisiones que no se recuperan leyendo el código: por qué ese límite, por qué ese modelo, qué se descartó."],
+    ["community-manager", "Ready-to-post content on your own brand profile and funnel. Never invents metrics, testimonials or social proof.", "Contenido listo para publicar sobre tu propio perfil de marca y tu funnel. Nunca inventa métricas, testimonios ni prueba social."]
   ];
   var grid = document.getElementById('skills-grid');
   SKILLS.forEach(function (s) {
