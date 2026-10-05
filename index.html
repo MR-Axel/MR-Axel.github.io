@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MR-Axel · open source</title>
+<meta name="description" content="Tools and agent skills by Axel Rosso. Free, open source, and yours to download.">
+<link rel="canonical" href="https://mr-axel.github.io/">
+<meta property="og:title" content="MR-Axel · open source">
+<meta property="og:description" content="Tools and agent skills by Axel Rosso. Free, open source, and yours to download.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mr-axel.github.io/">
+<meta name="theme-color" content="#0f1114">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a1d23'/%3E%3Cpath d='M9 22V10l7 8 7-8v12' fill='none' stroke='%23bef264' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script>
+  // Idioma antes de pintar: lo elegido, o español si el navegador está en español.
+  (function () {
+    var l = null;
+    try { l = localStorage.getItem('lang'); } catch (e) {}
+    if (l !== 'es' && l !== 'en') l = /^es\b/i.test(navigator.language || '') ? 'es' : 'en';
+    document.documentElement.lang = l;
+  })();
+</script>
+<style>
+  :root {
+    --bg: #0f1114; --bg-2: #15181d; --bg-3: #1b1f26; --line: #272c35; --line-2: #363c48;
+    --fg: #e8eaee; --fg-2: #a3aab7; --fg-3: #6f7785;
+    --lime: #bef264; --lime-ink: #bef264; --lime-soft: rgba(190, 242, 100, 0.12);
+    --mono: ui-monospace, "Cascadia Code", "JetBrains Mono", Consolas, Menlo, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+    --radius: 14px;
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #fbfaf7; --bg-2: #f3f1eb; --bg-3: #eae7df; --line: #dedbd2; --line-2: #c9c5ba;
+      --fg: #1d2026; --fg-2: #555c69; --fg-3: #868c98;
+      --lime-ink: #4d7c0f; --lime-soft: rgba(101, 163, 13, 0.13);
+      color-scheme: light;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+  html[lang="en"] [data-l="es"], html[lang="es"] [data-l="en"] { display: none !important; }
+  a { color: inherit; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  .top { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .top .wrap { display: flex; align-items: center; gap: 18px; height: 58px; }
+  .marca { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 15px; font-weight: 600; text-decoration: none; }
+  .marca svg { width: 26px; height: 26px; }
+  .marca span { color: var(--fg-3); font-weight: 400; }
+  .top nav { display: flex; gap: 4px; margin-left: auto; }
+  .top nav a { padding: 6px 11px; border-radius: 8px; color: var(--fg-2); font-size: 14px; text-decoration: none; }
+  .top nav a:hover { color: var(--fg); background: var(--bg-3); }
+  .lang { height: 32px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: transparent; color: var(--fg-2); font: 600 12px var(--mono); cursor: pointer; }
+  .lang:hover { color: var(--fg); border-color: var(--fg-3); }
+
+  .hero { padding: 76px 0 54px; }
+  .hero .linea { font-family: var(--mono); font-size: 13.5px; color: var(--lime-ink); margin: 0 0 18px; }
+  .hero .linea::before { content: "$ "; color: var(--fg-3); }
+  h1 { margin: 0; font-size: clamp(34px, 6vw, 58px); line-height: 1.06; letter-spacing: -0.03em; max-width: 16ch; }
+  .hero p.bajada { margin: 20px 0 0; max-width: 56ch; color: var(--fg-2); font-size: 18px; }
+  .acciones { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--bg-2); color: var(--fg); font-size: 14.5px; font-weight: 600; text-decoration: none; cursor: pointer; transition: border-color 0.15s, transform 0.15s; }
+  .btn:hover { border-color: var(--fg-3); transform: translateY(-1px); }
+  .btn.lima { background: var(--lime); border-color: var(--lime); color: #14161a; }
+  .btn.lima:hover { border-color: var(--lime); filter: brightness(1.05); }
+  .btn svg { width: 17px; height: 17px; }
+  .btn.chico { height: 36px; padding: 0 13px; font-size: 13.5px; }
+
+  section { padding: 34px 0 46px; }
+  .cab { display: flex; align-items: baseline; gap: 14px; margin-bottom: 22px; }
+  h2 { margin: 0; font-size: 26px; letter-spacing: -0.02em; }
+  .cab .num { font-family: var(--mono); font-size: 13px; color: var(--fg-3); }
+  .cab p { margin: 0 0 0 auto; color: var(--fg-2); font-size: 14.5px; max-width: 46ch; text-align: right; }
+
+  .tool { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 0; margin-bottom: 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); overflow: hidden; }
+  .tool:nth-of-type(even) .tool__txt { order: 2; }
+  .tool__txt { padding: 30px 30px 28px; display: flex; flex-direction: column; }
+  .tool__tipo { font-family: var(--mono); font-size: 12px; color: var(--lime-ink); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 10px; }
+  .tool h3 { margin: 0; font-size: 26px; letter-spacing: -0.02em; }
+  .tool p { margin: 12px 0 0; color: var(--fg-2); }
+  .tool ul { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 7px; font-size: 14.5px; color: var(--fg-2); }
+  .tool li { padding-left: 20px; position: relative; }
+  .tool li::before { content: ""; position: absolute; left: 3px; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: var(--lime-ink); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+  .chip { padding: 3px 9px; border: 1px solid var(--line-2); border-radius: 20px; font-family: var(--mono); font-size: 11.5px; color: var(--fg-2); white-space: nowrap; }
+  .chip.vivo { border-color: transparent; background: var(--lime-soft); color: var(--lime-ink); }
+  .tool .acciones { margin-top: auto; padding-top: 22px; }
+  .tool__img { background: var(--bg-3); border-left: 1px solid var(--line); display: grid; place-items: center; min-height: 300px; padding: 22px; }
+  .tool:nth-of-type(even) .tool__img { border-left: 0; border-right: 1px solid var(--line); }
+  .tool__img img { width: 100%; height: auto; border-radius: 9px; border: 1px solid var(--line-2); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35); display: block; }
+  .consola { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: var(--bg); overflow: hidden; box-shadow: 0 18px 50px rgba(0, 0, 0, 0.3); }
+  .consola__bar { display: flex; gap: 6px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  .consola__bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-2); }
+  .medidores { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 16px; }
+  .med { padding: 12px; border: 1px solid var(--line); border-radius: 9px; }
+  .med b { display: block; font: 600 20px var(--mono); }
+  .med span { font-size: 11.5px; color: var(--fg-3); }
+  .med .barra { height: 4px; margin-top: 9px; border-radius: 2px; background: var(--line); overflow: hidden; }
+  .med .barra i { display: block; height: 100%; border-radius: 2px; }
+  .consola pre { margin: 0; padding: 0 16px 16px; font: 12px/1.7 var(--mono); color: var(--fg-3); white-space: pre-wrap; }
+  .consola pre b { color: var(--lime-ink); font-weight: 500; }
+
+  .skills { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); padding: 28px 30px; }
+  .skills__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
+  .skill { display: block; padding: 13px 15px; border: 1px solid var(--line); border-radius: 10px; text-decoration: none; transition: border-color 0.15s, background 0.15s; }
+  .skill:hover { border-color: var(--lime-ink); background: var(--lime-soft); }
+  .skill b { font: 600 14.5px var(--mono); }
+  .skill span { display: block; margin-top: 3px; color: var(--fg-2); font-size: 13.5px; line-height: 1.45; }
+  .instalar { margin-top: 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .cmd { flex: 1; min-width: 260px; display: flex; align-items: center; gap: 10px; padding: 0 6px 0 14px; height: 44px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--bg); font: 13px var(--mono); color: var(--fg-2); overflow: hidden; }
+  .cmd code { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cmd button { flex: none; height: 32px; padding: 0 11px; border: 0; border-radius: 7px; background: var(--bg-3); color: var(--fg); font: 600 12.5px var(--sans); cursor: pointer; }
+  .cmd button:hover { background: var(--lime); color: #14161a; }
+
+  .otros { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+  .otro { padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); text-decoration: none; transition: border-color 0.15s; }
+  .otro:hover { border-color: var(--line-2); }
+  .otro b { font: 600 15px var(--mono); }
+  .otro p { margin: 6px 0 0; color: var(--fg-2); font-size: 14px; }
+  .otro small { display: block; margin-top: 10px; font: 11.5px var(--mono); color: var(--fg-3); }
+
+  footer { margin-top: 30px; padding: 34px 0 60px; border-top: 1px solid var(--line); }
+  footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; }
+  footer p { margin: 0; color: var(--fg-2); max-width: 52ch; }
+  footer p a { color: var(--lime-ink); text-underline-offset: 3px; }
+
+  :focus-visible { outline: 2px solid var(--lime-ink); outline-offset: 3px; border-radius: 6px; }
+  @media (max-width: 860px) {
+    .tool { grid-template-columns: 1fr; }
+    .tool:nth-of-type(even) .tool__txt { order: 0; }
+    .tool__img, .tool:nth-of-type(even) .tool__img { border: 0; border-top: 1px solid var(--line); min-height: 0; }
+    .cab { flex-wrap: wrap; } .cab p { margin: 0; text-align: left; }
+    .top nav { display: none; } .lang { margin-left: auto; }
+    .hero { padding: 48px 0 34px; }
+    .skills { padding: 22px 18px; } .tool__txt { padding: 24px 20px; }
+    .medidores { grid-template-columns: 1fr 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn, .skill, .otro { transition: none; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="marca" href="https://github.com/MR-Axel">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1a1d23"/><path d="M9 22V10l7 8 7-8v12" fill="none" stroke="#bef264" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      MR-Axel<span>/open-source</span>
+    </a>
+    <nav aria-label="Sections">
+      <a href="#tools"><span data-l="en">Tools</span><span data-l="es">Herramientas</span></a>
+      <a href="#skills">Skills</a>
+      <a href="#more"><span data-l="en">More</span><span data-l="es">Más</span></a>
+      <a href="https://axelrosso.com">Portfolio ↗</a>
+    </nav>
+    <button class="lang" id="lang" type="button" aria-label="Switch language">ES</button>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="linea">gh repo list MR-Axel --visibility public</p>
+    <h1><span data-l="en">What I publish on GitHub</span><span data-l="es">Lo que publico en GitHub</span></h1>
+    <p class="bajada">
+      <span data-l="en">Tools I built for my own work, and the agent skills I run every day. Free, open source, and yours to download.</span>
+      <span data-l="es">Herramientas que armé para mi propio trabajo y los skills de agentes que corro todos los días. Gratis, de código abierto, y se descargan.</span>
+    </p>
+    <div class="acciones">
+      <a class="btn lima" href="#tools"><span data-l="en">See the tools</span><span data-l="es">Ver las herramientas</span></a>
+      <a class="btn" href="https://github.com/MR-Axel"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span data-l="en">GitHub profile</span><span data-l="es">Perfil de GitHub</span></a>
+      <a class="btn" href="https://ko-fi.com/mraxel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.5A4 4 0 0 1 12 8a4 4 0 0 1 7 2.5C19 15.6 12 20 12 20z"/></svg><span data-l="en">Support the next one</span><span data-l="es">Bancar la próxima</span></a>
+    </div>
+  </div>
+
+  <section id="tools">
+    <div class="wrap">
+      <div class="cab">
+        <h2><span data-l="en">Tools</span><span data-l="es">Herramientas</span></h2>
+        <span class="num">03</span>
+        <p><span data-l="en">Each one started as a fix for my own machine.</span><span data-l="es">Cada una arrancó como un arreglo para mi propia máquina.</span></p>
+      </div>
+
+      <article class="tool" data-repo="md-tools">
+        <div class="tool__txt">
+          <span class="tool__tipo"><span data-l="en">Chrome extension</span><span data-l="es">Extensión de Chrome</span></span>
+          <h3>MD Tools</h3>
+          <p>
+            <span data-l="en">Open any Markdown file in the browser and read it properly. Then edit it right on the formatted text, without seeing a single asterisk.</span>
+            <span data-l="es">Abrís cualquier archivo Markdown en el navegador y se lee bien. Después lo editás sobre el texto ya formateado, sin ver un solo asterisco.</span>
+          </p>
+          <ul>
+            <li><span data-l="en">Collapsible outline, folder tree and reading progress</span><span data-l="es">Índice plegable, árbol de carpetas y avance de lectura</span></li>
+            <li><span data-l="en">Search the open file or every file in the folder</span><span data-l="es">Búsqueda en el archivo abierto o en toda la carpeta</span></li>
+            <li><span data-l="en">In-place editing of text, tables and task lists</span><span data-l="es">Edición en el lugar de texto, tablas y listas de tareas</span></li>
+            <li><span data-l="en">Nothing leaves your machine</span><span data-l="es">Nada sale de tu máquina</span></li>
+          </ul>
+          <div class="chips"><span class="chip">Manifest V3</span><span class="chip">EN · ES</span><span class="chip">MIT</span><span class="chip vivo" data-updated></span></div>
+          <div class="acciones">
+            <a class="btn lima chico" href="https://github.com/MR-Axel/md-tools/archive/refs/heads/main.zip"><span data-l="en">Download ZIP</span><span data-l="es">Descargar ZIP</span></a>
+            <a class="btn chico" href="https://github.com/MR-Axel/md-tools#install"><span data-l="en">How to install</span><span data-l="es">Cómo se instala</span></a>
+            <a class="btn chico" href="https://github.com/MR-Axel/md-tools">Repo ↗</a>
+          </div>
+        </div>
+        <div class="tool__img"><img src="https://raw.githubusercontent.com/MR-Axel/md-tools/main/docs/reader.png" alt="MD Tools showing a Markdown document with its outline" loading="lazy" width="1440" height="860"></div>
+      </article>
+
+      <article class="tool" data-repo="tiempos-reales">
+        <div class="tool__txt">
+          <span class="tool__tipo"><span data-l="en">Script and dashboard</span><span data-l="es">Script y tablero</span></span>
+          <h3>tiempos-reales</h3>
+          <p>
+            <span data-l="en">How long each task actually took, measured from your Claude Code transcripts and your git history. The next quote comes from your own numbers.</span>
+            <span data-l="es">Cuánto llevó de verdad cada tarea, medido desde tus transcripciones de Claude Code y tu historial de git. La próxima cotización sale de tus propios números.</span>
+          </p>
+          <ul>
+            <li><span data-l="en">Average, minimum and maximum hours per kind of task</span><span data-l="es">Promedio, mínimo y máximo de horas por tipo de tarea</span></li>
+            <li><span data-l="en">Hourly rate, quote builder and a clean sheet to share</span><span data-l="es">Valor por hora, cotizador y una hoja limpia para compartir</span></li>
+            <li><span data-l="en">Your projects and hours never leave the folder</span><span data-l="es">Tus proyectos y tus horas no salen de la carpeta</span></li>
+            <li><span data-l="en">Ships with a Claude Code skill that sets it up for you</span><span data-l="es">Trae un skill de Claude Code que lo configura por vos</span></li>
+          </ul>
+          <div class="chips"><span class="chip">Node 18+</span><span class="chip"><span data-l="en">No dependencies</span><span data-l="es">Sin dependencias</span></span><span class="chip"><span data-l="en">In Spanish</span><span data-l="es">En español</span></span><span class="chip">MIT</span><span class="chip vivo" data-updated></span></div>
+          <div class="acciones">
+            <a class="btn lima chico" href="https://github.com/MR-Axel/tiempos-reales/archive/refs/heads/main.zip"><span data-l="en">Download ZIP</span><span data-l="es">Descargar ZIP</span></a>
+            <a class="btn chico" href="https://github.com/MR-Axel/tiempos-reales">Repo ↗</a>
+          </div>
+        </div>
+        <div class="tool__img"><img src="https://raw.githubusercontent.com/MR-Axel/tiempos-reales/main/docs/tablero.png" alt="The tiempos-reales dashboard with sample data" loading="lazy" width="1280" height="760"></div>
+      </article>
+
+      <article class="tool" data-repo="monitor-sistema">
+        <div class="tool__txt">
+          <span class="tool__tipo"><span data-l="en">Windows panel</span><span data-l="es">Panel para Windows</span></span>
+          <h3>monitor-sistema</h3>
+          <p>
+            <span data-l="en">A live panel for a Windows PC, with a log that survives a power cut. I built it for a machine that rebooted under load and left no trace anywhere.</span>
+            <span data-l="es">Un panel en vivo de una PC con Windows, con un registro que sobrevive a un apagón. Lo armé para una máquina que se reiniciaba bajo carga y no dejaba rastro en ningún lado.</span>
+          </p>
+          <ul>
+            <li><span data-l="en">Power supply voltages, temperatures and fan speeds</span><span data-l="es">Voltajes de la fuente, temperaturas y ventiladores</span></li>
+            <li><span data-l="en">A sample every 2 seconds, forced to disk each time</span><span data-l="es">Una muestra cada 2 segundos, forzada al disco cada vez</span></li>
+            <li><span data-l="en">Listens on 127.0.0.1 only</span><span data-l="es">Escucha solo en 127.0.0.1</span></li>
+          </ul>
+          <div class="chips"><span class="chip">Windows 10 · 11</span><span class="chip">Node 18+</span><span class="chip"><span data-l="en">In Spanish</span><span data-l="es">En español</span></span><span class="chip">MIT</span><span class="chip vivo" data-updated></span></div>
+          <div class="acciones">
+            <a class="btn lima chico" href="https://github.com/MR-Axel/monitor-sistema/archive/refs/heads/main.zip"><span data-l="en">Download ZIP</span><span data-l="es">Descargar ZIP</span></a>
+            <a class="btn chico" href="https://github.com/MR-Axel/monitor-sistema">Repo ↗</a>
+          </div>
+        </div>
+        <div class="tool__img" aria-hidden="true">
+          <div class="consola">
+            <div class="consola__bar"><i></i><i></i><i></i></div>
+            <div class="medidores">
+              <div class="med"><b>12.04 V</b><span>+12 V</span><div class="barra"><i style="width:52%;background:#84cc16"></i></div></div>
+              <div class="med"><b>61 °C</b><span>CPU</span><div class="barra"><i style="width:64%;background:#eab308"></i></div></div>
+              <div class="med"><b>74 °C</b><span>VRM</span><div class="barra"><i style="width:81%;background:#f97316"></i></div></div>
+              <div class="med"><b>43 %</b><span>RAM</span><div class="barra"><i style="width:43%;background:#84cc16"></i></div></div>
+              <div class="med"><b>312 W</b><span>PSU</span><div class="barra"><i style="width:48%;background:#84cc16"></i></div></div>
+              <div class="med"><b>1180</b><span>RPM</span><div class="barra"><i style="width:58%;background:#84cc16"></i></div></div>
+            </div>
+<pre>14:22:06  +12V 12.04  cpu 61  vrm 74  <b>fsync ok</b>
+14:22:08  +12V 12.02  cpu 63  vrm 75  <b>fsync ok</b>
+14:22:10  +12V 11.71  cpu 66  vrm 79  <b>fsync ok</b></pre>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="cab">
+        <h2>Agent skills</h2>
+        <span class="num">14</span>
+        <p><span data-l="en">For Claude Code. Each one interviews you once and writes your answers into your repo.</span><span data-l="es">Para Claude Code. Cada uno te pregunta una vez y guarda tus respuestas en tu repo.</span></p>
+      </div>
+      <div class="skills">
+        <div class="skills__grid" id="skills-grid"></div>
+        <div class="instalar">
+          <div class="cmd"><code id="cmd">git clone https://github.com/MR-Axel/skills</code><button type="button" id="copiar"><span data-l="en">Copy</span><span data-l="es">Copiar</span></button></div>
+          <a class="btn chico" href="https://github.com/MR-Axel/skills">Repo ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="more">
+    <div class="wrap">
+      <div class="cab">
+        <h2><span data-l="en">Also public</span><span data-l="es">También público</span></h2>
+      </div>
+      <div class="otros">
+        <a class="otro" href="https://github.com/MR-Axel/axelrosso.com">
+          <b>axelrosso.com</b>
+          <p><span data-l="en">The source of my portfolio. Static HTML, one stylesheet, no framework.</span><span data-l="es">El código de mi portfolio. HTML estático, una hoja de estilos, sin framework.</span></p>
+          <small>HTML · CSS · JS</small>
+        </a>
+        <a class="otro" href="https://github.com/MR-Axel/Python">
+          <b>Python</b>
+          <p><span data-l="en">From my QA and automation years: small web apps, scraping, Selenium and data notebooks.</span><span data-l="es">De mis años de QA y automatización: apps web chicas, scraping, Selenium y notebooks de datos.</span></p>
+          <small>2020 · 2023</small>
+        </a>
+        <a class="otro" href="https://github.com/MR-Axel/Java">
+          <b>Java</b>
+          <p><span data-l="en">Test automation with Java and Selenium, from the same years.</span><span data-l="es">Automatización de pruebas con Java y Selenium, de esos mismos años.</span></p>
+          <small>2022</small>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>
+      <span data-l="en">The products I run and the work I take on are at <a href="https://axelrosso.com/en/">axelrosso.com</a>.</span>
+      <span data-l="es">Los productos que mantengo y los trabajos que tomo están en <a href="https://axelrosso.com">axelrosso.com</a>.</span>
+    </p>
+    <a class="btn chico" href="https://ko-fi.com/mraxel">Ko-fi ↗</a>
+  </div>
+</footer>
+
+<script>
+  var SKILLS = [
+    ['project-setup', 'Reads your repo, asks the rest, writes the shared profile. Run it first.', 'Lee tu repo, pregunta el resto y escribe el perfil compartido. Se corre primero.'],
+    ['dev', 'Implements a feature or fixes a bug following your conventions.', 'Implementa una feature o arregla un bug siguiendo tus convenciones.'],
+    ['ship', 'The full loop for a feature: plan, implement, validate, review, deploy.', 'El circuito completo de una feature: planear, implementar, validar, revisar, desplegar.'],
+    ['feature-agents', 'Same as ship, delegated to five subagents with narrow tool access.', 'Lo mismo que ship, delegado a cinco subagentes con herramientas acotadas.'],
+    ['test', 'Runs your validation pipeline and reports what passed, failed and was skipped.', 'Corre tu pipeline de validación y reporta qué pasó, qué falló y qué se salteó.'],
+    ['review', 'Code review of a diff, every finding tied to a real file and line.', 'Revisión de un diff, con cada hallazgo atado a un archivo y una línea reales.'],
+    ['deep-review', 'A slower, wider review for changes that carry risk.', 'Una revisión más lenta y más ancha, para cambios con riesgo.'],
+    ['deploy', 'The release pipeline, with separate permissions for commit, push and deploy.', 'El pipeline de release, con permisos separados para commit, push y deploy.'],
+    ['deploy-qa', 'Checks a deploy against what was supposed to ship.', 'Revisa un deploy contra lo que tenía que salir.'],
+    ['product', 'Specs and product decisions written against your own context.', 'Specs y decisiones de producto escritas contra tu propio contexto.'],
+    ['ux', 'UX review of a screen or a flow.', 'Revisión de UX de una pantalla o de un flujo.'],
+    ['design-system', 'Keeps tokens and components consistent across the product.', 'Mantiene tokens y componentes consistentes en todo el producto.'],
+    ['decision-log', 'Records why a decision was made, with its date.', 'Deja escrito por qué se tomó una decisión, con su fecha.'],
+    ['community-manager', 'Plans and writes social content in your brand voice.', 'Planifica y escribe contenido para redes con la voz de tu marca.']
+  ];
+  var grid = document.getElementById('skills-grid');
+  SKILLS.forEach(function (s) {
+    var a = document.createElement('a');
+    a.className = 'skill'; a.href = 'https://github.com/MR-Axel/skills/tree/main/' + s[0];
+    var b = document.createElement('b'); b.textContent = s[0];
+    var en = document.createElement('span'); en.setAttribute('data-l', 'en'); en.textContent = s[1];
+    var es = document.createElement('span'); es.setAttribute('data-l', 'es'); es.textContent = s[2];
+    a.appendChild(b); a.appendChild(en); a.appendChild(es); grid.appendChild(a);
+  });
+
+  var boton = document.getElementById('lang');
+  function pintar() { boton.textContent = document.documentElement.lang === 'es' ? 'EN' : 'ES'; }
+  boton.addEventListener('click', function () {
+    var l = document.documentElement.lang === 'es' ? 'en' : 'es';
+    document.documentElement.lang = l;
+    try { localStorage.setItem('lang', l); } catch (e) {}
+    pintar(); fechas();
+  });
+  pintar();
+
+  document.getElementById('copiar').addEventListener('click', function () {
+    var b = this, texto = document.getElementById('cmd').textContent;
+    navigator.clipboard.writeText(texto).then(function () {
+      var previo = b.innerHTML; b.textContent = '✓';
+      setTimeout(function () { b.innerHTML = previo; }, 1400);
+    });
+  });
+
+  // Fecha de la última actualización de cada repo, traída de la API pública. Si falla, el chip no aparece.
+  var REPOS = {};
+  function fechas() {
+    var es = document.documentElement.lang === 'es';
+    document.querySelectorAll('[data-repo]').forEach(function (art) {
+      var chip = art.querySelector('[data-updated]'); var r = REPOS[art.getAttribute('data-repo')];
+      if (!chip) return;
+      if (!r) { chip.style.display = 'none'; return; }
+      var d = new Date(r.pushed_at);
+      var f = es ? String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + String(d.getFullYear()).slice(2)
+                 : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      chip.textContent = (es ? 'actualizado ' : 'updated ') + f;
+      chip.style.display = '';
+    });
+  }
+  fechas();
+  fetch('https://api.github.com/users/MR-Axel/repos?per_page=100&type=owner')
+    .then(function (r) { return r.ok ? r.json() : []; })
+    .then(function (lista) { lista.forEach(function (r) { REPOS[r.name] = r; }); fechas(); })
+    .catch(function () {});
+</script>
+</body>
+</html>
